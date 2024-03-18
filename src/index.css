@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap");
+
+/** Spacing System */
+
+:root {
+	--zero: 0px;
+	--xxxs: 4px;
+	--xxs: 8px;
+	--xs: 12px;
+	--s: 20px;
+	--m: 24px;
+	--l: 36px;
+	--xl: 48px;
+	--xxl: 64px;
+	--xxxl: 72px;
+	--translate-y: 0.25rem;
+	--translate-x: 0.5rem;
+	--rotate: 6deg;
+}
+
+/** Global Vars */
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--text: #f2e8ea;
+		--pill-text-hovered: #170d0f;
+		--background: #0a0b04;
+		--primary: #c5c7bc;
+		--secondary: #444738;
+		--accent: #dddfd8;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--text: #170d0f;
+		--pill-text-hovered: #f2e8ea;
+		--background: #f2f5e0;
+		--primary: #414338;
+		--secondary: #c4c7b8;
+		--accent: #252720;
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	place-items: center;
+	min-width: 375px;
+	width: 100%;
+	min-height: 100vh;
+	height: 100%;
+}

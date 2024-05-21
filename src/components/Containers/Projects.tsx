@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 //* Components
 import Container from "../../components/Containers/Container";
@@ -15,18 +16,39 @@ const StyledProjects = styled.div`
 	width: 100%;
 	height: 100%;
 	padding: 0 20px;
-	border-top: 1px solid var(--secondary);
+	border-top: 1px solid var(--secondary-60);
 	background-image: url(${patternVector});
 	background-size: auto;
 	background-position: top center;
 	background-repeat: repeat;
+
+	@media (min-width: 960px) {
+		& {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			border: none;
+			border-left: 1px solid var(--secondary-60);
+			border-right: 1px solid var(--secondary-60);
+		}
+	}
 `;
 
 function Projects() {
+	const isDesktop = useMediaQuery({ minWidth: "960px" });
+
 	return (
 		<StyledProjects>
-			<Container justify={"start"} align={"center"}>
-				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+			<Container h={"auto"} w={"70%"} justify={"start"} align={"center"}>
+				<Text
+					variant={"subtitle-snd"}
+					m={
+						isDesktop
+							? ["xxl", "zero", "l", "zero"]
+							: ["m", "zero", "m", "zero"]
+					}
+				>
 					PROJECTS
 				</Text>
 			</Container>

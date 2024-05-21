@@ -12,7 +12,7 @@ const StyledFooter = styled.div`
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
-	border-top: 1px solid var(--secondary);
+	border-top: 1px solid var(--secondary-60);
 
 	& .projects__title {
 		width: 100%;

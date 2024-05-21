@@ -1,10 +1,13 @@
+import ReactLenis from "lenis/react";
 import "./App.css";
 import Home from "./pages/Home";
 
 function App() {
 	return (
 		<>
-			<Home></Home>
+			<ReactLenis options={{ duration: 2.2 }} root>
+				<Home></Home>
+			</ReactLenis>
 		</>
 	);
 }

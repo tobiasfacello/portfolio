@@ -27,6 +27,7 @@
 		--background: #0a0b04;
 		--primary: #c5c7bc;
 		--secondary: #444738;
+		--secondary-60: rgba(68, 71, 56, 0.6);
 		--accent: #dddfd8;
 	}
 }
@@ -38,6 +39,7 @@
 		--background: #f2f5e0;
 		--primary: #414338;
 		--secondary: #c4c7b8;
+		--secondary-60: rgba(196, 199, 184, 0.6);
 		--accent: #252720;
 	}
 }

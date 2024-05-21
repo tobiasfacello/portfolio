@@ -4,4 +4,8 @@ export const StyledIconFrame = styled.img`
 	height: 16px;
 	margin: 0 4px;
 	vertical-align: middle;
+
+	@media (min-width: 960px) {
+		height: 18px;
+	}
 `;

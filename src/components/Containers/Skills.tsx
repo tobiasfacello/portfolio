@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 //* Components
 import Container from "./Container";
@@ -21,8 +22,22 @@ import FirebaseIcon from "../../assets/icons/Firebase.svg";
 const StyledSkills = styled.div`
 	width: 100%;
 	height: 100%;
-	padding: 0 20px;
-	border-top: 1px solid var(--secondary);
+	padding: 0 10px;
+	border-top: 1px solid var(--secondary-60);
+
+	@media (min-width: 960px) {
+		& {
+			width: 100%;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		& {
+			border: none;
+			border-left: 1px solid var(--secondary-60);
+			border-right: 1px solid var(--secondary-60);
+		}
+	}
 `;
 
 const StyledIcon = styled.img`
@@ -35,13 +50,23 @@ const StyledIcon = styled.img`
 `;
 
 function Skills() {
+	const isDesktop = useMediaQuery({ minWidth: 960 });
 	return (
 		<StyledSkills>
-			<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+			<Text
+				variant={"subtitle-snd"}
+				m={
+					isDesktop
+						? ["xl", "zero", "l", "zero"]
+						: ["m", "zero", "m", "zero"]
+				}
+			>
 				SKILLS & TOOLS
 			</Text>
 			<Container
+				h={"70%"}
 				m={["l", "zero", "l", "zero"]}
+				p={isDesktop ? ["zero", "xxxl", "zero", "xxxl"] : ""}
 				direction={"column"}
 				justify={"center"}
 				align={"center"}

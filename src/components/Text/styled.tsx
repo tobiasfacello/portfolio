@@ -31,6 +31,15 @@ export const StyledText = styled.p<{
 			color: var(--text);
 	`}
 
+${(props) =>
+		props.variant === "subtitle-fst desktop" &&
+		`
+			line-height: 38px;
+			font-size: 40px;
+			font-weight: 600;
+			color: var(--text);
+	`}
+
 	${(props) =>
 		props.variant === "subtitle-snd" &&
 		`
@@ -45,6 +54,17 @@ export const StyledText = styled.p<{
 		`
 			line-height: 20px;
 			font-size: 16px;
+			font-weight: 400;
+			opacity: 80%;
+			color: var(--text);
+	`}
+
+${(props) =>
+		props.variant === "paragraph desktop" &&
+		`
+			line-height: 36px;
+			word-spacing: 2px;
+			font-size: 18px;
 			font-weight: 400;
 			opacity: 80%;
 			color: var(--text);

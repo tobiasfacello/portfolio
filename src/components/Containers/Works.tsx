@@ -1,15 +1,13 @@
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 //* Components
 import Container from "./Container";
-import WorkCard from "../WorkCard";
+import WorkCardsCarousel from "../WorkCardsCarousel";
 import Text from "../Text";
 
 //* Assets
 import patternVector from "../../assets/vectors/pattern-vector.svg";
-import moldeLogo from "../../assets/works/molde.svg";
-import indaloLogo from "../../assets/works/indalo.svg";
-import clamacoLogo from "../../assets/works/clamaco.svg";
 
 const StyledWorks = styled.div`
 	width: 100%;
@@ -19,7 +17,7 @@ const StyledWorks = styled.div`
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
-	border-top: 1px solid var(--secondary);
+	border-top: 1px solid var(--secondary-60);
 	background-image: url(${patternVector});
 	background-size: auto;
 	background-position: center;
@@ -31,35 +29,47 @@ const StyledWorks = styled.div`
 		justify-content: start;
 		align-items: center;
 	}
+
+	@media (min-width: 960px) {
+		& {
+			width: 100vw;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		& {
+			width: 200%;
+			border: none;
+			border-right: 1px solid var(--secondary-60);
+		}
+	}
 `;
 
 function Works() {
+	const isDesktop = useMediaQuery({ minWidth: 1440 });
+
 	return (
 		<StyledWorks>
-			<Container justify={"start"} align={"center"}>
-				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
-					WORKS
+			<Container h={"auto"} w={"90%"} justify={"start"} align={"center"}>
+				<Text
+					variant={"subtitle-snd"}
+					m={
+						isDesktop
+							? ["xl", "zero", "l", "zero"]
+							: ["m", "zero", "m", "zero"]
+					}
+				>
+					WORK
 				</Text>
 			</Container>
-			<Container direction={"column"} justify={"center"} align={"center"}>
-				<WorkCard
-					title={"Molde"}
-					tag={"Development"}
-					details={"Landing Page for an architecture studio."}
-					src={moldeLogo}
-				></WorkCard>
-				<WorkCard
-					title={"Indalo"}
-					tag={"Development"}
-					details={"Landing Page for an enterprises group."}
-					src={indaloLogo}
-				></WorkCard>
-				<WorkCard
-					title={"Clamaco"}
-					tag={"Design"}
-					details={"Landing Page for a construction company."}
-					src={clamacoLogo}
-				></WorkCard>
+			<Container
+				style={"overflow: hidden;"}
+				w={isDesktop ? "57vw" : "100vw"}
+				direction={isDesktop ? "row" : "column"}
+				justify={"center"}
+				align={"center"}
+			>
+				<WorkCardsCarousel></WorkCardsCarousel>
 			</Container>
 		</StyledWorks>
 	);

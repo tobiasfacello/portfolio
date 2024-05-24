@@ -50,7 +50,13 @@ export const StyledProjectCard = styled.div<{
 		);
 	}
 
-	@media (min-width: 960px) {
+	@media (min-width: 768px) and (max-width: 1279px) {
+		& {
+			width: 380px;
+		}
+	}
+
+	@media (min-width: 1440px) {
 		& {
 			width: 380px;
 		}

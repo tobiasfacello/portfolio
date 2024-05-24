@@ -2,7 +2,13 @@ import { StyleSheetManager } from "styled-components";
 import { StyledText } from "./styled";
 
 export default function Text(props: any) {
-	const filteredProps: string[] = ["variant", "alignment", "m", "p"];
+	const filteredProps: string[] = [
+		"variant",
+		"alignment",
+		"transform",
+		"m",
+		"p",
+	];
 	return (
 		<StyleSheetManager
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}

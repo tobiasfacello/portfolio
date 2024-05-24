@@ -49,12 +49,22 @@ ${(props) =>
 			color: var(--text);
 	`}
 
-	${(props) =>
+${(props) =>
 		props.variant === "paragraph" &&
 		`
-			line-height: 20px;
 			font-size: 16px;
 			font-weight: 400;
+			line-height: 20px;
+			opacity: 80%;
+			color: var(--text);
+	`}
+
+	${(props) =>
+		props.variant === "paragraph work-card" &&
+		`
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 20px;
 			opacity: 80%;
 			color: var(--text);
 	`}
@@ -62,12 +72,25 @@ ${(props) =>
 ${(props) =>
 		props.variant === "paragraph desktop" &&
 		`
-			line-height: 36px;
-			word-spacing: 2px;
-			font-size: 18px;
+			text-align: start;
 			font-weight: 400;
+			word-spacing: 2px;
 			opacity: 80%;
 			color: var(--text);
+
+			@media (min-width: 1440px) {
+				& {
+					font-size: 16px;
+					line-height: 28px;
+				}
+			}
+
+			@media (min-width: 1800px) {
+				& {
+					font-size: 18px;
+					line-height: 36px;
+				}
+			}
 	`}
 
 	${(props) =>

@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { StyleSheetManager } from "styled-components";
 import { StyledProjectCard } from "./styled";
 
 //* Components
 import Text from "../Text";
 import Container from "../Containers/Container";
-import { useState } from "react";
 
 function ProjectCard(props: any) {
 	const [isHovered, setIsHovered] = useState(false);

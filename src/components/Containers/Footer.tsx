@@ -23,6 +23,8 @@ const StyledFooter = styled.div`
 `;
 
 function Footer() {
+	const currentDate = new Date();
+
 	return (
 		<StyledFooter>
 			<Container
@@ -35,8 +37,8 @@ function Footer() {
 					variant={"details-fst"}
 					m={["zero", "zero", "zero", "zero"]}
 				>
-					Have an interesting, stupid or crazy idea you'd like to
-					build? <u>Let's talk.</u>
+					Have an interesting idea you'd like to build?{" "}
+					<u>Let's talk.</u>
 				</Text>
 			</Container>
 			<Container
@@ -49,7 +51,7 @@ function Footer() {
 					variant={"details-fst"}
 					m={["zero", "zero", "zero", "zero"]}
 				>
-					2024 © Tobias Facello
+					{currentDate.getFullYear()} © Tobias Facello
 				</Text>
 			</Container>
 		</StyledFooter>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMediaQuery } from "react-responsive";
+import MediaQuery from "react-responsive";
 
 //* Components
 import Container from "./Container";
@@ -31,11 +31,16 @@ const StyledSkills = styled.div`
 		}
 	}
 
-	@media (min-width: 1440px) {
+	@media (min-width: 1280px) {
 		& {
 			border: none;
 			border-left: 1px solid var(--secondary-60);
 			border-right: 1px solid var(--secondary-60);
+		}
+	}
+
+	@media (min-width: 1440px) {
+		& {
 		}
 	}
 `;
@@ -50,54 +55,258 @@ const StyledIcon = styled.img`
 `;
 
 function Skills() {
-	const isDesktop = useMediaQuery({ minWidth: 960 });
 	return (
 		<StyledSkills>
-			<Text
-				variant={"subtitle-snd"}
-				m={
-					isDesktop
-						? ["xl", "zero", "l", "zero"]
-						: ["m", "zero", "m", "zero"]
-				}
-			>
-				SKILLS & TOOLS
-			</Text>
-			<Container
-				h={"70%"}
-				m={["l", "zero", "l", "zero"]}
-				p={isDesktop ? ["zero", "xxxl", "zero", "xxxl"] : ""}
-				direction={"column"}
-				justify={"center"}
-				align={"center"}
-			>
+			<MediaQuery minWidth={375} maxWidth={767}>
+				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+					SKILLS & TOOLS
+				</Text>
 				<Container
-					m={["zero", "zero", "l", "zero"]}
-					justify={"space-evenly"}
+					h={"70%"}
+					m={["l", "zero", "l", "zero"]}
+					direction={"column"}
+					justify={"center"}
 					align={"center"}
 				>
-					<StyledIcon src={BashIcon}></StyledIcon>
-					<StyledIcon src={JSIcon}></StyledIcon>
-					<StyledIcon src={TSIcon}></StyledIcon>
-					<StyledIcon src={NodeJSIcon}></StyledIcon>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={BashIcon}></StyledIcon>
+						<StyledIcon src={JSIcon}></StyledIcon>
+						<StyledIcon src={TSIcon}></StyledIcon>
+						<StyledIcon src={NodeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={HTMLIcon}></StyledIcon>
+						<StyledIcon src={CSSIcon}></StyledIcon>
+						<StyledIcon src={ReactJSIcon}></StyledIcon>
+						<StyledIcon src={ThreeJSIcon}></StyledIcon>
+					</Container>
+					<Container justify={"space-evenly"} align={"center"}>
+						<StyledIcon src={VSCIcon}></StyledIcon>
+						<StyledIcon src={GitIcon}></StyledIcon>
+						<StyledIcon src={PostmanIcon}></StyledIcon>
+						<StyledIcon src={FirebaseIcon}></StyledIcon>
+					</Container>
 				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={768} maxWidth={959}>
+				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+					SKILLS & TOOLS
+				</Text>
 				<Container
-					m={["zero", "zero", "l", "zero"]}
-					justify={"space-evenly"}
+					h={"70%"}
+					m={["xl", "zero", "xl", "zero"]}
+					direction={"column"}
+					justify={"center"}
 					align={"center"}
 				>
-					<StyledIcon src={HTMLIcon}></StyledIcon>
-					<StyledIcon src={CSSIcon}></StyledIcon>
-					<StyledIcon src={ReactJSIcon}></StyledIcon>
-					<StyledIcon src={ThreeJSIcon}></StyledIcon>
+					<Container
+						w={"60%"}
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={BashIcon}></StyledIcon>
+						<StyledIcon src={JSIcon}></StyledIcon>
+						<StyledIcon src={TSIcon}></StyledIcon>
+						<StyledIcon src={NodeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						w={"60%"}
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={HTMLIcon}></StyledIcon>
+						<StyledIcon src={CSSIcon}></StyledIcon>
+						<StyledIcon src={ReactJSIcon}></StyledIcon>
+						<StyledIcon src={ThreeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						w={"60%"}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={VSCIcon}></StyledIcon>
+						<StyledIcon src={GitIcon}></StyledIcon>
+						<StyledIcon src={PostmanIcon}></StyledIcon>
+						<StyledIcon src={FirebaseIcon}></StyledIcon>
+					</Container>
 				</Container>
-				<Container justify={"space-evenly"} align={"center"}>
-					<StyledIcon src={VSCIcon}></StyledIcon>
-					<StyledIcon src={GitIcon}></StyledIcon>
-					<StyledIcon src={PostmanIcon}></StyledIcon>
-					<StyledIcon src={FirebaseIcon}></StyledIcon>
+			</MediaQuery>
+			<MediaQuery minWidth={960} maxWidth={1279}>
+				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+					SKILLS & TOOLS
+				</Text>
+				<Container
+					h={"70%"}
+					m={["l", "zero", "l", "zero"]}
+					p={["zero", "xxxl", "zero", "xxxl"]}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<Container
+						w={"70%"}
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={BashIcon}></StyledIcon>
+						<StyledIcon src={JSIcon}></StyledIcon>
+						<StyledIcon src={TSIcon}></StyledIcon>
+						<StyledIcon src={NodeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						w={"70%"}
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={HTMLIcon}></StyledIcon>
+						<StyledIcon src={CSSIcon}></StyledIcon>
+						<StyledIcon src={ReactJSIcon}></StyledIcon>
+						<StyledIcon src={ThreeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						w={"70%"}
+						justify={"space-evenly"}
+						align={"center"}
+					>
+						<StyledIcon src={VSCIcon}></StyledIcon>
+						<StyledIcon src={GitIcon}></StyledIcon>
+						<StyledIcon src={PostmanIcon}></StyledIcon>
+						<StyledIcon src={FirebaseIcon}></StyledIcon>
+					</Container>
 				</Container>
-			</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1280} maxWidth={1439}>
+				<Text variant={"subtitle-snd"} m={["xl", "zero", "l", "zero"]}>
+					SKILLS & TOOLS
+				</Text>
+				<Container
+					h={"70%"}
+					m={["l", "zero", "l", "zero"]}
+					p={["zero", "xl", "zero", "xl"]}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-between"}
+						align={"center"}
+					>
+						<StyledIcon src={BashIcon}></StyledIcon>
+						<StyledIcon src={JSIcon}></StyledIcon>
+						<StyledIcon src={TSIcon}></StyledIcon>
+						<StyledIcon src={NodeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-between"}
+						align={"center"}
+					>
+						<StyledIcon src={HTMLIcon}></StyledIcon>
+						<StyledIcon src={CSSIcon}></StyledIcon>
+						<StyledIcon src={ReactJSIcon}></StyledIcon>
+						<StyledIcon src={ThreeJSIcon}></StyledIcon>
+					</Container>
+					<Container justify={"space-between"} align={"center"}>
+						<StyledIcon src={VSCIcon}></StyledIcon>
+						<StyledIcon src={GitIcon}></StyledIcon>
+						<StyledIcon src={PostmanIcon}></StyledIcon>
+						<StyledIcon src={FirebaseIcon}></StyledIcon>
+					</Container>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1440} maxWidth={1800}>
+				<Text variant={"subtitle-snd"} m={["xl", "zero", "l", "zero"]}>
+					SKILLS & TOOLS
+				</Text>
+				<Container
+					h={"70%"}
+					m={["l", "zero", "l", "zero"]}
+					p={["zero", "xl", "zero", "xl"]}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-between"}
+						align={"center"}
+					>
+						<StyledIcon src={BashIcon}></StyledIcon>
+						<StyledIcon src={JSIcon}></StyledIcon>
+						<StyledIcon src={TSIcon}></StyledIcon>
+						<StyledIcon src={NodeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-between"}
+						align={"center"}
+					>
+						<StyledIcon src={HTMLIcon}></StyledIcon>
+						<StyledIcon src={CSSIcon}></StyledIcon>
+						<StyledIcon src={ReactJSIcon}></StyledIcon>
+						<StyledIcon src={ThreeJSIcon}></StyledIcon>
+					</Container>
+					<Container justify={"space-between"} align={"center"}>
+						<StyledIcon src={VSCIcon}></StyledIcon>
+						<StyledIcon src={GitIcon}></StyledIcon>
+						<StyledIcon src={PostmanIcon}></StyledIcon>
+						<StyledIcon src={FirebaseIcon}></StyledIcon>
+					</Container>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1801}>
+				<Text variant={"subtitle-snd"} m={["xl", "zero", "l", "zero"]}>
+					SKILLS & TOOLS
+				</Text>
+				<Container
+					h={"70%"}
+					m={["l", "zero", "l", "zero"]}
+					p={["zero", "xxxl", "zero", "xxxl"]}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-between"}
+						align={"center"}
+					>
+						<StyledIcon src={BashIcon}></StyledIcon>
+						<StyledIcon src={JSIcon}></StyledIcon>
+						<StyledIcon src={TSIcon}></StyledIcon>
+						<StyledIcon src={NodeJSIcon}></StyledIcon>
+					</Container>
+					<Container
+						m={["zero", "zero", "l", "zero"]}
+						justify={"space-between"}
+						align={"center"}
+					>
+						<StyledIcon src={HTMLIcon}></StyledIcon>
+						<StyledIcon src={CSSIcon}></StyledIcon>
+						<StyledIcon src={ReactJSIcon}></StyledIcon>
+						<StyledIcon src={ThreeJSIcon}></StyledIcon>
+					</Container>
+					<Container justify={"space-between"} align={"center"}>
+						<StyledIcon src={VSCIcon}></StyledIcon>
+						<StyledIcon src={GitIcon}></StyledIcon>
+						<StyledIcon src={PostmanIcon}></StyledIcon>
+						<StyledIcon src={FirebaseIcon}></StyledIcon>
+					</Container>
+				</Container>
+			</MediaQuery>
 		</StyledSkills>
 	);
 }

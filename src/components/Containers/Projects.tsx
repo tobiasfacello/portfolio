@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMediaQuery } from "react-responsive";
+import MediaQuery from "react-responsive";
 
 //* Components
 import Container from "../../components/Containers/Container";
@@ -24,6 +24,11 @@ const StyledProjects = styled.div`
 
 	@media (min-width: 960px) {
 		& {
+		}
+	}
+
+	@media (min-width: 1280px) {
+		& {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -36,39 +41,224 @@ const StyledProjects = styled.div`
 `;
 
 function Projects() {
-	const isDesktop = useMediaQuery({ minWidth: "960px" });
-
 	return (
 		<StyledProjects>
-			<Container h={"auto"} w={"70%"} justify={"start"} align={"center"}>
-				<Text
-					variant={"subtitle-snd"}
-					m={
-						isDesktop
-							? ["xxl", "zero", "l", "zero"]
-							: ["m", "zero", "m", "zero"]
-					}
+			<MediaQuery minWidth={375} maxWidth={767}>
+				<Container
+					h={"auto"}
+					w={"70%"}
+					justify={"start"}
+					align={"center"}
 				>
-					PROJECTS
-				</Text>
-			</Container>
-			<Container direction={"column"} justify={"center"} align={"center"}>
-				<ProjectCard
-					title={"Portfolio"}
-					details={"Personal Website"}
-					src={portfolioVector}
-				></ProjectCard>
-				<ProjectCard
-					title={"Apxgram"}
-					details={"Realtime Chat App"}
-					src={chatAppVector}
-				></ProjectCard>
-				<ProjectCard
-					title={"RPS"}
-					details={"Realtime Game"}
-					src={rpsVector}
-				></ProjectCard>
-			</Container>
+					<Text
+						variant={"subtitle-snd"}
+						m={["m", "zero", "m", "zero"]}
+					>
+						PROJECTS
+					</Text>
+				</Container>
+				<Container
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<ProjectCard
+						title={"Portfolio"}
+						details={"Personal Website"}
+						src={portfolioVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"Apxgram"}
+						details={"Realtime Chat App"}
+						src={chatAppVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"RPS"}
+						details={"Realtime Game"}
+						src={rpsVector}
+					></ProjectCard>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={768} maxWidth={959}>
+				<Container
+					h={"auto"}
+					w={"70%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["m", "zero", "m", "zero"]}
+					>
+						PROJECTS
+					</Text>
+				</Container>
+				<Container
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<ProjectCard
+						title={"Portfolio"}
+						details={"Personal Website"}
+						src={portfolioVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"Apxgram"}
+						details={"Realtime Chat App"}
+						src={chatAppVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"RPS"}
+						details={"Realtime Game"}
+						src={rpsVector}
+					></ProjectCard>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={960} maxWidth={1279}>
+				<Container
+					h={"auto"}
+					w={"70%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["m", "zero", "m", "zero"]}
+					>
+						PROJECTS
+					</Text>
+				</Container>
+				<Container
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<ProjectCard
+						title={"Portfolio"}
+						details={"Personal Website"}
+						src={portfolioVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"Apxgram"}
+						details={"Realtime Chat App"}
+						src={chatAppVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"RPS"}
+						details={"Realtime Game"}
+						src={rpsVector}
+					></ProjectCard>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1280} maxWidth={1439}>
+				<Container
+					h={"auto"}
+					w={"95%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["xl", "zero", "l", "zero"]}
+					>
+						PROJECTS
+					</Text>
+				</Container>
+				<Container
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<ProjectCard
+						title={"Portfolio"}
+						details={"Personal Website"}
+						src={portfolioVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"Apxgram"}
+						details={"Realtime Chat App"}
+						src={chatAppVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"RPS"}
+						details={"Realtime Game"}
+						src={rpsVector}
+					></ProjectCard>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1440} maxWidth={1800}>
+				<Container
+					h={"auto"}
+					w={"95%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["xl", "zero", "l", "zero"]}
+					>
+						PROJECTS
+					</Text>
+				</Container>
+				<Container
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<ProjectCard
+						title={"Portfolio"}
+						details={"Personal Website"}
+						src={portfolioVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"Apxgram"}
+						details={"Realtime Chat App"}
+						src={chatAppVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"RPS"}
+						details={"Realtime Game"}
+						src={rpsVector}
+					></ProjectCard>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1801}>
+				<Container
+					h={"auto"}
+					w={"70%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["xxl", "zero", "l", "zero"]}
+					>
+						PROJECTS
+					</Text>
+				</Container>
+				<Container
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<ProjectCard
+						title={"Portfolio"}
+						details={"Personal Website"}
+						src={portfolioVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"Apxgram"}
+						details={"Realtime Chat App"}
+						src={chatAppVector}
+					></ProjectCard>
+					<ProjectCard
+						title={"RPS"}
+						details={"Realtime Game"}
+						src={rpsVector}
+					></ProjectCard>
+				</Container>
+			</MediaQuery>
 		</StyledProjects>
 	);
 }

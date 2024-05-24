@@ -15,7 +15,7 @@ function Home() {
 			{/* Mobile Layout */}
 			<MediaQuery minWidth={375} maxWidth={959}>
 				<Container
-					w={"100vw"}
+					w={"100%"}
 					h={"calc(100vh - 64px)"}
 					direction={"column"}
 				>
@@ -28,10 +28,11 @@ function Home() {
 				<Works></Works>
 				<Footer></Footer>
 			</MediaQuery>
+
 			{/* Tablet Layout */}
-			<MediaQuery minWidth={960} maxWidth={1439}>
+			<MediaQuery minWidth={960} maxWidth={1279}>
 				<Container
-					w={"100vw"}
+					w={"100%"}
 					h={"calc(100vh - 64px)"}
 					direction={"column"}
 				>
@@ -44,10 +45,11 @@ function Home() {
 				<Works></Works>
 				<Footer></Footer>
 			</MediaQuery>
+
 			{/* Desktop Layout */}
-			<MediaQuery minWidth={1440}>
+			<MediaQuery minWidth={1280} maxWidth={1439}>
 				<Container
-					w={"100vw"}
+					w={"100%"}
 					h={"calc(90vh - 64px)"}
 					direction={"column"}
 					justify={"center"}
@@ -75,6 +77,87 @@ function Home() {
 				<Container
 					w={"100%"}
 					h={"60vh"}
+					justify={"center"}
+					align={"start"}
+					style={"border-top: 1px solid var(--secondary-60);"}
+				>
+					<Container w={"90%"} justify={"center"} align={"center"}>
+						<Skills></Skills>
+						<Works></Works>
+					</Container>
+				</Container>
+				<Footer></Footer>
+			</MediaQuery>
+			<MediaQuery minWidth={1440} maxWidth={1800}>
+				<Container
+					w={"100%"}
+					h={"calc(90vh - 64px)"}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<Header></Header>
+					<Container
+						w={"100%"}
+						justify={"center"}
+						align={"center"}
+						style={"border-top: 1px solid var(--secondary-60);"}
+					>
+						<Container
+							w={"90%"}
+							justify={"center"}
+							align={"center"}
+						>
+							<About></About>
+							<Profile></Profile>
+							<Projects></Projects>
+						</Container>
+					</Container>
+				</Container>
+				<Container
+					w={"100%"}
+					h={"60vh"}
+					justify={"center"}
+					align={"start"}
+					style={"border-top: 1px solid var(--secondary-60);"}
+				>
+					<Container w={"90%"} justify={"center"} align={"center"}>
+						<Skills></Skills>
+						<Works></Works>
+					</Container>
+				</Container>
+				<Footer></Footer>
+			</MediaQuery>
+			<MediaQuery minWidth={1801}>
+				<Container
+					w={"100%"}
+					h={"calc(80vh - 64px)"}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<Header></Header>
+					<Container
+						w={"100%"}
+						justify={"center"}
+						align={"center"}
+						style={"border-top: 1px solid var(--secondary-60);"}
+					>
+						<Container
+							w={"90%"}
+							justify={"center"}
+							align={"center"}
+						>
+							<About></About>
+							<Profile></Profile>
+							<Projects></Projects>
+						</Container>
+					</Container>
+				</Container>
+
+				<Container
+					w={"100%"}
+					h={"55vh"}
 					justify={"center"}
 					align={"start"}
 					style={"border-top: 1px solid var(--secondary-60);"}

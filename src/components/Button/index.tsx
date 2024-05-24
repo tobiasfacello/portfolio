@@ -7,8 +7,11 @@ import Text from "../Text";
 
 function WorkCard(props: any) {
 	const [isHovered, setIsHovered] = useState(false);
+	const handleClick = (url: string) => {
+		window.location.href = url;
+	};
 
-	const filteredProps: string[] = ["isHovered", "p", "m"];
+	const filteredProps: string[] = ["isHovered", "p", "m", "url"];
 
 	return (
 		<StyleSheetManager
@@ -17,6 +20,9 @@ function WorkCard(props: any) {
 			<StyledButton
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
+				onClick={() => {
+					handleClick(props.url);
+				}}
 				isHovered={isHovered}
 				p={props.p}
 				m={props.m}

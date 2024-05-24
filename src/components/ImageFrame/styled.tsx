@@ -21,7 +21,16 @@ export const StyledImageFrame = styled.div<{
 			border-radius: 100px;
 		}
 
-		@media (min-width: 960px) {
+		@media (min-width: 1280px) {
+			& {
+				width: 275px;
+				height: 275px;
+				border-width: 3px;
+				border-radius: 500px;
+			}
+		}
+
+		@media (min-width: 1440px) {
 			& {
 				width: 345px;
 				height: 345px;

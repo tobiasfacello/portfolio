@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMediaQuery } from "react-responsive";
+import MediaQuery from "react-responsive";
 
 //* Components
 import Container from "./Container";
@@ -36,41 +36,166 @@ const StyledWorks = styled.div`
 		}
 	}
 
-	@media (min-width: 1440px) {
+	@media (min-width: 1280px) {
 		& {
 			width: 200%;
 			border: none;
 			border-right: 1px solid var(--secondary-60);
 		}
 	}
+
+	@media (min-width: 1440px) {
+		& {
+		}
+	}
 `;
 
 function Works() {
-	const isDesktop = useMediaQuery({ minWidth: 1440 });
-
 	return (
 		<StyledWorks>
-			<Container h={"auto"} w={"90%"} justify={"start"} align={"center"}>
-				<Text
-					variant={"subtitle-snd"}
-					m={
-						isDesktop
-							? ["xl", "zero", "l", "zero"]
-							: ["m", "zero", "m", "zero"]
-					}
+			<MediaQuery minWidth={375} maxWidth={767}>
+				<Container
+					h={"auto"}
+					w={"90%"}
+					justify={"start"}
+					align={"center"}
 				>
-					WORK
-				</Text>
-			</Container>
-			<Container
-				style={"overflow: hidden;"}
-				w={isDesktop ? "57vw" : "100vw"}
-				direction={isDesktop ? "row" : "column"}
-				justify={"center"}
-				align={"center"}
-			>
-				<WorkCardsCarousel></WorkCardsCarousel>
-			</Container>
+					<Text
+						variant={"subtitle-snd"}
+						m={["m", "zero", "m", "zero"]}
+					>
+						WORK
+					</Text>
+				</Container>
+				<Container
+					style={"overflow: hidden;"}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<WorkCardsCarousel></WorkCardsCarousel>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={768} maxWidth={959}>
+				<Container
+					h={"auto"}
+					w={"90%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["m", "zero", "m", "zero"]}
+					>
+						WORK
+					</Text>
+				</Container>
+				<Container
+					style={"overflow: hidden;"}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<WorkCardsCarousel></WorkCardsCarousel>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={960} maxWidth={1279}>
+				<Container
+					h={"auto"}
+					w={"90%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["m", "zero", "m", "zero"]}
+					>
+						WORK
+					</Text>
+				</Container>
+				<Container
+					style={"overflow: hidden;"}
+					w={"100vw"}
+					direction={"column"}
+					justify={"center"}
+					align={"center"}
+				>
+					<WorkCardsCarousel></WorkCardsCarousel>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1280} maxWidth={1439}>
+				<Container
+					h={"auto"}
+					w={"90%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["xl", "zero", "l", "zero"]}
+					>
+						WORK
+					</Text>
+				</Container>
+				<Container
+					style={"overflow: hidden;"}
+					h={"50vh"}
+					w={"57vw"}
+					direction={"row"}
+					justify={"center"}
+					align={"center"}
+				>
+					<WorkCardsCarousel></WorkCardsCarousel>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1440} maxWidth={1800}>
+				<Container
+					h={"auto"}
+					w={"90%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["xl", "zero", "l", "zero"]}
+					>
+						WORK
+					</Text>
+				</Container>
+				<Container
+					style={"overflow: hidden;"}
+					w={"57vw"}
+					direction={"row"}
+					justify={"center"}
+					align={"center"}
+				>
+					<WorkCardsCarousel></WorkCardsCarousel>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1801}>
+				<Container
+					h={"auto"}
+					w={"90%"}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						m={["xl", "zero", "l", "zero"]}
+					>
+						WORK
+					</Text>
+				</Container>
+				<Container
+					style={"overflow: hidden;"}
+					w={"57vw"}
+					direction={"row"}
+					justify={"center"}
+					align={"center"}
+				>
+					<WorkCardsCarousel></WorkCardsCarousel>
+				</Container>
+			</MediaQuery>
 		</StyledWorks>
 	);
 }

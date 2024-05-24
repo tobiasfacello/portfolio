@@ -26,18 +26,21 @@ export default function WorkCardsCarousel() {
 					title={"Molde"}
 					tag={"Development"}
 					details={"Landing Page for an architecture studio."}
+					url={"https://www.estudiomolde.com/"}
 					src={moldeLogo}
 				></WorkCard>
 				<WorkCard
 					title={"Indalo"}
 					tag={"Development"}
 					details={"Landing Page for an enterprises group."}
+					url={"https://www.grupoindalo.com.ar/"}
 					src={indaloLogo}
 				></WorkCard>
 				<WorkCard
 					title={"Clamaco"}
 					tag={"Design"}
 					details={"Landing Page for a construction company."}
+					url={"https://clamaco.com.ar/"}
 					src={clamacoLogo}
 				></WorkCard>
 			</MediaQuery>
@@ -57,6 +60,7 @@ export default function WorkCardsCarousel() {
 							title={"Molde"}
 							tag={"Development"}
 							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
 							src={moldeLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -65,6 +69,7 @@ export default function WorkCardsCarousel() {
 							title={"Indalo"}
 							tag={"Development"}
 							details={"Landing Page for an enterprises group."}
+							url={"https://www.grupoindalo.com.ar/"}
 							src={indaloLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -73,6 +78,7 @@ export default function WorkCardsCarousel() {
 							title={"Clamaco"}
 							tag={"Design"}
 							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
 							src={clamacoLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -81,6 +87,7 @@ export default function WorkCardsCarousel() {
 							title={"Molde"}
 							tag={"Development"}
 							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
 							src={moldeLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -89,6 +96,7 @@ export default function WorkCardsCarousel() {
 							title={"Indalo"}
 							tag={"Development"}
 							details={"Landing Page for an enterprises group."}
+							url={"https://www.grupoindalo.com.ar/"}
 							src={indaloLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -97,6 +105,7 @@ export default function WorkCardsCarousel() {
 							title={"Clamaco"}
 							tag={"Design"}
 							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
 							src={clamacoLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -109,7 +118,7 @@ export default function WorkCardsCarousel() {
 					autoplay={true}
 					loop={true}
 					centeredSlides={true}
-					slidesPerView={3}
+					slidesPerView={1}
 					spaceBetween={10}
 					direction={isDesktop ? "horizontal" : "vertical"}
 				>
@@ -118,6 +127,7 @@ export default function WorkCardsCarousel() {
 							title={"Molde"}
 							tag={"Development"}
 							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
 							src={moldeLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -126,6 +136,7 @@ export default function WorkCardsCarousel() {
 							title={"Indalo"}
 							tag={"Development"}
 							details={"Landing Page for an enterprises group."}
+							url={"https://www.grupoindalo.com.ar/"}
 							src={indaloLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -134,6 +145,7 @@ export default function WorkCardsCarousel() {
 							title={"Clamaco"}
 							tag={"Design"}
 							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
 							src={clamacoLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -142,6 +154,7 @@ export default function WorkCardsCarousel() {
 							title={"Molde"}
 							tag={"Development"}
 							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
 							src={moldeLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -150,6 +163,7 @@ export default function WorkCardsCarousel() {
 							title={"Indalo"}
 							tag={"Development"}
 							details={"Landing Page for an enterprises group."}
+							url={"https://www.grupoindalo.com.ar/"}
 							src={indaloLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -158,12 +172,80 @@ export default function WorkCardsCarousel() {
 							title={"Clamaco"}
 							tag={"Design"}
 							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
 							src={clamacoLogo}
 						></WorkCard>
 					</SwiperSlide>
 				</Swiper>
 			</MediaQuery>
-			<MediaQuery minWidth={1440}>
+			<MediaQuery minWidth={1440} maxWidth={1800}>
+				<Swiper
+					className="swiper"
+					modules={[Autoplay]}
+					autoplay={true}
+					loop={true}
+					centeredSlides={true}
+					slidesPerView={1}
+					spaceBetween={10}
+					direction={isDesktop ? "horizontal" : "vertical"}
+				>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={"Molde"}
+							tag={"Development"}
+							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
+							src={moldeLogo}
+						></WorkCard>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={"Indalo"}
+							tag={"Development"}
+							details={"Landing Page for an enterprises group."}
+							url={"https://www.grupoindalo.com.ar/"}
+							src={indaloLogo}
+						></WorkCard>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={"Clamaco"}
+							tag={"Design"}
+							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
+							src={clamacoLogo}
+						></WorkCard>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={"Molde"}
+							tag={"Development"}
+							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
+							src={moldeLogo}
+						></WorkCard>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={"Indalo"}
+							tag={"Development"}
+							details={"Landing Page for an enterprises group."}
+							url={"https://www.grupoindalo.com.ar/"}
+							src={indaloLogo}
+						></WorkCard>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={"Clamaco"}
+							tag={"Design"}
+							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
+							src={clamacoLogo}
+						></WorkCard>
+					</SwiperSlide>
+				</Swiper>
+			</MediaQuery>
+			<MediaQuery minWidth={1801}>
 				<Swiper
 					className="swiper"
 					modules={[Autoplay]}
@@ -179,6 +261,7 @@ export default function WorkCardsCarousel() {
 							title={"Molde"}
 							tag={"Development"}
 							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
 							src={moldeLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -187,6 +270,7 @@ export default function WorkCardsCarousel() {
 							title={"Indalo"}
 							tag={"Development"}
 							details={"Landing Page for an enterprises group."}
+							url={"https://www.grupoindalo.com.ar/"}
 							src={indaloLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -195,6 +279,7 @@ export default function WorkCardsCarousel() {
 							title={"Clamaco"}
 							tag={"Design"}
 							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
 							src={clamacoLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -203,6 +288,7 @@ export default function WorkCardsCarousel() {
 							title={"Molde"}
 							tag={"Development"}
 							details={"Landing Page for an architecture studio."}
+							url={"https://www.estudiomolde.com/"}
 							src={moldeLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -211,6 +297,7 @@ export default function WorkCardsCarousel() {
 							title={"Indalo"}
 							tag={"Development"}
 							details={"Landing Page for an enterprises group."}
+							url={""}
 							src={indaloLogo}
 						></WorkCard>
 					</SwiperSlide>
@@ -219,6 +306,7 @@ export default function WorkCardsCarousel() {
 							title={"Clamaco"}
 							tag={"Design"}
 							details={"Landing Page for a construction company."}
+							url={"https://clamaco.com.ar/"}
 							src={clamacoLogo}
 						></WorkCard>
 					</SwiperSlide>

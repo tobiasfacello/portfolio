@@ -19,7 +19,7 @@ export const StyledLogo = styled.h1`
 		font-size: 76px;
 	}
 
-	@media (min-width: 1280px) {
+	@media (min-width: 1440px) {
 		font-size: 128px;
 	}
 `;

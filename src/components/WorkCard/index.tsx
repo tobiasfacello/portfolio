@@ -23,6 +23,7 @@ function WorkCard(props: any) {
 		"title",
 		"tag",
 		"details",
+		"url",
 		"src",
 	];
 
@@ -52,8 +53,9 @@ function WorkCard(props: any) {
 						p={["xxxs", "xxs", "xxxs", "xxs"]}
 					></PillTag>
 					<Text
-						variant={"paragraph"}
+						variant={"paragraph work-card"}
 						alignment={"start"}
+						transform={"scaled-down"}
 						m={["s", "zero", "zero", "s"]}
 					>
 						{props.details}
@@ -62,6 +64,7 @@ function WorkCard(props: any) {
 						title={"View more"}
 						m={["s", "zero", "zero", "s"]}
 						p={["zero", "xxxs", "zero", "xxs"]}
+						url={props.url}
 					>
 						<IconFrame src={arrowIcon}></IconFrame>
 					</Button>

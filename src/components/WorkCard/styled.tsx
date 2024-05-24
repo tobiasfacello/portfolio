@@ -9,7 +9,7 @@ export const StyledWorkCard = styled.div<{
 	m: string[];
 	p: string[];
 }>`
-	width: 350px;
+	width: 335px;
 	height: 253px;
 	display: flex;
 	justify-content: space-between;
@@ -55,9 +55,15 @@ export const StyledWorkCard = styled.div<{
 		);
 	}
 
+	@media (min-width: 768px) {
+		& {
+			width: 350px;
+		}
+	}
+
 	& .work-logo {
 		position: absolute;
-		left: 220px;
+		left: 180px;
 		width: auto;
 		height: 190px;
 		opacity: ${(props) => (props.isHovered ? "1" : "0.2")};

@@ -176,10 +176,6 @@ export default function About() {
 							gap={"var(--xxs)"}
 						>
 							<SocialButton
-								src={Twitter}
-								url={"https://www.twitter.com"}
-							></SocialButton>
-							<SocialButton
 								url={"https://www.x.com/fachedev"}
 								src={Twitter}
 							></SocialButton>

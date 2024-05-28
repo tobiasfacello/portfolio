@@ -51,13 +51,20 @@
 
 @media (prefers-color-scheme: light) {
 	:root {
-		--text: #170d0f;
+		--text: #f2e8ea;
+		--pill-text-hovered: #170d0f;
+		--background: #0a0b04;
+		--primary: #c5c7bc;
+		--secondary: #444738;
+		--secondary-60: rgba(68, 71, 56, 0.6);
+		--accent: #dddfd8;
+		/* --text: #170d0f;
 		--pill-text-hovered: #f2e8ea;
 		--background: #f2f5e0;
 		--primary: #414338;
 		--secondary: #c4c7b8;
 		--secondary-60: rgba(196, 199, 184, 0.6);
-		--accent: #252720;
+		--accent: #252720; */
 	}
 
 	::-webkit-scrollbar {

@@ -13,7 +13,7 @@ function Home() {
 	return (
 		<>
 			{/* Mobile Layout */}
-			<MediaQuery minWidth={375} maxWidth={959}>
+			<MediaQuery minWidth={360} maxWidth={959}>
 				<Container
 					w={"100%"}
 					h={"calc(100vh - 64px)"}

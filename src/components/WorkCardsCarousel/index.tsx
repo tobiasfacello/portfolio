@@ -21,7 +21,7 @@ export default function WorkCardsCarousel() {
 
 	return (
 		<>
-			<MediaQuery minWidth={375} maxWidth={959}>
+			<MediaQuery minWidth={360} maxWidth={959}>
 				<WorkCard
 					title={"Molde"}
 					tag={"Development"}

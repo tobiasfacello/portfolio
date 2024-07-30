@@ -21,7 +21,7 @@ const StyledWorks = styled.div`
 	background-image: url(${patternVector});
 	background-size: auto;
 	background-position: center;
-	background-repeat: repeat;
+	background-repeat: no-repeat;
 
 	& .projects__title {
 		width: 100%;
@@ -33,6 +33,7 @@ const StyledWorks = styled.div`
 	@media (min-width: 960px) {
 		& {
 			width: 100vw;
+			background-position: center right;
 		}
 	}
 
@@ -53,7 +54,7 @@ const StyledWorks = styled.div`
 function Works() {
 	return (
 		<StyledWorks>
-			<MediaQuery minWidth={375} maxWidth={767}>
+			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container
 					h={"auto"}
 					w={"90%"}

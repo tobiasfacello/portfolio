@@ -11,7 +11,7 @@ export const StyledLogo = styled.h1`
 	line-height: normal;
 	color: var(--text);
 
-	@media (min-width: 375px) {
+	@media (min-width: 360px) {
 		font-size: 64px;
 	}
 

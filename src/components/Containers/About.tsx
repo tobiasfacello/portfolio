@@ -54,24 +54,32 @@ const StyledAbout = styled.div<{}>`
 export default function About() {
 	return (
 		<StyledAbout>
-			<MediaQuery minWidth={375} maxWidth={767}>
+			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container
 					direction={"column"}
 					justify={"space-evenly"}
 					align={"center"}
 				>
-					<Text
-						variant={"subtitle-fst"}
-						p={["zero"]}
-						m={["l", "zero", "m", "zero"]}
+					<Container
+						h={"auto"}
+						direction={"column"}
+						justify={"center"}
+						align={"start"}
 					>
-						About me
-					</Text>
+						<Text
+							variant={"subtitle-snd"}
+							p={["zero"]}
+							m={["l", "zero", "m", "zero"]}
+						>
+							ABOUT ME
+						</Text>
+					</Container>
 					<Text
 						variant={"paragraph"}
 						m={["zero", "zero", "s", "zero"]}
 					>
-						I’m Tobías, a guy from Argentina
+						I’m Tobías, an enthuciast of digital experiences from
+						Argentina
 						<IconFrame src={arIcon}></IconFrame>
 						working as developer & designer. Mostly building and
 						improving digital experiences.
@@ -108,7 +116,7 @@ export default function About() {
 								src={Twitter}
 							></SocialButton>
 							<SocialButton
-								url={"https://www.instagram.com/fachedev/"}
+								url={"https://www.instagram.com/fache.dev/"}
 								src={Instagram}
 							></SocialButton>
 							<SocialButton
@@ -133,17 +141,18 @@ export default function About() {
 					align={"center"}
 				>
 					<Text
-						variant={"subtitle-fst"}
+						variant={"subtitle-snd"}
 						p={["zero"]}
 						m={["l", "zero", "m", "zero"]}
 					>
-						About me
+						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph"}
 						m={["zero", "zero", "s", "zero"]}
 					>
-						I’m Tobías, a guy from Argentina
+						I’m Tobías, an enthuciast of digital experiences from
+						Argentina
 						<IconFrame src={arIcon}></IconFrame>
 						working as developer & designer. Mostly building and
 						improving digital experiences.
@@ -180,7 +189,7 @@ export default function About() {
 								src={Twitter}
 							></SocialButton>
 							<SocialButton
-								url={"https://www.instagram.com/fachedev/"}
+								url={"https://www.instagram.com/fache.dev/"}
 								src={Instagram}
 							></SocialButton>
 							<SocialButton
@@ -206,17 +215,18 @@ export default function About() {
 					align={"center"}
 				>
 					<Text
-						variant={"subtitle-fst desktop"}
+						variant={"subtitle-snd"}
 						p={["zero"]}
 						m={["l", "zero", "xl", "zero"]}
 					>
-						About me
+						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph"}
 						m={["zero", "zero", "s", "zero"]}
 					>
-						I’m Tobías, a guy from Argentina
+						I’m Tobías, an enthuciast of digital experiences from
+						Argentina
 						<IconFrame src={arIcon}></IconFrame>
 						working as developer & designer. Mostly building and
 						improving digital experiences.
@@ -253,7 +263,7 @@ export default function About() {
 								src={Twitter}
 							></SocialButton>
 							<SocialButton
-								url={"https://www.instagram.com/fachedev/"}
+								url={"https://www.instagram.com/fache.dev/"}
 								src={Instagram}
 							></SocialButton>
 							<SocialButton
@@ -278,17 +288,18 @@ export default function About() {
 					align={"center"}
 				>
 					<Text
-						variant={"subtitle-fst"}
+						variant={"subtitle-snd"}
 						p={["zero"]}
-						m={["l", "zero", "m", "zero"]}
+						m={["xl", "zero", "m", "zero"]}
 					>
-						About me
+						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph"}
 						m={["zero", "zero", "s", "zero"]}
 					>
-						I’m Tobías, a guy from Argentina
+						I’m Tobías, an enthuciast of digital experiences from
+						Argentina
 						<IconFrame src={arIcon}></IconFrame>
 						working as developer & designer. Mostly building and
 						improving digital experiences.
@@ -325,7 +336,7 @@ export default function About() {
 								src={Twitter}
 							></SocialButton>
 							<SocialButton
-								url={"https://www.instagram.com/fachedev/"}
+								url={"https://www.instagram.com/fache.dev/"}
 								src={Instagram}
 							></SocialButton>
 							<SocialButton
@@ -347,21 +358,22 @@ export default function About() {
 				<Container
 					p={["zero", "l", "zero", "l"]}
 					direction={"column"}
-					justify={"space-evenly"}
+					justify={"space-between"}
 					align={"start"}
 				>
 					<Text
-						variant={"subtitle-fst desktop"}
+						variant={"subtitle-snd"}
 						p={["zero"]}
-						m={["l", "zero", "m", "zero"]}
+						m={["xl", "zero", "m", "zero"]}
 					>
-						About me
+						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph desktop"}
 						m={["zero", "zero", "s", "zero"]}
 					>
-						I’m Tobías, a guy from Argentina
+						I’m Tobías, an enthuciast of digital experiences from
+						Argentina
 						<IconFrame src={arIcon}></IconFrame>
 						working as developer & designer. Mostly building and
 						improving digital experiences.
@@ -398,7 +410,7 @@ export default function About() {
 								src={Twitter}
 							></SocialButton>
 							<SocialButton
-								url={"https://www.instagram.com/fachedev/"}
+								url={"https://www.instagram.com/fache.dev/"}
 								src={Instagram}
 							></SocialButton>
 							<SocialButton
@@ -424,17 +436,18 @@ export default function About() {
 					align={"start"}
 				>
 					<Text
-						variant={"subtitle-fst desktop"}
+						variant={"subtitle-snd"}
 						p={["zero"]}
-						m={["l", "zero", "m", "zero"]}
+						m={["xl", "zero", "m", "zero"]}
 					>
-						About me
+						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph desktop"}
 						m={["zero", "zero", "s", "zero"]}
 					>
-						I’m Tobías, a guy from Argentina
+						I’m Tobías, an enthuciast of digital experiences from
+						Argentina
 						<IconFrame src={arIcon}></IconFrame>
 						working as developer & designer. Mostly building and
 						improving digital experiences.
@@ -471,7 +484,7 @@ export default function About() {
 								src={Twitter}
 							></SocialButton>
 							<SocialButton
-								url={"https://www.instagram.com/fachedev/"}
+								url={"https://www.instagram.com/fache.dev/"}
 								src={Instagram}
 							></SocialButton>
 							<SocialButton

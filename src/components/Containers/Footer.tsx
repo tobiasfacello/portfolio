@@ -14,11 +14,8 @@ const StyledFooter = styled.div`
 	padding: 0 20px;
 	border-top: 1px solid var(--secondary-60);
 
-	& .projects__title {
-		width: 100%;
-		display: flex;
-		justify-content: start;
-		align-items: center;
+	& a {
+		color: var(--text);
 	}
 `;
 
@@ -38,7 +35,9 @@ function Footer() {
 					m={["zero", "zero", "zero", "zero"]}
 				>
 					Have an interesting idea you'd like to build?{" "}
-					<u>Let's talk.</u>
+					<a href="https://cal.com/tobiasfacello">
+						<u>Let's talk.</u>
+					</a>
 				</Text>
 			</Container>
 			<Container

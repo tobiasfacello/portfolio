@@ -88,12 +88,12 @@
 * {
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: transparent;
+	margin: 0;
+	padding: 0;
 }
 
 body {
 	user-select: none;
-	padding: 0;
-	margin: 0;
 }
 
 #root {

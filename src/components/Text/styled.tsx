@@ -54,7 +54,7 @@ ${(props) =>
 		`
 			font-size: 16px;
 			font-weight: 400;
-			line-height: 20px;
+			line-height: 24px;
 			opacity: 80%;
 			color: var(--text);
 	`}

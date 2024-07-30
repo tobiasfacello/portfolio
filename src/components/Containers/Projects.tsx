@@ -19,11 +19,12 @@ const StyledProjects = styled.div`
 	border-top: 1px solid var(--secondary-60);
 	background-image: url(${patternVector});
 	background-size: auto;
-	background-position: top center;
-	background-repeat: repeat;
+	background-position: center;
+	background-repeat: no-repeat;
 
 	@media (min-width: 960px) {
 		& {
+			background-position: top right;
 		}
 	}
 
@@ -43,7 +44,7 @@ const StyledProjects = styled.div`
 function Projects() {
 	return (
 		<StyledProjects>
-			<MediaQuery minWidth={375} maxWidth={767}>
+			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container
 					h={"auto"}
 					w={"70%"}
@@ -203,7 +204,7 @@ function Projects() {
 				</Container>
 				<Container
 					direction={"column"}
-					justify={"center"}
+					justify={"space-evenly"}
 					align={"center"}
 				>
 					<ProjectCard
@@ -224,15 +225,10 @@ function Projects() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1801}>
-				<Container
-					h={"auto"}
-					w={"70%"}
-					justify={"start"}
-					align={"center"}
-				>
+				<Container w={"70%"} justify={"start"} align={"center"}>
 					<Text
 						variant={"subtitle-snd"}
-						m={["xxl", "zero", "l", "zero"]}
+						m={["xl", "zero", "l", "zero"]}
 					>
 						PROJECTS
 					</Text>

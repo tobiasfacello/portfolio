@@ -22,7 +22,7 @@ import FirebaseIcon from "../../assets/icons/Firebase.svg";
 const StyledSkills = styled.div`
 	width: 100%;
 	height: 100%;
-	padding: 0 10px;
+	padding: 0 5px;
 	border-top: 1px solid var(--secondary-60);
 
 	@media (min-width: 960px) {
@@ -41,6 +41,13 @@ const StyledSkills = styled.div`
 
 	@media (min-width: 1440px) {
 		& {
+			padding: 0 10px;
+		}
+	}
+
+	@media (min-width: 1800px) {
+		& {
+			padding: 0 10px;
 		}
 	}
 `;
@@ -57,7 +64,7 @@ const StyledIcon = styled.img`
 function Skills() {
 	return (
 		<StyledSkills>
-			<MediaQuery minWidth={375} maxWidth={767}>
+			<MediaQuery minWidth={360} maxWidth={767}>
 				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
 					SKILLS & TOOLS
 				</Text>

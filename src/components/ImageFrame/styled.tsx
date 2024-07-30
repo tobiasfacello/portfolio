@@ -13,7 +13,7 @@ export const StyledImageFrame = styled.div<{
 		props.p &&
 		props.p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
 
-	@media (min-width: 375px) {
+	@media (min-width: 360px) {
 		& {
 			width: 175px;
 			height: 175px;

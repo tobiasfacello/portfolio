@@ -1,16 +1,16 @@
-import styled from "styled-components";
-import MediaQuery from "react-responsive";
+import styled from 'styled-components';
+import MediaQuery from 'react-responsive';
 
 //* Components
-import Container from "../../components/Containers/Container";
-import ProjectCard from "../../components/ProjectCard";
-import Text from "../../components/Text";
+import Container from '../../components/Containers/Container';
+import ProjectCard from '../../components/ProjectCard';
+import Text from '../../components/Text';
 
 //* Assets
-import patternVector from "../../assets/vectors/pattern-vector.svg";
-import portfolioVector from "../../assets/vectors/portfolio-vector.svg";
-import chatAppVector from "../../assets/vectors/chatapp-vector.svg";
-import rpsVector from "../../assets/vectors/rps-vector.svg";
+import patternVector from '../../assets/vectors/pattern-vector.svg';
+import portfolioVector from '../../assets/vectors/portfolio-vector.svg';
+import chatAppVector from '../../assets/vectors/chatapp-vector.svg';
+import rpsVector from '../../assets/vectors/rps-vector.svg';
 
 const StyledProjects = styled.div`
 	width: 100%;
@@ -45,214 +45,210 @@ function Projects() {
 	return (
 		<StyledProjects>
 			<MediaQuery minWidth={360} maxWidth={767}>
-				<Container
-					h={"auto"}
-					w={"70%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["m", "zero", "m", "zero"]}
-					>
+				<Container h={'auto'} w={'70%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['m', 'zero', 'm', 'zero']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-				>
+				<Container direction={'column'} justify={'center'} align={'center'}>
 					<ProjectCard
-						title={"Portfolio"}
-						details={"Personal Website"}
+						title={'Portfolio'}
+						details={'Personal Website'}
 						src={portfolioVector}
-					></ProjectCard>
+						url={
+							'https://contra.com/p/YeXNEkRN-fache-portfolio-design-and-development'
+						}
+					/>
 					<ProjectCard
-						title={"Apxgram"}
-						details={"Realtime Chat App"}
+						title={'Apxgram'}
+						details={'Realtime Chat App'}
 						src={chatAppVector}
-					></ProjectCard>
+						url={'https://apxgram-chatapp.onrender.com/'}
+					/>
 					<ProjectCard
-						title={"RPS"}
-						details={"Realtime Game"}
+						title={'RPS'}
+						details={'Realtime Game'}
 						src={rpsVector}
-					></ProjectCard>
+						url={'https://rps-gameapp.onrender.com/'}
+					/>
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={768} maxWidth={959}>
-				<Container
-					h={"auto"}
-					w={"70%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["m", "zero", "m", "zero"]}
-					>
+				<Container h={'auto'} w={'70%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['m', 'zero', 'm', 'zero']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-				>
+				<Container direction={'column'} justify={'center'} align={'center'}>
 					<ProjectCard
-						title={"Portfolio"}
-						details={"Personal Website"}
+						title={'Portfolio'}
+						details={'Personal Website'}
 						src={portfolioVector}
-					></ProjectCard>
+						url={
+							'https://contra.com/p/YeXNEkRN-fache-portfolio-design-and-development'
+						}
+					/>
 					<ProjectCard
-						title={"Apxgram"}
-						details={"Realtime Chat App"}
+						title={'Apxgram'}
+						details={'Realtime Chat App'}
 						src={chatAppVector}
-					></ProjectCard>
+						url={'https://apxgram-chatapp.onrender.com/'}
+					/>
 					<ProjectCard
-						title={"RPS"}
-						details={"Realtime Game"}
+						title={'RPS'}
+						details={'Realtime Game'}
 						src={rpsVector}
-					></ProjectCard>
+						url={'https://rps-gameapp.onrender.com/'}
+					/>
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container
-					h={"auto"}
-					w={"70%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["m", "zero", "m", "zero"]}
-					>
+				<Container h={'auto'} w={'70%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['m', 'zero', 'm', 'zero']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-				>
+				<Container direction={'column'} justify={'center'} align={'center'}>
 					<ProjectCard
-						title={"Portfolio"}
-						details={"Personal Website"}
+						title={'Portfolio'}
+						details={'Personal Website'}
 						src={portfolioVector}
-					></ProjectCard>
+						url={
+							'https://contra.com/p/YeXNEkRN-fache-portfolio-design-and-development'
+						}
+					/>
 					<ProjectCard
-						title={"Apxgram"}
-						details={"Realtime Chat App"}
+						title={'Apxgram'}
+						details={'Realtime Chat App'}
 						src={chatAppVector}
-					></ProjectCard>
+						url={'https://apxgram-chatapp.onrender.com/'}
+					/>
 					<ProjectCard
-						title={"RPS"}
-						details={"Realtime Game"}
+						title={'RPS'}
+						details={'Realtime Game'}
 						src={rpsVector}
-					></ProjectCard>
+						url={'https://rps-gameapp.onrender.com/'}
+					/>
 				</Container>
 			</MediaQuery>
-			<MediaQuery minWidth={1280} maxWidth={1439}>
-				<Container
-					h={"auto"}
-					w={"95%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["xl", "zero", "l", "zero"]}
-					>
+			<MediaQuery minWidth={1280} maxWidth={1339}>
+				<Container h={'auto'} w={'95%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['s', 'zero', 's', 'zero']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-				>
+				<Container direction={'column'} justify={'center'} align={'center'}>
 					<ProjectCard
-						title={"Portfolio"}
-						details={"Personal Website"}
+						title={'Portfolio'}
+						details={'Personal Website'}
 						src={portfolioVector}
-					></ProjectCard>
+						url={
+							'https://contra.com/p/YeXNEkRN-fache-portfolio-design-and-development'
+						}
+					/>
 					<ProjectCard
-						title={"Apxgram"}
-						details={"Realtime Chat App"}
+						title={'Apxgram'}
+						details={'Realtime Chat App'}
 						src={chatAppVector}
-					></ProjectCard>
+						url={'https://apxgram-chatapp.onrender.com/'}
+					/>
 					<ProjectCard
-						title={"RPS"}
-						details={"Realtime Game"}
+						title={'RPS'}
+						details={'Realtime Game'}
 						src={rpsVector}
-					></ProjectCard>
+						url={'https://rps-gameapp.onrender.com/'}
+					/>
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1340} maxWidth={1439}>
+				<Container h={'auto'} w={'95%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['xl', 'zero', 'l', 'zero']}>
+						PROJECTS
+					</Text>
+				</Container>
+				<Container direction={'column'} justify={'center'} align={'center'}>
+					<ProjectCard
+						title={'Portfolio'}
+						details={'Personal Website'}
+						src={portfolioVector}
+						url={
+							'https://contra.com/p/YeXNEkRN-fache-portfolio-design-and-development'
+						}
+					/>
+					<ProjectCard
+						title={'Apxgram'}
+						details={'Realtime Chat App'}
+						src={chatAppVector}
+						url={'https://apxgram-chatapp.onrender.com/'}
+					/>
+					<ProjectCard
+						title={'RPS'}
+						details={'Realtime Game'}
+						src={rpsVector}
+						url={'https://rps-gameapp.onrender.com/'}
+					/>
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container
-					h={"auto"}
-					w={"95%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["xl", "zero", "l", "zero"]}
-					>
+				<Container h={'auto'} w={'95%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['xl', 'zero', 'l', 'zero']}>
 						PROJECTS
 					</Text>
 				</Container>
 				<Container
-					direction={"column"}
-					justify={"space-evenly"}
-					align={"center"}
+					direction={'column'}
+					justify={'space-evenly'}
+					align={'center'}
 				>
 					<ProjectCard
-						title={"Portfolio"}
-						details={"Personal Website"}
+						title={'Portfolio'}
+						details={'Personal Website'}
 						src={portfolioVector}
-					></ProjectCard>
+						url={
+							'https://contra.com/p/YeXNEkRN-fache-portfolio-design-and-development'
+						}
+					/>
 					<ProjectCard
-						title={"Apxgram"}
-						details={"Realtime Chat App"}
+						title={'Apxgram'}
+						details={'Realtime Chat App'}
 						src={chatAppVector}
-					></ProjectCard>
+						url={'https://apxgram-chatapp.onrender.com/'}
+					/>
 					<ProjectCard
-						title={"RPS"}
-						details={"Realtime Game"}
+						title={'RPS'}
+						details={'Realtime Game'}
 						src={rpsVector}
-					></ProjectCard>
+						url={'https://rps-gameapp.onrender.com/'}
+					/>
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1801}>
-				<Container w={"70%"} justify={"start"} align={"center"}>
-					<Text
-						variant={"subtitle-snd"}
-						m={["xl", "zero", "l", "zero"]}
-					>
+				<Container w={'70%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['xl', 'zero', 'l', 'zero']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-				>
+				<Container direction={'column'} justify={'center'} align={'center'}>
 					<ProjectCard
-						title={"Portfolio"}
-						details={"Personal Website"}
+						title={'Portfolio'}
+						details={'Personal Website'}
 						src={portfolioVector}
-					></ProjectCard>
+						url={
+							'https://contra.com/p/YeXNEkRN-fache-portfolio-design-and-development'
+						}
+					/>
 					<ProjectCard
-						title={"Apxgram"}
-						details={"Realtime Chat App"}
+						title={'Apxgram'}
+						details={'Realtime Chat App'}
 						src={chatAppVector}
-					></ProjectCard>
+						url={'https://apxgram-chatapp.onrender.com/'}
+					/>
 					<ProjectCard
-						title={"RPS"}
-						details={"Realtime Game"}
+						title={'RPS'}
+						details={'Realtime Game'}
 						src={rpsVector}
-					></ProjectCard>
+						url={'https://rps-gameapp.onrender.com/'}
+					/>
 				</Container>
 			</MediaQuery>
 		</StyledProjects>

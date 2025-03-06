@@ -1,9 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledProjectCard = styled.div<{
 	isHovered: boolean;
-	m: string[];
-	p: string[];
 }>`
 	width: 320px;
 	height: 123px;
@@ -24,7 +22,7 @@ export const StyledProjectCard = styled.div<{
 	transition: all 0.3s;
 
 	&::before {
-		content: "";
+		content: '';
 		position: absolute;
 		inset: 0;
 		border-radius: 10px;
@@ -56,6 +54,12 @@ export const StyledProjectCard = styled.div<{
 		}
 	}
 
+	@media (min-width: 1280px) and (max-width: 1339px) {
+		& {
+			margin-bottom: 8px;
+		}
+	}
+
 	@media (min-width: 1440px) {
 		& {
 			width: 380px;
@@ -63,7 +67,7 @@ export const StyledProjectCard = styled.div<{
 	}
 
 	& img {
-		opacity: ${(props) => (props.isHovered ? "1" : "0.2")};
+		opacity: ${(props) => (props.isHovered ? '1' : '0.2')};
 		transition: all 0.3s;
 	}
 `;

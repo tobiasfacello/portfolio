@@ -1,20 +1,21 @@
-import MediaQuery, { useMediaQuery } from "react-responsive";
-import { Swiper, SwiperSlide } from "swiper/react";
+import MediaQuery, { useMediaQuery } from 'react-responsive';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 //* Swiper Modules
-import { Autoplay } from "swiper/modules";
+import { Autoplay } from 'swiper/modules';
 
 //* Swiper Styles
-import "swiper/css";
-import "./swiper.style.css";
+import 'swiper/css';
+import './swiper.style.css';
 
 //* Components
-import WorkCard from "../WorkCard";
+import WorkCard from '../WorkCard';
 
 //* Assets
-import moldeLogo from "../../assets/works/molde.svg";
-import indaloLogo from "../../assets/works/indalo.svg";
-import clamacoLogo from "../../assets/works/clamaco.svg";
+import moldeLogo from '../../assets/works/molde.svg';
+import indaloLogo from '../../assets/works/indalo.svg';
+import ranchoLogo from '../../assets/works/rancho.svg';
+import clamacoLogo from '../../assets/works/clamaco.svg';
 
 export default function WorkCardsCarousel() {
 	const isDesktop = useMediaQuery({ minWidth: 960 });
@@ -23,26 +24,42 @@ export default function WorkCardsCarousel() {
 		<>
 			<MediaQuery minWidth={360} maxWidth={959}>
 				<WorkCard
-					title={"Molde"}
-					tag={"Development"}
-					details={"Landing Page for an architecture studio."}
-					url={"https://www.estudiomolde.com/"}
+					title={'Molde'}
+					tag={'Development'}
+					details={'Architecture studio'}
+					url={'https://www.estudiomolde.com/'}
+					showcaseUrl={
+						'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+					}
 					src={moldeLogo}
-				></WorkCard>
+				/>
 				<WorkCard
-					title={"Indalo"}
-					tag={"Development"}
-					details={"Landing Page for an enterprises group."}
-					url={"https://www.grupoindalo.com.ar/"}
+					title={'Indalo'}
+					tag={'Development'}
+					details={'Enterprises group'}
+					url={'https://www.grupoindalo.com.ar/'}
+					showcaseUrl={
+						'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+					}
 					src={indaloLogo}
-				></WorkCard>
+				/>
 				<WorkCard
-					title={"Clamaco"}
-					tag={"Design"}
-					details={"Landing Page for a construction company."}
-					url={"https://clamaco.com.ar/"}
+					title={'Rancho'}
+					tag={'Development'}
+					details={'Rental business'}
+					url={'https://bungalowselrancho.com.ar/'}
+					showcaseUrl={
+						'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+					}
+					src={ranchoLogo}
+				/>
+				<WorkCard
+					title={'Clamaco'}
+					tag={'Design'}
+					details={'Construction company'}
+					url={'https://clamaco.com.ar/'}
 					src={clamacoLogo}
-				></WorkCard>
+				/>
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
 				<Swiper
@@ -53,61 +70,97 @@ export default function WorkCardsCarousel() {
 					centeredSlides={true}
 					slidesPerView={1}
 					spaceBetween={10}
-					direction={isDesktop ? "horizontal" : "vertical"}
+					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={"https://www.grupoindalo.com.ar/"}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={"https://www.grupoindalo.com.ar/"}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 				</Swiper>
 			</MediaQuery>
@@ -120,61 +173,97 @@ export default function WorkCardsCarousel() {
 					centeredSlides={true}
 					slidesPerView={1}
 					spaceBetween={10}
-					direction={isDesktop ? "horizontal" : "vertical"}
+					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={"https://www.grupoindalo.com.ar/"}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={"https://www.grupoindalo.com.ar/"}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 				</Swiper>
 			</MediaQuery>
@@ -187,61 +276,97 @@ export default function WorkCardsCarousel() {
 					centeredSlides={true}
 					slidesPerView={1}
 					spaceBetween={10}
-					direction={isDesktop ? "horizontal" : "vertical"}
+					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={"https://www.grupoindalo.com.ar/"}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={"https://www.grupoindalo.com.ar/"}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 				</Swiper>
 			</MediaQuery>
@@ -251,64 +376,97 @@ export default function WorkCardsCarousel() {
 					modules={[Autoplay]}
 					autoplay={true}
 					loop={true}
-					centeredSlides={true}
+					centeredSlides={false}
 					slidesPerView={3}
 					spaceBetween={10}
-					direction={isDesktop ? "horizontal" : "vertical"}
+					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={"https://www.grupoindalo.com.ar/"}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>{' '}
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Molde"}
-							tag={"Development"}
-							details={"Landing Page for an architecture studio."}
-							url={"https://www.estudiomolde.com/"}
+							title={'Molde'}
+							tag={'Development'}
+							details={'Architecture studio'}
+							url={'https://www.estudiomolde.com/'}
+							showcaseUrl={
+								'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+							}
 							src={moldeLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Indalo"}
-							tag={"Development"}
-							details={"Landing Page for an enterprises group."}
-							url={""}
+							title={'Indalo'}
+							tag={'Development'}
+							details={'Enterprises group'}
+							url={''}
 							src={indaloLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 					<SwiperSlide className="swiper-slide">
 						<WorkCard
-							title={"Clamaco"}
-							tag={"Design"}
-							details={"Landing Page for a construction company."}
-							url={"https://clamaco.com.ar/"}
+							title={'Rancho'}
+							tag={'Development'}
+							details={'Rental business'}
+							url={'https://bungalowselrancho.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+							}
+							src={ranchoLogo}
+						/>
+					</SwiperSlide>
+					<SwiperSlide className="swiper-slide">
+						<WorkCard
+							title={'Clamaco'}
+							tag={'Design'}
+							details={'Construction company'}
+							url={'https://clamaco.com.ar/'}
 							src={clamacoLogo}
-						></WorkCard>
+						/>
 					</SwiperSlide>
 				</Swiper>
 			</MediaQuery>

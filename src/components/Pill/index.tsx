@@ -5,13 +5,13 @@ import { StyledPillTag } from "./styled";
 import Text from "../Text";
 
 function PillTag(props: any) {
-	const filteredProps = ["isHovered", "m", "p", "tag"];
+	const filteredProps = ["isHovered", "maxW", "m", "p", "tag"];
 
 	return (
 		<StyleSheetManager
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
-			<StyledPillTag isHovered={props.isHovered} m={props.m} p={props.p}>
+			<StyledPillTag isHovered={props.isHovered} maxW={props.maxW} m={props.m} p={props.p}>
 				<Text variant={"details-snd"} alignment={"center"}>
 					{props.tag}
 				</Text>

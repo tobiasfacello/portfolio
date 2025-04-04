@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const StyledPillTag = styled.span<{
 	isHovered: boolean;
+	maxW: string;
 	m: string[];
 	p: string[];
 }>`
 	width: auto;
-	max-width: 85px;
+	max-width: ${(props) => (props.maxW == null ? "85px" : props.maxW)};
 	height: 22px;
 	display: flex;
 	justify-content: center;

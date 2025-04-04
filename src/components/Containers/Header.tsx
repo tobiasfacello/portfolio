@@ -11,11 +11,10 @@ function Header() {
 		<StyledHeader>
 			<Container
 				w={"100%"}
-				m={["xs", "zero", "xs", "zero"]}
 				justify={"center"}
 				align={"center"}
 			>
-				<Logo>FACHE.</Logo>
+				<Logo>fache.</Logo>
 			</Container>
 		</StyledHeader>
 	);

@@ -33,10 +33,8 @@ const StyledProjects = styled.div`
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			justify-content: center;
+			justify-content: space-between;
 			border: none;
-			border-left: 1px solid var(--secondary-60);
-			border-right: 1px solid var(--secondary-60);
 		}
 	}
 `;
@@ -46,11 +44,11 @@ function Projects() {
 		<StyledProjects>
 			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container h={'auto'} w={'70%'} justify={'start'} align={'center'}>
-					<Text variant={'subtitle-snd'} m={['m', 'zero', 'm', 'zero']}>
+					<Text variant={'subtitle-snd'} m={['36', '0', '36', '0']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container direction={'column'} justify={'center'} align={'center'}>
+				<Container m={["0", "0", "36", "0"]} direction={'column'} justify={'center'} align={'center'} gap={'12px'}>
 					<ProjectCard
 						title={'Portfolio'}
 						details={'Personal Website'}
@@ -74,8 +72,8 @@ function Projects() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={768} maxWidth={959}>
-				<Container h={'auto'} w={'70%'} justify={'start'} align={'center'}>
-					<Text variant={'subtitle-snd'} m={['m', 'zero', 'm', 'zero']}>
+				<Container h={'100%'} w={'70%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['24', '0', '24', '0']}>
 						PROJECTS
 					</Text>
 				</Container>
@@ -103,8 +101,8 @@ function Projects() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container h={'auto'} w={'70%'} justify={'start'} align={'center'}>
-					<Text variant={'subtitle-snd'} m={['m', 'zero', 'm', 'zero']}>
+				<Container h={'100%'} w={'70%'} justify={'start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['24', '0', '24', '0']}>
 						PROJECTS
 					</Text>
 				</Container>
@@ -132,12 +130,12 @@ function Projects() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1280} maxWidth={1339}>
-				<Container h={'auto'} w={'95%'} justify={'start'} align={'center'}>
-					<Text variant={'subtitle-snd'} m={['s', 'zero', 's', 'zero']}>
+				<Container h={'100%'} w={'95%'} justify={'space-between'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['48', '0', '36', '0']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container direction={'column'} justify={'center'} align={'center'}>
+				<Container h={"100%"} m={['0', '0', '36', '0']} direction={'column'} justify={'center'} align={'center'} gap={"12px"}>
 					<ProjectCard
 						title={'Portfolio'}
 						details={'Personal Website'}
@@ -161,12 +159,12 @@ function Projects() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1340} maxWidth={1439}>
-				<Container h={'auto'} w={'95%'} justify={'start'} align={'center'}>
-					<Text variant={'subtitle-snd'} m={['xl', 'zero', 'l', 'zero']}>
+				<Container h={'100%'} w={'95%'} justify={'space-between'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['48', '0', '36', '0']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container direction={'column'} justify={'center'} align={'center'}>
+				<Container h={"100%"} m={['0', '0', '36', '0']} direction={'column'} justify={'center'} align={'center'} gap={'8px'}>
 					<ProjectCard
 						title={'Portfolio'}
 						details={'Personal Website'}
@@ -190,15 +188,18 @@ function Projects() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container h={'auto'} w={'95%'} justify={'start'} align={'center'}>
-					<Text variant={'subtitle-snd'} m={['xl', 'zero', 'l', 'zero']}>
+				<Container h={'100%'} w={'95%'} justify={'space-between'} align={'center'} >
+					<Text variant={'subtitle-snd'} m={['48', '0', '36', '0']}>
 						PROJECTS
 					</Text>
 				</Container>
 				<Container
+					h={"100%"}
+					m={['0', '0', '36', '0']}
 					direction={'column'}
-					justify={'space-evenly'}
+					justify={'space-between'}
 					align={'center'}
+					gap={"12px"}
 				>
 					<ProjectCard
 						title={'Portfolio'}
@@ -223,12 +224,12 @@ function Projects() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1801}>
-				<Container w={'70%'} justify={'start'} align={'center'}>
-					<Text variant={'subtitle-snd'} m={['xl', 'zero', 'l', 'zero']}>
+				<Container h={"100%"} w={'70%'} justify={'flex-start'} align={'center'}>
+					<Text variant={'subtitle-snd'} m={['48', '0', '36', '0']}>
 						PROJECTS
 					</Text>
 				</Container>
-				<Container direction={'column'} justify={'center'} align={'center'}>
+				<Container h={"100%"} m={['0', '0', '36', '0']} direction={'column'} justify={'flex-start'} align={'center'} gap={"12px"}>
 					<ProjectCard
 						title={'Portfolio'}
 						details={'Personal Website'}

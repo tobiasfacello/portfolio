@@ -63,7 +63,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["m", "zero", "m", "zero"]}
+						m={["24", "0", "24", "0"]}
 					>
 						WORK
 					</Text>
@@ -74,7 +74,7 @@ function Works() {
 					justify={"center"}
 					align={"center"}
 				>
-					<WorkCardsCarousel></WorkCardsCarousel>
+					<WorkCardsCarousel />
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={768} maxWidth={959}>
@@ -86,7 +86,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["m", "zero", "m", "zero"]}
+						m={["24", "0", "24", "0"]}
 					>
 						WORK
 					</Text>
@@ -97,7 +97,7 @@ function Works() {
 					justify={"center"}
 					align={"center"}
 				>
-					<WorkCardsCarousel></WorkCardsCarousel>
+					<WorkCardsCarousel />
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
@@ -109,7 +109,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["m", "zero", "m", "zero"]}
+						m={["24", "0", "24", "0"]}
 					>
 						WORK
 					</Text>
@@ -121,7 +121,7 @@ function Works() {
 					justify={"center"}
 					align={"center"}
 				>
-					<WorkCardsCarousel></WorkCardsCarousel>
+					<WorkCardsCarousel />
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1280} maxWidth={1439}>
@@ -133,7 +133,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["xl", "zero", "l", "zero"]}
+						m={["48", "0", "36", "0"]}
 					>
 						WORK
 					</Text>
@@ -146,7 +146,7 @@ function Works() {
 					justify={"center"}
 					align={"center"}
 				>
-					<WorkCardsCarousel></WorkCardsCarousel>
+					<WorkCardsCarousel />
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1440} maxWidth={1800}>
@@ -158,7 +158,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["xl", "zero", "l", "zero"]}
+						m={["48", "0", "36", "0"]}
 					>
 						WORK
 					</Text>
@@ -170,7 +170,7 @@ function Works() {
 					justify={"center"}
 					align={"center"}
 				>
-					<WorkCardsCarousel></WorkCardsCarousel>
+					<WorkCardsCarousel />
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1801}>
@@ -182,7 +182,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["xl", "zero", "l", "zero"]}
+						m={["48", "0", "36", "0"]}
 					>
 						WORK
 					</Text>
@@ -194,7 +194,7 @@ function Works() {
 					justify={"center"}
 					align={"center"}
 				>
-					<WorkCardsCarousel></WorkCardsCarousel>
+					<WorkCardsCarousel />
 				</Container>
 			</MediaQuery>
 		</StyledWorks>

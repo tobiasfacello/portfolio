@@ -65,18 +65,18 @@ function Skills() {
 	return (
 		<StyledSkills>
 			<MediaQuery minWidth={360} maxWidth={767}>
-				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+				<Text variant={"subtitle-snd"} m={["24", "0", "24", "0"]}>
 					SKILLS & TOOLS
 				</Text>
 				<Container
 					h={"70%"}
-					m={["l", "zero", "l", "zero"]}
+					m={["36", "0", "36", "0"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-evenly"}
 						align={"center"}
 					>
@@ -86,7 +86,7 @@ function Skills() {
 						<StyledIcon src={NodeJSIcon}></StyledIcon>
 					</Container>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-evenly"}
 						align={"center"}
 					>
@@ -104,19 +104,19 @@ function Skills() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={768} maxWidth={959}>
-				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+				<Text variant={"subtitle-snd"} m={["24", "0", "24", "0"]}>
 					SKILLS & TOOLS
 				</Text>
 				<Container
 					h={"70%"}
-					m={["xl", "zero", "xl", "zero"]}
+					m={["48", "0", "48", "0"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
 					<Container
 						w={"60%"}
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-evenly"}
 						align={"center"}
 					>
@@ -127,7 +127,7 @@ function Skills() {
 					</Container>
 					<Container
 						w={"60%"}
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-evenly"}
 						align={"center"}
 					>
@@ -149,20 +149,20 @@ function Skills() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Text variant={"subtitle-snd"} m={["m", "zero", "m", "zero"]}>
+				<Text variant={"subtitle-snd"} m={["24", "0", "24", "0"]}>
 					SKILLS & TOOLS
 				</Text>
 				<Container
 					h={"70%"}
-					m={["l", "zero", "l", "zero"]}
-					p={["zero", "xxxl", "zero", "xxxl"]}
+					m={["36", "0", "36", "0"]}
+					p={["0", "72", "0", "72"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
 					<Container
 						w={"70%"}
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-evenly"}
 						align={"center"}
 					>
@@ -173,7 +173,7 @@ function Skills() {
 					</Container>
 					<Container
 						w={"70%"}
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-evenly"}
 						align={"center"}
 					>
@@ -195,19 +195,19 @@ function Skills() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1280} maxWidth={1439}>
-				<Text variant={"subtitle-snd"} m={["xl", "zero", "l", "zero"]}>
+				<Text variant={"subtitle-snd"} m={["48", "0", "36", "0"]}>
 					SKILLS & TOOLS
 				</Text>
 				<Container
 					h={"70%"}
-					m={["l", "zero", "l", "zero"]}
-					p={["zero", "xl", "zero", "xl"]}
+					m={["36", "0", "36", "0"]}
+					p={["0", "48", "0", "48"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-between"}
 						align={"center"}
 					>
@@ -217,7 +217,7 @@ function Skills() {
 						<StyledIcon src={NodeJSIcon}></StyledIcon>
 					</Container>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-between"}
 						align={"center"}
 					>
@@ -235,19 +235,19 @@ function Skills() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Text variant={"subtitle-snd"} m={["xl", "zero", "l", "zero"]}>
+				<Text variant={"subtitle-snd"} m={["48", "0", "36", "0"]}>
 					SKILLS & TOOLS
 				</Text>
 				<Container
 					h={"70%"}
-					m={["l", "zero", "l", "zero"]}
-					p={["zero", "xl", "zero", "xl"]}
+					m={["36", "0", "36", "0"]}
+					p={["0", "48", "0", "48"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-between"}
 						align={"center"}
 					>
@@ -257,7 +257,7 @@ function Skills() {
 						<StyledIcon src={NodeJSIcon}></StyledIcon>
 					</Container>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-between"}
 						align={"center"}
 					>
@@ -275,19 +275,19 @@ function Skills() {
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1801}>
-				<Text variant={"subtitle-snd"} m={["xl", "zero", "l", "zero"]}>
+				<Text variant={"subtitle-snd"} m={["48", "0", "36", "0"]}>
 					SKILLS & TOOLS
 				</Text>
 				<Container
 					h={"70%"}
-					m={["l", "zero", "l", "zero"]}
-					p={["zero", "xxxl", "zero", "xxxl"]}
+					m={["36", "0", "36", "0"]}
+					p={["0", "72", "0", "72"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-between"}
 						align={"center"}
 					>
@@ -297,7 +297,7 @@ function Skills() {
 						<StyledIcon src={NodeJSIcon}></StyledIcon>
 					</Container>
 					<Container
-						m={["zero", "zero", "l", "zero"]}
+						m={["0", "0", "36", "0"]}
 						justify={"space-between"}
 						align={"center"}
 					>

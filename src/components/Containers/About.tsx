@@ -4,16 +4,6 @@ import MediaQuery from "react-responsive";
 //* Components
 import Container from "./Container";
 import Text from "../../components/Text";
-import IconFrame from "../../components/IconFrame";
-import SocialButton from "../../components/SocialButton";
-
-//* Assets
-import arIcon from "../../assets/images/ar.png";
-import hoobiesIcon from "../../assets/images/hobbies.png";
-import Twitter from "../../assets/icons/Twitter.svg";
-import Instagram from "../../assets/icons/Instagram.svg";
-import Linkedin from "../../assets/icons/Linkedin.svg";
-import Github from "../../assets/icons/Github.svg";
 
 const StyledAbout = styled.div<{}>`
 	width: 100%;
@@ -30,23 +20,21 @@ const StyledAbout = styled.div<{}>`
 	}
 
 	@media (min-width: 1280px) {
-		& {
-			border-left: 1px solid var(--secondary-60);
-			border-right: 1px solid var(--secondary-60);
-			padding: 0 16px;
+		& {			
 			height: 100%;
+			padding: 0 15px;
 		}
 	}
 
 	@media (min-width: 1440px) {
 		& {
-			padding: 0 21px;
+			padding: 0 20px;
 		}
 	}
 
 	@media (min-width: 1800px) {
 		& {
-			padding: 0 20px;
+			padding: 0 19px;
 		}
 	}
 `;
@@ -68,69 +56,42 @@ export default function About() {
 					>
 						<Text
 							variant={"subtitle-snd"}
-							p={["zero"]}
-							m={["l", "zero", "m", "zero"]}
+							p={["0"]}
+							m={["48", "0", "36", "0"]}
+							alignment={"left"}
 						>
 							ABOUT ME
 						</Text>
 					</Container>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "s", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m Tobías, an enthuciast of digital experiences from
-						Argentina
-						<IconFrame src={arIcon}></IconFrame>
-						working as developer & designer. Mostly building and
-						improving digital experiences.
+						I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 					</Text>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "m", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m always trying to polish both my soft and hard skills
-						while learning or working on new things. And a bunch of
-						hobbies!
-						<IconFrame src={hoobiesIcon}></IconFrame>
+						Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 					</Text>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"end"}
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						<Text
-							variant={"subtitle-snd"}
-							m={["zero", "zero", "m", "zero"]}
-						>
-							FIND ME AT
-						</Text>
-						<Container
-							m={["zero", "zero", "l", "zero"]}
-							justify={"end"}
-							align={"center"}
-							gap={"var(--xxs)"}
-						>
-							<SocialButton
-								url={"https://www.x.com/fachedev"}
-								src={Twitter}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.instagram.com/fache.dev/"}
-								src={Instagram}
-							></SocialButton>
-							<SocialButton
-								url={
-									"https://www.linkedin.com/in/tobiasfacello/"
-								}
-								src={Linkedin}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.github.com/tobiasfacello"}
-								src={Github}
-							></SocialButton>
-						</Container>
-					</Container>
+						Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "36", "0"]}
+						alignment={"left"}
+					>
+						I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
+					</Text>
+
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={768} maxWidth={959}>
@@ -138,367 +99,279 @@ export default function About() {
 					w={"80%"}
 					direction={"column"}
 					justify={"space-evenly"}
-					align={"center"}
+					align={"flex-start"}
 				>
 					<Text
 						variant={"subtitle-snd"}
-						p={["zero"]}
-						m={["l", "zero", "m", "zero"]}
+						p={["0"]}
+						m={["48", "0", "36", "0"]}
 					>
 						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "s", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
+
 					>
-						I’m Tobías, an enthuciast of digital experiences from
-						Argentina
-						<IconFrame src={arIcon}></IconFrame>
-						working as developer & designer. Mostly building and
-						improving digital experiences.
+						I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 					</Text>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "m", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
+
 					>
-						I’m always trying to polish both my soft and hard skills
-						while learning or working on new things. And a bunch of
-						hobbies!
-						<IconFrame src={hoobiesIcon}></IconFrame>
+						Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 					</Text>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"end"}
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
+
 					>
-						<Text
-							variant={"subtitle-snd"}
-							m={["zero", "zero", "m", "zero"]}
-						>
-							FIND ME AT
-						</Text>
-						<Container
-							m={["zero", "zero", "l", "zero"]}
-							justify={"end"}
-							align={"center"}
-							gap={"var(--xxs)"}
-						>
-							<SocialButton
-								url={"https://www.x.com/fachedev"}
-								src={Twitter}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.instagram.com/fache.dev/"}
-								src={Instagram}
-							></SocialButton>
-							<SocialButton
-								url={
-									"https://www.linkedin.com/in/tobiasfacello/"
-								}
-								src={Linkedin}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.github.com/tobiasfacello"}
-								src={Github}
-							></SocialButton>
-						</Container>
-					</Container>
+						Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "36", "0"]}
+						alignment={"left"}
+
+					>
+						I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
+					</Text>
+
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
 				<Container
 					w={"90%"}
-					p={["zero", "xxxl", "zero", "xxxl"]}
+					p={["0", "72", "0", "72"]}
 					direction={"column"}
 					justify={"space-evenly"}
-					align={"center"}
+					align={"flex-start"}
 				>
 					<Text
 						variant={"subtitle-snd"}
-						p={["zero"]}
-						m={["l", "zero", "xl", "zero"]}
+						p={["0"]}
+						alignment={"left"}
+						m={["48", "0", "36", "0"]}
 					>
 						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "s", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m Tobías, an enthuciast of digital experiences from
-						Argentina
-						<IconFrame src={arIcon}></IconFrame>
-						working as developer & designer. Mostly building and
-						improving digital experiences.
+						I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 					</Text>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "m", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m always trying to polish both my soft and hard skills
-						while learning or working on new things. And a bunch of
-						hobbies!
-						<IconFrame src={hoobiesIcon}></IconFrame>
+						Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 					</Text>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"end"}
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						<Text
-							variant={"subtitle-snd"}
-							m={["zero", "zero", "m", "zero"]}
-						>
-							FIND ME AT
-						</Text>
-						<Container
-							m={["zero", "zero", "l", "zero"]}
-							justify={"end"}
-							align={"center"}
-							gap={"var(--xxs)"}
-						>
-							<SocialButton
-								url={"https://www.x.com/fachedev"}
-								src={Twitter}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.instagram.com/fache.dev/"}
-								src={Instagram}
-							></SocialButton>
-							<SocialButton
-								url={
-									"https://www.linkedin.com/in/tobiasfacello/"
-								}
-								src={Linkedin}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.github.com/tobiasfacello"}
-								src={Github}
-							></SocialButton>
-						</Container>
-					</Container>
+						Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "36", "0"]}
+						alignment={"left"}
+					>
+						I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
+					</Text>
+
 				</Container>
 			</MediaQuery>
-			<MediaQuery minWidth={1280} maxWidth={1439}>
+			<MediaQuery minWidth={1280} maxWidth={1339}>
 				<Container
-					w={"80%"}
+					w={"90%"}
 					direction={"column"}
-					justify={"space-evenly"}
-					align={"center"}
+					justify={"space-between"}
+					align={"flex-start"}
 				>
 					<Text
 						variant={"subtitle-snd"}
-						p={["zero"]}
-						m={["xl", "zero", "m", "zero"]}
+						p={["0"]}
+						m={["48", "0", "36", "0"]}
+						alignment={"left"}
 					>
 						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "s", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m Tobías, an enthuciast of digital experiences from
-						Argentina
-						<IconFrame src={arIcon}></IconFrame>
-						working as developer & designer. Mostly building and
-						improving digital experiences.
+						I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 					</Text>
 					<Text
 						variant={"paragraph"}
-						m={["zero", "zero", "m", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m always trying to polish both my soft and hard skills
-						while learning or working on new things. And a bunch of
-						hobbies!
-						<IconFrame src={hoobiesIcon}></IconFrame>
+						Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 					</Text>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"end"}
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						<Text
-							variant={"subtitle-snd"}
-							m={["zero", "zero", "m", "zero"]}
-						>
-							FIND ME AT
-						</Text>
-						<Container
-							m={["zero", "zero", "l", "zero"]}
-							justify={"end"}
-							align={"center"}
-							gap={"var(--xxs)"}
-						>
-							<SocialButton
-								url={"https://www.x.com/fachedev"}
-								src={Twitter}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.instagram.com/fache.dev/"}
-								src={Instagram}
-							></SocialButton>
-							<SocialButton
-								url={
-									"https://www.linkedin.com/in/tobiasfacello/"
-								}
-								src={Linkedin}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.github.com/tobiasfacello"}
-								src={Github}
-							></SocialButton>
-						</Container>
-					</Container>
+						Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "36", "0"]}
+						alignment={"left"}
+					>
+						I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
+					</Text>
+
+				</Container>
+			</MediaQuery>
+			<MediaQuery minWidth={1340} maxWidth={1439}>
+				<Container
+					w={"85%"}
+					h={"100%"}
+					direction={"column"}
+					justify={"space-between"}
+					align={"flex-start"}
+				>
+					<Text
+						variant={"subtitle-snd"}
+						p={["0"]}
+						m={["48", "0", "36", "0"]}
+					>
+						ABOUT ME
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
+					>
+						I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
+					>
+						Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
+					>
+						Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
+					</Text>
+					<Text
+						variant={"paragraph"}
+						m={["0", "0", "36", "0"]}
+						alignment={"left"}
+					>
+						I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
+					</Text>
+
 				</Container>
 			</MediaQuery>
 
 			<MediaQuery minWidth={1440} maxWidth={1800}>
 				<Container
-					p={["zero", "l", "zero", "l"]}
+					w={"80%"}
 					direction={"column"}
 					justify={"space-between"}
-					align={"start"}
+					align={"flex-start"}
 				>
 					<Text
 						variant={"subtitle-snd"}
-						p={["zero"]}
-						m={["xl", "zero", "m", "zero"]}
+						p={["0"]}
+						m={["48", "0", "24", "0"]}
 					>
 						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph desktop"}
-						m={["zero", "zero", "s", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m Tobías, an enthuciast of digital experiences from
-						Argentina
-						<IconFrame src={arIcon}></IconFrame>
-						working as developer & designer. Mostly building and
-						improving digital experiences.
+						I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 					</Text>
 					<Text
 						variant={"paragraph desktop"}
-						m={["zero", "zero", "m", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m always trying to polish both my soft and hard skills
-						while learning or working on new things. And a bunch of
-						hobbies!
-						<IconFrame src={hoobiesIcon}></IconFrame>
+						Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 					</Text>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"end"}
+					<Text
+						variant={"paragraph desktop"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						<Text
-							variant={"subtitle-snd"}
-							m={["zero", "zero", "m", "zero"]}
-						>
-							FIND ME AT
-						</Text>
-						<Container
-							m={["zero", "zero", "l", "zero"]}
-							justify={"end"}
-							align={"center"}
-							gap={"var(--xxs)"}
-						>
-							<SocialButton
-								url={"https://www.x.com/fachedev"}
-								src={Twitter}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.instagram.com/fache.dev/"}
-								src={Instagram}
-							></SocialButton>
-							<SocialButton
-								url={
-									"https://www.linkedin.com/in/tobiasfacello/"
-								}
-								src={Linkedin}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.github.com/tobiasfacello"}
-								src={Github}
-							></SocialButton>
-						</Container>
-					</Container>
+						Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
+					</Text>
+					<Text
+						variant={"paragraph desktop"}
+						m={["0", "0", "36", "0"]}
+						alignment={"left"}
+					>
+						I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
+					</Text>
+
 				</Container>
 			</MediaQuery>
 
 			<MediaQuery minWidth={1801}>
 				<Container
-					p={["zero", "xl", "zero", "xl"]}
+					w={"90%"}
+					p={["0", "48", "0", "48"]}
 					direction={"column"}
 					justify={"space-evenly"}
 					align={"start"}
 				>
 					<Text
 						variant={"subtitle-snd"}
-						p={["zero"]}
-						m={["xl", "zero", "m", "zero"]}
+						p={["0"]}
+						m={["48", "0", "36", "0"]}
 					>
 						ABOUT ME
 					</Text>
 					<Text
 						variant={"paragraph desktop"}
-						m={["zero", "zero", "s", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m Tobías, an enthuciast of digital experiences from
-						Argentina
-						<IconFrame src={arIcon}></IconFrame>
-						working as developer & designer. Mostly building and
-						improving digital experiences.
+						I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 					</Text>
 					<Text
 						variant={"paragraph desktop"}
-						m={["zero", "zero", "m", "zero"]}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						I’m always trying to polish both my soft and hard skills
-						while learning or working on new things. And a bunch of
-						hobbies!
-						<IconFrame src={hoobiesIcon}></IconFrame>
+						Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 					</Text>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"end"}
+					<Text
+						variant={"paragraph desktop"}
+						m={["0", "0", "12", "0"]}
+						alignment={"left"}
 					>
-						<Text
-							variant={"subtitle-snd"}
-							m={["zero", "zero", "m", "zero"]}
-						>
-							FIND ME AT
-						</Text>
-						<Container
-							m={["zero", "zero", "l", "zero"]}
-							justify={"end"}
-							align={"center"}
-							gap={"var(--xxs)"}
-						>
-							<SocialButton
-								url={"https://www.x.com/fachedev"}
-								src={Twitter}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.instagram.com/fache.dev/"}
-								src={Instagram}
-							></SocialButton>
-							<SocialButton
-								url={
-									"https://www.linkedin.com/in/tobiasfacello/"
-								}
-								src={Linkedin}
-							></SocialButton>
-							<SocialButton
-								url={"https://www.github.com/tobiasfacello"}
-								src={Github}
-							></SocialButton>
-						</Container>
-					</Container>
+						Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
+					</Text>
+					<Text
+						variant={"paragraph desktop"}
+						m={["0", "0", "36", "0"]}
+						alignment={"left"}
+					>
+						I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
+					</Text>
 				</Container>
 			</MediaQuery>
 		</StyledAbout>

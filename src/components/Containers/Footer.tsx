@@ -26,13 +26,13 @@ function Footer() {
 		<StyledFooter>
 			<Container
 				w={"80%"}
-				m={["l", "zero", "s", "zero"]}
+				m={["36", "0", "20", "0"]}
 				justify={"center"}
 				align={"center"}
 			>
 				<Text
 					variant={"details-fst"}
-					m={["zero", "zero", "zero", "zero"]}
+					m={["0", "0", "0", "0"]}
 				>
 					Have an interesting idea you'd like to build?{" "}
 					<a href="https://cal.com/tobiasfacello">
@@ -44,11 +44,11 @@ function Footer() {
 				direction={"column"}
 				justify={"center"}
 				align={"center"}
-				m={["zero", "zero", "l", "zero"]}
+				m={["0", "0", "36", "0"]}
 			>
 				<Text
 					variant={"details-fst"}
-					m={["zero", "zero", "zero", "zero"]}
+					m={["0", "0", "0", "0"]}
 				>
 					{currentDate.getFullYear()} © Tobias Facello
 				</Text>

@@ -4,7 +4,11 @@ import { StyleSheetManager } from "styled-components";
 const StyledContainer = styled.div<{
 	style: string;
 	w: string;
+	minW: string;
+	maxW: string;
 	h: string;
+	minH: string;
+	maxH: string;
 	m: string[];
 	p: string[];
 	direction: string;
@@ -15,7 +19,11 @@ const StyledContainer = styled.div<{
 }>`
 	${(props) => props.style}
 	width: ${(props) => (props.w == null ? "100%" : props.w)};
+	min-width: ${(props) => (props.minW == null ? "" : props.minW)};
+	max-width: ${(props) => (props.maxW == null ? "" : props.maxW)};
 	height: ${(props) => (props.h == null ? "100%" : props.h)};
+	min-height: ${(props) => (props.minH == null ? "" : props.minH)};
+	max-height: ${(props) => (props.maxH == null ? "" : props.maxH)};
 	display: flex;
 	margin: ${(props) =>
 		props.m &&
@@ -34,7 +42,11 @@ function Container(props: any) {
 	const filteredProps: string[] = [
 		"style",
 		"w",
+		"minW",
+		"maxW",
 		"h",
+		"minH",
+		"maxH",
 		"m",
 		"p",
 		"direction",
@@ -50,7 +62,11 @@ function Container(props: any) {
 			<StyledContainer
 				style={props.style}
 				w={props.w}
+				minW={props.minW}
+				maxW={props.maxW}
 				h={props.h}
+				minH={props.minH}
+				maxH={props.maxH}
 				m={props.m}
 				p={props.p}
 				direction={props.direction}

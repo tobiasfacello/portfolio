@@ -23,6 +23,7 @@ export const StyledButton = styled.button<{
 	border-radius: 10px;
 	cursor: pointer;
 	transition: all 0.3s;
+	z-index: 10;
 
 	&:active {
 		opacity: 1;

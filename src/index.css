@@ -1,18 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
 
-/** Spacing System */
+@font-face {
+	font-family: 'Evolventa Regular';
+	src: local('Evolventa'), url('assets/fonts/Evolventa-Regular.woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Evolventa Bold';
+	src: local('Evolventa Bold'), url('assets/fonts/Evolventa-Bold.woff');
+	font-weight: bold;
+	font-style: normal;
+}
 
 :root {
-	--zero: 0px;
-	--xxxs: 4px;
-	--xxs: 8px;
-	--xs: 12px;
-	--s: 20px;
-	--m: 24px;
-	--l: 36px;
-	--xl: 48px;
-	--xxl: 64px;
-	--xxxl: 72px;
+	--0: 0px;
+	--4: 4px;
+	--8: 8px;
+	--12: 12px;
+	--20: 20px;
+	--24: 24px;
+	--36: 36px;
+	--48: 48px;
+	--64: 64px;
+	--72: 72px;
 	--translate-y: 0.25rem;
 	--translate-x: 0.5rem;
 	--rotate: 6deg;

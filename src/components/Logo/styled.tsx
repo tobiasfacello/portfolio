@@ -6,20 +6,20 @@ export const StyledLogo = styled.h1`
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	font-family: "Bruno Ace SC";
+	font-family: "Evolventa Bold";
 	font-weight: 500;
 	line-height: normal;
 	color: var(--text);
 
 	@media (min-width: 360px) {
-		font-size: 64px;
+		font-size: 78px;
 	}
 
 	@media (min-width: 425px) {
-		font-size: 76px;
+		font-size: 92px;
 	}
 
 	@media (min-width: 1440px) {
-		font-size: 128px;
+		font-size: 140px;
 	}
 `;

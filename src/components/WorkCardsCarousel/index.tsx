@@ -10,6 +10,7 @@ import './swiper.style.css';
 
 //* Components
 import WorkCard from '../WorkCard';
+import Container from '../Containers/Container';
 
 //* Assets
 import moldeLogo from '../../assets/works/molde.svg';
@@ -23,44 +24,46 @@ export default function WorkCardsCarousel() {
 	return (
 		<>
 			<MediaQuery minWidth={360} maxWidth={959}>
-				<WorkCard
-					title={'Molde'}
-					tag={'Development'}
-					details={'Architecture studio'}
-					url={'https://www.estudiomolde.com/'}
-					showcaseUrl={
-						'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
-					}
-					src={moldeLogo}
-				/>
-				<WorkCard
-					title={'Indalo'}
-					tag={'Development'}
-					details={'Enterprises group'}
-					url={'https://www.grupoindalo.com.ar/'}
-					showcaseUrl={
-						'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
-					}
-					src={indaloLogo}
-				/>
-				<WorkCard
-					title={'Rancho'}
-					tag={'Development'}
-					details={'Rental business'}
-					url={'https://bungalowselrancho.com.ar/'}
-					showcaseUrl={
-						'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
-					}
-					src={ranchoLogo}
-				/>
-				<WorkCard
-					title={'Clamaco'}
-					tag={'Design'}
-					details={'Construction company'}
-					url={'https://clamaco.com.ar/'}
-					src={clamacoLogo}
-				/>
-			</MediaQuery>
+				<Container direction={"column"} justify={"center"} align={"center"} gap={"20px"}>
+					< WorkCard
+						title={'Molde'}
+						tag={'Development'}
+						details={'Architecture studio'}
+						url={'https://www.estudiomolde.com/'}
+						showcaseUrl={
+							'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development'
+						}
+						src={moldeLogo}
+					/>
+					<WorkCard
+						title={'Indalo'}
+						tag={'Development'}
+						details={'Enterprises group'}
+						url={'https://www.grupoindalo.com.ar/'}
+						showcaseUrl={
+							'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+						}
+						src={indaloLogo}
+					/>
+					<WorkCard
+						title={'Rancho'}
+						tag={'Development'}
+						details={'Rental business'}
+						url={'https://bungalowselrancho.com.ar/'}
+						showcaseUrl={
+							'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development'
+						}
+						src={ranchoLogo}
+					/>
+					<WorkCard
+						title={'Clamaco'}
+						tag={'Design'}
+						details={'Construction company'}
+						url={'https://clamaco.com.ar/'}
+						src={clamacoLogo}
+					/>
+				</Container>
+			</MediaQuery >
 			<MediaQuery minWidth={960} maxWidth={1279}>
 				<Swiper
 					className="swiper"
@@ -68,8 +71,8 @@ export default function WorkCardsCarousel() {
 					autoplay={true}
 					loop={true}
 					centeredSlides={true}
-					slidesPerView={1}
-					spaceBetween={10}
+					slidesPerView={2}
+					spaceBetween={5}
 					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>
 					<SwiperSlide className="swiper-slide">
@@ -170,8 +173,8 @@ export default function WorkCardsCarousel() {
 					modules={[Autoplay]}
 					autoplay={true}
 					loop={true}
-					centeredSlides={true}
-					slidesPerView={1}
+					centeredSlides={false}
+					slidesPerView={2}
 					spaceBetween={10}
 					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>
@@ -273,8 +276,8 @@ export default function WorkCardsCarousel() {
 					modules={[Autoplay]}
 					autoplay={true}
 					loop={true}
-					centeredSlides={true}
-					slidesPerView={1}
+					centeredSlides={false}
+					slidesPerView={2}
 					spaceBetween={10}
 					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>

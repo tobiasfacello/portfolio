@@ -9,9 +9,11 @@ import Text from "../Text";
 //* Assets
 import profilePicture from "../../assets/images/profile.jpg";
 import Twitter from "../../assets/icons/Twitter.svg";
+import Threads from "../../assets/icons/Threads.svg";
 import Instagram from "../../assets/icons/Instagram.svg";
 import Linkedin from "../../assets/icons/Linkedin.svg";
 import Github from "../../assets/icons/Github.svg";
+import Contra from "../../assets/icons/Contra.svg";
 
 const StyledProfile = styled.div<{}>`
 	width: 100%;
@@ -21,8 +23,6 @@ const StyledProfile = styled.div<{}>`
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 20px;
-	border-left: 1px solid var(--secondary-60);
-	border-right: 1px solid var(--secondary-60);
 `;
 
 export default function Profile() {
@@ -47,7 +47,6 @@ export default function Profile() {
 					FIND ME AT
 				</Text>
 				<Container
-					m={["0", "0", "36", "0"]}
 					justify={"center"}
 					align={"center"}
 					gap={"8px"}
@@ -55,6 +54,10 @@ export default function Profile() {
 					<SocialButton
 						url={"https://www.x.com/fachedev"}
 						src={Twitter}
+					/>
+					<SocialButton
+						url={"https://www.threads.net/@fache.dev"}
+						src={Threads}
 					/>
 					<SocialButton
 						url={"https://www.instagram.com/fache.dev/"}
@@ -69,6 +72,10 @@ export default function Profile() {
 					<SocialButton
 						url={"https://www.github.com/tobiasfacello"}
 						src={Github}
+					/>
+					<SocialButton
+						url={"https://contra.com/tobiasfacello"}
+						src={Contra}
 					/>
 				</Container>
 			</Container>

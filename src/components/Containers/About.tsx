@@ -23,6 +23,7 @@ const StyledAbout = styled.div<{}>`
 		& {			
 			height: 100%;
 			padding: 0 15px;
+			border-right: 1px solid var(--secondary-60);
 		}
 	}
 
@@ -44,6 +45,9 @@ export default function About() {
 		<StyledAbout>
 			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container
+					h={"100%"}
+					w={"100%"}
+					maxW={"500px"}
 					direction={"column"}
 					justify={"space-evenly"}
 					align={"center"}
@@ -145,8 +149,7 @@ export default function About() {
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
 				<Container
-					w={"90%"}
-					p={["0", "72", "0", "72"]}
+					w={"80%"}
 					direction={"column"}
 					justify={"space-evenly"}
 					align={"flex-start"}
@@ -331,10 +334,9 @@ export default function About() {
 
 			<MediaQuery minWidth={1801}>
 				<Container
-					w={"90%"}
-					p={["0", "48", "0", "48"]}
+					w={"75%"}
 					direction={"column"}
-					justify={"space-evenly"}
+					justify={"space-between"}
 					align={"start"}
 				>
 					<Text

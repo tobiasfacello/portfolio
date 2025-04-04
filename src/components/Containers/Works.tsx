@@ -56,72 +56,98 @@ function Works() {
 		<StyledWorks>
 			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container
-					h={"auto"}
-					w={"90%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["24", "0", "24", "0"]}
-					>
-						WORK
-					</Text>
-				</Container>
-				<Container
-					style={"overflow: hidden;"}
+					h={"100%"}
+					w={"100%"}
+					maxW={"500px"}
+					m={["36", "0", "36", "0"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
+					gap={"36px"}
 				>
-					<WorkCardsCarousel />
+					<Container
+						h={"100%"}
+						w={"100%"}
+						justify={"start"}
+						align={"center"}
+					>
+						<Text
+							variant={"subtitle-snd"}
+						>
+							WORK
+						</Text>
+					</Container>
+					<Container
+						direction={"column"}
+						justify={"center"}
+						align={"center"}
+					>
+						<WorkCardsCarousel />
+					</Container>
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={768} maxWidth={959}>
 				<Container
-					h={"auto"}
-					w={"90%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["24", "0", "24", "0"]}
-					>
-						WORK
-					</Text>
-				</Container>
-				<Container
-					style={"overflow: hidden;"}
+					h={"100%"}
+					w={"80%"}
+					m={["36", "0", "36", "0"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
+					gap={"36px"}
 				>
-					<WorkCardsCarousel />
+					<Container
+						h={"auto"}
+						w={"100%"}
+						justify={"flex-start"}
+						align={"center"}
+					>
+						<Text
+							variant={"subtitle-snd"}
+						>
+							WORK
+						</Text>
+					</Container>
+					<Container
+						direction={"column"}
+						justify={"center"}
+						align={"center"}
+					>
+						<WorkCardsCarousel />
+					</Container>
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={960} maxWidth={1279}>
 				<Container
-					h={"auto"}
-					w={"90%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["24", "0", "24", "0"]}
-					>
-						WORK
-					</Text>
-				</Container>
-				<Container
-					style={"overflow: hidden;"}
-					w={"100vw"}
+					h={"100%"}
+					w={"80%"}
+					m={["36", "0", "36", "0"]}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
+					gap={"36px"}
 				>
-					<WorkCardsCarousel />
+					<Container
+						h={"auto"}
+						w={"100%"}
+						justify={"start"}
+						align={"center"}
+					>
+						<Text
+							variant={"subtitle-snd"}
+						>
+							WORK
+						</Text>
+					</Container>
+					<Container
+						style={"overflow: hidden;"}
+						w={"100vw"}
+						direction={"column"}
+						justify={"center"}
+						align={"center"}
+					>
+						<WorkCardsCarousel />
+					</Container>
 				</Container>
 			</MediaQuery>
 			<MediaQuery minWidth={1280} maxWidth={1439}>

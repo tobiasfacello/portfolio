@@ -9,7 +9,7 @@ export const StyledSocialButton = styled.div<{}>`
 	object-fit: contain;
 	background-color: rgba(255, 255, 255, 0.03);
 	border: 1px solid rgba(255, 255, 255, 0.1);
-	border-radius: 100px;
+	border-radius: 10px;
 	opacity: 60%;
 	color: var(--text);
 	transition: all 0.3s;

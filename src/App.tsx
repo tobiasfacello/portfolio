@@ -6,7 +6,7 @@ function App() {
 	return (
 		<>
 			<ReactLenis options={{ duration: 2.2 }} root>
-				<Home></Home>
+				<Home />
 			</ReactLenis>
 		</>
 	);

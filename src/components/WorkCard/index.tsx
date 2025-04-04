@@ -28,16 +28,17 @@ function WorkCard(props: any) {
 		'src',
 	];
 
-	const handleClick = (url: string) => {
-		window.location.href = url;
-	};
+	//TODO: Enable this feature in the future
+	// const handleClick = (url: string) => {
+	// 	window.location.href = url;
+	// };
 
 	return (
 		<StyleSheetManager
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledWorkCard
-				onClick={() => handleClick(props.showcaseUrl)}
+				// onClick={() => handleClick(props.showcaseUrl)}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				isHovered={isHovered}
@@ -50,26 +51,26 @@ function WorkCard(props: any) {
 					justify={'flex-start'}
 					align={'start'}
 				>
-					<Text variant={'title'} m={['xs', 'zero', 'zero', 's']}>
+					<Text variant={'title'} m={['12', '0', '0', '20']}>
 						{props.title}
 					</Text>
 					<PillTag
 						tag={props.tag}
-						m={['xs', 'zero', 'zero', 's']}
-						p={['xxxs', 'xxs', 'xxxs', 'xxs']}
-					></PillTag>
+						m={['12', '0', '0', '20']}
+						p={['4', '8', '4', '8']}
+					/>
 					<Text
 						variant={'paragraph work-card'}
 						alignment={'start'}
 						transform={'scaled-down'}
-						m={['s', 'zero', 'zero', 's']}
+						m={['20', '0', '0', '20']}
 					>
 						{props.details}
 					</Text>
 					<Button
 						title={'Visit Page'}
-						m={['s', 'zero', 'zero', 's']}
-						p={['zero', 'xxxs', 'zero', 'xxs']}
+						m={['20', '0', '0', '20']}
+						p={['0', '4', '0', '8']}
 						url={props.url}
 					>
 						<IconFrame src={arrowIcon} />

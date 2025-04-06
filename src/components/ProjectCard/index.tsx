@@ -44,7 +44,7 @@ function ProjectCard(props: any) {
 					<PillTag
 						tag={props.tag}
 						maxW={'140px'}
-						p={['4', '8', '4', '8']}
+						p={['4', '8', '4', '6']}
 					/>
 				</Container>
 				<Container direction={'column'} justify={'center'} align={'end'}>

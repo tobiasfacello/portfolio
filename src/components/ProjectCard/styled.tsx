@@ -7,8 +7,8 @@ export const StyledProjectCard = styled.div<{
 	isHovered: boolean;
 }>`
 	width: 100%;
-	max-width: 335px;
-	height: 123px;
+	height: 120px;
+	min-width: 320px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -49,6 +49,12 @@ export const StyledProjectCard = styled.div<{
 			rgba(197, 199, 188, 30%),
 			rgba(197, 199, 188, 6%)
 		);
+	}
+
+	@media (max-width: 768px) {
+		& {
+			max-width: 335px;
+		}
 	}
 
 	@media (min-width: 768px) and (max-width: 1279px) {

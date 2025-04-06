@@ -14,7 +14,7 @@ const StyledWorks = styled.div`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	padding: 0 20px;
 	border-top: 1px solid var(--secondary-60);
@@ -159,7 +159,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["48", "0", "36", "0"]}
+						m={["36", "0", "0", "0"]}
 					>
 						WORK
 					</Text>
@@ -184,7 +184,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["48", "0", "36", "0"]}
+						m={["36", "0", "0", "0"]}
 					>
 						WORK
 					</Text>
@@ -208,7 +208,7 @@ function Works() {
 				>
 					<Text
 						variant={"subtitle-snd"}
-						m={["48", "0", "36", "0"]}
+						m={["48", "0", "0", "0"]}
 					>
 						WORK
 					</Text>

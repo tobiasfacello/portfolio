@@ -71,7 +71,7 @@ export default function WorkCardsCarousel() {
 					autoplay={true}
 					loop={true}
 					centeredSlides={true}
-					slidesPerView={2}
+					slidesPerView={1}
 					spaceBetween={5}
 					direction={isDesktop ? 'horizontal' : 'vertical'}
 				>

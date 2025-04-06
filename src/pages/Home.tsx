@@ -82,7 +82,7 @@ function Home() {
 
 				<Container
 					w={'100%'}
-					h={'60vh'}
+					h={'50vh'}
 					justify={'center'}
 					align={'start'}
 					style={'border-top: 1px solid var(--secondary-60);'}

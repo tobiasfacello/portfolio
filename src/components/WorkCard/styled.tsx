@@ -8,12 +8,12 @@ export const StyledWorkCard = styled.div<{
 	m: string[];
 	p: string[];
 }>`
-	width: 335px;
-	height: 253px;
+	width: 100%;
+	height: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px;
+	padding: 10px;
 	background-color: rgba(197, 199, 188, 5%);
 	background-clip: padding-box;
 	border: 1px solid transparent;
@@ -53,9 +53,17 @@ export const StyledWorkCard = styled.div<{
 		);
 	}
 
+	@media (min-width: 375px) {
+		& {
+			width: 335px;
+			min-width: 300px;
+			height: 250px;
+		}
+	}
 	@media (min-width: 768px) {
 		& {
-			width: 350px;
+			width: 340px;
+			height: 250px;
 		}
 	}
 

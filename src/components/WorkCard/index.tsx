@@ -29,16 +29,16 @@ function WorkCard(props: any) {
 	];
 
 	//TODO: Enable this feature in the future
-	// const handleClick = (url: string) => {
-	// 	window.location.href = url;
-	// };
+	const handleClick = (url: string) => {
+		window.location.href = url;
+	};
 
 	return (
 		<StyleSheetManager
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledWorkCard
-				// onClick={() => handleClick(props.showcaseUrl)}
+				onClick={() => handleClick(props.url)}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				isHovered={isHovered}
@@ -46,35 +46,51 @@ function WorkCard(props: any) {
 				m={props.m}
 			>
 				<Container
-					w={'60%'}
+					w={'100%'}
+					h={'100%'}
 					direction={'column'}
-					justify={'flex-start'}
+					justify={'space-between'}
 					align={'start'}
 				>
-					<Text variant={'title'} m={['12', '0', '0', '20']}>
-						{props.title}
-					</Text>
-					<PillTag
-						tag={props.tag}
-						m={['12', '0', '0', '20']}
-						p={['4', '8', '4', '8']}
-					/>
-					<Text
-						variant={'paragraph work-card'}
-						alignment={'start'}
-						transform={'scaled-down'}
-						m={['20', '0', '0', '20']}
+					<Container
+						w={'100%'}
+						h={'100%'}
+						direction={'column'}
+						justify={'space-between'}
+						align={'start'}
+						gap={"20px"}
 					>
-						{props.details}
-					</Text>
-					<Button
-						title={'Visit Page'}
-						m={['20', '0', '0', '20']}
-						p={['0', '4', '0', '8']}
-						url={props.url}
-					>
-						<IconFrame src={arrowIcon} />
-					</Button>
+						<Text variant={'title'}>
+							{props.title}
+						</Text>
+						<PillTag
+							tag={props.tag}
+							p={['4', '8', '4', '8']}
+						/>
+						<Text
+							variant={'paragraph work-card'}
+							alignment={'start'}
+							transform={'scaled-down'}
+						>
+							{props.details}
+						</Text>
+						<Container
+							w={'100%'}
+							h={'50%'}
+							direction={'column'}
+							justify={'flex-end'}
+							align={'start'}
+						>
+
+							<Button
+								title={'Visit Page'}
+								p={['0', '4', '0', '8']}
+								url={props.url}
+							>
+								<IconFrame src={arrowIcon} />
+							</Button>
+						</Container>
+					</Container>
 				</Container>
 				<Container
 					w={'40%'}

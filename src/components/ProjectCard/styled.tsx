@@ -22,7 +22,7 @@ export const StyledProjectCard = styled.div<{
 	border-radius: 20px;
 	backdrop-filter: blur(4px);
 	cursor: pointer;
-	transition: all 0.3s;
+	transition: all 300ms;
 
 	&::before {
 		content: '';
@@ -40,7 +40,7 @@ export const StyledProjectCard = styled.div<{
 			linear-gradient(#f2e8ea 0 0);
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
-		transition: all 0.3s;
+		transition: all 300ms;
 	}
 
 	&:hover::before {
@@ -65,7 +65,7 @@ export const StyledProjectCard = styled.div<{
 
 	& img {
 		opacity: ${(props) => (props.isHovered ? '1' : '0.6')};
-		transition: all 0.3s;
+		transition: all 300ms;
 	}
 
 	${StyledPillTag} {

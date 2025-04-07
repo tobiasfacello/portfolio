@@ -82,14 +82,14 @@ function Home() {
 
 				<Container
 					w={'100%'}
-					h={'50vh'}
+					minH={"462px"}
 					justify={'center'}
 					align={'start'}
 					style={'border-top: 1px solid var(--secondary-60);'}
 				>
-					<Container w={'90%'} justify={'center'} align={'center'}>
-						<Skills />
-						<Works />
+					<Container w={'90%'} h={"100%"} justify={'center'} align={'center'}>
+						<Skills flex={1} />
+						<Works flex={2} />
 					</Container>
 				</Container>
 				<Footer />
@@ -112,8 +112,6 @@ function Home() {
 						<Container
 							w={'90%'}
 							h={"100%"}
-							minH={"585px"}
-							maxH={"585px"}
 							justify={'center'}
 							align={'center'}
 							style={`
@@ -129,14 +127,14 @@ function Home() {
 				</Container>
 				<Container
 					w={'100%'}
-					h={'60vh'}
+					h={'55vh'}
+					minH={"510px"}
 					justify={'center'}
-					align={'start'}
 					style={'border-top: 1px solid var(--secondary-60);'}
 				>
 					<Container w={'90%'} justify={'center'} align={'center'}>
-						<Skills />
-						<Works />
+						<Skills flex={1} />
+						<Works flex={2} />
 					</Container>
 				</Container>
 				<Footer />
@@ -176,13 +174,14 @@ function Home() {
 				<Container
 					w={'100%'}
 					h={'55vh'}
+					minH={"530px"}
 					justify={'center'}
 					align={'start'}
 					style={'border-top: 1px solid var(--secondary-60);'}
 				>
 					<Container w={'90%'} justify={'center'} align={'center'}>
-						<Skills />
-						<Works />
+						<Skills flex={1} />
+						<Works flex={2} />
 					</Container>
 				</Container>
 				<Footer />

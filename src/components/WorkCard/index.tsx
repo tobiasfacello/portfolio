@@ -21,7 +21,7 @@ function WorkCard(props: any) {
 		'm',
 		'variant',
 		'title',
-		'tag',
+		'tags',
 		'details',
 		'showcaseUrl',
 		'url',
@@ -46,7 +46,7 @@ function WorkCard(props: any) {
 				m={props.m}
 			>
 				<Container
-					w={'100%'}
+					w={'60%'}
 					h={'100%'}
 					direction={'column'}
 					justify={'space-between'}
@@ -63,28 +63,39 @@ function WorkCard(props: any) {
 						<Text variant={'title'}>
 							{props.title}
 						</Text>
-						<PillTag
-							tag={props.tag}
-							p={['4', '8', '4', '8']}
-						/>
+						<Container
+							w={'100%'}
+							h={'auto'}
+							direction={'row'}
+							gap={"6px"}
+						>
+							{props.tags.map((tag: any) => {
+								return (
+									<PillTag
+										tag={tag}
+										p={['4', '8', '4', '8']}
+									/>
+								);
+							})}
+						</Container>
 						<Text
+							w={'90%'}
 							variant={'paragraph work-card'}
 							alignment={'start'}
-							transform={'scaled-down'}
 						>
 							{props.details}
 						</Text>
 						<Container
 							w={'100%'}
-							h={'50%'}
+							h={'100%'}
 							direction={'column'}
 							justify={'flex-end'}
 							align={'start'}
 						>
 
 							<Button
-								title={'Visit Page'}
-								p={['0', '4', '0', '8']}
+								title={'Visit page'}
+								p={['0', '2', '0', '8']}
 								url={props.url}
 							>
 								<IconFrame src={arrowIcon} />
@@ -101,7 +112,7 @@ function WorkCard(props: any) {
 					<img className="work-logo" src={props.src} />
 				</Container>
 			</StyledWorkCard>
-		</StyleSheetManager>
+		</StyleSheetManager >
 	);
 }
 

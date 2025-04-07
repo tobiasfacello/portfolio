@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 export const StyledText = styled.p<{
-	variant: string;
-	alignment: string;
+	w: string;
+	h: string;
 	m: string[];
 	p: string[];
+	variant: string;
+	alignment: string;
 }>`
+	width: ${(props) => props.w};
+	height: ${(props) => props.h};
 	margin: ${(props) =>
 		props.m && props.m.map((marginSize) => `var(--${marginSize})`).join(' ')};
 	padding: ${(props) =>
@@ -16,6 +20,7 @@ export const StyledText = styled.p<{
 		props.variant === 'title' &&
 		`
 			font-size: 40px;
+			line-height: 40px;
 			font-weight: 600;
 			color: var(--text);
 	`}
@@ -23,8 +28,8 @@ export const StyledText = styled.p<{
 	${(props) =>
 		props.variant === 'subtitle-fst' &&
 		`
-			line-height: 38px;
 			font-size: 30px;
+			line-height: 30px;
 			font-weight: 600;
 			color: var(--text);
 	`}
@@ -32,8 +37,8 @@ export const StyledText = styled.p<{
 ${(props) =>
 		props.variant === 'subtitle-fst desktop' &&
 		`
-			line-height: 38px;
 			font-size: 40px;
+			line-height: 40px;
 			font-weight: 600;
 			color: var(--text);
 	`}
@@ -41,8 +46,8 @@ ${(props) =>
 	${(props) =>
 		props.variant === 'subtitle-snd' &&
 		`
-			line-height: 20px;
 			font-size: 18px;
+			line-height: 18px;
 			font-weight: 600;
 			color: var(--text);
 	`}
@@ -50,6 +55,7 @@ ${(props) =>
 ${(props) =>
 		props.variant === 'paragraph' &&
 		`
+			line-height: 16px;
 			font-size: 16px;
 			font-weight: 400;
 			line-height: 24px;

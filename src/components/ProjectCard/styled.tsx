@@ -72,7 +72,9 @@ export const StyledProjectCard = styled.div<{
 		color: ${(props) =>
 		props.isHovered ? "var(--pill-text-hovered)" : "var(--text)"};
 		background-color: ${(props) =>
-		props.isHovered ? "var(--text)" : "transparent"};
+		props.isHovered ? "var(--accent)" : "transparent"};
+			border-color: ${(props) =>
+		props.isHovered ? "var(--primary)" : "inherit"};
 		opacity: ${(props) => (props.isHovered ? "1" : "0.6")};
 	}
 `;

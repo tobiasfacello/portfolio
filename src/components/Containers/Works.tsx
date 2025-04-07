@@ -9,8 +9,9 @@ import Text from "../Text";
 //* Assets
 import patternVector from "../../assets/vectors/pattern-vector.svg";
 
-const StyledWorks = styled.div`
-	width: 100%;
+const StyledWorks = styled.div<{
+	flex: number;
+}>`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -32,14 +33,12 @@ const StyledWorks = styled.div`
 
 	@media (min-width: 960px) {
 		& {
-			width: 100vw;
 			background-position: center right;
 		}
 	}
 
 	@media (min-width: 1280px) {
 		& {
-			width: 200%;
 			border: none;
 			border-right: 1px solid var(--secondary-60);
 		}
@@ -51,9 +50,9 @@ const StyledWorks = styled.div`
 	}
 `;
 
-function Works() {
+function Works(props: any) {
 	return (
-		<StyledWorks>
+		<StyledWorks flex={props.flex}>
 			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container
 					h={"100%"}
@@ -166,8 +165,8 @@ function Works() {
 				</Container>
 				<Container
 					style={"overflow: hidden;"}
-					h={"50vh"}
-					w={"57vw"}
+					minH={"402px"}
+					w={"56.4vw"}
 					direction={"row"}
 					justify={"center"}
 					align={"center"}
@@ -191,7 +190,8 @@ function Works() {
 				</Container>
 				<Container
 					style={"overflow: hidden;"}
-					w={"57vw"}
+					minH={"402px"}
+					w={"57.1vw"}
 					direction={"row"}
 					justify={"center"}
 					align={"center"}
@@ -215,7 +215,8 @@ function Works() {
 				</Container>
 				<Container
 					style={"overflow: hidden;"}
-					w={"57vw"}
+					minH={"402px"}
+					w={"57.55vw"}
 					direction={"row"}
 					justify={"center"}
 					align={"center"}

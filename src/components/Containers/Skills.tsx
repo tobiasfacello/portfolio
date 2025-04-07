@@ -27,8 +27,10 @@ import FigmaIcon from "../../assets/icons/Figma.svg";
 import FramerIcon from "../../assets/icons/Framer.svg";
 import AISDKIcon from "../../assets/icons/AISDK.svg";
 
-const StyledSkills = styled.div`
-	width: 100%;
+const StyledSkills = styled.div<{
+	flex: number;
+}>`
+	width: 100%;;
 	height: 100%;
 	padding: 0 20px;
 	display: flex;
@@ -37,29 +39,13 @@ const StyledSkills = styled.div`
 	align-items: center;
 	border-top: 1px solid var(--secondary-60);
 
-	@media (min-width: 960px) {
-		& {
-			width: 100%;
-		}
-	}
-
 	@media (min-width: 1280px) {
 		& {
+			width: 0;
 			border: none;
 			border-left: 1px solid var(--secondary-60);
 			border-right: 1px solid var(--secondary-60);
-		}
-	}
-
-	@media (min-width: 1440px) {
-		& {
-			padding: 0 10px;
-		}
-	}
-
-	@media (min-width: 1800px) {
-		& {
-			padding: 0 10px;
+			flex: ${(props) => props.flex};
 		}
 	}
 `;
@@ -73,9 +59,9 @@ const StyledIcon = styled.img`
 	opacity: 0.8;
 `;
 
-function Skills() {
+function Skills(props: any) {
 	return (
-		<StyledSkills>
+		<StyledSkills flex={props.flex}>
 			<MediaQuery minWidth={360} maxWidth={767}>
 				<Container
 					w={"100%"}
@@ -93,7 +79,7 @@ function Skills() {
 						justify={"flex-start"}
 						align={"center"}
 					>
-						<Text alignment={"center"} variant={"subtitle-snd"} >
+						<Text variant={"subtitle-snd"} alignment={"center"}>
 							SKILLS & TOOLS
 						</Text>
 					</Container>
@@ -298,7 +284,7 @@ function Skills() {
 			</MediaQuery>
 			<MediaQuery minWidth={1280} maxWidth={1439}>
 				<Container
-					w={"80%"}
+					w={"100%"}
 					h={"100%"}
 					m={["36", "0", "36", "0"]}
 					direction={"column"}

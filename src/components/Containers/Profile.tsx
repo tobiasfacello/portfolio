@@ -19,10 +19,17 @@ const StyledProfile = styled.div<{}>`
 	width: 100%;
 	height: 100%;
 	display: flex;
+	margin-top: 48px;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 20px;
+	gap: 36px;
+	
+	@media (min-width: 1280px) {
+		margin: 36px 0;
+		min-height: 450px;
+	}
 `;
 
 export default function Profile() {
@@ -30,8 +37,6 @@ export default function Profile() {
 		<StyledProfile>
 			<ImageFrame
 				src={profilePicture}
-				p={["0"]}
-				m={["48", "0", "36", "0"]}
 			/>
 			<Container
 				w={"100%"}
@@ -39,10 +44,10 @@ export default function Profile() {
 				direction={"column"}
 				justify={"space-between"}
 				align={"center"}
+				gap={"24px"}
 			>
 				<Text
 					variant={"subtitle-snd"}
-					m={["0", "0", "24", "0"]}
 				>
 					FIND ME AT
 				</Text>

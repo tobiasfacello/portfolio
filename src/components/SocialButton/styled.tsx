@@ -10,21 +10,27 @@ export const StyledSocialButton = styled.div<{}>`
 	background-color: rgba(255, 255, 255, 0.03);
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: 10px;
-	opacity: 60%;
+	cursor: pointer;
+	opacity: 0.6;
 	color: var(--text);
-	transition: all 0.3s;
-
+	transition: all 150ms;
+	
 	&:hover {
-		opacity: 80%;
-		cursor: pointer;
+		opacity: 1;	
+		background-color: var(--accent);
+		border: 1px solid var(--primary);
+	}
+	
+	&:active {
+		background-color: var(--primary);
+		transition: all 100ms;
 	}
 
-	&:active {
-		opacity: 100%;
-	}
+
 
 	& > img {
 		width: 20px;
 		height: auto;
+		mix-blend-mode: difference;
 	}
 `;

@@ -24,7 +24,7 @@ export const StyledWorkCard = styled.div<{
 	backdrop-filter: blur(4px);
 	cursor: pointer;
 	overflow: hidden;
-	transition: all 0.3s;
+	transition: all 300ms;
 
 	&::before {
 		content: "";
@@ -42,7 +42,7 @@ export const StyledWorkCard = styled.div<{
 			linear-gradient(#f2e8ea 0 0);
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
-		transition: all 0.3s;
+		transition: all 300ms;
 	}
 
 	&:hover::before {
@@ -73,7 +73,7 @@ export const StyledWorkCard = styled.div<{
 		width: auto;
 		height: 190px;
 		opacity: ${(props) => (props.isHovered ? "1" : "0.2")};
-		transition: all 0.3s;
+		transition: all 300ms;
 		z-index: -1;
 	}
 

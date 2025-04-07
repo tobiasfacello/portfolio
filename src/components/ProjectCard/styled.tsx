@@ -35,9 +35,9 @@ export const StyledProjectCard = styled.div<{
 			rgba(197, 199, 188, 10%),
 			rgba(197, 199, 188, 0%)
 		);
-		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-		-webkit-mask: linear-gradient(#fff 0 0) content-box,
-			linear-gradient(#fff 0 0);
+		mask: linear-gradient(#f2e8ea 0 0) content-box, linear-gradient(#f2e8ea 0 0);
+		-webkit-mask: linear-gradient(#f2e8ea 0 0) content-box,
+			linear-gradient(#f2e8ea 0 0);
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
 		transition: all 0.3s;

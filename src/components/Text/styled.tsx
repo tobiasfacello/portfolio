@@ -92,7 +92,7 @@ ${(props) =>
 			@media (min-width: 1800px) {
 				& {
 					font-size: 18px;
-					line-height: 36px;
+					line-height: 32px;
 				}
 			}
 	`}

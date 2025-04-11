@@ -73,7 +73,7 @@ function Projects() {
 							}
 						/>
 						<ProjectCard
-							title={'fache.AI'}
+							title={'fache.ai'}
 							details={'AI Assistant App'}
 							tag={"🛠️ Work in progress"}
 							src={facheAIVector}
@@ -114,7 +114,7 @@ function Projects() {
 							}
 						/>
 						<ProjectCard
-							title={'fache.AI'}
+							title={'fache.ai'}
 							details={'AI Assistant App'}
 							tag={"🛠️ Work in progress"}
 							src={facheAIVector}
@@ -155,7 +155,7 @@ function Projects() {
 							}
 						/>
 						<ProjectCard
-							title={'fache.AI'}
+							title={'fache.ai'}
 							details={'AI Assistant App'}
 							tag={"🛠️ Work in progress"}
 							src={facheAIVector}
@@ -190,7 +190,7 @@ function Projects() {
 							}
 						/>
 						<ProjectCard
-							title={'fache.AI'}
+							title={'fache.ai'}
 							details={'AI Assistant App'}
 							tag={"🛠️ Work in progress"}
 							src={facheAIVector}
@@ -231,7 +231,7 @@ function Projects() {
 							}
 						/>
 						<ProjectCard
-							title={'fache.AI'}
+							title={'fache.ai'}
 							details={'AI Assistant App'}
 							tag={"🛠️ Work in progress"}
 							src={facheAIVector}
@@ -265,7 +265,7 @@ function Projects() {
 							}
 						/>
 						<ProjectCard
-							title={'fache.AI'}
+							title={'fache.ai'}
 							details={'AI Assistant App'}
 							tag={"🛠️ Work in progress"}
 							src={facheAIVector}

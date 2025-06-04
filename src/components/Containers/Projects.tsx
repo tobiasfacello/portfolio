@@ -84,7 +84,7 @@ function Projects() {
 							details={'Personal Website'}
 							tag={"🚀 V2.0"}
 							src={facheVector}
-							url={'https://fache.tech'}
+							url={'https://fache.vercel.app'}
 						/>
 					</Container>
 				</Container>
@@ -125,7 +125,7 @@ function Projects() {
 							details={'Personal Website'}
 							tag={"🚀 V2.0"}
 							src={facheVector}
-							url={'https://fache.tech'}
+							url={'https://fache.vercel.app'}
 						/>
 					</Container>
 				</Container>
@@ -166,7 +166,7 @@ function Projects() {
 							details={'Personal Website'}
 							tag={"🚀 V2.0"}
 							src={facheVector}
-							url={'https://fache.tech'}
+							url={'https://fache.vercel.app'}
 						/>
 					</Container>
 				</Container>
@@ -201,7 +201,7 @@ function Projects() {
 							details={'Personal Website'}
 							tag={"🚀 V2.0"}
 							src={facheVector}
-							url={'https://fache.tech'}
+							url={'https://fache.vercel.app'}
 						/>
 					</Container>
 				</Container>
@@ -242,7 +242,7 @@ function Projects() {
 							details={'Personal Website'}
 							tag={"🚀 V2.0"}
 							src={facheVector}
-							url={'https://fache.tech'}
+							url={'https://fache.vercel.app'}
 						/>
 					</Container>
 				</Container>
@@ -276,7 +276,7 @@ function Projects() {
 							details={'Personal Website'}
 							tag={"🚀 V2.0"}
 							src={facheVector}
-							url={'https://fache.tech'}
+							url={'https://fache.vercel.app'}
 						/>
 					</Container>
 				</Container>

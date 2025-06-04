@@ -1,12 +1,17 @@
 import ReactLenis from "lenis/react";
-import "./App.css";
+import { ThemeProvider } from "./context/ThemeContext";
+import Cursor from "./components/Cursor";
 import Home from "./pages/Home";
+import "./App.css";
 
 function App() {
 	return (
 		<>
 			<ReactLenis options={{ duration: 2.2 }} root>
-				<Home />
+				<ThemeProvider>
+					<Cursor />
+					<Home />
+				</ThemeProvider >
 			</ReactLenis>
 		</>
 	);

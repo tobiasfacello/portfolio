@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
 	return (
 		<>
-			<ReactLenis options={{ duration: 1.7 }} root>
+			<ReactLenis options={{ lerp: 0.1, duration: 1.7, smoothWheel: true }} root>
 				<ThemeProvider>
 					<Cursor />
 					<Home />

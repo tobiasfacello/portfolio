@@ -1,5 +1,5 @@
 //! React Core
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 //! GSAP
 import { gsap } from "gsap";
@@ -9,62 +9,52 @@ import styles from "./styles.module.css"
 
 export default function Cursor() {
 
+  const cursorRef = useRef<SVGSVGElement | null>(null);
+  const mouseRef = useRef({ x: 0, y: 0, });
+
   useEffect(() => {
-    const cursor = document.querySelector("#cursor") as HTMLElement;
-    const links = document.querySelectorAll("link");
-    const a = document.querySelectorAll("a");
-    const buttons = document.querySelectorAll(".button");
-    const workCards = document.querySelectorAll(".work-card");
-    const projectCards = document.querySelectorAll(".project-card");
+    const cursor = cursorRef.current as SVGSVGElement;
 
     if (!cursor) return;
 
-    const onMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
+    const updateCursorPosition = () => {
       gsap.set(cursor, {
-        x: clientX,
-        y: clientY,
+        x: mouseRef.current.x,
+        y: mouseRef.current.y,
       });
+
+      requestAnimationFrame(updateCursorPosition);
     }
 
-    document.addEventListener("mousemove", onMouseMove);
+    requestAnimationFrame(updateCursorPosition);
 
-    const onMouseEnter = () => {
-      cursor.style.display = "none";
+    const onMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY }
     }
 
-    const onMouseLeave = () => {
-      cursor.style.display = "inherit";
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      const isInteractive = target.closest("a") || target.closest("link") ||
+        target.closest(".button") || target.closest(".work-card") || target.closest(".project-card");
+
+      if (cursor) {
+        cursor.style.display = isInteractive ? 'none' : 'inherit';
+      }
     }
 
-    links.forEach(link => {
-      link.addEventListener("mouseenter", onMouseEnter);
-      link.addEventListener("mouseleave", onMouseLeave);
-    })
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseover", onMouseOver, { passive: true });
 
-    a.forEach(a => {
-      a.addEventListener("mouseenter", onMouseEnter);
-      a.addEventListener("mouseleave", onMouseLeave);
-    })
-
-    buttons.forEach(button => {
-      button.addEventListener("mouseenter", onMouseEnter);
-      button.addEventListener("mouseleave", onMouseLeave);
-    })
-
-    workCards.forEach(workCard => {
-      workCard.addEventListener("mouseenter", onMouseEnter);
-      workCard.addEventListener("mouseleave", onMouseLeave);
-    })
-
-    projectCards.forEach(projectCard => {
-      projectCard.addEventListener("mouseenter", onMouseEnter);
-      projectCard.addEventListener("mouseleave", onMouseLeave);
-    })
-  })
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseover", onMouseOver);
+    }
+  }, [])
 
   return (
     <svg
+      ref={cursorRef}
       id="cursor"
       className={styles.cursor}
       xmlns="http://www.w3.org/2000/svg"

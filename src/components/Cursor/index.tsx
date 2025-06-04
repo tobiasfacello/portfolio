@@ -70,9 +70,9 @@ export default function Cursor() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill="var(--background)"
+        fill="var(--primary)"
         stroke="var(--primary)"
-        strokeWidth={1.5}
+        strokeWidth={1}
         d="M1.464 2.825c.995 5.4 2.578 10.843 3.997 15.788a1.003 1.003 0 0 0 1.752.343l4.102-5.22a1 1 0 0 1 .47-.33l5.302-1.768a.996.996 0 0 0 .245-1.77C12.854 6.843 8.16 3.822 3.538 1.322a1.41 1.41 0 0 0-2.074 1.502Z"
       />
     </svg >

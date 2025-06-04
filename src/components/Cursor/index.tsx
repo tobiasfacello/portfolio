@@ -1,5 +1,5 @@
 //! React Core
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 //! GSAP
 import { gsap } from "gsap";
@@ -12,7 +12,28 @@ export default function Cursor() {
   const cursorRef = useRef<SVGSVGElement | null>(null);
   const mouseRef = useRef({ x: 0, y: 0, });
 
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
   useEffect(() => {
+    const checkIfMobile = () => {
+      return ((window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches));
+    };
+
+    setIsMobileDevice(checkIfMobile());
+
+    const handleResize = () => {
+      setIsMobileDevice(checkIfMobile());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobileDevice) return;
     const cursor = cursorRef.current as SVGSVGElement;
 
     if (!cursor) return;
@@ -50,7 +71,7 @@ export default function Cursor() {
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseover", onMouseOver);
     }
-  }, [])
+  }, [isMobileDevice])
 
   return (
     <svg

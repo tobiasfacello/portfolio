@@ -13,6 +13,7 @@ export default function Cursor() {
     const cursor = document.querySelector("#cursor") as HTMLElement;
     const links = document.querySelectorAll("link");
     const a = document.querySelectorAll("a");
+    const buttons = document.querySelectorAll(".button");
     const workCards = document.querySelectorAll(".work-card");
     const projectCards = document.querySelectorAll(".project-card");
 
@@ -44,6 +45,11 @@ export default function Cursor() {
     a.forEach(a => {
       a.addEventListener("mouseenter", onMouseEnter);
       a.addEventListener("mouseleave", onMouseLeave);
+    })
+
+    buttons.forEach(button => {
+      button.addEventListener("mouseenter", onMouseEnter);
+      button.addEventListener("mouseleave", onMouseLeave);
     })
 
     workCards.forEach(workCard => {

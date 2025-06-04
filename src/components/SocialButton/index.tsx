@@ -13,6 +13,7 @@ function SocialButton(props: any) {
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledSocialButton
+				className={"button"}
 				onClick={() => {
 					handleClick(props.url);
 				}}

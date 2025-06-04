@@ -17,9 +17,6 @@ export const StyledWorkCard = styled.div<{
 	background-color: rgba(197, 199, 188, 5%);
 	background-clip: padding-box;
 	border: 1px solid transparent;
-	/* box-shadow: 0px -1px 0px 0px rgba(255, 255, 255, 0.2),
-		-1px 0px 0px 0px rgba(255, 255, 255, 0.1),
-		1px 0px 0px 0px rgba(255, 255, 255, 0.1); */
 	border-radius: 20px;
 	backdrop-filter: blur(4px);
 	cursor: pointer;

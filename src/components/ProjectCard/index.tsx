@@ -29,6 +29,7 @@ function ProjectCard(props: any) {
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledProjectCard
+				className={"project-card"}
 				onClick={() => handleClick(props.url)}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}

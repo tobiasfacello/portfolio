@@ -38,6 +38,7 @@ function WorkCard(props: any) {
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledWorkCard
+				className={"work-card"}
 				onClick={() => handleClick(props.url)}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
@@ -72,6 +73,7 @@ function WorkCard(props: any) {
 							{props.tags.map((tag: any) => {
 								return (
 									<PillTag
+										key={tag}
 										tag={tag}
 										p={['4', '8', '4', '8']}
 									/>

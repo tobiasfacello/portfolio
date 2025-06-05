@@ -2,7 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 
 //! GSAP
-import { gsap } from "gsap";
+import { Expo, gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+gsap.registerPlugin(useGSAP);
 
 //! Styles
 import styles from "./styles.module.css"
@@ -10,7 +12,7 @@ import styles from "./styles.module.css"
 export default function Cursor() {
 
   const cursorRef = useRef<SVGSVGElement | null>(null);
-  const mouseRef = useRef({ x: 0, y: 0, });
+  const mouseRef = useRef<any>({ x: null, y: null, });
 
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
@@ -32,26 +34,20 @@ export default function Cursor() {
     };
   }, []);
 
-  useEffect(() => {
-    if (isMobileDevice) return;
-    const cursor = cursorRef.current as SVGSVGElement;
+  useGSAP(() => {
+    if (isMobileDevice || !cursorRef.current) return;
 
-    if (!cursor) return;
+    const cursor = cursorRef.current;
 
-    const updateCursorPosition = () => {
-      gsap.set(cursor, {
-        x: mouseRef.current.x,
-        y: mouseRef.current.y,
-      });
-
-      requestAnimationFrame(updateCursorPosition);
-    }
-
-    requestAnimationFrame(updateCursorPosition);
+    mouseRef.current = {
+      x: gsap.quickTo(cursor, "x", { duration: 0.2, ease: Expo.easeOut }),
+      y: gsap.quickTo(cursor, "y", { duration: 0.2, ease: Expo.easeOut })
+    };
 
     const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY }
-    }
+      mouseRef.current.x(e.clientX);
+      mouseRef.current.y(e.clientY);
+    };
 
     const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -62,7 +58,7 @@ export default function Cursor() {
       if (cursor) {
         cursor.style.display = isInteractive ? 'none' : 'inherit';
       }
-    }
+    };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     document.addEventListener("mouseover", onMouseOver, { passive: true });
@@ -70,8 +66,16 @@ export default function Cursor() {
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseover", onMouseOver);
-    }
-  }, [isMobileDevice])
+    };
+  }, {
+    dependencies: [isMobileDevice],
+    scope: cursorRef,
+    revertOnUpdate: true,
+  });
+
+  if (isMobileDevice) {
+    return null;
+  }
 
   return (
     <svg

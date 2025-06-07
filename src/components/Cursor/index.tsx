@@ -40,8 +40,8 @@ export default function Cursor() {
     const cursor = cursorRef.current;
 
     mouseRef.current = {
-      x: gsap.quickTo(cursor, "x", { duration: 0.2, ease: Expo.easeOut }),
-      y: gsap.quickTo(cursor, "y", { duration: 0.2, ease: Expo.easeOut })
+      x: gsap.quickTo(cursor, "x", { duration: 0.1, ease: Expo.easeOut }),
+      y: gsap.quickTo(cursor, "y", { duration: 0.1, ease: Expo.easeOut })
     };
 
     const onMouseMove = (e: MouseEvent) => {

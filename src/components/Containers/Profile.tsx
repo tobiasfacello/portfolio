@@ -57,15 +57,15 @@ export default function Profile() {
 					gap={"8px"}
 				>
 					<SocialButton
-						url={"https://www.x.com/fachedev"}
+						url={"https://www.x.com/fachebits"}
 						src={Twitter}
 					/>
 					<SocialButton
-						url={"https://www.threads.net/@fache.dev"}
+						url={"https://www.threads.net/@fache.bits"}
 						src={Threads}
 					/>
 					<SocialButton
-						url={"https://www.instagram.com/fache.dev/"}
+						url={"https://www.instagram.com/fache.bits/"}
 						src={Instagram}
 					/>
 					<SocialButton

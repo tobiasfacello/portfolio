@@ -65,7 +65,7 @@ function Projects() {
 						<ProjectCard
 							title={'CentryBoard'}
 							details={'Productivity Booster App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 
 							src={centryBoardVector}
 							url={
@@ -75,14 +75,14 @@ function Projects() {
 						<ProjectCard
 							title={'fache.ai'}
 							details={'AI Assistant App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 							src={facheAIVector}
 							url={'https://fache-ai-agent.vercel.app/'}
 						/>
 						<ProjectCard
 							title={'fache.'}
 							details={'Personal Website'}
-							tag={"🚀 V2.0"}
+							tag={"V2.0"}
 							src={facheVector}
 							url={'https://fache.vercel.app'}
 						/>
@@ -106,7 +106,7 @@ function Projects() {
 						<ProjectCard
 							title={'CentryBoard'}
 							details={'Productivity Booster App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 
 							src={centryBoardVector}
 							url={
@@ -116,14 +116,14 @@ function Projects() {
 						<ProjectCard
 							title={'fache.ai'}
 							details={'AI Assistant App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 							src={facheAIVector}
 							url={'https://fache-ai-agent.vercel.app/'}
 						/>
 						<ProjectCard
 							title={'fache.'}
 							details={'Personal Website'}
-							tag={"🚀 V2.0"}
+							tag={"V2.0"}
 							src={facheVector}
 							url={'https://fache.vercel.app'}
 						/>
@@ -147,7 +147,7 @@ function Projects() {
 						<ProjectCard
 							title={'CentryBoard'}
 							details={'Productivity Booster App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 
 							src={centryBoardVector}
 							url={
@@ -157,14 +157,14 @@ function Projects() {
 						<ProjectCard
 							title={'fache.ai'}
 							details={'AI Assistant App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 							src={facheAIVector}
 							url={'https://fache-ai-agent.vercel.app/'}
 						/>
 						<ProjectCard
 							title={'fache.'}
 							details={'Personal Website'}
-							tag={"🚀 V2.0"}
+							tag={"V2.0"}
 							src={facheVector}
 							url={'https://fache.vercel.app'}
 						/>
@@ -182,7 +182,7 @@ function Projects() {
 						<ProjectCard
 							title={'CentryBoard'}
 							details={'Productivity Booster App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 
 							src={centryBoardVector}
 							url={
@@ -192,14 +192,14 @@ function Projects() {
 						<ProjectCard
 							title={'fache.ai'}
 							details={'AI Assistant App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 							src={facheAIVector}
 							url={'https://fache-ai-agent.vercel.app/'}
 						/>
 						<ProjectCard
 							title={'fache.'}
 							details={'Personal Website'}
-							tag={"🚀 V2.0"}
+							tag={"V2.0"}
 							src={facheVector}
 							url={'https://fache.vercel.app'}
 						/>
@@ -223,7 +223,7 @@ function Projects() {
 						<ProjectCard
 							title={'CentryBoard'}
 							details={'Productivity Booster App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 
 							src={centryBoardVector}
 							url={
@@ -233,14 +233,14 @@ function Projects() {
 						<ProjectCard
 							title={'fache.ai'}
 							details={'AI Assistant App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 							src={facheAIVector}
 							url={'https://fache-ai-agent.vercel.app/'}
 						/>
 						<ProjectCard
 							title={'fache.'}
 							details={'Personal Website'}
-							tag={"🚀 V2.0"}
+							tag={"V2.0"}
 							src={facheVector}
 							url={'https://fache.vercel.app'}
 						/>
@@ -258,7 +258,7 @@ function Projects() {
 						<ProjectCard
 							title={'CentryBoard'}
 							details={'Productivity Booster App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 							src={centryBoardVector}
 							url={
 								'https://centryboard.site/'
@@ -267,14 +267,14 @@ function Projects() {
 						<ProjectCard
 							title={'fache.ai'}
 							details={'AI Assistant App'}
-							tag={"🛠️ Work in progress"}
+							tag={"Work in progress"}
 							src={facheAIVector}
 							url={'https://fache-ai-agent.vercel.app/'}
 						/>
 						<ProjectCard
 							title={'fache.'}
 							details={'Personal Website'}
-							tag={"🚀 V2.0"}
+							tag={"V2.0"}
 							src={facheVector}
 							url={'https://fache.vercel.app'}
 						/>

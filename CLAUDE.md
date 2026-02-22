@@ -4,61 +4,83 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Portfolio personal construido con React 19, TypeScript, Vite y styled-components. Implementa un diseño responsivo con breakpoints específicos (mobile: 360-959px, tablet: 960-1279px, desktop: 1280+) y un cursor personalizado con animaciones GSAP.
+Portfolio personal construido con React 19, TypeScript, Vite y styled-components. Single-page app sin routing — toda la UI vive en `src/pages/Home.tsx`. Implementa un cursor SVG personalizado con animaciones GSAP y smooth scroll con Lenis.
 
 ## Commands
 
-### Development
 ```bash
-npm run dev        # Inicia el servidor de desarrollo en modo host (accesible desde la red local)
-npm run build      # Compila TypeScript y construye para producción
+npm run dev        # Servidor de desarrollo con --host (accesible desde la red local)
+npm run build      # tsc && vite build (compila TS y construye para producción)
 npm run preview    # Previsualiza la build de producción
-npm run lint       # Ejecuta ESLint con TypeScript
+npm run lint       # ESLint con TypeScript (--max-warnings 0, falla con cualquier warning)
 ```
+
+No hay tests configurados.
 
 ## Architecture
 
-### Component Structure
+### Component Tree
 
-**Container Component Pattern**: El componente `Container` (src/components/Containers/Container.tsx) es fundamental en toda la aplicación. Es un wrapper de styled-components que acepta props para estilos flexbox:
-- `w`, `minW`, `maxW`: width
-- `h`, `minH`, `maxH`: height
-- `m`, `p`: margin y padding (arrays que mapean a variables CSS)
-- `direction`, `justify`, `align`, `gap`, `wrap`: propiedades de flexbox
-- `style`: string de CSS inline para estilos adicionales
+`App.tsx` monta: `ReactLenis` > `ThemeProvider` > `Cursor` + `Home`. No hay router.
 
-Usa `StyleSheetManager` con `shouldForwardProp` para evitar que props customizadas pasen al DOM.
+`Home.tsx` es el layout principal. Renderiza bloques `<MediaQuery>` completamente distintos para cada rango de tamaño — no es un layout adaptable, sino JSX diferente por breakpoint.
 
-### Responsive Layouts
+### Breakpoints (más granulares que mobile/tablet/desktop)
 
-El archivo `Home.tsx` define layouts completamente diferentes para cada breakpoint usando `react-responsive` MediaQuery. No hay un layout base que se adapta - cada rango de tamaño tiene su propia estructura JSX completa con diferentes composiciones de `Container`.
+Los componentes usan rangos específicos con `react-responsive` `<MediaQuery>`:
+- **Mobile**: 360-767px, 768-959px (sub-rangos frecuentes)
+- **Tablet**: 960-1279px
+- **Desktop**: 1280-1339px, 1340-1439px, 1440-1800px, 1801px+
 
-### Styling System
+Cada sección (About, Skills, Works, etc.) define sus propios `<MediaQuery>` internamente — no dependen de un breakpoint centralizado.
 
-**CSS Variables**: Definidas en `index.css`:
-- Spacing: `--0` a `--72` (px values)
-- Colors: Sistema de tema con `prefers-color-scheme` (aunque actualmente ambos temas usan los mismos valores)
-- Las variables se referencian en components vía `var(--variable-name)`
+### Patrón `StyleSheetManager` (aplicado en múltiples componentes)
 
-**Styled Components**: Cada componente visual tiene su archivo `styled.tsx` separado del lógico `index.tsx`.
+`Container`, `Text`, `WorkCard`, `Button`, `Pill`, `SocialButton`, etc. todos usan `StyleSheetManager` con `shouldForwardProp` para evitar que props customizadas pasen al DOM. Cada componente define su array `filteredProps` localmente.
+
+### Container Component
+
+`src/components/Containers/Container.tsx` — wrapper flexbox fundamental. Props:
+- `w`, `minW`, `maxW`, `h`, `minH`, `maxH`: dimensiones CSS directas
+- `m`, `p`: arrays de strings que mapean a CSS vars (`['36', '0', '36', '0']` → `var(--36) var(--0) var(--36) var(--0)`)
+- `direction`, `justify`, `align`, `gap`, `wrap`: propiedades flexbox
+- `style`: string de CSS literal (no un objeto, sino un template string)
+
+### Section Containers
+
+`src/components/Containers/{About,Profile,Projects,Skills,Works,Header,Footer}.tsx` — cada uno es un componente auto-contenido con su propio styled-component y múltiples `<MediaQuery>` internos. Algunos aceptan `flex` prop para layout desktop (ej: `<Skills flex={1} />`, `<Works flex={2} />`).
+
+### Text Component & Variants
+
+`Text` acepta un `variant` string que determina estilos. Variantes existentes:
+- `title`, `subtitle-fst`, `subtitle-fst desktop`, `subtitle-snd`
+- `paragraph`, `paragraph work-card`, `paragraph desktop`
+- `details-fst`, `details-snd`
+
+Los variantes con sufijo "desktop" incluyen media queries internas para ajustar font-size.
+
+### CSS Variables (index.css)
+
+- **Spacing**: `--0` a `--72` (valores en px)
+- **Colors**: `--text`, `--background`, `--primary`, `--secondary`, `--secondary-60`, `--accent`, `--neutral-dark-05`, `--neutral-dark-15`, `--pill-text-hovered`
+- Color scheme: ambos temas (light/dark) usan los mismos valores actualmente
 
 ### Animation & Interaction
 
-**GSAP Integration**: El componente `Cursor` usa:
-- `useGSAP` hook de @gsap/react
-- `gsap.quickTo()` para animaciones de seguimiento del cursor con `Expo.easeOut`
-- Detección de dispositivos móviles via `window.matchMedia('(hover: none) and (pointer: coarse)')`
-
-**Smooth Scroll**: ReactLenis wrapper en App.tsx con `lerp: 0.1, duration: 1.7`.
+- **GSAP**: `Cursor` usa `gsap.quickTo()` con `Expo.easeOut` para seguimiento del mouse. Se oculta en dispositivos táctiles (`hover: none` + `pointer: coarse`) y sobre elementos interactivos (`.button`, `.work-card`, `.project-card`, `a`, `link`)
+- **Lenis**: Smooth scroll con `lerp: 0.1, duration: 1.7, smoothWheel: true`
+- **Swiper**: `WorkCardsCarousel` usa Swiper con `Autoplay` module. En mobile muestra cards estáticas; en tablet/desktop usa carousel con `slidesPerView` variable (1, 2, o 3 según breakpoint)
 
 ### Theme System
 
-`ThemeContext` detecta `prefers-color-scheme` y proporciona `isDarkMode` via context. El hook `useTheme` encapsula el acceso al contexto con error handling.
+`ThemeContext` detecta `prefers-color-scheme` y expone `isDarkMode` via context. Hook: `useTheme()`. Actualmente sin efecto visual porque ambos temas comparten los mismos colores.
 
 ## Key Conventions
 
-- **Imports**: Comentarios con `//!` para imports de terceros, `//?` para lógica/hooks
-- **TypeScript**: Strict mode habilitado, tipos definidos en `src/types/index.ts`
-- **Assets**: Organizados en `/assets/{fonts,images,vectors,icons,works}`
-- **Custom fonts**: Evolventa (Regular/Bold) cargadas via @font-face
-- **Cursor personalizado**: El body tiene `cursor: none` y usa el componente Cursor SVG personalizado
+- **Import comments**: `//!` terceros, `//?` lógica/hooks, `//*` componentes/assets internos
+- **Tipos**: definidos en `src/types/index.ts` (actualmente solo ThemeProviderProps y ThemeContextType)
+- **Props**: la mayoría de componentes usan `props: any` en lugar de interfaces tipadas
+- **Styled components**: separados en `styled.tsx` junto al `index.tsx` del componente (excepto secciones como About/Skills que definen styled-components inline)
+- **Cursor**: `body { cursor: none }` global — el cursor SVG customizado reemplaza al nativo
+- **Fonts**: Evolventa (Regular/Bold) via @font-face + Plus Jakarta Sans via Google Fonts
+- **Assets**: organizados en `/assets/{fonts,images,vectors,icons,works}`

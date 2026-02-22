@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheetManager } from 'styled-components';
 import { StyledProjectCard } from './styled';
 
@@ -6,9 +6,11 @@ import { StyledProjectCard } from './styled';
 import Text from '../Text';
 import Container from '../Containers/Container';
 import PillTag from '../Pill';
+import UnicodeSpinner from '../UnicodeSpinner';
 
 function ProjectCard(props: any) {
 	const [isHovered, setIsHovered] = useState(false);
+	const [imageLoaded, setImageLoaded] = useState(false);
 
 	const filteredProps: string[] = [
 		'isHovered',
@@ -19,6 +21,17 @@ function ProjectCard(props: any) {
 		'src',
 		'url',
 	];
+
+	useEffect(() => {
+		if (!props.src) return;
+		const img = new Image();
+		img.src = props.src;
+		if (img.complete) {
+			setImageLoaded(true);
+		} else {
+			img.onload = () => setImageLoaded(true);
+		}
+	}, [props.src]);
 
 	const handleClick = (url: string) => {
 		window.location.href = url;
@@ -49,7 +62,11 @@ function ProjectCard(props: any) {
 					/>
 				</Container>
 				<Container direction={'column'} justify={'center'} align={'end'}>
-					<img src={props.src} />
+					{!imageLoaded && <UnicodeSpinner name="pulse" />}
+					<img
+						src={props.src}
+						style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
+					/>
 				</Container>
 			</StyledProjectCard>
 		</StyleSheetManager>

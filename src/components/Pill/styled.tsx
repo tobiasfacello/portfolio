@@ -7,11 +7,12 @@ export const StyledPillTag = styled.span<{
 	p: string[];
 }>`
 	width: auto;
-	max-width: ${(props) => (props.maxW == null ? "85px" : props.maxW)};
+	max-width: ${(props) => (props.maxW == null ? "130px" : props.maxW)};
 	height: 22px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 4px;
 	margin: ${(props) =>
 		props.m &&
 		props.m.map((marginSize) => `var(--${marginSize})`).join(" ")};

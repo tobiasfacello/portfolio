@@ -14,14 +14,14 @@ export const StyledText = styled.p<{
 	padding: ${(props) =>
 		props.p && props.p.map((paddingSize) => `var(--${paddingSize})`).join(' ')};
 	text-align: ${(props) => props.alignment !== null && props.alignment};
-	font-family: 'Plus Jakarta Sans';
+	font-family: var(--font-geist-pixel-grid);
 
 	${(props) =>
 		props.variant === 'title' &&
 		`
 			font-size: 40px;
 			line-height: 40px;
-			font-weight: 600;
+			font-weight: 500;
 			color: var(--text);
 	`}
 
@@ -30,7 +30,7 @@ export const StyledText = styled.p<{
 		`
 			font-size: 30px;
 			line-height: 30px;
-			font-weight: 600;
+			font-weight: 500;
 			color: var(--text);
 	`}
 
@@ -39,7 +39,7 @@ ${(props) =>
 		`
 			font-size: 40px;
 			line-height: 40px;
-			font-weight: 600;
+			font-weight: 500;
 			color: var(--text);
 	`}
 
@@ -48,16 +48,15 @@ ${(props) =>
 		`
 			font-size: 18px;
 			line-height: 18px;
-			font-weight: 600;
+			font-weight: 500;
 			color: var(--text);
 	`}
 
 ${(props) =>
 		props.variant === 'paragraph' &&
 		`
-			line-height: 16px;
 			font-size: 16px;
-			font-weight: 400;
+			font-weight: 500;
 			line-height: 24px;
 			opacity: 80%;
 			color: var(--text);
@@ -67,7 +66,7 @@ ${(props) =>
 		props.variant === 'paragraph work-card' &&
 		`
 			font-size: 14px;
-			font-weight: 400;
+			font-weight: 500;
 			line-height: 20px;
 			opacity: 80%;
 			color: var(--text);
@@ -77,7 +76,7 @@ ${(props) =>
 		props.variant === 'paragraph desktop' &&
 		`
 			text-align: start;
-			font-weight: 400;
+			font-weight: 500;
 			word-spacing: 2px;
 			opacity: 80%;
 			color: var(--text);
@@ -102,9 +101,10 @@ ${(props) =>
 		`
 			line-height: 15px;
 			font-size: 12px;
+			font-weight: 500;
 			opacity: 80%;
 			color: var(--text);
-			
+
 	`}
 
 	${(props) =>

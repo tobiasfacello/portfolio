@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 //* Components
 import Container from "./Container";
-import ImageFrame from "../ImageFrame";
+import AsciiProfile from "../AsciiProfile";
 import SocialButton from "../SocialButton";
 import Text from "../Text";
 
@@ -35,9 +35,7 @@ const StyledProfile = styled.div<{}>`
 export default function Profile() {
 	return (
 		<StyledProfile>
-			<ImageFrame
-				src={profilePicture}
-			/>
+			<AsciiProfile src={profilePicture} />
 			<Container
 				w={"100%"}
 				h={"auto"}

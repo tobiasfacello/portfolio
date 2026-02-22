@@ -14,6 +14,46 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'Geist Pixel Square';
+	src: url('assets/fonts/GeistPixel-Square.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Geist Pixel Grid';
+	src: url('assets/fonts/GeistPixel-Grid.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Geist Pixel Circle';
+	src: url('assets/fonts/GeistPixel-Circle.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Geist Pixel Triangle';
+	src: url('assets/fonts/GeistPixel-Triangle.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Geist Pixel Line';
+	src: url('assets/fonts/GeistPixel-Line.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
 :root {
 	--0: 0px;
 	--2: 2px;
@@ -30,6 +70,11 @@
 	--translate-y: 0.25rem;
 	--translate-x: 0.5rem;
 	--rotate: 6deg;
+	--font-geist-pixel-square: 'Geist Pixel Square', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+	--font-geist-pixel-grid: 'Geist Pixel Grid', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+	--font-geist-pixel-circle: 'Geist Pixel Circle', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+	--font-geist-pixel-triangle: 'Geist Pixel Triangle', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+	--font-geist-pixel-line: 'Geist Pixel Line', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
 }
 
 /** Global Vars */

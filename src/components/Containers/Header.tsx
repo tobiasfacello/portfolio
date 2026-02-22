@@ -1,12 +1,24 @@
+import { useRef, useEffect } from "react";
 import styled from "styled-components";
 
 //* Components
 import Container from "./Container";
-import Logo from "../Logo";
+import AsciiLogo from "../AsciiLogo";
+
+//? Context
+import { useSplash } from "../../context/SplashContext";
 
 const StyledHeader = styled.div``;
 
 function Header() {
+	const { isSplashComplete, headerLogoRef } = useSplash();
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	// Expose the container ref for splash logo position measurement
+	useEffect(() => {
+		headerLogoRef.current = containerRef.current;
+	}, [headerLogoRef]);
+
 	return (
 		<StyledHeader>
 			<Container
@@ -14,7 +26,9 @@ function Header() {
 				justify={"center"}
 				align={"center"}
 			>
-				<Logo>fache.</Logo>
+				<div ref={containerRef}>
+					{isSplashComplete && <AsciiLogo skipAnimation={true} />}
+				</div>
 			</Container>
 		</StyledHeader>
 	);

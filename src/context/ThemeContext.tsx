@@ -1,5 +1,3 @@
-"use client"
-
 //! React Core
 import { createContext, useEffect, useState } from 'react';
 

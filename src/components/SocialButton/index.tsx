@@ -3,7 +3,7 @@ import { StyledSocialButton } from "./styled";
 
 function SocialButton(props: any) {
 	const handleClick = (url: string) => {
-		window.location.href = url;
+		window.open(url, '_blank', 'noopener,noreferrer');
 	};
 
 	const filteredProps: string[] = ["src", "url"];

@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
-
 @font-face {
 	font-family: 'Evolventa Regular';
 	src: local('Evolventa'), url('assets/fonts/Evolventa-Regular.woff');
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -12,6 +11,7 @@
 	src: local('Evolventa Bold'), url('assets/fonts/Evolventa-Bold.woff');
 	font-weight: bold;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {

@@ -81,7 +81,6 @@ function WorkCard(props: WorkCardProps) {
 						<Button
 							title={'Visit page'}
 							p={['0', '2', '0', '8']}
-							url={props.url}
 						>
 							<IconFrame src={arrowIcon} />
 						</Button>

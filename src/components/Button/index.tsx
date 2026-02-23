@@ -9,14 +9,14 @@ import { ButtonProps } from "../../types";
 
 function Button(props: ButtonProps) {
 	const [isHovered, setIsHovered] = useState(false);
+	const isLink = !!props.url;
 
 	return (
 		<StyledButton
+			as={isLink ? "a" : "span"}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
-			href={props.url}
-			target="_blank"
-			rel="noopener noreferrer"
+			{...(isLink ? { href: props.url, target: "_blank", rel: "noopener noreferrer" } : {})}
 			$isHovered={isHovered}
 			$p={props.p}
 			$m={props.m}

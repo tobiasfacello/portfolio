@@ -1,9 +1,6 @@
-import { StyleSheetManager } from "styled-components";
 import { StyledImageFrame } from "./styled";
 
 function ImageFrame(props: any) {
-	const filteredProps: string[] = ["p", "m", "src"];
-
 	const containerStyles = {
 		display: "flex",
 		alignItems: "center",
@@ -13,15 +10,11 @@ function ImageFrame(props: any) {
 	};
 
 	return (
-		<StyleSheetManager
-			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
-		>
-			<div style={containerStyles}>
-				<StyledImageFrame p={props.p} m={props.m}>
-					<img src={props.src} alt={props.alt || ""} />
-				</StyledImageFrame>
-			</div>
-		</StyleSheetManager>
+		<div style={containerStyles}>
+			<StyledImageFrame $p={props.p} $m={props.m}>
+				<img src={props.src} alt={props.alt || ""} />
+			</StyledImageFrame>
+		</div>
 	);
 }
 

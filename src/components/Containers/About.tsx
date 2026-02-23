@@ -327,25 +327,25 @@ export default function About() {
 						gap={"20px"}
 					>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 						</Text>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 						</Text>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
 						</Text>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
@@ -378,25 +378,25 @@ export default function About() {
 						gap={"20px"}
 					>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
 						</Text>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
 						</Text>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
 						</Text>
 						<Text
-							variant={"paragraph desktop"}
+							variant={"paragraph-desktop"}
 							alignment={"left"}
 						>
 							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.

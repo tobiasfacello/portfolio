@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 export const StyledText = styled.p<{
-	w: string;
-	h: string;
-	m: string[];
-	p: string[];
-	variant: string;
-	alignment: string;
+	$w: string;
+	$h: string;
+	$m: string[];
+	$p: string[];
+	$variant: string;
+	$alignment: string;
 }>`
-	width: ${(props) => props.w};
-	height: ${(props) => props.h};
+	width: ${(props) => props.$w};
+	height: ${(props) => props.$h};
 	margin: ${(props) =>
-		props.m && props.m.map((marginSize) => `var(--${marginSize})`).join(' ')};
+		props.$m && props.$m.map((marginSize) => `var(--${marginSize})`).join(' ')};
 	padding: ${(props) =>
-		props.p && props.p.map((paddingSize) => `var(--${paddingSize})`).join(' ')};
-	text-align: ${(props) => props.alignment !== null && props.alignment};
+		props.$p && props.$p.map((paddingSize) => `var(--${paddingSize})`).join(' ')};
+	text-align: ${(props) => props.$alignment !== null && props.$alignment};
 	font-family: var(--font-geist-pixel-grid);
 
 	${(props) =>
-		props.variant === 'title' &&
+		props.$variant === 'title' &&
 		`
 			font-size: 40px;
 			line-height: 40px;
@@ -26,7 +26,7 @@ export const StyledText = styled.p<{
 	`}
 
 	${(props) =>
-		props.variant === 'subtitle-fst' &&
+		props.$variant === 'subtitle-fst' &&
 		`
 			font-size: 30px;
 			line-height: 30px;
@@ -35,7 +35,7 @@ export const StyledText = styled.p<{
 	`}
 
 ${(props) =>
-		props.variant === 'subtitle-fst desktop' &&
+		props.$variant === 'subtitle-fst-desktop' &&
 		`
 			font-size: 40px;
 			line-height: 40px;
@@ -44,7 +44,7 @@ ${(props) =>
 	`}
 
 	${(props) =>
-		props.variant === 'subtitle-snd' &&
+		props.$variant === 'subtitle-snd' &&
 		`
 			font-size: 18px;
 			line-height: 18px;
@@ -53,7 +53,7 @@ ${(props) =>
 	`}
 
 ${(props) =>
-		props.variant === 'paragraph' &&
+		props.$variant === 'paragraph' &&
 		`
 			font-size: 16px;
 			font-weight: 500;
@@ -63,7 +63,7 @@ ${(props) =>
 	`}
 
 	${(props) =>
-		props.variant === 'paragraph work-card' &&
+		props.$variant === 'paragraph-work-card' &&
 		`
 			font-size: 14px;
 			font-weight: 500;
@@ -73,7 +73,7 @@ ${(props) =>
 	`}
 
 ${(props) =>
-		props.variant === 'paragraph desktop' &&
+		props.$variant === 'paragraph-desktop' &&
 		`
 			text-align: start;
 			font-weight: 500;
@@ -97,7 +97,7 @@ ${(props) =>
 	`}
 
 	${(props) =>
-		props.variant === 'details-fst' &&
+		props.$variant === 'details-fst' &&
 		`
 			line-height: 15px;
 			font-size: 12px;
@@ -108,7 +108,7 @@ ${(props) =>
 	`}
 
 	${(props) =>
-		props.variant === 'details-snd' &&
+		props.$variant === 'details-snd' &&
 		`
 			line-height: 10px;
 			font-size: 10px;

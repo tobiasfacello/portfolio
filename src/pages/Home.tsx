@@ -65,14 +65,14 @@ function Home() {
 						h={'100%'}
 						justify={'center'}
 						align={'center'}
-						style={'border-top: 1px solid var(--secondary-60);'}
+						$css={'border-top: 1px solid var(--secondary-60);'}
 					>
 						<Container
 							w={'90%'}
 							h={"100%"}
 							justify={'center'}
 							align={'center'}
-							style={`
+							$css={`
 								border-left: 1px solid var(--secondary-60);
 								border-right: 1px solid var(--secondary-60);
 								`}
@@ -89,7 +89,7 @@ function Home() {
 					minH={"462px"}
 					justify={'center'}
 					align={'start'}
-					style={'border-top: 1px solid var(--secondary-60);'}
+					$css={'border-top: 1px solid var(--secondary-60);'}
 				>
 					<Container w={'90%'} h={"100%"} justify={'center'} align={'center'}>
 						<Skills flex={1} />
@@ -111,14 +111,14 @@ function Home() {
 						w={'100%'}
 						justify={'center'}
 						align={'center'}
-						style={'border-top: 1px solid var(--secondary-60);'}
+						$css={'border-top: 1px solid var(--secondary-60);'}
 					>
 						<Container
 							w={'90%'}
 							h={"100%"}
 							justify={'center'}
 							align={'center'}
-							style={`
+							$css={`
 								border-left: 1px solid var(--secondary-60);
 								border-right: 1px solid var(--secondary-60);
 								`}
@@ -134,7 +134,7 @@ function Home() {
 					h={'55vh'}
 					minH={"510px"}
 					justify={'center'}
-					style={'border-top: 1px solid var(--secondary-60);'}
+					$css={'border-top: 1px solid var(--secondary-60);'}
 				>
 					<Container w={'90%'} justify={'center'} align={'center'}>
 						<Skills flex={1} />
@@ -156,14 +156,14 @@ function Home() {
 						h={'100%'}
 						justify={'center'}
 						align={'center'}
-						style={'border-top: 1px solid var(--secondary-60);'}
+						$css={'border-top: 1px solid var(--secondary-60);'}
 					>
 						<Container
 							w={'90%'}
 							h={"fit-content"}
 							justify={'center'}
 							align={'center'}
-							style={`
+							$css={`
 								border-left: 1px solid var(--secondary-60);
 								border-right: 1px solid var(--secondary-60);
 								`}
@@ -181,7 +181,7 @@ function Home() {
 					minH={"530px"}
 					justify={'center'}
 					align={'start'}
-					style={'border-top: 1px solid var(--secondary-60);'}
+					$css={'border-top: 1px solid var(--secondary-60);'}
 				>
 					<Container w={'90%'} justify={'center'} align={'center'}>
 						<Skills flex={1} />

@@ -142,7 +142,7 @@ function Works(props: any) {
 						</Text>
 					</Container>
 					<Container
-						style={"overflow: hidden;"}
+						$css={"overflow: hidden;"}
 						w={"100vw"}
 						direction={"column"}
 						justify={"center"}
@@ -168,7 +168,7 @@ function Works(props: any) {
 					</Text>
 				</Container>
 				<Container
-					style={"overflow: hidden;"}
+					$css={"overflow: hidden;"}
 					minH={"402px"}
 					w={"56.4vw"}
 					direction={"row"}
@@ -194,7 +194,7 @@ function Works(props: any) {
 					</Text>
 				</Container>
 				<Container
-					style={"overflow: hidden;"}
+					$css={"overflow: hidden;"}
 					minH={"402px"}
 					w={"57.1vw"}
 					direction={"row"}
@@ -220,7 +220,7 @@ function Works(props: any) {
 					</Text>
 				</Container>
 				<Container
-					style={"overflow: hidden;"}
+					$css={"overflow: hidden;"}
 					minH={"402px"}
 					w={"57.55vw"}
 					direction={"row"}

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import MediaQuery from "react-responsive";
 
 //* Components
 import Container from "./Container";
@@ -8,32 +7,15 @@ import Text from "../Text";
 //? Types
 import { SectionProps } from "../../types";
 
-//* Assets
-import BashIcon from "../../assets/icons/Bash.svg";
-import TSIcon from "../../assets/icons/TypeScript.svg";
-import NodeJSIcon from "../../assets/icons/NodeJS.svg";
-import JSIcon from "../../assets/icons/JavaScript.svg";
-import CSSIcon from "../../assets/icons/CSS.svg";
-import WCIcon from "../../assets/icons/WebComponents.svg";
-import ReactJSIcon from "../../assets/icons/ReactJS.svg";
-import NextJSIcon from "../../assets/icons/NextJS.svg";
-import ExpressJSIcon from "../../assets/icons/ExpressJS.svg";
-import PostmanIcon from "../../assets/icons/Postman.svg";
-import FirebaseIcon from "../../assets/icons/Firebase.svg";
-import PostgreSQLIcon from "../../assets/icons/PostgreSQL.svg";
-import SequelizeJSIcon from "../../assets/icons/SequelizeJS.svg";
-import PrismaIcon from "../../assets/icons/Prisma.svg";
-import GitIcon from "../../assets/icons/Git.svg";
-import ThreeJSIcon from "../../assets/icons/ThreeJS.svg";
-import FramerMotionIcon from "../../assets/icons/FramerMotion.svg";
-import FigmaIcon from "../../assets/icons/Figma.svg";
-import FramerIcon from "../../assets/icons/Framer.svg";
-import AISDKIcon from "../../assets/icons/AISDK.svg";
+//? Hooks, Config & Data
+import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { skillsConfig } from "../../config/responsive";
+import { skillRows } from "../../data/skills";
 
 const StyledSkills = styled.section<{
 	flex?: number;
 }>`
-	width: 100%;;
+	width: 100%;
 	height: 100%;
 	padding: 0 20px;
 	display: flex;
@@ -63,409 +45,85 @@ const StyledIcon = styled.img`
 `;
 
 function Skills(props: SectionProps) {
-	return (
-		<StyledSkills flex={props.flex}>
-			<MediaQuery minWidth={360} maxWidth={767}>
-				<Container
-					w={"100%"}
-					maxW={"500px"}
-					h={"70%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						w={"100%"}
-						h={"100%"}
-						justify={"flex-start"}
-						align={"center"}
-					>
-						<Text as="h2" variant={"subtitle-snd"} alignment={"center"}>
-							SKILLS & TOOLS
-						</Text>
-					</Container>
-					<Container
-						justify={"space-between"}
-						align={"center"}
-					>
-						<StyledIcon src={BashIcon} title="Bash" alt="Bash" />
-						<StyledIcon src={NodeJSIcon} title="Node.js" alt="Node.js" />
-						<StyledIcon src={JSIcon} title="JavaScript" alt="JavaScript" />
-						<StyledIcon src={TSIcon} title="TypeScript" alt="TypeScript" />
-					</Container>
-					<Container
-						justify={"space-between"}
-						align={"center"}
-					>
-						<StyledIcon src={CSSIcon} title="CSS" alt="CSS" />
-						<StyledIcon src={WCIcon} title="Web Components" alt="Web Components" />
-						<StyledIcon src={ReactJSIcon} title="React.js" alt="React.js" />
-						<StyledIcon src={NextJSIcon} title="Next.js" alt="Next.js" />
-					</Container>
-					<Container justify={"space-between"} align={"center"}>
-						<StyledIcon src={ExpressJSIcon} title="Express.js" alt="Express.js" />
-						<StyledIcon src={PostmanIcon} title="Postman" alt="Postman" />
-						<StyledIcon src={FirebaseIcon} title="Firebase" alt="Firebase" />
-						<StyledIcon src={PostgreSQLIcon} title="PostgreSQL" alt="PostgreSQL" />
-					</Container>
-					<Container justify={"space-between"} align={"center"}>
-						<StyledIcon src={SequelizeJSIcon} title="Sequelize" alt="Sequelize" />
-						<StyledIcon src={PrismaIcon} title="Prisma" alt="Prisma" />
-						<StyledIcon src={GitIcon} title="Git" alt="Git" />
-						<StyledIcon src={ThreeJSIcon} title="Three.js" alt="Three.js" />
-					</Container>
-					<Container justify={"space-between"} align={"center"}>
-						<StyledIcon src={FramerMotionIcon} title="Framer Motion" alt="Framer Motion" />
-						<StyledIcon src={FigmaIcon} title="Figma" alt="Figma" />
-						<StyledIcon src={FramerIcon} title="Framer" alt="Framer" />
-						<StyledIcon src={AISDKIcon} title="AI SDK" alt="AI SDK" />
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={768} maxWidth={959}>
-				<Container
-					w={"80%"}
-					h={"70%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						w={"100%"}
-						h={"100%"}
-						justify={"flex-start"}
-						align={"center"}
-					>
+	const bp = useBreakpoint();
+	const cfg = skillsConfig[bp];
 
-						<Text as="h2" variant={"subtitle-snd"}>
-							SKILLS & TOOLS
-						</Text>
-					</Container>
-					<Container
-						h={"70%"}
-						direction={"column"}
-						justify={"center"}
-						align={"center"}
-						gap={"24px"}
-					>
-						<Container
-							w={"100%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={BashIcon} title="Bash" alt="Bash" />
-							<StyledIcon src={NodeJSIcon} title="Node.js" alt="Node.js" />
-							<StyledIcon src={JSIcon} title="JavaScript" alt="JavaScript" />
-							<StyledIcon src={TSIcon} title="TypeScript" alt="TypeScript" />
-						</Container>
-						<Container
-							w={"100%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={CSSIcon} title="CSS" alt="CSS" />
-							<StyledIcon src={WCIcon} title="Web Components" alt="Web Components" />
-							<StyledIcon src={ReactJSIcon} title="React.js" alt="React.js" />
-							<StyledIcon src={NextJSIcon} title="Next.js" alt="Next.js" />
-						</Container>
-						<Container
-							w={"100%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={ExpressJSIcon} title="Express.js" alt="Express.js" />
-							<StyledIcon src={PostmanIcon} title="Postman" alt="Postman" />
-							<StyledIcon src={FirebaseIcon} title="Firebase" alt="Firebase" />
-							<StyledIcon src={PostgreSQLIcon} title="PostgreSQL" alt="PostgreSQL" />
-						</Container>
-						<Container
-							w={"100%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={SequelizeJSIcon} title="Sequelize" alt="Sequelize" />
-							<StyledIcon src={PrismaIcon} title="Prisma" alt="Prisma" />
-							<StyledIcon src={GitIcon} title="Git" alt="Git" />
-							<StyledIcon src={ThreeJSIcon} title="Three.js" alt="Three.js" />
-						</Container>
-						<Container
-							w={"100%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={FramerMotionIcon} title="Framer Motion" alt="Framer Motion" />
-							<StyledIcon src={FigmaIcon} title="Figma" alt="Figma" />
-							<StyledIcon src={FramerIcon} title="Framer" alt="Framer" />
-							<StyledIcon src={AISDKIcon} title="AI SDK" alt="AI SDK" />
-						</Container>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container
-					w={"80%"}
-					h={"100%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						w={"100%"}
-						h={"100%"}
-						justify={"flex-start"}
-						align={"center"}
-					>
-						<Text as="h2" variant={"subtitle-snd"} >
-							SKILLS & TOOLS
-						</Text>
-					</Container>
-					<Container
-						h={"70%"}
-						direction={"column"}
-						justify={"center"}
-						align={"center"}
-						gap={"24px"}
-					>
-						<Container
-							w={"70%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={BashIcon} title="Bash" alt="Bash" />
-							<StyledIcon src={NodeJSIcon} title="Node.js" alt="Node.js" />
-							<StyledIcon src={JSIcon} title="JavaScript" alt="JavaScript" />
-							<StyledIcon src={TSIcon} title="TypeScript" alt="TypeScript" />
-						</Container>
-						<Container
-							w={"70%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={CSSIcon} title="CSS" alt="CSS" />
-							<StyledIcon src={WCIcon} title="Web Components" alt="Web Components" />
-							<StyledIcon src={ReactJSIcon} title="React.js" alt="React.js" />
-							<StyledIcon src={NextJSIcon} title="Next.js" alt="Next.js" />
-						</Container>
-						<Container
-							w={"70%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={ExpressJSIcon} title="Express.js" alt="Express.js" />
-							<StyledIcon src={PostmanIcon} title="Postman" alt="Postman" />
-							<StyledIcon src={FirebaseIcon} title="Firebase" alt="Firebase" />
-							<StyledIcon src={PostgreSQLIcon} title="PostgreSQL" alt="PostgreSQL" />
-						</Container>
-						<Container
-							w={"70%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={SequelizeJSIcon} title="Sequelize" alt="Sequelize" />
-							<StyledIcon src={PrismaIcon} title="Prisma" alt="Prisma" />
-							<StyledIcon src={GitIcon} title="Git" alt="Git" />
-							<StyledIcon src={ThreeJSIcon} title="Three.js" alt="Three.js" />
-						</Container>
-						<Container
-							w={"70%"}
-							justify={"space-evenly"}
-							align={"center"}
-						>
-							<StyledIcon src={FramerMotionIcon} title="Framer Motion" alt="Framer Motion" />
-							<StyledIcon src={FigmaIcon} title="Figma" alt="Figma" />
-							<StyledIcon src={FramerIcon} title="Framer" alt="Framer" />
-							<StyledIcon src={AISDKIcon} title="AI SDK" alt="AI SDK" />
-						</Container>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1280} maxWidth={1439}>
-				<Container
-					w={"100%"}
-					h={"100%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						w={"100%"}
-						h={"auto"}
-						justify={"flex-start"}
-						align={"center"}
-					>
-						<Text as="h2" variant={"subtitle-snd"} >
-							SKILLS & TOOLS
-						</Text>
-					</Container>
-					<Container
-						h={"100%"}
-						direction={"column"}
-						justify={"center"}
-						align={"center"}
-						gap={"24px"}
-					>
-						<Container
-							justify={"space-between"}
-							align={"center"}
-						>
-							<StyledIcon src={BashIcon} title="Bash" alt="Bash" />
-							<StyledIcon src={NodeJSIcon} title="Node.js" alt="Node.js" />
-							<StyledIcon src={JSIcon} title="JavaScript" alt="JavaScript" />
-							<StyledIcon src={TSIcon} title="TypeScript" alt="TypeScript" />
-						</Container>
-						<Container
-							justify={"space-between"}
-							align={"center"}
-						>
-							<StyledIcon src={CSSIcon} title="CSS" alt="CSS" />
-							<StyledIcon src={WCIcon} title="Web Components" alt="Web Components" />
-							<StyledIcon src={ReactJSIcon} title="React.js" alt="React.js" />
-							<StyledIcon src={NextJSIcon} title="Next.js" alt="Next.js" />
-						</Container>
-						<Container justify={"space-between"} align={"center"}>
-							<StyledIcon src={ExpressJSIcon} title="Express.js" alt="Express.js" />
-							<StyledIcon src={PostmanIcon} title="Postman" alt="Postman" />
-							<StyledIcon src={FirebaseIcon} title="Firebase" alt="Firebase" />
-							<StyledIcon src={PostgreSQLIcon} title="PostgreSQL" alt="PostgreSQL" />
-						</Container>
-						<Container justify={"space-between"} align={"center"}>
-							<StyledIcon src={SequelizeJSIcon} title="Sequelize" alt="Sequelize" />
-							<StyledIcon src={PrismaIcon} title="Prisma" alt="Prisma" />
-							<StyledIcon src={GitIcon} title="Git" alt="Git" />
-							<StyledIcon src={ThreeJSIcon} title="Three.js" alt="Three.js" />
-						</Container>
-						<Container justify={"space-between"} align={"center"}>
-							<StyledIcon src={FramerMotionIcon} title="Framer Motion" alt="Framer Motion" />
-							<StyledIcon src={FigmaIcon} title="Figma" alt="Figma" />
-							<StyledIcon src={FramerIcon} title="Framer" alt="Framer" />
-							<StyledIcon src={AISDKIcon} title="AI SDK" alt="AI SDK" />
-						</Container>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container
-					w={"80%"}
-					h={"100%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"space-between"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						w={"100%"}
-						h={"auto"}
-						justify={"flex-start"}
-						align={"center"}
-					>
-						<Text as="h2" variant={"subtitle-snd"}>
-							SKILLS & TOOLS
-						</Text>
-					</Container>
-					<Container
-						h={"100%"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"center"}
-					>
-						<Container
-							justify={"space-between"}
-							align={"center"}
-						>
-							<StyledIcon src={BashIcon} title="Bash" alt="Bash" />
-							<StyledIcon src={NodeJSIcon} title="Node.js" alt="Node.js" />
-							<StyledIcon src={JSIcon} title="JavaScript" alt="JavaScript" />
-							<StyledIcon src={TSIcon} title="TypeScript" alt="TypeScript" />
-						</Container>
-						<Container
-							justify={"space-between"}
-							align={"center"}
-						>
-							<StyledIcon src={CSSIcon} title="CSS" alt="CSS" />
-							<StyledIcon src={WCIcon} title="Web Components" alt="Web Components" />
-							<StyledIcon src={ReactJSIcon} title="React.js" alt="React.js" />
-							<StyledIcon src={NextJSIcon} title="Next.js" alt="Next.js" />
-						</Container>
-						<Container justify={"space-between"} align={"center"}>
-							<StyledIcon src={ExpressJSIcon} title="Express.js" alt="Express.js" />
-							<StyledIcon src={PostmanIcon} title="Postman" alt="Postman" />
-							<StyledIcon src={FirebaseIcon} title="Firebase" alt="Firebase" />
-							<StyledIcon src={PostgreSQLIcon} title="PostgreSQL" alt="PostgreSQL" />
-						</Container>
-						<Container justify={"space-between"} align={"center"}>
-							<StyledIcon src={SequelizeJSIcon} title="Sequelize" alt="Sequelize" />
-							<StyledIcon src={PrismaIcon} title="Prisma" alt="Prisma" />
-							<StyledIcon src={GitIcon} title="Git" alt="Git" />
-							<StyledIcon src={ThreeJSIcon} title="Three.js" alt="Three.js" />
-						</Container>
-						<Container justify={"space-between"} align={"center"}>
-							<StyledIcon src={FramerMotionIcon} title="Framer Motion" alt="Framer Motion" />
-							<StyledIcon src={FigmaIcon} title="Figma" alt="Figma" />
-							<StyledIcon src={FramerIcon} title="Framer" alt="Framer" />
-							<StyledIcon src={AISDKIcon} title="AI SDK" alt="AI SDK" />
-						</Container>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1801}>
-				<Text as="h2" variant={"subtitle-snd"} m={["48", "0", "36", "0"]}>
+	const iconGrid = skillRows.map((row, i) => (
+		<Container
+			key={i}
+			w={cfg.iconRowW}
+			justify={cfg.iconRowJustify}
+			align={"center"}
+		>
+			{row.map((icon) => (
+				<StyledIcon
+					key={icon.title}
+					src={icon.src}
+					title={icon.title}
+					alt={icon.title}
+				/>
+			))}
+		</Container>
+	));
+
+	if (cfg.titleOutside) {
+		return (
+			<StyledSkills flex={props.flex}>
+				<Text as="h2" variant={"subtitle-snd"} m={cfg.titleM}>
 					SKILLS & TOOLS
 				</Text>
 				<Container
-					h={"70%"}
+					h={cfg.outerH}
 					m={["36", "0", "36", "0"]}
-					p={["0", "72", "0", "72"]}
+					p={cfg.iconContainerP}
 					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
-					<Container
-						justify={"space-between"}
-						align={"center"}
-					>
-						<StyledIcon src={BashIcon} title="Bash" alt="Bash" />
-						<StyledIcon src={NodeJSIcon} title="Node.js" alt="Node.js" />
-						<StyledIcon src={JSIcon} title="JavaScript" alt="JavaScript" />
-						<StyledIcon src={TSIcon} title="TypeScript" alt="TypeScript" />
-					</Container>
-					<Container
-						justify={"space-between"}
-						align={"center"}
-					>
-						<StyledIcon src={CSSIcon} title="CSS" alt="CSS" />
-						<StyledIcon src={WCIcon} title="Web Components" alt="Web Components" />
-						<StyledIcon src={ReactJSIcon} title="React.js" alt="React.js" />
-						<StyledIcon src={NextJSIcon} title="Next.js" alt="Next.js" />
-					</Container>
-					<Container justify={"space-between"} align={"center"}>
-						<StyledIcon src={ExpressJSIcon} title="Express.js" alt="Express.js" />
-						<StyledIcon src={PostmanIcon} title="Postman" alt="Postman" />
-						<StyledIcon src={FirebaseIcon} title="Firebase" alt="Firebase" />
-						<StyledIcon src={PostgreSQLIcon} title="PostgreSQL" alt="PostgreSQL" />
-					</Container>
-					<Container justify={"space-between"} align={"center"}>
-						<StyledIcon src={SequelizeJSIcon} title="Sequelize" alt="Sequelize" />
-						<StyledIcon src={PrismaIcon} title="Prisma" alt="Prisma" />
-						<StyledIcon src={GitIcon} title="Git" alt="Git" />
-						<StyledIcon src={ThreeJSIcon} title="Three.js" alt="Three.js" />
-					</Container>
-					<Container justify={"space-between"} align={"center"}>
-						<StyledIcon src={FramerMotionIcon} title="Framer Motion" alt="Framer Motion" />
-						<StyledIcon src={FigmaIcon} title="Figma" alt="Figma" />
-						<StyledIcon src={FramerIcon} title="Framer" alt="Framer" />
-						<StyledIcon src={AISDKIcon} title="AI SDK" alt="AI SDK" />
-					</Container>
+					{iconGrid}
 				</Container>
-			</MediaQuery>
+			</StyledSkills>
+		);
+	}
+
+	const needsIconWrapper = cfg.iconWrapperH != null;
+
+	return (
+		<StyledSkills flex={props.flex}>
+			<Container
+				w={cfg.outerW}
+				maxW={cfg.outerMaxW}
+				h={cfg.outerH}
+				m={["36", "0", "36", "0"]}
+				direction={"column"}
+				justify={cfg.outerJustify}
+				align={"center"}
+				gap={"36px"}
+			>
+				<Container
+					w={"100%"}
+					h={cfg.iconWrapperH ? undefined : "100%"}
+					justify={"flex-start"}
+					align={"center"}
+				>
+					<Text as="h2" variant={"subtitle-snd"}>
+						SKILLS & TOOLS
+					</Text>
+				</Container>
+				{needsIconWrapper ? (
+					<Container
+						h={cfg.iconWrapperH}
+						direction={"column"}
+						justify={"center"}
+						align={"center"}
+						gap={cfg.iconWrapperGap}
+					>
+						{iconGrid}
+					</Container>
+				) : (
+					iconGrid
+				)}
+			</Container>
 		</StyledSkills>
 	);
 }

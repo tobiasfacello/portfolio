@@ -34,7 +34,7 @@ function ProjectCard(props: any) {
 	}, [props.src]);
 
 	const handleClick = (url: string) => {
-		window.location.href = url;
+		window.open(url, '_blank', 'noopener,noreferrer');
 	};
 
 	return (

@@ -446,7 +446,10 @@ export default function WorkCardsCarousel() {
 							title={'Indalo'}
 							tags={['Development']}
 							details={'Landing Page for an enterprises group'}
-							url={''}
+							url={'https://www.grupoindalo.com.ar/'}
+							showcaseUrl={
+								'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development'
+							}
 							src={indaloLogo}
 						/>
 					</SwiperSlide>

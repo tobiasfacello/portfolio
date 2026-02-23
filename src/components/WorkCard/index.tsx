@@ -30,7 +30,7 @@ function WorkCard(props: any) {
 
 	//TODO: Enable this feature in the future
 	const handleClick = (url: string) => {
-		window.location.href = url;
+		window.open(url, '_blank', 'noopener,noreferrer');
 	};
 
 	return (

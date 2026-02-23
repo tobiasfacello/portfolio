@@ -5,10 +5,10 @@ import { useState } from "react";
 //* Components
 import Text from "../Text";
 
-function WorkCard(props: any) {
+function Button(props: any) {
 	const [isHovered, setIsHovered] = useState(false);
 	const handleClick = (url: string) => {
-		window.location.href = url;
+		window.open(url, '_blank', 'noopener,noreferrer');
 	};
 
 	const filteredProps: string[] = ["isHovered", "p", "m", "url"];
@@ -36,4 +36,4 @@ function WorkCard(props: any) {
 	);
 }
 
-export default WorkCard;
+export default Button;

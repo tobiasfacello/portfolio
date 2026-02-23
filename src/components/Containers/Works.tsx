@@ -22,16 +22,6 @@ const StyledWorks = styled.section`
 	border-top: 1px solid var(--secondary-60);
 	${noisePatternBackground}
 
-	&::before {
-		background-position: center;
-	}
-
-	@media (min-width: 960px) {
-		&::before {
-			background-position: center right;
-		}
-	}
-
 	@media (min-width: 1280px) {
 		grid-area: works;
 	}

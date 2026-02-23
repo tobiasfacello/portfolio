@@ -2,7 +2,6 @@ import { css, keyframes } from 'styled-components';
 import { StyledPillTag } from '../components/Pill/styled';
 
 //* Assets
-import patternVector from '../assets/vectors/pattern-vector.svg';
 import noiseTexture from '../assets/images/noise-texture.webp';
 
 export const glassCard = css`
@@ -86,9 +85,8 @@ export const noisePatternBackground = css`
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background-image: url(${patternVector});
-		background-size: auto;
-		background-repeat: no-repeat;
+		background-image: radial-gradient(circle, #444738 1px, transparent 1px);
+		background-size: 13.5px 13.5px;
 		-webkit-mask-image: url(${noiseTexture});
 		mask-image: url(${noiseTexture});
 		-webkit-mask-size: 720px 720px;

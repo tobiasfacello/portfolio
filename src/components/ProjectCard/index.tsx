@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { StyleSheetManager } from 'styled-components';
 import { StyledProjectCard } from './styled';
 
 //* Components
@@ -11,16 +10,6 @@ import UnicodeSpinner from '../UnicodeSpinner';
 function ProjectCard(props: any) {
 	const [isHovered, setIsHovered] = useState(false);
 	const [imageLoaded, setImageLoaded] = useState(false);
-
-	const filteredProps: string[] = [
-		'isHovered',
-		'variant',
-		'title',
-		'details',
-		'tag',
-		'src',
-		'url',
-	];
 
 	useEffect(() => {
 		if (!props.src) return;
@@ -34,41 +23,37 @@ function ProjectCard(props: any) {
 	}, [props.src]);
 
 	return (
-		<StyleSheetManager
-			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
+		<StyledProjectCard
+			className={"project-card"}
+			href={props.url}
+			target="_blank"
+			rel="noopener noreferrer"
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+			$isHovered={isHovered}
 		>
-			<StyledProjectCard
-				className={"project-card"}
-				href={props.url}
-				target="_blank"
-				rel="noopener noreferrer"
-				onMouseEnter={() => setIsHovered(true)}
-				onMouseLeave={() => setIsHovered(false)}
-				isHovered={isHovered}
-			>
-				<Container direction={'column'} justify={'space-between'} align={'start'}>
-					<Text variant={'subtitle-fst'}>
-						{props.title}
-					</Text>
-					<Text variant={'details-fst'}>
-						{props.details}
-					</Text>
-					<PillTag
-						tag={props.tag}
-						maxW={'140px'}
-						p={['4', '8', '4', '6']}
-					/>
-				</Container>
-				<Container direction={'column'} justify={'center'} align={'end'}>
-					{!imageLoaded && <UnicodeSpinner name="pulse" />}
-					<img
-						src={props.src}
-						alt={`${props.title} logo`}
-						style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
-					/>
-				</Container>
-			</StyledProjectCard>
-		</StyleSheetManager>
+			<Container direction={'column'} justify={'space-between'} align={'start'}>
+				<Text variant={'subtitle-fst'}>
+					{props.title}
+				</Text>
+				<Text variant={'details-fst'}>
+					{props.details}
+				</Text>
+				<PillTag
+					tag={props.tag}
+					maxW={'140px'}
+					p={['4', '8', '4', '6']}
+				/>
+			</Container>
+			<Container direction={'column'} justify={'center'} align={'end'}>
+				{!imageLoaded && <UnicodeSpinner name="pulse" />}
+				<img
+					src={props.src}
+					alt={`${props.title} logo`}
+					style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
+				/>
+			</Container>
+		</StyledProjectCard>
 	);
 }
 

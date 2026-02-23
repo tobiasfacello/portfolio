@@ -1,5 +1,3 @@
-import MediaQuery from 'react-responsive';
-
 import Header from '../components/Containers/Header';
 import Profile from '../components/Containers/Profile';
 import About from '../components/Containers/About';
@@ -9,49 +7,45 @@ import Works from '../components/Containers/Works';
 import Footer from '../components/Containers/Footer';
 import Container from '../components/Containers/Container';
 
+//? Hooks & Config
+import { useBreakpoint } from '../hooks/useBreakpoint';
+import { homeConfig } from '../config/responsive';
+
 function Home() {
+	const bp = useBreakpoint();
+	const cfg = homeConfig[bp];
+
+	if (!cfg.isDesktopLayout) {
+		return (
+			<>
+				<a href="#main-content" className="skip-link">
+					Skip to main content
+				</a>
+				<main id="main-content">
+					<Container
+						w={'100%'}
+						h={'100%'}
+						direction={'column'}
+					>
+						<Header />
+						<Profile />
+						<About />
+					</Container>
+					<Projects />
+					<Skills />
+					<Works />
+					<Footer />
+				</main>
+			</>
+		);
+	}
+
 	return (
 		<>
 			<a href="#main-content" className="skip-link">
 				Skip to main content
 			</a>
 			<main id="main-content">
-			{/* Mobile Layout */}
-			<MediaQuery minWidth={360} maxWidth={959}>
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-				>
-					<Header />
-					<Profile />
-					<About />
-				</Container>
-				<Projects />
-				<Skills />
-				<Works />
-				<Footer />
-			</MediaQuery>
-
-			{/* Tablet Layout */}
-			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-				>
-					<Header />
-					<Profile />
-					<About />
-				</Container>
-				<Projects />
-				<Skills />
-				<Works />
-				<Footer />
-			</MediaQuery>
-
-			{/* Desktop Layout */}
-			<MediaQuery minWidth={1280} maxWidth={1439}>
 				<Container
 					w={'100%'}
 					h={'100%'}
@@ -69,13 +63,13 @@ function Home() {
 					>
 						<Container
 							w={'90%'}
-							h={"100%"}
+							h={cfg.innerH || '100%'}
 							justify={'center'}
 							align={'center'}
 							$css={`
 								border-left: 1px solid var(--secondary-60);
 								border-right: 1px solid var(--secondary-60);
-								`}
+							`}
 						>
 							<About />
 							<Profile />
@@ -86,111 +80,19 @@ function Home() {
 
 				<Container
 					w={'100%'}
-					minH={"462px"}
+					h={cfg.skillsWorkH}
+					minH={cfg.skillsWorkMinH}
 					justify={'center'}
-					align={'start'}
+					align={cfg.skillsWorkAlign}
 					$css={'border-top: 1px solid var(--secondary-60);'}
 				>
-					<Container w={'90%'} h={"100%"} justify={'center'} align={'center'}>
+					<Container w={'90%'} h={'100%'} justify={'center'} align={'center'}>
 						<Skills flex={1} />
 						<Works flex={2} />
 					</Container>
 				</Container>
 				<Footer />
-			</MediaQuery>
-			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-					justify={'center'}
-					align={'center'}
-				>
-					<Header />
-					<Container
-						w={'100%'}
-						justify={'center'}
-						align={'center'}
-						$css={'border-top: 1px solid var(--secondary-60);'}
-					>
-						<Container
-							w={'90%'}
-							h={"100%"}
-							justify={'center'}
-							align={'center'}
-							$css={`
-								border-left: 1px solid var(--secondary-60);
-								border-right: 1px solid var(--secondary-60);
-								`}
-						>
-							<About />
-							<Profile />
-							<Projects />
-						</Container>
-					</Container>
-				</Container>
-				<Container
-					w={'100%'}
-					h={'55vh'}
-					minH={"510px"}
-					justify={'center'}
-					$css={'border-top: 1px solid var(--secondary-60);'}
-				>
-					<Container w={'90%'} justify={'center'} align={'center'}>
-						<Skills flex={1} />
-						<Works flex={2} />
-					</Container>
-				</Container>
-				<Footer />
-			</MediaQuery>
-			<MediaQuery minWidth={1801}>
-				<Container
-					w={'100%'}
-					direction={'column'}
-					justify={'center'}
-					align={'center'}
-				>
-					<Header />
-					<Container
-						w={'100%'}
-						h={'100%'}
-						justify={'center'}
-						align={'center'}
-						$css={'border-top: 1px solid var(--secondary-60);'}
-					>
-						<Container
-							w={'90%'}
-							h={"fit-content"}
-							justify={'center'}
-							align={'center'}
-							$css={`
-								border-left: 1px solid var(--secondary-60);
-								border-right: 1px solid var(--secondary-60);
-								`}
-						>
-							<About />
-							<Profile />
-							<Projects />
-						</Container>
-					</Container>
-				</Container>
-
-				<Container
-					w={'100%'}
-					h={'55vh'}
-					minH={"530px"}
-					justify={'center'}
-					align={'start'}
-					$css={'border-top: 1px solid var(--secondary-60);'}
-				>
-					<Container w={'90%'} justify={'center'} align={'center'}>
-						<Skills flex={1} />
-						<Works flex={2} />
-					</Container>
-				</Container>
-				<Footer />
-			</MediaQuery>
-		</main>
+			</main>
 		</>
 	);
 }

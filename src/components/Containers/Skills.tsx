@@ -13,7 +13,7 @@ import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
 
 const StyledSkills = styled.section<{
-	flex?: number;
+	$flex?: number;
 }>`
 	width: 100%;
 	height: 100%;
@@ -30,7 +30,7 @@ const StyledSkills = styled.section<{
 			border: none;
 			border-left: 1px solid var(--secondary-60);
 			border-right: 1px solid var(--secondary-60);
-			flex: ${(props) => props.flex};
+			flex: ${(props) => props.$flex};
 		}
 	}
 `;
@@ -68,7 +68,7 @@ function Skills(props: SectionProps) {
 
 	if (cfg.titleOutside) {
 		return (
-			<StyledSkills flex={props.flex}>
+			<StyledSkills $flex={props.flex}>
 				<Text as="h2" variant={"subtitle-snd"} m={cfg.titleM}>
 					SKILLS & TOOLS
 				</Text>
@@ -89,7 +89,7 @@ function Skills(props: SectionProps) {
 	const needsIconWrapper = cfg.iconWrapperH != null;
 
 	return (
-		<StyledSkills flex={props.flex}>
+		<StyledSkills $flex={props.flex}>
 			<Container
 				w={cfg.outerW}
 				maxW={cfg.outerMaxW}

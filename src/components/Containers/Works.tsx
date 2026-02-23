@@ -16,7 +16,7 @@ import { worksConfig } from "../../config/responsive";
 import patternVector from "../../assets/vectors/pattern-vector.svg";
 
 const StyledWorks = styled.section<{
-	flex?: number;
+	$flex?: number;
 }>`
 	height: 100%;
 	display: flex;
@@ -47,6 +47,7 @@ const StyledWorks = styled.section<{
 		& {
 			border: none;
 			border-right: 1px solid var(--secondary-60);
+			flex: ${(props) => props.$flex};
 		}
 	}
 `;
@@ -57,7 +58,7 @@ function Works(props: SectionProps) {
 
 	if (cfg.titleOutside) {
 		return (
-			<StyledWorks flex={props.flex}>
+			<StyledWorks $flex={props.flex}>
 				<Container
 					h={"auto"}
 					w={cfg.outerW}
@@ -87,7 +88,7 @@ function Works(props: SectionProps) {
 	}
 
 	return (
-		<StyledWorks flex={props.flex}>
+		<StyledWorks $flex={props.flex}>
 			<Container
 				h={cfg.outerH}
 				w={cfg.outerW}

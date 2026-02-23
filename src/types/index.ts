@@ -62,7 +62,7 @@ export type ProjectCardProps = {
 export type ButtonProps = {
 	children?: ReactNode;
 	title: string;
-	url: string;
+	url?: string;
 	p?: string[];
 	m?: string[];
 };

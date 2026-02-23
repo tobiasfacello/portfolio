@@ -17,21 +17,15 @@ export default function Cursor() {
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
-    const checkIfMobile = () => {
-      return ((window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches));
+    const mql = window.matchMedia('(hover: none) and (pointer: coarse)');
+    setIsMobileDevice(mql.matches);
+
+    const onChange = (e: MediaQueryListEvent) => {
+      setIsMobileDevice(e.matches);
     };
 
-    setIsMobileDevice(checkIfMobile());
-
-    const handleResize = () => {
-      setIsMobileDevice(checkIfMobile());
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
   }, []);
 
   useGSAP(() => {

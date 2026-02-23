@@ -28,6 +28,11 @@ export const StyledProjectCard = styled.a<{
 	}
 
 	& img {
+		max-width: 100px;
+		max-height: 100px;
+		width: auto;
+		height: auto;
+		object-fit: contain;
 		opacity: ${(props) => (props.$isHovered ? '1' : '0.6')};
 		transition: all 300ms;
 	}

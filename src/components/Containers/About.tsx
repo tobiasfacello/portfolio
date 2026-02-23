@@ -18,10 +18,8 @@ const StyledAbout = styled.section`
 	padding: 0 20px;
 
 	@media (min-width: 1280px) {
-		& {
-			height: 100%;
-			border-right: 1px solid var(--secondary-60);
-		}
+		grid-area: about;
+		border-right: 1px solid var(--secondary-60);
 	}
 `;
 

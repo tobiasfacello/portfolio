@@ -92,6 +92,3 @@ export type ImageFrameProps = {
 	m?: string[];
 };
 
-export type SectionProps = {
-	flex?: number;
-};

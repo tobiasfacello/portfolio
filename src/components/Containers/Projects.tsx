@@ -28,18 +28,15 @@ const StyledProjects = styled.section`
 	background-repeat: no-repeat;
 
 	@media (min-width: 960px) {
-		& {
-			background-position: top right;
-		}
+		background-position: top right;
 	}
 
 	@media (min-width: 1280px) {
-		& {
-			background-position: center;
-			justify-content: space-between;
-			border: none;
-			border-left: 1px solid var(--secondary-60);
-		}
+		grid-area: projects;
+		background-position: center;
+		justify-content: space-between;
+		border-top: none;
+		border-left: 1px solid var(--secondary-60);
 	}
 `;
 

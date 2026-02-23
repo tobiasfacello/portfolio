@@ -100,7 +100,7 @@ export const skillsConfig: Record<Breakpoint, SkillsConfig> = {
 		iconRowW: '100%',
 		iconRowJustify: 'space-evenly',
 		iconWrapperH: '70%',
-		iconWrapperGap: '24px',
+		iconWrapperGap: '36px',
 		titleOutside: false,
 	},
 	tablet: {
@@ -110,33 +110,34 @@ export const skillsConfig: Record<Breakpoint, SkillsConfig> = {
 		iconRowW: '70%',
 		iconRowJustify: 'space-evenly',
 		iconWrapperH: '70%',
-		iconWrapperGap: '24px',
+		iconWrapperGap: '36px',
 		titleOutside: false,
 	},
 	'desktop-sm': {
 		outerW: '100%',
-		outerH: '100%',
+		outerH: 'auto',
 		outerJustify: 'center',
 		iconRowJustify: 'space-between',
-		iconWrapperH: '100%',
-		iconWrapperGap: '24px',
+		iconWrapperH: 'auto',
+		iconWrapperGap: '36px',
 		titleOutside: false,
 	},
 	'desktop-md': {
 		outerW: '100%',
-		outerH: '100%',
+		outerH: 'auto',
 		outerJustify: 'center',
 		iconRowJustify: 'space-between',
-		iconWrapperH: '100%',
-		iconWrapperGap: '24px',
+		iconWrapperH: 'auto',
+		iconWrapperGap: '36px',
 		titleOutside: false,
 	},
 	'desktop-lg': {
 		outerW: '80%',
-		outerH: '100%',
-		outerJustify: 'space-between',
+		outerH: 'auto',
+		outerJustify: 'center',
 		iconRowJustify: 'space-between',
-		iconWrapperH: '100%',
+		iconWrapperH: 'auto',
+		iconWrapperGap: '36px',
 		titleOutside: false,
 	},
 	'desktop-xl': {
@@ -262,7 +263,7 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 		outerH: 'auto',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
-		carouselW: '56.4vw',
+		carouselW: '100%',
 		carouselDirection: 'row',
 	},
 	'desktop-md': {
@@ -272,7 +273,7 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 		outerH: 'auto',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
-		carouselW: '56.4vw',
+		carouselW: '100%',
 		carouselDirection: 'row',
 	},
 	'desktop-lg': {
@@ -282,7 +283,7 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 		outerH: 'auto',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
-		carouselW: '57.1vw',
+		carouselW: '100%',
 		carouselDirection: 'row',
 	},
 	'desktop-xl': {
@@ -292,7 +293,7 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 		outerH: 'auto',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
-		carouselW: '57.55vw',
+		carouselW: '100%',
 		carouselDirection: 'row',
 	},
 };
@@ -314,38 +315,3 @@ export const carouselConfig: Record<Breakpoint, CarouselConfig> = {
 	'desktop-xl': { useSwiper: true, slidesPerView: 3, centeredSlides: false, spaceBetween: 10 },
 };
 
-interface HomeConfig {
-	isDesktopLayout: boolean;
-	skillsWorkMinH?: string;
-	skillsWorkH?: string;
-	skillsWorkAlign?: string;
-	innerH?: string;
-}
-
-export const homeConfig: Record<Breakpoint, HomeConfig> = {
-	'mobile-sm': { isDesktopLayout: false },
-	'mobile-lg': { isDesktopLayout: false },
-	tablet: { isDesktopLayout: false },
-	'desktop-sm': {
-		isDesktopLayout: true,
-		skillsWorkMinH: '462px',
-		skillsWorkAlign: 'start',
-	},
-	'desktop-md': {
-		isDesktopLayout: true,
-		skillsWorkMinH: '462px',
-		skillsWorkAlign: 'start',
-	},
-	'desktop-lg': {
-		isDesktopLayout: true,
-		skillsWorkH: '55vh',
-		skillsWorkMinH: '510px',
-	},
-	'desktop-xl': {
-		isDesktopLayout: true,
-		skillsWorkH: '55vh',
-		skillsWorkMinH: '530px',
-		skillsWorkAlign: 'start',
-		innerH: 'fit-content',
-	},
-};

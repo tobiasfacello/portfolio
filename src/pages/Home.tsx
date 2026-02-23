@@ -12,6 +12,10 @@ import Container from '../components/Containers/Container';
 function Home() {
 	return (
 		<>
+			<a href="#main-content" className="skip-link">
+				Skip to main content
+			</a>
+			<main id="main-content">
 			{/* Mobile Layout */}
 			<MediaQuery minWidth={360} maxWidth={959}>
 				<Container
@@ -186,6 +190,7 @@ function Home() {
 				</Container>
 				<Footer />
 			</MediaQuery>
+		</main>
 		</>
 	);
 }

@@ -18,7 +18,7 @@ function ImageFrame(props: any) {
 		>
 			<div style={containerStyles}>
 				<StyledImageFrame p={props.p} m={props.m}>
-					<img src={props.src}></img>
+					<img src={props.src} alt={props.alt || ""} />
 				</StyledImageFrame>
 			</div>
 		</StyleSheetManager>

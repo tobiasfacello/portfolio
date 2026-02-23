@@ -9,7 +9,7 @@ import Text from "../Text";
 //* Assets
 import patternVector from "../../assets/vectors/pattern-vector.svg";
 
-const StyledWorks = styled.div<{
+const StyledWorks = styled.section<{
 	flex: number;
 }>`
 	height: 100%;
@@ -71,6 +71,7 @@ function Works(props: any) {
 						align={"center"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 						>
 							WORK
@@ -102,6 +103,7 @@ function Works(props: any) {
 						align={"center"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 						>
 							WORK
@@ -133,6 +135,7 @@ function Works(props: any) {
 						align={"center"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 						>
 							WORK
@@ -157,6 +160,7 @@ function Works(props: any) {
 					align={"center"}
 				>
 					<Text
+						as="h2"
 						variant={"subtitle-snd"}
 						m={["36", "0", "0", "0"]}
 					>
@@ -182,6 +186,7 @@ function Works(props: any) {
 					align={"center"}
 				>
 					<Text
+						as="h2"
 						variant={"subtitle-snd"}
 						m={["36", "0", "0", "0"]}
 					>
@@ -207,6 +212,7 @@ function Works(props: any) {
 					align={"center"}
 				>
 					<Text
+						as="h2"
 						variant={"subtitle-snd"}
 						m={["48", "0", "0", "0"]}
 					>

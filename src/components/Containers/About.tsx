@@ -5,7 +5,7 @@ import MediaQuery from "react-responsive";
 import Container from "./Container";
 import Text from "../../components/Text";
 
-const StyledAbout = styled.div<{}>`
+const StyledAbout = styled.section<{}>`
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -43,6 +43,7 @@ export default function About() {
 						align={"start"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 						>
 							ABOUT ME
@@ -99,6 +100,7 @@ export default function About() {
 					>
 
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 						>
 							ABOUT ME
@@ -159,6 +161,7 @@ export default function About() {
 						align={"flex-start"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 							alignment={"left"}
 						>
@@ -209,6 +212,7 @@ export default function About() {
 						align={"flex-start"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 							alignment={"left"}
 						>
@@ -258,6 +262,7 @@ export default function About() {
 						align={"flex-start"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 						>
 							ABOUT ME
@@ -308,6 +313,7 @@ export default function About() {
 						align={"flex-start"}
 					>
 						<Text
+							as="h2"
 							variant={"subtitle-snd"}
 						>
 							ABOUT ME
@@ -359,7 +365,7 @@ export default function About() {
 						justify={"center"}
 						align={"flex-start"}
 					>
-						<Text variant={"subtitle-snd"}>
+						<Text as="h2" variant={"subtitle-snd"}>
 							ABOUT ME
 						</Text>
 					</Container>

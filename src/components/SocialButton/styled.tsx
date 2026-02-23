@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const StyledSocialButton = styled.div<{}>`
+export const StyledSocialButton = styled.a`
+	text-decoration: none;
 	width: 48px;
 	height: 48px;
 	display: flex;

@@ -12,7 +12,7 @@ import facheVector from '../../assets/vectors/fache.svg';
 import facheAIVector from '../../assets/vectors/facheai.svg';
 import centryBoardVector from '../../assets/vectors/centryboard.svg';
 
-const StyledProjects = styled.div`
+const StyledProjects = styled.section`
 	width: 100%;
 	height: 100%;
 	padding: 0 20px;
@@ -57,7 +57,7 @@ function Projects() {
 					gap={"36px"}>
 
 					<Container w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'} >
+						<Text as="h2" variant={'subtitle-snd'} >
 							PROJECTS
 						</Text>
 					</Container>
@@ -98,7 +98,7 @@ function Projects() {
 					align={"center"}
 					gap={"36px"}>
 					<Container h={'100%'} w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'}>
+						<Text as="h2" variant={'subtitle-snd'}>
 							PROJECTS
 						</Text>
 					</Container>
@@ -139,7 +139,7 @@ function Projects() {
 					align={"center"}
 					gap={"36px"}>
 					<Container h={'100%'} w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'}>
+						<Text as="h2" variant={'subtitle-snd'}>
 							PROJECTS
 						</Text>
 					</Container>
@@ -174,7 +174,7 @@ function Projects() {
 			<MediaQuery minWidth={1280} maxWidth={1439}>
 				<Container w={"100%"} h={"100%"} minH={"450px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
 					<Container h={'100%'} w={'100%'} justify={'space-between'} align={'center'} >
-						<Text variant={'subtitle-snd'}>
+						<Text as="h2" variant={'subtitle-snd'}>
 							PROJECTS
 						</Text>
 					</Container>
@@ -209,7 +209,7 @@ function Projects() {
 			<MediaQuery minWidth={1440} maxWidth={1800}>
 				<Container w={"100%"} h={"100%"} minH={"490px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
 					<Container w={'100%'} h={'100%'} justify={'space-between'} align={'center'} >
-						<Text variant={'subtitle-snd'}>
+						<Text as="h2" variant={'subtitle-snd'}>
 							PROJECTS
 						</Text>
 					</Container>
@@ -250,7 +250,7 @@ function Projects() {
 			<MediaQuery minWidth={1801}>
 				<Container w={"75%"} h={"100%"} minH={"530px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
 					<Container h={"auto"} w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'}>
+						<Text as="h2" variant={'subtitle-snd'}>
 							PROJECTS
 						</Text>
 					</Container>

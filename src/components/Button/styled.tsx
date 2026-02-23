@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { StyledIconFrame } from "../IconFrame/styled";
 import { StyledText } from "../Text/styled";
 
-export const StyledButton = styled.button<{
+export const StyledButton = styled.a<{
 	isHovered: boolean;
 	m: string[];
 	p: string[];

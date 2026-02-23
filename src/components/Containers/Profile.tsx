@@ -45,6 +45,7 @@ export default function Profile() {
 				gap={"24px"}
 			>
 				<Text
+					as="h2"
 					variant={"subtitle-snd"}
 				>
 					FIND ME AT
@@ -57,28 +58,34 @@ export default function Profile() {
 					<SocialButton
 						url={"https://www.x.com/fachebits"}
 						src={Twitter}
+						alt="Twitter"
 					/>
 					<SocialButton
 						url={"https://www.threads.net/@fache.bits"}
 						src={Threads}
+						alt="Threads"
 					/>
 					<SocialButton
 						url={"https://www.instagram.com/fache.bits/"}
 						src={Instagram}
+						alt="Instagram"
 					/>
 					<SocialButton
 						url={
 							"https://www.linkedin.com/in/tobiasfacello/"
 						}
 						src={Linkedin}
+						alt="LinkedIn"
 					/>
 					<SocialButton
 						url={"https://www.github.com/tobiasfacello"}
 						src={Github}
+						alt="GitHub"
 					/>
 					<SocialButton
 						url={"https://contra.com/tobiasfacello"}
 						src={Contra}
+						alt="Contra"
 					/>
 				</Container>
 			</Container>

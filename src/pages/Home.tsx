@@ -1,3 +1,7 @@
+//! Third-party
+import styled from 'styled-components';
+
+//* Components
 import Header from '../components/Containers/Header';
 import Profile from '../components/Containers/Profile';
 import About from '../components/Containers/About';
@@ -5,94 +9,58 @@ import Projects from '../components/Containers/Projects';
 import Skills from '../components/Containers/Skills';
 import Works from '../components/Containers/Works';
 import Footer from '../components/Containers/Footer';
-import Container from '../components/Containers/Container';
 
-//? Hooks & Config
-import { useBreakpoint } from '../hooks/useBreakpoint';
-import { homeConfig } from '../config/responsive';
+const StyledGrid = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-function Home() {
-	const bp = useBreakpoint();
-	const cfg = homeConfig[bp];
-
-	if (!cfg.isDesktopLayout) {
-		return (
-			<>
-				<a href="#main-content" className="skip-link">
-					Skip to main content
-				</a>
-				<main id="main-content">
-					<Container
-						w={'100%'}
-						h={'100%'}
-						direction={'column'}
-					>
-						<Header />
-						<Profile />
-						<About />
-					</Container>
-					<Projects />
-					<Skills />
-					<Works />
-					<Footer />
-				</main>
-			</>
-		);
+	@media (min-width: 1280px) {
+		width: 90%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: auto minmax(462px, auto);
+		grid-template-areas:
+			'about    profile  projects'
+			'skills   works    works';
+		border: 1px solid var(--secondary-60);
+		border-bottom: none;
 	}
 
+	@media (min-width: 1440px) {
+		grid-template-rows: auto minmax(510px, auto);
+	}
+
+	@media (min-width: 1801px) {
+		grid-template-rows: auto minmax(530px, auto);
+	}
+`;
+
+const StyledMain = styled.main`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+function Home() {
 	return (
 		<>
 			<a href="#main-content" className="skip-link">
 				Skip to main content
 			</a>
-			<main id="main-content">
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-					justify={'center'}
-					align={'center'}
-				>
-					<Header />
-					<Container
-						w={'100%'}
-						h={'100%'}
-						justify={'center'}
-						align={'center'}
-						$css={'border-top: 1px solid var(--secondary-60);'}
-					>
-						<Container
-							w={'90%'}
-							h={cfg.innerH || '100%'}
-							justify={'center'}
-							align={'center'}
-							$css={`
-								border-left: 1px solid var(--secondary-60);
-								border-right: 1px solid var(--secondary-60);
-							`}
-						>
-							<About />
-							<Profile />
-							<Projects />
-						</Container>
-					</Container>
-				</Container>
-
-				<Container
-					w={'100%'}
-					h={cfg.skillsWorkH}
-					minH={cfg.skillsWorkMinH}
-					justify={'center'}
-					align={cfg.skillsWorkAlign}
-					$css={'border-top: 1px solid var(--secondary-60);'}
-				>
-					<Container w={'90%'} h={'100%'} justify={'center'} align={'center'}>
-						<Skills flex={1} />
-						<Works flex={2} />
-					</Container>
-				</Container>
+			<StyledMain id="main-content">
+				<Header />
+				<StyledGrid>
+					<Profile />
+					<About />
+					<Projects />
+					<Skills />
+					<Works />
+				</StyledGrid>
 				<Footer />
-			</main>
+			</StyledMain>
 		</>
 	);
 }

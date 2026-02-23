@@ -5,9 +5,6 @@ import Container from "./Container";
 import WorkCardsCarousel from "../WorkCardsCarousel";
 import Text from "../Text";
 
-//? Types
-import { SectionProps } from "../../types";
-
 //? Hooks & Config
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { worksConfig } from "../../config/responsive";
@@ -15,9 +12,7 @@ import { worksConfig } from "../../config/responsive";
 //* Assets
 import patternVector from "../../assets/vectors/pattern-vector.svg";
 
-const StyledWorks = styled.section<{
-	$flex?: number;
-}>`
+const StyledWorks = styled.section`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -30,35 +25,22 @@ const StyledWorks = styled.section<{
 	background-position: center;
 	background-repeat: no-repeat;
 
-	& .projects__title {
-		width: 100%;
-		display: flex;
-		justify-content: start;
-		align-items: center;
-	}
-
 	@media (min-width: 960px) {
-		& {
-			background-position: center right;
-		}
+		background-position: center right;
 	}
 
 	@media (min-width: 1280px) {
-		& {
-			border: none;
-			border-right: 1px solid var(--secondary-60);
-			flex: ${(props) => props.$flex};
-		}
+		grid-area: works;
 	}
 `;
 
-function Works(props: SectionProps) {
+function Works() {
 	const bp = useBreakpoint();
 	const cfg = worksConfig[bp];
 
 	if (cfg.titleOutside) {
 		return (
-			<StyledWorks $flex={props.flex}>
+			<StyledWorks>
 				<Container
 					h={"auto"}
 					w={cfg.outerW}
@@ -88,7 +70,7 @@ function Works(props: SectionProps) {
 	}
 
 	return (
-		<StyledWorks $flex={props.flex}>
+		<StyledWorks>
 			<Container
 				h={cfg.outerH}
 				w={cfg.outerW}

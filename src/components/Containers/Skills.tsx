@@ -4,17 +4,12 @@ import styled from "styled-components";
 import Container from "./Container";
 import Text from "../Text";
 
-//? Types
-import { SectionProps } from "../../types";
-
 //? Hooks, Config & Data
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
 
-const StyledSkills = styled.section<{
-	$flex?: number;
-}>`
+const StyledSkills = styled.section`
 	width: 100%;
 	height: 100%;
 	padding: 0 20px;
@@ -25,13 +20,8 @@ const StyledSkills = styled.section<{
 	border-top: 1px solid var(--secondary-60);
 
 	@media (min-width: 1280px) {
-		& {
-			width: 0;
-			border: none;
-			border-left: 1px solid var(--secondary-60);
-			border-right: 1px solid var(--secondary-60);
-			flex: ${(props) => props.$flex};
-		}
+		grid-area: skills;
+		border-right: 1px solid var(--secondary-60);
 	}
 `;
 
@@ -44,7 +34,7 @@ const StyledIcon = styled.img`
 	opacity: 0.8;
 `;
 
-function Skills(props: SectionProps) {
+function Skills() {
 	const bp = useBreakpoint();
 	const cfg = skillsConfig[bp];
 
@@ -68,7 +58,7 @@ function Skills(props: SectionProps) {
 
 	if (cfg.titleOutside) {
 		return (
-			<StyledSkills $flex={props.flex}>
+			<StyledSkills>
 				<Text as="h2" variant={"subtitle-snd"} m={cfg.titleM}>
 					SKILLS & TOOLS
 				</Text>
@@ -89,7 +79,7 @@ function Skills(props: SectionProps) {
 	const needsIconWrapper = cfg.iconWrapperH != null;
 
 	return (
-		<StyledSkills $flex={props.flex}>
+		<StyledSkills>
 			<Container
 				w={cfg.outerW}
 				maxW={cfg.outerMaxW}

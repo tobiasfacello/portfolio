@@ -8,10 +8,5 @@
 	fill: none;
 	pointer-events: none;
 	mix-blend-mode: difference;
-
-	@media (hover: none) and (pointer: coarse) {
-		& {
-			display: none;
-		}
-	}
+	will-change: transform;
 }

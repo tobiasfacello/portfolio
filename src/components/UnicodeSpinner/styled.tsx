@@ -6,4 +6,5 @@ export const StyledSpinner = styled.span`
 	color: var(--primary);
 	font-size: 16px;
 	line-height: 1;
+	mix-blend-mode: difference;
 `;

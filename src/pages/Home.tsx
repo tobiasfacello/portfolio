@@ -1,5 +1,7 @@
-import MediaQuery from 'react-responsive';
+//! Third-party
+import styled from 'styled-components';
 
+//* Components
 import Header from '../components/Containers/Header';
 import Profile from '../components/Containers/Profile';
 import About from '../components/Containers/About';
@@ -7,185 +9,58 @@ import Projects from '../components/Containers/Projects';
 import Skills from '../components/Containers/Skills';
 import Works from '../components/Containers/Works';
 import Footer from '../components/Containers/Footer';
-import Container from '../components/Containers/Container';
+
+const StyledGrid = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	@media (min-width: 1280px) {
+		width: 90%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: auto minmax(462px, auto);
+		grid-template-areas:
+			'about    profile  projects'
+			'skills   works    works';
+		border: 1px solid var(--secondary-60);
+		border-bottom: none;
+	}
+
+	@media (min-width: 1440px) {
+		grid-template-rows: auto minmax(510px, auto);
+	}
+
+	@media (min-width: 1801px) {
+		grid-template-rows: auto minmax(530px, auto);
+	}
+`;
+
+const StyledMain = styled.main`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
 
 function Home() {
 	return (
 		<>
-			{/* Mobile Layout */}
-			<MediaQuery minWidth={360} maxWidth={959}>
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-				>
-					<Header />
+			<a href="#main-content" className="skip-link">
+				Skip to main content
+			</a>
+			<StyledMain id="main-content">
+				<Header />
+				<StyledGrid>
 					<Profile />
 					<About />
-				</Container>
-				<Projects />
-				<Skills />
-				<Works />
+					<Projects />
+					<Skills />
+					<Works />
+				</StyledGrid>
 				<Footer />
-			</MediaQuery>
-
-			{/* Tablet Layout */}
-			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-				>
-					<Header />
-					<Profile />
-					<About />
-				</Container>
-				<Projects />
-				<Skills />
-				<Works />
-				<Footer />
-			</MediaQuery>
-
-			{/* Desktop Layout */}
-			<MediaQuery minWidth={1280} maxWidth={1439}>
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-					justify={'center'}
-					align={'center'}
-				>
-					<Header />
-					<Container
-						w={'100%'}
-						h={'100%'}
-						justify={'center'}
-						align={'center'}
-						style={'border-top: 1px solid var(--secondary-60);'}
-					>
-						<Container
-							w={'90%'}
-							h={"100%"}
-							justify={'center'}
-							align={'center'}
-							style={`
-								border-left: 1px solid var(--secondary-60);
-								border-right: 1px solid var(--secondary-60);
-								`}
-						>
-							<About />
-							<Profile />
-							<Projects />
-						</Container>
-					</Container>
-				</Container>
-
-				<Container
-					w={'100%'}
-					minH={"462px"}
-					justify={'center'}
-					align={'start'}
-					style={'border-top: 1px solid var(--secondary-60);'}
-				>
-					<Container w={'90%'} h={"100%"} justify={'center'} align={'center'}>
-						<Skills flex={1} />
-						<Works flex={2} />
-					</Container>
-				</Container>
-				<Footer />
-			</MediaQuery>
-			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container
-					w={'100%'}
-					h={'100%'}
-					direction={'column'}
-					justify={'center'}
-					align={'center'}
-				>
-					<Header />
-					<Container
-						w={'100%'}
-						justify={'center'}
-						align={'center'}
-						style={'border-top: 1px solid var(--secondary-60);'}
-					>
-						<Container
-							w={'90%'}
-							h={"100%"}
-							justify={'center'}
-							align={'center'}
-							style={`
-								border-left: 1px solid var(--secondary-60);
-								border-right: 1px solid var(--secondary-60);
-								`}
-						>
-							<About />
-							<Profile />
-							<Projects />
-						</Container>
-					</Container>
-				</Container>
-				<Container
-					w={'100%'}
-					h={'55vh'}
-					minH={"510px"}
-					justify={'center'}
-					style={'border-top: 1px solid var(--secondary-60);'}
-				>
-					<Container w={'90%'} justify={'center'} align={'center'}>
-						<Skills flex={1} />
-						<Works flex={2} />
-					</Container>
-				</Container>
-				<Footer />
-			</MediaQuery>
-			<MediaQuery minWidth={1801}>
-				<Container
-					w={'100%'}
-					direction={'column'}
-					justify={'center'}
-					align={'center'}
-				>
-					<Header />
-					<Container
-						w={'100%'}
-						h={'100%'}
-						justify={'center'}
-						align={'center'}
-						style={'border-top: 1px solid var(--secondary-60);'}
-					>
-						<Container
-							w={'90%'}
-							h={"fit-content"}
-							justify={'center'}
-							align={'center'}
-							style={`
-								border-left: 1px solid var(--secondary-60);
-								border-right: 1px solid var(--secondary-60);
-								`}
-						>
-							<About />
-							<Profile />
-							<Projects />
-						</Container>
-					</Container>
-				</Container>
-
-				<Container
-					w={'100%'}
-					h={'55vh'}
-					minH={"530px"}
-					justify={'center'}
-					align={'start'}
-					style={'border-top: 1px solid var(--secondary-60);'}
-				>
-					<Container w={'90%'} justify={'center'} align={'center'}>
-						<Skills flex={1} />
-						<Works flex={2} />
-					</Container>
-				</Container>
-				<Footer />
-			</MediaQuery>
+			</StyledMain>
 		</>
 	);
 }

@@ -1,17 +1,18 @@
 import styled from "styled-components";
-import MediaQuery from "react-responsive";
 
 //* Components
 import Container from "./Container";
 import WorkCardsCarousel from "../WorkCardsCarousel";
 import Text from "../Text";
 
+//? Hooks & Config
+import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { worksConfig } from "../../config/responsive";
+
 //* Assets
 import patternVector from "../../assets/vectors/pattern-vector.svg";
 
-const StyledWorks = styled.div<{
-	flex: number;
-}>`
+const StyledWorks = styled.section`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -24,206 +25,85 @@ const StyledWorks = styled.div<{
 	background-position: center;
 	background-repeat: no-repeat;
 
-	& .projects__title {
-		width: 100%;
-		display: flex;
-		justify-content: start;
-		align-items: center;
-	}
-
 	@media (min-width: 960px) {
-		& {
-			background-position: center right;
-		}
+		background-position: center right;
 	}
 
 	@media (min-width: 1280px) {
-		& {
-			border: none;
-			border-right: 1px solid var(--secondary-60);
-		}
-	}
-
-	@media (min-width: 1440px) {
-		& {
-		}
+		grid-area: works;
 	}
 `;
 
-function Works(props: any) {
+function Works() {
+	const bp = useBreakpoint();
+	const cfg = worksConfig[bp];
+
+	if (cfg.titleOutside) {
+		return (
+			<StyledWorks>
+				<Container
+					h={"auto"}
+					w={cfg.outerW}
+					justify={"start"}
+					align={"center"}
+				>
+					<Text
+						as="h2"
+						variant={"subtitle-snd"}
+						m={cfg.titleM}
+					>
+						WORK
+					</Text>
+				</Container>
+				<Container
+					$css={cfg.carouselCss}
+					minH={cfg.carouselMinH}
+					w={cfg.carouselW}
+					direction={cfg.carouselDirection}
+					justify={"center"}
+					align={"center"}
+				>
+					<WorkCardsCarousel />
+				</Container>
+			</StyledWorks>
+		);
+	}
+
 	return (
-		<StyledWorks flex={props.flex}>
-			<MediaQuery minWidth={360} maxWidth={767}>
+		<StyledWorks>
+			<Container
+				h={cfg.outerH}
+				w={cfg.outerW}
+				maxW={cfg.outerMaxW}
+				m={["36", "0", "36", "0"]}
+				direction={"column"}
+				justify={"center"}
+				align={"center"}
+				gap={"36px"}
+			>
 				<Container
-					h={"100%"}
+					h={bp === 'mobile-sm' ? "100%" : "auto"}
 					w={"100%"}
-					maxW={"500px"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						h={"100%"}
-						w={"100%"}
-						justify={"start"}
-						align={"center"}
-					>
-						<Text
-							variant={"subtitle-snd"}
-						>
-							WORK
-						</Text>
-					</Container>
-					<Container
-						direction={"column"}
-						justify={"center"}
-						align={"center"}
-					>
-						<WorkCardsCarousel />
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={768} maxWidth={959}>
-				<Container
-					h={"100%"}
-					w={"80%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						h={"auto"}
-						w={"100%"}
-						justify={"flex-start"}
-						align={"center"}
-					>
-						<Text
-							variant={"subtitle-snd"}
-						>
-							WORK
-						</Text>
-					</Container>
-					<Container
-						direction={"column"}
-						justify={"center"}
-						align={"center"}
-					>
-						<WorkCardsCarousel />
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container
-					h={"100%"}
-					w={"80%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}
-				>
-					<Container
-						h={"auto"}
-						w={"100%"}
-						justify={"start"}
-						align={"center"}
-					>
-						<Text
-							variant={"subtitle-snd"}
-						>
-							WORK
-						</Text>
-					</Container>
-					<Container
-						style={"overflow: hidden;"}
-						w={"100vw"}
-						direction={"column"}
-						justify={"center"}
-						align={"center"}
-					>
-						<WorkCardsCarousel />
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1280} maxWidth={1439}>
-				<Container
-					h={"auto"}
-					w={"90%"}
-					justify={"start"}
+					justify={bp === 'mobile-sm' ? "start" : "flex-start"}
 					align={"center"}
 				>
 					<Text
+						as="h2"
 						variant={"subtitle-snd"}
-						m={["36", "0", "0", "0"]}
 					>
 						WORK
 					</Text>
 				</Container>
 				<Container
-					style={"overflow: hidden;"}
-					minH={"402px"}
-					w={"56.4vw"}
-					direction={"row"}
+					$css={cfg.carouselCss}
+					w={cfg.carouselW}
+					direction={"column"}
 					justify={"center"}
 					align={"center"}
 				>
 					<WorkCardsCarousel />
 				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container
-					h={"auto"}
-					w={"90%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["36", "0", "0", "0"]}
-					>
-						WORK
-					</Text>
-				</Container>
-				<Container
-					style={"overflow: hidden;"}
-					minH={"402px"}
-					w={"57.1vw"}
-					direction={"row"}
-					justify={"center"}
-					align={"center"}
-				>
-					<WorkCardsCarousel />
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1801}>
-				<Container
-					h={"auto"}
-					w={"90%"}
-					justify={"start"}
-					align={"center"}
-				>
-					<Text
-						variant={"subtitle-snd"}
-						m={["48", "0", "0", "0"]}
-					>
-						WORK
-					</Text>
-				</Container>
-				<Container
-					style={"overflow: hidden;"}
-					minH={"402px"}
-					w={"57.55vw"}
-					direction={"row"}
-					justify={"center"}
-					align={"center"}
-				>
-					<WorkCardsCarousel />
-				</Container>
-			</MediaQuery>
+			</Container>
 		</StyledWorks>
 	);
 }

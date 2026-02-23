@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import MediaQuery from "react-responsive";
 
 //* Components
 import Container from "./Container";
 import Text from "../../components/Text";
 
-const StyledAbout = styled.div<{}>`
+//? Hooks & Config
+import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { aboutConfig } from "../../config/responsive";
+
+const StyledAbout = styled.section`
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -15,389 +18,69 @@ const StyledAbout = styled.div<{}>`
 	padding: 0 20px;
 
 	@media (min-width: 1280px) {
-		& {			
-			height: 100%;
-			border-right: 1px solid var(--secondary-60);
-		}
+		grid-area: about;
+		border-right: 1px solid var(--secondary-60);
 	}
 `;
 
+const paragraphs = [
+	"I'm Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.",
+	"Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.",
+	"Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.",
+	"I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.",
+];
+
 export default function About() {
+	const bp = useBreakpoint();
+	const cfg = aboutConfig[bp];
+
 	return (
 		<StyledAbout>
-			<MediaQuery minWidth={360} maxWidth={767}>
+			<Container
+				w={cfg.outerW}
+				maxW={cfg.outerMaxW}
+				h={cfg.outerH}
+				minH={cfg.outerMinH}
+				m={['36', '0', '36', '0']}
+				direction={"column"}
+				justify={"space-between"}
+				align={"center"}
+				gap={cfg.outerGap}
+			>
 				<Container
-					h={"100%"}
-					w={"100%"}
-					m={['36', '0', '36', '0']}
-					maxW={"500px"}
+					w={cfg.innerW}
+					h={"auto"}
+					direction={"column"}
+					justify={"center"}
+					align={"flex-start"}
+				>
+					<Text
+						as="h2"
+						variant={"subtitle-snd"}
+						alignment={cfg.titleAlign}
+					>
+						ABOUT ME
+					</Text>
+				</Container>
+				<Container
+					w={cfg.innerW}
+					display={"flex"}
 					direction={"column"}
 					justify={"space-between"}
-					align={"center"}
-					gap={"24px"}
+					align={"flex-start"}
+					gap={cfg.paragraphGap}
 				>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"start"}
-					>
+					{paragraphs.map((text) => (
 						<Text
-							variant={"subtitle-snd"}
-						>
-							ABOUT ME
-						</Text>
-					</Container>
-					<Container
-						display={"flex"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						gap={"12px"}
-					>
-						<Text
-							variant={"paragraph"}
+							key={text.slice(0, 20)}
+							variant={cfg.paragraphVariant}
 							alignment={"left"}
 						>
-							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
+							{text}
 						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
-						</Text>
-					</Container>
+					))}
 				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={768} maxWidth={959}>
-				<Container
-					w={"80%"}
-					m={['36', '0', '36', '0']}
-					direction={"column"}
-					justify={"space-between"}
-					align={"center"}
-					gap={"24px"}
-				>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"flex-start"}
-					>
-
-						<Text
-							variant={"subtitle-snd"}
-						>
-							ABOUT ME
-						</Text>
-					</Container>
-					<Container
-						display={"flex"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						gap={"12px"}
-					>
-
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-
-						>
-							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-
-						>
-							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-
-						>
-							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-
-						>
-							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
-						</Text>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container
-					w={"80%"}
-					m={['36', '0', '36', '0']}
-					direction={"column"}
-					justify={"space-between"}
-					align={"center"}
-					gap={"24px"}
-				>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"flex-start"}
-					>
-						<Text
-							variant={"subtitle-snd"}
-							alignment={"left"}
-						>
-							ABOUT ME
-						</Text>
-					</Container>
-					<Container
-						display={"flex"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						gap={"12px"}
-					>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
-						</Text>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1280} maxWidth={1339}>
-				<Container
-					w={"100%"} h={"100%"} minH={"450px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"flex-start"}
-					>
-						<Text
-							variant={"subtitle-snd"}
-							alignment={"left"}
-						>
-							ABOUT ME
-						</Text>
-					</Container>
-					<Container
-						display={"flex"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						gap={"20px"}
-					>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
-						</Text>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1340} maxWidth={1439}>
-				<Container w={"100%"} h={"100%"} minH={"450px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
-					<Container
-						h={"auto"}
-						direction={"column"}
-						justify={"center"}
-						align={"flex-start"}
-					>
-						<Text
-							variant={"subtitle-snd"}
-						>
-							ABOUT ME
-						</Text>
-					</Container>
-					<Container
-						display={"flex"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						gap={"20px"}
-					>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
-						</Text>
-						<Text
-							variant={"paragraph"}
-							alignment={"left"}
-						>
-							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
-						</Text>
-					</Container>
-				</Container>
-			</MediaQuery>
-
-			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container w={"100%"} h={"100%"} minH={"490px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
-					<Container
-						w={"100%"}
-						h={"100%"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-					>
-						<Text
-							variant={"subtitle-snd"}
-						>
-							ABOUT ME
-						</Text>
-					</Container>
-					<Container
-						display={"flex"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						gap={"20px"}
-					>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
-						</Text>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
-						</Text>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
-						</Text>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
-						</Text>
-
-					</Container>
-				</Container>
-			</MediaQuery>
-
-			<MediaQuery minWidth={1801}>
-				<Container w={"100%"} h={"100%"} minH={"530px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
-
-					<Container
-						h={"auto"}
-						w={"80%"}
-						direction={"column"}
-						justify={"center"}
-						align={"flex-start"}
-					>
-						<Text variant={"subtitle-snd"}>
-							ABOUT ME
-						</Text>
-					</Container>
-					<Container
-						w={"80%"}
-						display={"flex"}
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						gap={"20px"}
-					>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							I’m Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.
-						</Text>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.
-						</Text>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.
-						</Text>
-						<Text
-							variant={"paragraph desktop"}
-							alignment={"left"}
-						>
-							I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.
-						</Text>
-					</Container>
-				</Container>
-			</MediaQuery>
+			</Container>
 		</StyledAbout>
 	);
 }

@@ -1,39 +1,32 @@
-import { StyleSheetManager } from "styled-components";
 import { StyledButton } from "./styled";
 import { useState } from "react";
 
 //* Components
 import Text from "../Text";
 
-function WorkCard(props: any) {
-	const [isHovered, setIsHovered] = useState(false);
-	const handleClick = (url: string) => {
-		window.location.href = url;
-	};
+//? Types
+import { ButtonProps } from "../../types";
 
-	const filteredProps: string[] = ["isHovered", "p", "m", "url"];
+function Button(props: ButtonProps) {
+	const [isHovered, setIsHovered] = useState(false);
+	const isLink = !!props.url;
 
 	return (
-		<StyleSheetManager
-			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
+		<StyledButton
+			as={isLink ? "a" : "span"}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+			{...(isLink ? { href: props.url, target: "_blank", rel: "noopener noreferrer" } : {})}
+			$isHovered={isHovered}
+			$p={props.p}
+			$m={props.m}
 		>
-			<StyledButton
-				onMouseEnter={() => setIsHovered(true)}
-				onMouseLeave={() => setIsHovered(false)}
-				onClick={() => {
-					handleClick(props.url);
-				}}
-				isHovered={isHovered}
-				p={props.p}
-				m={props.m}
-			>
-				<Text variant={"details-fst"} alignment={"center"}>
-					{props.title}
-				</Text>
-				{props.children}
-			</StyledButton>
-		</StyleSheetManager>
+			<Text variant={"details-fst"} alignment={"center"}>
+				{props.title}
+			</Text>
+			{props.children}
+		</StyledButton>
 	);
 }
 
-export default WorkCard;
+export default Button;

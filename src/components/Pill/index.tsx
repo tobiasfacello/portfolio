@@ -1,9 +1,11 @@
-import { StyleSheetManager } from "styled-components";
 import { StyledPillTag } from "./styled";
 
 //* Components
 import Text from "../Text";
 import UnicodeSpinner from "../UnicodeSpinner";
+
+//? Types
+import { PillProps } from "../../types";
 
 const tagSpinnerMap: Record<string, "braille" | "diagswipe" | "breathe"> = {
 	"Work in progress": "braille",
@@ -12,23 +14,18 @@ const tagSpinnerMap: Record<string, "braille" | "diagswipe" | "breathe"> = {
 	"Design": "breathe",
 };
 
-function PillTag(props: any) {
-	const filteredProps = ["isHovered", "maxW", "m", "p", "tag"];
+function PillTag(props: PillProps) {
 	const spinnerName = tagSpinnerMap[props.tag];
 
 	return (
-		<StyleSheetManager
-			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
-		>
-			<StyledPillTag isHovered={props.isHovered} maxW={props.maxW} m={props.m} p={props.p}>
-				{spinnerName && (
-					<UnicodeSpinner name={spinnerName} style={{ fontSize: "10px" }} />
-				)}
-				<Text variant={"details-snd"} alignment={"center"}>
-					{props.tag}
-				</Text>
-			</StyledPillTag>
-		</StyleSheetManager>
+		<StyledPillTag $maxW={props.maxW} $m={props.m} $p={props.p}>
+			{spinnerName && (
+				<UnicodeSpinner name={spinnerName} style={{ fontSize: "10px" }} />
+			)}
+			<Text variant={"details-snd"} alignment={"center"}>
+				{props.tag}
+			</Text>
+		</StyledPillTag>
 	);
 }
 

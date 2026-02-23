@@ -1,18 +1,19 @@
 import styled from 'styled-components';
-import MediaQuery from 'react-responsive';
 
 //* Components
 import Container from '../../components/Containers/Container';
 import ProjectCard from '../../components/ProjectCard';
 import Text from '../../components/Text';
 
+//? Hooks, Config & Data
+import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { projectsConfig } from '../../config/responsive';
+import { projects } from '../../data/projects';
+
 //* Assets
 import patternVector from '../../assets/vectors/pattern-vector.svg';
-import facheVector from '../../assets/vectors/fache.svg';
-import facheAIVector from '../../assets/vectors/facheai.svg';
-import centryBoardVector from '../../assets/vectors/centryboard.svg';
 
-const StyledProjects = styled.div`
+const StyledProjects = styled.section`
 	width: 100%;
 	height: 100%;
 	padding: 0 20px;
@@ -27,261 +28,65 @@ const StyledProjects = styled.div`
 	background-repeat: no-repeat;
 
 	@media (min-width: 960px) {
-		& {
-			background-position: top right;
-		}
+		background-position: top right;
 	}
-	
+
 	@media (min-width: 1280px) {
-		& {
-			background-position: center;
-			justify-content: space-between;
-			border: none;
-			border-left: 1px solid var(--secondary-60);
-		}
+		grid-area: projects;
+		background-position: center;
+		justify-content: space-between;
+		border-top: none;
+		border-left: 1px solid var(--secondary-60);
 	}
 `;
 
 function Projects() {
+	const bp = useBreakpoint();
+	const cfg = projectsConfig[bp];
+
 	return (
 		<StyledProjects>
-			<MediaQuery minWidth={360} maxWidth={767}>
+			<Container
+				w={cfg.outerW}
+				maxW={cfg.outerMaxW}
+				h={cfg.outerH}
+				minH={cfg.outerMinH}
+				m={['36', '0', '36', '0']}
+				direction={"column"}
+				justify={cfg.outerJustify}
+				align={"center"}
+				gap={"36px"}
+			>
 				<Container
-					h={"80%"}
-					w={"100%"}
-					maxW={"500px"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}>
-
-					<Container w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'} >
-							PROJECTS
-						</Text>
-					</Container>
-					<Container direction={'column'} justify={'center'} align={'center'} gap={'12px'}>
-						<ProjectCard
-							title={'CentryBoard'}
-							details={'Productivity Booster App'}
-							tag={"Work in progress"}
-
-							src={centryBoardVector}
-							url={
-								'https://centryboard.site'
-							}
-						/>
-						<ProjectCard
-							title={'fache.ai'}
-							details={'AI Assistant App'}
-							tag={"Work in progress"}
-							src={facheAIVector}
-							url={'https://fache-ai-agent.vercel.app/'}
-						/>
-						<ProjectCard
-							title={'fache.'}
-							details={'Personal Website'}
-							tag={"V2.0"}
-							src={facheVector}
-							url={'https://fache.vercel.app'}
-						/>
-					</Container>
+					h={cfg.titleH}
+					w={'100%'}
+					justify={cfg.titleJustify}
+					align={'center'}
+				>
+					<Text as="h2" variant={'subtitle-snd'}>
+						PROJECTS
+					</Text>
 				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={768} maxWidth={959}>
-				<Container h={"80%"}
-					w={"80%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}>
-					<Container h={'100%'} w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'}>
-							PROJECTS
-						</Text>
-					</Container>
-					<Container direction={'column'} justify={'center'} align={'center'} gap={'12px'}>
+				<Container
+					h={bp.startsWith('desktop') ? '100%' : undefined}
+					direction={'column'}
+					justify={bp.startsWith('desktop') ? 'center' : 'center'}
+					align={'center'}
+					gap={cfg.cardGap}
+				>
+					{projects.map((project) => (
 						<ProjectCard
-							title={'CentryBoard'}
-							details={'Productivity Booster App'}
-							tag={"Work in progress"}
-
-							src={centryBoardVector}
-							url={
-								'https://centryboard.site'
-							}
+							key={project.title}
+							title={project.title}
+							details={project.details}
+							tag={project.tag}
+							src={project.src}
+							url={project.url}
 						/>
-						<ProjectCard
-							title={'fache.ai'}
-							details={'AI Assistant App'}
-							tag={"Work in progress"}
-							src={facheAIVector}
-							url={'https://fache-ai-agent.vercel.app/'}
-						/>
-						<ProjectCard
-							title={'fache.'}
-							details={'Personal Website'}
-							tag={"V2.0"}
-							src={facheVector}
-							url={'https://fache.vercel.app'}
-						/>
-					</Container>
+					))}
 				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={960} maxWidth={1279}>
-				<Container h={"100%"}
-					w={"80%"}
-					m={["36", "0", "36", "0"]}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-					gap={"36px"}>
-					<Container h={'100%'} w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'}>
-							PROJECTS
-						</Text>
-					</Container>
-					<Container direction={'column'} justify={'center'} align={'center'} gap={"12px"}>
-						<ProjectCard
-							title={'CentryBoard'}
-							details={'Productivity Booster App'}
-							tag={"Work in progress"}
-
-							src={centryBoardVector}
-							url={
-								'https://centryboard.site'
-							}
-						/>
-						<ProjectCard
-							title={'fache.ai'}
-							details={'AI Assistant App'}
-							tag={"Work in progress"}
-							src={facheAIVector}
-							url={'https://fache-ai-agent.vercel.app/'}
-						/>
-						<ProjectCard
-							title={'fache.'}
-							details={'Personal Website'}
-							tag={"V2.0"}
-							src={facheVector}
-							url={'https://fache.vercel.app'}
-						/>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1280} maxWidth={1439}>
-				<Container w={"100%"} h={"100%"} minH={"450px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
-					<Container h={'100%'} w={'100%'} justify={'space-between'} align={'center'} >
-						<Text variant={'subtitle-snd'}>
-							PROJECTS
-						</Text>
-					</Container>
-					<Container h={"100%"} direction={'column'} justify={'center'} align={'center'} gap={"20px"}>
-						<ProjectCard
-							title={'CentryBoard'}
-							details={'Productivity Booster App'}
-							tag={"Work in progress"}
-
-							src={centryBoardVector}
-							url={
-								'https://centryboard.site'
-							}
-						/>
-						<ProjectCard
-							title={'fache.ai'}
-							details={'AI Assistant App'}
-							tag={"Work in progress"}
-							src={facheAIVector}
-							url={'https://fache-ai-agent.vercel.app/'}
-						/>
-						<ProjectCard
-							title={'fache.'}
-							details={'Personal Website'}
-							tag={"V2.0"}
-							src={facheVector}
-							url={'https://fache.vercel.app'}
-						/>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1440} maxWidth={1800}>
-				<Container w={"100%"} h={"100%"} minH={"490px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
-					<Container w={'100%'} h={'100%'} justify={'space-between'} align={'center'} >
-						<Text variant={'subtitle-snd'}>
-							PROJECTS
-						</Text>
-					</Container>
-					<Container
-						h={"100%"}
-						direction={'column'}
-						justify={'space-between'}
-						align={'center'}
-						gap={"20px"}
-					>
-						<ProjectCard
-							title={'CentryBoard'}
-							details={'Productivity Booster App'}
-							tag={"Work in progress"}
-
-							src={centryBoardVector}
-							url={
-								'https://centryboard.site'
-							}
-						/>
-						<ProjectCard
-							title={'fache.ai'}
-							details={'AI Assistant App'}
-							tag={"Work in progress"}
-							src={facheAIVector}
-							url={'https://fache-ai-agent.vercel.app/'}
-						/>
-						<ProjectCard
-							title={'fache.'}
-							details={'Personal Website'}
-							tag={"V2.0"}
-							src={facheVector}
-							url={'https://fache.vercel.app'}
-						/>
-					</Container>
-				</Container>
-			</MediaQuery>
-			<MediaQuery minWidth={1801}>
-				<Container w={"75%"} h={"100%"} minH={"530px"} m={['36', '0', '36', '0']} direction={"column"} justify={"space-between"} align={"center"} gap={"36px"}>
-					<Container h={"auto"} w={'100%'} justify={'flex-start'} align={'center'}>
-						<Text variant={'subtitle-snd'}>
-							PROJECTS
-						</Text>
-					</Container>
-					<Container h={"max-content"} direction={'column'} justify={'center'} align={'center'} gap={"20px"}>
-						<ProjectCard
-							title={'CentryBoard'}
-							details={'Productivity Booster App'}
-							tag={"Work in progress"}
-							src={centryBoardVector}
-							url={
-								'https://centryboard.site/'
-							}
-						/>
-						<ProjectCard
-							title={'fache.ai'}
-							details={'AI Assistant App'}
-							tag={"Work in progress"}
-							src={facheAIVector}
-							url={'https://fache-ai-agent.vercel.app/'}
-						/>
-						<ProjectCard
-							title={'fache.'}
-							details={'Personal Website'}
-							tag={"V2.0"}
-							src={facheVector}
-							url={'https://fache.vercel.app'}
-						/>
-					</Container>
-				</Container>
-			</MediaQuery>
-		</StyledProjects >
+			</Container>
+		</StyledProjects>
 	);
 }
 

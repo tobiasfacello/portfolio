@@ -1,26 +1,17 @@
-import { StyleSheetManager } from "styled-components";
 import { StyledSocialButton } from "./styled";
+import { SocialButtonProps } from "../../types";
 
-function SocialButton(props: any) {
-	const handleClick = (url: string) => {
-		window.location.href = url;
-	};
-
-	const filteredProps: string[] = ["src", "url"];
-
+function SocialButton(props: SocialButtonProps) {
 	return (
-		<StyleSheetManager
-			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
+		<StyledSocialButton
+			className={"button"}
+			href={props.url}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label={props.alt}
 		>
-			<StyledSocialButton
-				className={"button"}
-				onClick={() => {
-					handleClick(props.url);
-				}}
-			>
-				<img src={props.src}></img>
-			</StyledSocialButton>
-		</StyleSheetManager>
+			<img src={props.src} alt={props.alt || ""} />
+		</StyledSocialButton>
 	);
 }
 

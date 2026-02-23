@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
-
 @font-face {
 	font-family: 'Evolventa Regular';
 	src: local('Evolventa'), url('assets/fonts/Evolventa-Regular.woff');
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -12,6 +11,7 @@
 	src: local('Evolventa Bold'), url('assets/fonts/Evolventa-Bold.woff');
 	font-weight: bold;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -136,8 +136,33 @@
 	}
 }
 
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 8px 16px;
+	background: var(--accent);
+	color: var(--background);
+	font-family: 'Evolventa Regular', sans-serif;
+	font-size: 14px;
+	text-decoration: none;
+	border-radius: 0 0 8px 8px;
+	z-index: 1000;
+	transition: top 150ms ease-in-out;
+}
+
+.skip-link:focus {
+	top: 0;
+}
+
 body {
-	user-select: none;
+	user-select: auto;
 	overflow-x: hidden;
 	background: var(--background);
 	cursor: none;

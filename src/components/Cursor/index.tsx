@@ -12,26 +12,20 @@ import styles from "./styles.module.css"
 export default function Cursor() {
 
   const cursorRef = useRef<SVGSVGElement | null>(null);
-  const mouseRef = useRef<any>({ x: null, y: null, });
+  const mouseRef = useRef<{ x: gsap.QuickToFunc | null; y: gsap.QuickToFunc | null }>({ x: null, y: null });
 
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
-    const checkIfMobile = () => {
-      return ((window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches));
+    const mql = window.matchMedia('(hover: none) and (pointer: coarse)');
+    setIsMobileDevice(mql.matches);
+
+    const onChange = (e: MediaQueryListEvent) => {
+      setIsMobileDevice(e.matches);
     };
 
-    setIsMobileDevice(checkIfMobile());
-
-    const handleResize = () => {
-      setIsMobileDevice(checkIfMobile());
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
   }, []);
 
   useGSAP(() => {
@@ -45,8 +39,8 @@ export default function Cursor() {
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x(e.clientX);
-      mouseRef.current.y(e.clientY);
+      mouseRef.current.x?.(e.clientX);
+      mouseRef.current.y?.(e.clientY);
     };
 
     const onMouseOver = (e: MouseEvent) => {
@@ -55,9 +49,7 @@ export default function Cursor() {
       const isInteractive = target.closest("a") || target.closest("link") ||
         target.closest(".button") || target.closest(".work-card") || target.closest(".project-card");
 
-      if (cursor) {
-        cursor.style.display = isInteractive ? 'none' : 'inherit';
-      }
+      gsap.set(cursor, { autoAlpha: isInteractive ? 0 : 1 });
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
@@ -69,7 +61,6 @@ export default function Cursor() {
     };
   }, {
     dependencies: [isMobileDevice],
-    scope: cursorRef,
     revertOnUpdate: true,
   });
 

@@ -1,17 +1,17 @@
 import styled from "styled-components";
 export const StyledImageFrame = styled.div<{
-	m: string[];
-	p: string[];
+	$m?: string[];
+	$p?: string[];
 }>`
 	//* Margin
 	margin: ${(props) =>
-		props.m &&
-		props.m.map((marginSize) => `var(--${marginSize})`).join(" ")};
+		props.$m &&
+		props.$m.map((marginSize) => `var(--${marginSize})`).join(" ")};
 
 	//* Padding
 	padding: ${(props) =>
-		props.p &&
-		props.p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
+		props.$p &&
+		props.$p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
 
 	@media (min-width: 360px) {
 		& {

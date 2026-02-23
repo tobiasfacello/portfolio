@@ -12,7 +12,7 @@ import styles from "./styles.module.css"
 export default function Cursor() {
 
   const cursorRef = useRef<SVGSVGElement | null>(null);
-  const mouseRef = useRef<any>({ x: null, y: null, });
+  const mouseRef = useRef<{ x: gsap.QuickToFunc | null; y: gsap.QuickToFunc | null }>({ x: null, y: null });
 
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
@@ -45,8 +45,8 @@ export default function Cursor() {
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x(e.clientX);
-      mouseRef.current.y(e.clientY);
+      mouseRef.current.x?.(e.clientX);
+      mouseRef.current.y?.(e.clientY);
     };
 
     const onMouseOver = (e: MouseEvent) => {

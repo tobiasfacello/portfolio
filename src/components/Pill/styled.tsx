@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const StyledPillTag = styled.span<{
-	$isHovered: boolean;
-	$maxW: string;
-	$m: string[];
-	$p: string[];
+	$isHovered?: boolean;
+	$maxW?: string;
+	$m?: string[];
+	$p?: string[];
 }>`
 	width: auto;
 	max-width: ${(props) => (props.$maxW == null ? "130px" : props.$maxW)};

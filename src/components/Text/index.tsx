@@ -1,6 +1,7 @@
 import { StyledText } from "./styled";
+import { TextProps } from "../../types";
 
-export default function Text(props: any) {
+export default function Text(props: TextProps) {
 	return (
 		<StyledText
 			as={props.as}

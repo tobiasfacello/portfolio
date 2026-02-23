@@ -4,6 +4,9 @@ import { StyledPillTag } from "./styled";
 import Text from "../Text";
 import UnicodeSpinner from "../UnicodeSpinner";
 
+//? Types
+import { PillProps } from "../../types";
+
 const tagSpinnerMap: Record<string, "braille" | "diagswipe" | "breathe"> = {
 	"Work in progress": "braille",
 	"V2.0": "diagswipe",
@@ -11,11 +14,11 @@ const tagSpinnerMap: Record<string, "braille" | "diagswipe" | "breathe"> = {
 	"Design": "breathe",
 };
 
-function PillTag(props: any) {
+function PillTag(props: PillProps) {
 	const spinnerName = tagSpinnerMap[props.tag];
 
 	return (
-		<StyledPillTag $isHovered={props.isHovered} $maxW={props.maxW} $m={props.m} $p={props.p}>
+		<StyledPillTag $maxW={props.maxW} $m={props.m} $p={props.p}>
 			{spinnerName && (
 				<UnicodeSpinner name={spinnerName} style={{ fontSize: "10px" }} />
 			)}

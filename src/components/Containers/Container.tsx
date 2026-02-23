@@ -1,20 +1,21 @@
 import styled from "styled-components";
+import { ContainerProps } from "../../types";
 
 const StyledContainer = styled.div<{
-	$css: string;
-	$w: string;
-	$minW: string;
-	$maxW: string;
-	$h: string;
-	$minH: string;
-	$maxH: string;
-	$m: string[];
-	$p: string[];
-	$direction: string;
-	$justify: string;
-	$align: string;
-	$gap: string;
-	$wrap: string;
+	$css?: string;
+	$w?: string;
+	$minW?: string;
+	$maxW?: string;
+	$h?: string;
+	$minH?: string;
+	$maxH?: string;
+	$m?: string[];
+	$p?: string[];
+	$direction?: string;
+	$justify?: string;
+	$align?: string;
+	$gap?: string;
+	$wrap?: string;
 }>`
 	${(props) => props.$css}
 	width: ${(props) => (props.$w == null ? "100%" : props.$w)};
@@ -37,7 +38,7 @@ const StyledContainer = styled.div<{
 	gap: ${(props) => props.$gap != null && props.$gap};
 `;
 
-function Container(props: any) {
+function Container(props: ContainerProps) {
 	return (
 		<StyledContainer
 			$css={props.$css}

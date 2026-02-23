@@ -6,11 +6,14 @@ import Container from "./Container";
 import WorkCardsCarousel from "../WorkCardsCarousel";
 import Text from "../Text";
 
+//? Types
+import { SectionProps } from "../../types";
+
 //* Assets
 import patternVector from "../../assets/vectors/pattern-vector.svg";
 
 const StyledWorks = styled.section<{
-	flex: number;
+	flex?: number;
 }>`
 	height: 100%;
 	display: flex;
@@ -50,7 +53,7 @@ const StyledWorks = styled.section<{
 	}
 `;
 
-function Works(props: any) {
+function Works(props: SectionProps) {
 	return (
 		<StyledWorks flex={props.flex}>
 			<MediaQuery minWidth={360} maxWidth={767}>

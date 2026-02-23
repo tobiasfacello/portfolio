@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const StyledImageFrame = styled.div<{
-	$m: string[];
-	$p: string[];
+	$m?: string[];
+	$p?: string[];
 }>`
 	//* Margin
 	margin: ${(props) =>

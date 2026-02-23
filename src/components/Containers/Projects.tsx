@@ -10,8 +10,8 @@ import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { projectsConfig } from '../../config/responsive';
 import { projects } from '../../data/projects';
 
-//* Assets
-import patternVector from '../../assets/vectors/pattern-vector.svg';
+//* Styles
+import { noisePatternBackground } from '../../styles/mixins';
 
 const StyledProjects = styled.section`
 	width: 100%;
@@ -22,21 +22,27 @@ const StyledProjects = styled.section`
 	align-items: center;
 	justify-content: center;
 	border-top: 1px solid var(--secondary-60);
-	background-image: url(${patternVector});
-	background-size: auto;
-	background-position: center;
-	background-repeat: no-repeat;
+	${noisePatternBackground}
+
+	&::before {
+		background-position: center;
+	}
 
 	@media (min-width: 960px) {
-		background-position: top right;
+		&::before {
+			background-position: top right;
+		}
 	}
 
 	@media (min-width: 1280px) {
 		grid-area: projects;
-		background-position: center;
 		justify-content: space-between;
 		border-top: none;
 		border-left: 1px solid var(--secondary-60);
+
+		&::before {
+			background-position: center;
+		}
 	}
 `;
 

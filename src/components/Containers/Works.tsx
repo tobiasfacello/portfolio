@@ -9,8 +9,8 @@ import Text from "../Text";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { worksConfig } from "../../config/responsive";
 
-//* Assets
-import patternVector from "../../assets/vectors/pattern-vector.svg";
+//* Styles
+import { noisePatternBackground } from "../../styles/mixins";
 
 const StyledWorks = styled.section`
 	height: 100%;
@@ -20,13 +20,16 @@ const StyledWorks = styled.section`
 	align-items: center;
 	padding: 0 20px;
 	border-top: 1px solid var(--secondary-60);
-	background-image: url(${patternVector});
-	background-size: auto;
-	background-position: center;
-	background-repeat: no-repeat;
+	${noisePatternBackground}
+
+	&::before {
+		background-position: center;
+	}
 
 	@media (min-width: 960px) {
-		background-position: center right;
+		&::before {
+			background-position: center right;
+		}
 	}
 
 	@media (min-width: 1280px) {

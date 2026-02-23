@@ -1,5 +1,9 @@
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 import { StyledPillTag } from '../components/Pill/styled';
+
+//* Assets
+import patternVector from '../assets/vectors/pattern-vector.svg';
+import noiseTexture from '../assets/images/noise-texture.webp';
 
 export const glassCard = css`
 	background-color: rgba(197, 199, 188, 5%);
@@ -60,6 +64,45 @@ export const interactiveHover = css`
 	&:active {
 		background-color: var(--primary);
 		transition: all 100ms;
+	}
+`;
+
+const noiseDrift = keyframes`
+	0% { mask-position: 0px 0px; -webkit-mask-position: 0px 0px; }
+	20% { mask-position: 170px 500px; -webkit-mask-position: 170px 500px; }
+	40% { mask-position: 530px 280px; -webkit-mask-position: 530px 280px; }
+	60% { mask-position: 220px 670px; -webkit-mask-position: 220px 670px; }
+	80% { mask-position: 620px 140px; -webkit-mask-position: 620px 140px; }
+	100% { mask-position: 720px 720px; -webkit-mask-position: 720px 720px; }
+`;
+
+export const noisePatternBackground = css`
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background-image: url(${patternVector});
+		background-size: auto;
+		background-repeat: no-repeat;
+		-webkit-mask-image: url(${noiseTexture});
+		mask-image: url(${noiseTexture});
+		-webkit-mask-size: 720px 720px;
+		mask-size: 720px 720px;
+		-webkit-mask-repeat: repeat;
+		mask-repeat: repeat;
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		will-change: mask-position;
+		animation: ${noiseDrift} 150s linear infinite;
+
+		@media (prefers-reduced-motion: reduce) {
+			animation: none;
+		}
 	}
 `;
 

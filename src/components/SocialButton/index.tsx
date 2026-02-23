@@ -2,11 +2,7 @@ import { StyleSheetManager } from "styled-components";
 import { StyledSocialButton } from "./styled";
 
 function SocialButton(props: any) {
-	const handleClick = (url: string) => {
-		window.open(url, '_blank', 'noopener,noreferrer');
-	};
-
-	const filteredProps: string[] = ["src", "url"];
+	const filteredProps: string[] = ["src", "url", "alt"];
 
 	return (
 		<StyleSheetManager
@@ -14,11 +10,12 @@ function SocialButton(props: any) {
 		>
 			<StyledSocialButton
 				className={"button"}
-				onClick={() => {
-					handleClick(props.url);
-				}}
+				href={props.url}
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label={props.alt}
 			>
-				<img src={props.src}></img>
+				<img src={props.src} alt={props.alt || ""} />
 			</StyledSocialButton>
 		</StyleSheetManager>
 	);

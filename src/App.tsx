@@ -8,16 +8,25 @@ import "./App.css";
 
 function AppContent() {
 	const { isSplashActive } = useSplash();
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	const content = (
+		<ThemeProvider>
+			{!prefersReducedMotion && <Cursor />}
+			<Home />
+		</ThemeProvider>
+	);
 
 	return (
 		<>
 			{isSplashActive && <SplashScreen />}
-			<ReactLenis options={{ lerp: 0.1, duration: 1.7, smoothWheel: true }} root>
-				<ThemeProvider>
-					<Cursor />
-					<Home />
-				</ThemeProvider>
-			</ReactLenis>
+			{prefersReducedMotion ? (
+				content
+			) : (
+				<ReactLenis options={{ lerp: 0.1, duration: 1.7, smoothWheel: true }} root>
+					{content}
+				</ReactLenis>
+			)}
 		</>
 	);
 }

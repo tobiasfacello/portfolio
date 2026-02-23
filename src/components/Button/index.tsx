@@ -7,9 +7,6 @@ import Text from "../Text";
 
 function Button(props: any) {
 	const [isHovered, setIsHovered] = useState(false);
-	const handleClick = (url: string) => {
-		window.open(url, '_blank', 'noopener,noreferrer');
-	};
 
 	const filteredProps: string[] = ["isHovered", "p", "m", "url"];
 
@@ -20,9 +17,9 @@ function Button(props: any) {
 			<StyledButton
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
-				onClick={() => {
-					handleClick(props.url);
-				}}
+				href={props.url}
+				target="_blank"
+				rel="noopener noreferrer"
 				isHovered={isHovered}
 				p={props.p}
 				m={props.m}

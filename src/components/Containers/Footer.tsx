@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Container from "./Container";
 import Text from "../Text";
 
-const StyledFooter = styled.div`
+const StyledFooter = styled.footer`
 	width: 100%;
 	height: 100%;
 	display: flex;

@@ -3,11 +3,13 @@ import styled from "styled-components";
 //* Components
 import { StyledPillTag } from "../Pill/styled";
 
-export const StyledWorkCard = styled.div<{
+export const StyledWorkCard = styled.a<{
 	isHovered: boolean;
 	m: string[];
 	p: string[];
 }>`
+	text-decoration: none;
+	color: inherit;
 	width: 100%;
 	height: 100%;
 	display: flex;

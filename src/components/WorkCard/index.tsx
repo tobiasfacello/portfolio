@@ -28,18 +28,15 @@ function WorkCard(props: any) {
 		'src',
 	];
 
-	//TODO: Enable this feature in the future
-	const handleClick = (url: string) => {
-		window.open(url, '_blank', 'noopener,noreferrer');
-	};
-
 	return (
 		<StyleSheetManager
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledWorkCard
 				className={"work-card"}
-				onClick={() => handleClick(props.url)}
+				href={props.url}
+				target="_blank"
+				rel="noopener noreferrer"
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				isHovered={isHovered}
@@ -111,7 +108,7 @@ function WorkCard(props: any) {
 					justify={'center'}
 					align={'end'}
 				>
-					<img className="work-logo" src={props.src} />
+					<img className="work-logo" src={props.src} alt={`${props.title} logo`} />
 				</Container>
 			</StyledWorkCard>
 		</StyleSheetManager >

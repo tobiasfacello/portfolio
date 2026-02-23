@@ -3,9 +3,11 @@ import styled from 'styled-components';
 //* Components
 import { StyledPillTag } from '../Pill/styled';
 
-export const StyledProjectCard = styled.div<{
+export const StyledProjectCard = styled.a<{
 	isHovered: boolean;
 }>`
+	text-decoration: none;
+	color: inherit;
 	width: 100%;
 	height: 120px;
 	min-width: 320px;

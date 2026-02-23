@@ -33,17 +33,15 @@ function ProjectCard(props: any) {
 		}
 	}, [props.src]);
 
-	const handleClick = (url: string) => {
-		window.open(url, '_blank', 'noopener,noreferrer');
-	};
-
 	return (
 		<StyleSheetManager
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledProjectCard
 				className={"project-card"}
-				onClick={() => handleClick(props.url)}
+				href={props.url}
+				target="_blank"
+				rel="noopener noreferrer"
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				isHovered={isHovered}
@@ -65,6 +63,7 @@ function ProjectCard(props: any) {
 					{!imageLoaded && <UnicodeSpinner name="pulse" />}
 					<img
 						src={props.src}
+						alt={`${props.title} logo`}
 						style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
 					/>
 				</Container>

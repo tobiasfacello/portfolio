@@ -15,6 +15,7 @@ export default function Text(props: any) {
 			shouldForwardProp={(prop) => !filteredProps.includes(prop)}
 		>
 			<StyledText
+				as={props.as}
 				w={props.w}
 				h={props.h}
 				m={props.m}

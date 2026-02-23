@@ -1,6 +1,7 @@
 import { StyledImageFrame } from "./styled";
+import { ImageFrameProps } from "../../types";
 
-function ImageFrame(props: any) {
+function ImageFrame(props: ImageFrameProps) {
 	const containerStyles = {
 		display: "flex",
 		alignItems: "center",

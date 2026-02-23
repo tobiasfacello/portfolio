@@ -3,8 +3,8 @@ import { glassCard, hoveredPillStyles } from "../../styles/mixins";
 
 export const StyledWorkCard = styled.a<{
 	$isHovered: boolean;
-	$m: string[];
-	$p: string[];
+	$m?: string[];
+	$p?: string[];
 }>`
 	text-decoration: none;
 	color: inherit;

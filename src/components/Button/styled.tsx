@@ -6,8 +6,8 @@ import { StyledText } from "../Text/styled";
 
 export const StyledButton = styled.a<{
 	$isHovered: boolean;
-	$m: string[];
-	$p: string[];
+	$m?: string[];
+	$p?: string[];
 }>`
 	width: auto;
 	height: 36px;

@@ -4,7 +4,10 @@ import { useState } from "react";
 //* Components
 import Text from "../Text";
 
-function Button(props: any) {
+//? Types
+import { ButtonProps } from "../../types";
+
+function Button(props: ButtonProps) {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (

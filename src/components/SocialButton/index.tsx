@@ -1,6 +1,7 @@
 import { StyledSocialButton } from "./styled";
+import { SocialButtonProps } from "../../types";
 
-function SocialButton(props: any) {
+function SocialButton(props: SocialButtonProps) {
 	return (
 		<StyledSocialButton
 			className={"button"}

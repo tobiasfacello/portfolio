@@ -5,6 +5,9 @@ import MediaQuery from "react-responsive";
 import Container from "./Container";
 import Text from "../Text";
 
+//? Types
+import { SectionProps } from "../../types";
+
 //* Assets
 import BashIcon from "../../assets/icons/Bash.svg";
 import TSIcon from "../../assets/icons/TypeScript.svg";
@@ -28,7 +31,7 @@ import FramerIcon from "../../assets/icons/Framer.svg";
 import AISDKIcon from "../../assets/icons/AISDK.svg";
 
 const StyledSkills = styled.section<{
-	flex: number;
+	flex?: number;
 }>`
 	width: 100%;;
 	height: 100%;
@@ -59,7 +62,7 @@ const StyledIcon = styled.img`
 	opacity: 0.8;
 `;
 
-function Skills(props: any) {
+function Skills(props: SectionProps) {
 	return (
 		<StyledSkills flex={props.flex}>
 			<MediaQuery minWidth={360} maxWidth={767}>

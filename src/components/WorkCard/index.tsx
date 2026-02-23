@@ -11,7 +11,10 @@ import PillTag from '../Pill';
 import Button from '../Button';
 import IconFrame from '../IconFrame';
 
-function WorkCard(props: any) {
+//? Types
+import { WorkCardProps } from '../../types';
+
+function WorkCard(props: WorkCardProps) {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -50,7 +53,7 @@ function WorkCard(props: any) {
 						direction={'row'}
 						gap={"6px"}
 					>
-						{props.tags.map((tag: any) => {
+						{props.tags.map((tag: string) => {
 							return (
 								<PillTag
 									key={tag}

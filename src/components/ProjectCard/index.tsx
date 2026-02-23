@@ -7,7 +7,10 @@ import Container from '../Containers/Container';
 import PillTag from '../Pill';
 import UnicodeSpinner from '../UnicodeSpinner';
 
-function ProjectCard(props: any) {
+//? Types
+import { ProjectCardProps } from '../../types';
+
+function ProjectCard(props: ProjectCardProps) {
 	const [isHovered, setIsHovered] = useState(false);
 	const [imageLoaded, setImageLoaded] = useState(false);
 

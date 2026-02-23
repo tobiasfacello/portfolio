@@ -24,25 +24,11 @@ const StyledProjects = styled.section`
 	border-top: 1px solid var(--secondary-60);
 	${noisePatternBackground}
 
-	&::before {
-		background-position: center;
-	}
-
-	@media (min-width: 960px) {
-		&::before {
-			background-position: top right;
-		}
-	}
-
 	@media (min-width: 1280px) {
 		grid-area: projects;
 		justify-content: space-between;
 		border-top: none;
 		border-left: 1px solid var(--secondary-60);
-
-		&::before {
-			background-position: center;
-		}
 	}
 `;
 

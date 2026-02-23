@@ -17,6 +17,7 @@ export default function SplashScreen() {
 	const { headerLogoRef, setSplashComplete, dismissSplash } = useSplash();
 	const splashLogoRef = useRef<HTMLHeadingElement>(null);
 	const overlayRef = useRef<HTMLDivElement>(null);
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	// Block scroll while splash is active
 	useEffect(() => {
@@ -27,6 +28,12 @@ export default function SplashScreen() {
 	}, []);
 
 	const handleAnimationComplete = useCallback(() => {
+		if (prefersReducedMotion) {
+			setSplashComplete();
+			dismissSplash();
+			return;
+		}
+
 		const splashLogo = splashLogoRef.current;
 		const headerTarget = headerLogoRef.current;
 		const overlay = overlayRef.current;
@@ -74,12 +81,13 @@ export default function SplashScreen() {
 				dismissSplash();
 			},
 		});
-	}, [headerLogoRef, setSplashComplete, dismissSplash]);
+	}, [headerLogoRef, setSplashComplete, dismissSplash, prefersReducedMotion]);
 
 	return (
 		<StyledSplashOverlay ref={overlayRef}>
 			<AsciiLogo
 				ref={splashLogoRef}
+				skipAnimation={prefersReducedMotion}
 				onAnimationComplete={handleAnimationComplete}
 			/>
 		</StyledSplashOverlay>

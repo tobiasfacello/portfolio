@@ -49,9 +49,7 @@ export default function Cursor() {
       const isInteractive = target.closest("a") || target.closest("link") ||
         target.closest(".button") || target.closest(".work-card") || target.closest(".project-card");
 
-      if (cursor) {
-        cursor.style.display = isInteractive ? 'none' : 'inherit';
-      }
+      gsap.set(cursor, { autoAlpha: isInteractive ? 0 : 1 });
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
@@ -63,7 +61,6 @@ export default function Cursor() {
     };
   }, {
     dependencies: [isMobileDevice],
-    scope: cursorRef,
     revertOnUpdate: true,
   });
 

@@ -1,17 +1,46 @@
 import { css, keyframes } from 'styled-components';
 import { StyledPillTag } from '../components/Pill/styled';
+import { StyledSpinner } from '../components/UnicodeSpinner/styled';
 
 //* Assets
 import noiseTexture from '../assets/images/noise-texture.webp';
 
-export const glassCard = css`
-	background-color: rgba(197, 199, 188, 5%);
+export const glassBorder = (bold = false) => css`
+	position: relative;
+	background-color: var(--glass-bg${bold ? '-bold' : ''});
+	border: 1px solid transparent;
+	border-radius: 20px;
+	background-clip: padding-box;
+
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 20px;
+		padding: 1px;
+		background: linear-gradient(
+			to bottom,
+			var(--glass-border${bold ? '-bold' : ''}-start),
+			var(--glass-border${bold ? '-bold' : ''}-end)
+		);
+		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+		-webkit-mask: linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+		pointer-events: none;
+		z-index: 1;
+		transition: background 350ms ease-in-out;
+	}
+`;
+
+export const glassCard = (bold = false) => css`
+	background-color: var(--glass-bg${bold ? '-bold' : ''});
 	background-clip: padding-box;
 	border: 1px solid transparent;
 	border-radius: 20px;
 	backdrop-filter: blur(4px);
-	cursor: pointer;
-	transition: all 300ms;
+	transition: all 350ms ease-in-out;
 
 	&::before {
 		content: '';
@@ -21,22 +50,22 @@ export const glassCard = css`
 		padding: 1px;
 		background: linear-gradient(
 			to bottom,
-			rgba(197, 199, 188, 10%),
-			rgba(197, 199, 188, 0%)
+			var(--glass-border${bold ? '-bold' : ''}-start),
+			var(--glass-border${bold ? '-bold' : ''}-end)
 		);
-		mask: linear-gradient(#f2e8ea 0 0) content-box, linear-gradient(#f2e8ea 0 0);
-		-webkit-mask: linear-gradient(#f2e8ea 0 0) content-box,
-			linear-gradient(#f2e8ea 0 0);
+		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+		-webkit-mask: linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
-		transition: all 300ms;
+		transition: background 350ms ease-in-out;
 	}
 
 	&:hover::before {
 		background: linear-gradient(
 			to bottom,
-			rgba(197, 199, 188, 30%),
-			rgba(197, 199, 188, 6%)
+			var(--glass-border${bold ? '-bold-' : '-'}hover-start),
+			var(--glass-border${bold ? '-bold-' : '-'}hover-end)
 		);
 	}
 `;
@@ -47,6 +76,10 @@ export const hoveredPillStyles = (isHovered: boolean) => css`
 		background-color: ${isHovered ? "var(--accent)" : "transparent"};
 		border-color: ${isHovered ? "var(--primary)" : "inherit"};
 		opacity: ${isHovered ? "1" : "0.6"};
+
+		${StyledSpinner} {
+			color: ${isHovered ? "var(--pill-text-hovered)" : "var(--primary)"};
+		}
 	}
 `;
 
@@ -85,7 +118,7 @@ export const noisePatternBackground = css`
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background-image: radial-gradient(circle, #444738 1px, transparent 1px);
+		background-image: radial-gradient(circle, var(--secondary) 1px, transparent 1px);
 		background-size: 13.5px 13.5px;
 		-webkit-mask-image: url(${noiseTexture});
 		mask-image: url(${noiseTexture});

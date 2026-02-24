@@ -1,0 +1,104 @@
+{
+	"sections": {
+		"overview": "Sobre el proyecto",
+		"process": "El Proceso",
+		"mockups": "Mockups del Proyecto",
+		"collaborators": "Colaboradores",
+		"tools": "Herramientas",
+		"roles": "Roles",
+		"outcome": "Resultado",
+		"publishedDate": "Publicado",
+		"livePreview": "Preview en vivo",
+		"designSystem": "Sistema de Dise\u00f1o"
+	},
+	"molde": {
+		"type": "Desarrollo",
+		"publishedDate": "Julio 2024",
+		"outcome": "Sitio Web",
+		"livePreviewUrl": "estudiomolde.com",
+		"livePreviewDescription": "Landing page de estudio de arquitectura",
+		"collaborators": ["Typeland", "Sutil Studio"],
+		"overview": "MOLDE es un estudio de arquitectura que necesitaba una presencia digital para mostrar sus proyectos y filosof\u00eda. El objetivo fue crear una landing page limpia y minimalista que refleje su sensibilidad de dise\u00f1o y brinde una experiencia de usuario atrapante.",
+		"process": {
+			"preparation": {
+				"title": "Preparaci\u00f3n",
+				"content": "El proyecto comenz\u00f3 con una revisi\u00f3n exhaustiva de los archivos de dise\u00f1o proporcionados por el equipo de dise\u00f1o. Analic\u00e9 el lenguaje visual, la jerarqu\u00eda de componentes y los patrones de interacci\u00f3n para planificar la implementaci\u00f3n t\u00e9cnica."
+			},
+			"development": {
+				"title": "Desarrollo",
+				"content": "Construido con React y TypeScript, enfocado en la reutilizaci\u00f3n de componentes y el rendimiento. Implement\u00e9 animaciones de scroll suaves, layouts responsivos y carga optimizada de assets para una experiencia de navegaci\u00f3n fluida."
+			},
+			"optimization": {
+				"title": "Optimizaci\u00f3n y Testing",
+				"content": "Realic\u00e9 pruebas exhaustivas cross-browser y optimizaci\u00f3n de rendimiento. Implement\u00e9 lazy loading para im\u00e1genes, optimic\u00e9 el tama\u00f1o del bundle y asegur\u00e9 el cumplimiento de accesibilidad en todos los viewports."
+			},
+			"finalization": {
+				"title": "Finalizaci\u00f3n",
+				"content": "Revisi\u00f3n final con el cliente y el equipo de dise\u00f1o, configuraci\u00f3n de deployment y monitoreo de rendimiento. El sitio se lanz\u00f3 con excelentes puntuaciones de Lighthouse en todas las m\u00e9tricas."
+			}
+		},
+		"roles": ["Fullstack Engineer", "Web Developer"],
+		"tags": ["Landing Page", "Arquitectura"],
+		"tools": ["Figma", "React", "TypeScript", "Styled Components", "GSAP", "Vite"]
+	},
+	"indalo": {
+		"type": "Desarrollo",
+		"publishedDate": "Agosto 2024",
+		"outcome": "Sitio Web",
+		"livePreviewUrl": "grupoindalo.com.ar",
+		"livePreviewDescription": "Sitio web corporativo de grupo empresario",
+		"collaborators": ["Typeland"],
+		"overview": "Grupo Indalo es un grupo empresario que requer\u00eda un sitio web corporativo moderno para presentar su diverso portfolio de empresas y servicios. El desaf\u00edo fue crear una experiencia digital unificada que represente sus m\u00faltiples verticales de negocio.",
+		"process": {
+			"preparation": {
+				"title": "Preparaci\u00f3n",
+				"content": "Comenc\u00e9 mapeando la arquitectura de contenido para representar adecuadamente las diversas unidades de negocio del grupo. Coordin\u00e9 con el equipo de dise\u00f1o para establecer un sistema visual que funcione en todas las secciones."
+			},
+			"development": {
+				"title": "Desarrollo",
+				"content": "Desarrollado usando React con foco en arquitectura modular. Cada secci\u00f3n de unidad de negocio fue construida como un m\u00f3dulo independiente manteniendo consistencia visual a trav\u00e9s de componentes compartidos y design tokens."
+			},
+			"optimization": {
+				"title": "Optimizaci\u00f3n y Testing",
+				"content": "La optimizaci\u00f3n de rendimiento se enfoc\u00f3 en el manejo de im\u00e1genes para el extenso contenido visual. Implement\u00e9 im\u00e1genes responsivas con dimensionamiento y selecci\u00f3n de formato apropiados para diferentes viewports."
+			},
+			"finalization": {
+				"title": "Finalizaci\u00f3n",
+				"content": "Desplegado con pipeline CI/CD automatizado. Realic\u00e9 la revisi\u00f3n final con stakeholders asegurando que todas las unidades de negocio estuvieran representadas correctamente y todos los elementos interactivos funcionaran correctamente."
+			}
+		},
+		"roles": ["Fullstack Engineer", "Web Developer"],
+		"tags": ["Sitio Corporativo", "Empresarial"],
+		"tools": ["Figma", "React", "TypeScript", "Styled Components", "GSAP", "Vite"]
+	},
+	"rancho": {
+		"type": "Dise\u00f1o y Desarrollo",
+		"publishedDate": "Junio 2024",
+		"outcome": "Sitio Web",
+		"livePreviewUrl": "bungalowselrancho.com.ar",
+		"livePreviewDescription": "Sitio web de negocio familiar de alquileres",
+		"collaborators": [],
+		"overview": "El Rancho es un negocio familiar de alquiler de bungalows que necesitaba tanto una identidad de marca como una presencia web. Este fue un proyecto end-to-end donde me encargué tanto del dise\u00f1o como del desarrollo, creando una experiencia digital c\u00e1lida y acogedora que refleja la naturaleza acogedora de sus alojamientos.",
+		"process": {
+			"preparation": {
+				"title": "Preparaci\u00f3n",
+				"content": "Me reun\u00ed con el cliente para entender sus valores de marca, audiencia objetivo y metas de negocio. Realic\u00e9 investigaci\u00f3n competitiva de negocios de alquiler similares para identificar oportunidades de diferenciaci\u00f3n."
+			},
+			"design": {
+				"title": "Dise\u00f1o",
+				"content": "Cre\u00e9 la identidad visual desde cero, incluyendo logo, paleta de colores y elecci\u00f3n tipogr\u00e1fica. Dise\u00f1\u00e9 la UI completa en Figma con foco en mostrar la atm\u00f3sfera de la propiedad y hacer el proceso de reserva intuitivo."
+			},
+			"development": {
+				"title": "Desarrollo",
+				"content": "Constru\u00ed el sitio con React, implementando animaciones y transiciones suaves que mejoran la experiencia de navegaci\u00f3n. Se prest\u00f3 especial atenci\u00f3n a la presentaci\u00f3n de im\u00e1genes y la optimizaci\u00f3n m\u00f3vil para viajeros navegando desde sus tel\u00e9fonos."
+			},
+			"finalization": {
+				"title": "Finalizaci\u00f3n",
+				"content": "Proceso de revisi\u00f3n iterativo con el cliente, ajustando elementos visuales y contenido hasta que todo represent\u00f3 perfectamente su negocio. Lanzado con optimizaci\u00f3n SEO para visibilidad en b\u00fasquedas locales."
+			}
+		},
+		"roles": ["Web Designer", "Fullstack Engineer", "Web Developer"],
+		"tags": ["Landing Page", "Hotelería"],
+		"tools": ["Figma", "React", "TypeScript", "Styled Components", "Vite"]
+	}
+}

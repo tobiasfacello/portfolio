@@ -1,42 +1,119 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 //* Components
 import Container from "./Container";
 import Text from "../Text";
+import Tooltip from "../Tooltip";
 
 //? Hooks, Config & Data
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
 
+//* Styles
+import { glassBorder } from "../../styles/mixins";
+
 const StyledSkills = styled.section`
 	width: 100%;
 	height: 100%;
-	padding: 0 20px;
+	padding: var(--36) var(--20);
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
-	border-top: 1px solid var(--secondary-60);
+	${glassBorder(true)}
 
 	@media (min-width: 1280px) {
 		grid-area: skills;
-		border-right: 1px solid var(--secondary-60);
 	}
 `;
 
-const StyledIcon = styled.img`
-	width: 100%;
-	height: 100%;
-	max-width: 48px;
-	max-height: 48px;
+const StyledIcon = styled.span`
+	width: 48px;
+	height: 48px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	color: var(--text);
-	opacity: 0.8;
+	opacity: 0.6;
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+`;
+
+const StyledIconGrid = styled.div<{ $gap: string }>`
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: ${(props) => props.$gap};
+	place-items: center;
 `;
 
 function Skills() {
 	const bp = useBreakpoint();
 	const cfg = skillsConfig[bp];
+	const { t } = useTranslation('home');
+
+	if (cfg.useGrid) {
+		const allIcons = skillRows.flat();
+
+		const gridElement = (
+			<StyledIconGrid $gap={cfg.gridGap!}>
+				{allIcons.map((icon) => (
+					<Tooltip key={icon.title} text={icon.title}>
+						<StyledIcon>
+							<icon.Icon aria-hidden="true" />
+						</StyledIcon>
+					</Tooltip>
+				))}
+			</StyledIconGrid>
+		);
+
+		if (cfg.titleOutside) {
+			return (
+				<StyledSkills>
+					<Container
+						h={"auto"}
+						w={"100%"}
+						justify={"flex-start"}
+						align={"center"}
+					>
+						<Text as="h2" variant={"subtitle-snd"}>
+							{t('skills.title')}
+						</Text>
+					</Container>
+					{gridElement}
+				</StyledSkills>
+			);
+		}
+
+		return (
+			<StyledSkills>
+				<Container
+					w={cfg.outerW}
+					h={cfg.outerH}
+					direction={"column"}
+					justify={cfg.outerJustify}
+					align={"center"}
+				>
+					<Container
+						w={"100%"}
+						h={"auto"}
+						justify={"flex-start"}
+						align={"center"}
+					>
+						<Text as="h2" variant={"subtitle-snd"}>
+							{t('skills.title')}
+						</Text>
+					</Container>
+					{gridElement}
+				</Container>
+			</StyledSkills>
+		);
+	}
 
 	const iconGrid = skillRows.map((row, i) => (
 		<Container
@@ -46,35 +123,14 @@ function Skills() {
 			align={"center"}
 		>
 			{row.map((icon) => (
-				<StyledIcon
-					key={icon.title}
-					src={icon.src}
-					title={icon.title}
-					alt={icon.title}
-				/>
+				<Tooltip key={icon.title} text={icon.title}>
+					<StyledIcon>
+						<icon.Icon aria-hidden="true" />
+					</StyledIcon>
+				</Tooltip>
 			))}
 		</Container>
 	));
-
-	if (cfg.titleOutside) {
-		return (
-			<StyledSkills>
-				<Text as="h2" variant={"subtitle-snd"} m={cfg.titleM}>
-					SKILLS & TOOLS
-				</Text>
-				<Container
-					h={cfg.outerH}
-					m={["36", "0", "36", "0"]}
-					p={cfg.iconContainerP}
-					direction={"column"}
-					justify={"center"}
-					align={"center"}
-				>
-					{iconGrid}
-				</Container>
-			</StyledSkills>
-		);
-	}
 
 	const needsIconWrapper = cfg.iconWrapperH != null;
 
@@ -84,27 +140,26 @@ function Skills() {
 				w={cfg.outerW}
 				maxW={cfg.outerMaxW}
 				h={cfg.outerH}
-				m={["36", "0", "36", "0"]}
 				direction={"column"}
 				justify={cfg.outerJustify}
 				align={"center"}
-				gap={"36px"}
+				gap={cfg.outerGap}
 			>
 				<Container
 					w={"100%"}
-					h={cfg.iconWrapperH ? undefined : "100%"}
+					h={"auto"}
 					justify={"flex-start"}
 					align={"center"}
 				>
 					<Text as="h2" variant={"subtitle-snd"}>
-						SKILLS & TOOLS
+						{t('skills.title')}
 					</Text>
 				</Container>
 				{needsIconWrapper ? (
 					<Container
 						h={cfg.iconWrapperH}
 						direction={"column"}
-						justify={"center"}
+						justify={"space-evenly"}
 						align={"center"}
 						gap={cfg.iconWrapperGap}
 					>

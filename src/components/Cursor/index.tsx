@@ -33,6 +33,8 @@ export default function Cursor() {
 
     const cursor = cursorRef.current;
 
+    gsap.set(cursor, { x: -100, y: -100 });
+
     mouseRef.current = {
       x: gsap.quickTo(cursor, "x", { duration: 0.1, ease: Expo.easeOut }),
       y: gsap.quickTo(cursor, "y", { duration: 0.1, ease: Expo.easeOut })
@@ -43,21 +45,22 @@ export default function Cursor() {
       mouseRef.current.y?.(e.clientY);
     };
 
-    const onMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    const onMouseLeave = () => {
+      gsap.to(cursor, { autoAlpha: 0, duration: 0.15 });
+    };
 
-      const isInteractive = target.closest("a") || target.closest("link") ||
-        target.closest(".button") || target.closest(".work-card") || target.closest(".project-card");
-
-      gsap.set(cursor, { autoAlpha: isInteractive ? 0 : 1 });
+    const onMouseEnter = () => {
+      gsap.to(cursor, { autoAlpha: 1, duration: 0.15 });
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    document.addEventListener("mouseover", onMouseOver, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseenter", onMouseEnter);
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseover", onMouseOver);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseenter", onMouseEnter);
     };
   }, {
     dependencies: [isMobileDevice],

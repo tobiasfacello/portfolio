@@ -13,7 +13,7 @@ export const StyledProjectCard = styled.a<{
 	justify-content: space-between;
 	align-items: center;
 	padding: 10px;
-	${glassCard}
+	${glassCard(true)}
 
 	@media (max-width: 768px) {
 		& {

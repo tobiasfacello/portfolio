@@ -1,5 +1,5 @@
 //! React Core
-import { createContext, useContext, useState, useRef, useCallback } from "react";
+import { createContext, useContext, useState, useRef, useCallback, useMemo } from "react";
 
 interface SplashContextType {
 	isSplashActive: boolean;
@@ -26,10 +26,13 @@ export function SplashProvider({ children }: { children: React.ReactNode }) {
 		setIsSplashActive(false);
 	}, []);
 
+	const value = useMemo(
+		() => ({ isSplashActive, isSplashComplete, headerLogoRef, setSplashComplete, dismissSplash }),
+		[isSplashActive, isSplashComplete, headerLogoRef, setSplashComplete, dismissSplash]
+	);
+
 	return (
-		<SplashContext.Provider
-			value={{ isSplashActive, isSplashComplete, headerLogoRef, setSplashComplete, dismissSplash }}
-		>
+		<SplashContext.Provider value={value}>
 			{children}
 		</SplashContext.Provider>
 	);

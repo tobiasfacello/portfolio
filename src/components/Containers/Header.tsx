@@ -8,7 +8,10 @@ import AsciiLogo from "../AsciiLogo";
 //? Context
 import { useSplash } from "../../context/SplashContext";
 
-const StyledHeader = styled.header``;
+const StyledHeader = styled.header`
+	position: relative;
+	width: 100%;
+`;
 
 function Header() {
 	const { isSplashComplete, headerLogoRef } = useSplash();

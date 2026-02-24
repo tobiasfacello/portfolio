@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { StyledText } from "./styled";
 import { TextProps } from "../../types";
 
-export default function Text(props: TextProps) {
+export default memo(function Text(props: TextProps) {
 	return (
 		<StyledText
 			as={props.as}
@@ -15,4 +16,4 @@ export default function Text(props: TextProps) {
 			{props.children}
 		</StyledText>
 	);
-}
+});

@@ -23,9 +23,9 @@ export const StyledButton = styled.a<{
 	opacity: 0.4;
 	background-color: transparent;
 	border: 1px solid var(--text);
-	border-radius: 10px;
-	cursor: pointer;
-	transition: all 150ms;
+	border-radius: var(--radius-md);
+	text-decoration: none;
+	transition: all var(--transition-fast);
 	z-index: 10;
 
 	&:hover {
@@ -35,7 +35,7 @@ export const StyledButton = styled.a<{
 
 		${StyledText} {
 			font-weight: 500;
-			color: var(--text-dark);
+			color: var(--pill-text-hovered);
 		}
 	}
 
@@ -49,5 +49,9 @@ export const StyledButton = styled.a<{
 		width: 30px;
 		height: 30px;
 		margin: 0;
+	}
+
+	&:hover ${StyledIconFrame} {
+		color: var(--pill-text-hovered);
 	}
 `;

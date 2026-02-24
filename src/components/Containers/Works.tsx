@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 //* Components
 import Container from "./Container";
@@ -10,16 +11,17 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { worksConfig } from "../../config/responsive";
 
 //* Styles
-import { noisePatternBackground } from "../../styles/mixins";
+import { glassBorder, noisePatternBackground } from "../../styles/mixins";
 
 const StyledWorks = styled.section`
+	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 20px;
-	border-top: 1px solid var(--secondary-60);
+	padding: 0 var(--20);
+	${glassBorder(true)}
 	${noisePatternBackground}
 
 	@media (min-width: 1280px) {
@@ -30,6 +32,7 @@ const StyledWorks = styled.section`
 function Works() {
 	const bp = useBreakpoint();
 	const cfg = worksConfig[bp];
+	const { t } = useTranslation('home');
 
 	if (cfg.titleOutside) {
 		return (
@@ -37,7 +40,7 @@ function Works() {
 				<Container
 					h={"auto"}
 					w={cfg.outerW}
-					justify={"start"}
+					justify={"flex-start"}
 					align={"center"}
 				>
 					<Text
@@ -45,7 +48,7 @@ function Works() {
 						variant={"subtitle-snd"}
 						m={cfg.titleM}
 					>
-						WORK
+						{t('works.title')}
 					</Text>
 				</Container>
 				<Container
@@ -72,19 +75,19 @@ function Works() {
 				direction={"column"}
 				justify={"center"}
 				align={"center"}
-				gap={"36px"}
+				gap={cfg.outerGap}
 			>
 				<Container
-					h={bp === 'mobile-sm' ? "100%" : "auto"}
+					h={"auto"}
 					w={"100%"}
-					justify={bp === 'mobile-sm' ? "start" : "flex-start"}
+					justify={"flex-start"}
 					align={"center"}
 				>
 					<Text
 						as="h2"
 						variant={"subtitle-snd"}
 					>
-						WORK
+						{t('works.title')}
 					</Text>
 				</Container>
 				<Container

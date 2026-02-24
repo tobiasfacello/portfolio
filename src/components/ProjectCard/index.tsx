@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyledProjectCard } from './styled';
 
 //* Components
@@ -10,9 +11,26 @@ import UnicodeSpinner from '../UnicodeSpinner';
 //? Types
 import { ProjectCardProps } from '../../types';
 
+const tagSpinnerMap: Record<string, 'braille' | 'diagswipe' | 'breathe'> = {
+	'Work in progress': 'braille',
+	'V2.0': 'diagswipe',
+	Development: 'breathe',
+	Design: 'breathe',
+};
+
 function ProjectCard(props: ProjectCardProps) {
 	const [isHovered, setIsHovered] = useState(false);
 	const [imageLoaded, setImageLoaded] = useState(false);
+	const { t } = useTranslation('projects');
+
+	const title = t(`${props.slug}.title`);
+	const details = t(`${props.slug}.details`);
+	const tag = t(`${props.slug}.tag`);
+	const enTag = t(`${props.slug}.tag`, { lng: 'en' });
+	const spinner = tagSpinnerMap[enTag] || undefined;
+
+	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+	const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
 	useEffect(() => {
 		if (!props.src) return;
@@ -31,19 +49,20 @@ function ProjectCard(props: ProjectCardProps) {
 			href={props.url}
 			target="_blank"
 			rel="noopener noreferrer"
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 			$isHovered={isHovered}
 		>
 			<Container direction={'column'} justify={'space-between'} align={'start'}>
 				<Text variant={'subtitle-fst'}>
-					{props.title}
+					{title}
 				</Text>
 				<Text variant={'details-fst'}>
-					{props.details}
+					{details}
 				</Text>
 				<PillTag
-					tag={props.tag}
+					tag={tag}
+					spinnerName={spinner}
 					maxW={'140px'}
 					p={['4', '8', '4', '6']}
 				/>
@@ -52,7 +71,7 @@ function ProjectCard(props: ProjectCardProps) {
 				{!imageLoaded && <UnicodeSpinner name="pulse" />}
 				<img
 					src={props.src}
-					alt={`${props.title} logo`}
+					alt={`${title} logo`}
 					style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
 				/>
 			</Container>

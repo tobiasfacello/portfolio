@@ -1,11 +1,40 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { glassCard, hoveredPillStyles } from "../../styles/mixins";
 
-export const StyledWorkCard = styled.a<{
+export const StyledWorkLogo = styled.span`
+	display: block;
+	position: absolute;
+	left: 180px;
+	width: 190px;
+	height: 190px;
+	color: var(--primary);
+	transition: all 300ms;
+	z-index: -1;
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+`;
+
+export const StyledWorkCardContent = styled.div`
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: space-between;
+	align-items: center;
+	overflow: hidden;
+	border-radius: 20px;
+	padding: 10px;
+`;
+
+const workCardBase = css<{
 	$isHovered: boolean;
 	$m?: string[];
 	$p?: string[];
 }>`
+	position: relative;
 	text-decoration: none;
 	color: inherit;
 	width: 100%;
@@ -13,9 +42,7 @@ export const StyledWorkCard = styled.a<{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px;
-	overflow: hidden;
-	${glassCard}
+	${glassCard(true)}
 
 	@media (min-width: 375px) {
 		& {
@@ -31,15 +58,25 @@ export const StyledWorkCard = styled.a<{
 		}
 	}
 
-	& .work-logo {
-		position: absolute;
-		left: 180px;
-		width: auto;
-		height: 190px;
+	${StyledWorkLogo} {
 		opacity: ${(props) => (props.$isHovered ? "1" : "0.2")};
-		transition: all 300ms;
-		z-index: -1;
 	}
 
 	${(props) => hoveredPillStyles(props.$isHovered)}
+`;
+
+export const StyledWorkCard = styled.a<{
+	$isHovered: boolean;
+	$m?: string[];
+	$p?: string[];
+}>`
+	${workCardBase}
+`;
+
+export const StyledWorkCardDiv = styled.div<{
+	$isHovered: boolean;
+	$m?: string[];
+	$p?: string[];
+}>`
+	${workCardBase}
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 //* Components
 import Container from "./Container";
@@ -8,6 +9,9 @@ import Text from "../../components/Text";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { aboutConfig } from "../../config/responsive";
 
+//* Styles
+import { glassBorder } from "../../styles/mixins";
+
 const StyledAbout = styled.section`
 	width: 100%;
 	height: 100%;
@@ -15,24 +19,19 @@ const StyledAbout = styled.section`
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	padding: 0 20px;
+	padding: 0 var(--20);
+	${glassBorder(true)}
 
 	@media (min-width: 1280px) {
 		grid-area: about;
-		border-right: 1px solid var(--secondary-60);
 	}
 `;
-
-const paragraphs = [
-	"I'm Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.",
-	"Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.",
-	"Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.",
-	"I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products.",
-];
 
 export default function About() {
 	const bp = useBreakpoint();
 	const cfg = aboutConfig[bp];
+	const { t } = useTranslation('home');
+	const paragraphs = t('about.paragraphs', { returnObjects: true }) as string[];
 
 	return (
 		<StyledAbout>
@@ -48,18 +47,17 @@ export default function About() {
 				gap={cfg.outerGap}
 			>
 				<Container
-					w={cfg.innerW}
+					w={"100%"}
 					h={"auto"}
-					direction={"column"}
-					justify={"center"}
-					align={"flex-start"}
+					justify={"flex-start"}
+					align={"center"}
 				>
 					<Text
 						as="h2"
 						variant={"subtitle-snd"}
 						alignment={cfg.titleAlign}
 					>
-						ABOUT ME
+						{t('about.title')}
 					</Text>
 				</Container>
 				<Container
@@ -70,9 +68,9 @@ export default function About() {
 					align={"flex-start"}
 					gap={cfg.paragraphGap}
 				>
-					{paragraphs.map((text) => (
+					{paragraphs.map((text, i) => (
 						<Text
-							key={text.slice(0, 20)}
+							key={i}
 							variant={cfg.paragraphVariant}
 							alignment={"left"}
 						>

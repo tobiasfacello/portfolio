@@ -25,13 +25,11 @@ export default function WorkCardsCarousel() {
 			<Container direction={"column"} justify={"center"} align={"center"} gap={"20px"}>
 				{works.map((work) => (
 					<WorkCard
-						key={work.title}
-						title={work.title}
-						tags={work.tags}
-						details={work.details}
+						key={work.slug}
+						slug={work.slug}
 						url={work.url}
 						showcaseUrl={work.showcaseUrl}
-						src={work.src}
+						Logo={work.Logo}
 					/>
 				))}
 			</Container>
@@ -52,14 +50,12 @@ export default function WorkCardsCarousel() {
 			direction={isDesktop(bp) ? 'horizontal' : 'horizontal'}
 		>
 			{swiperItems.map((work, i) => (
-				<SwiperSlide key={`${work.title}-${i}`} className="swiper-slide">
+				<SwiperSlide key={`${work.slug}-${i}`} className="swiper-slide">
 					<WorkCard
-						title={work.title}
-						tags={work.tags}
-						details={work.details}
+						slug={work.slug}
 						url={work.url}
 						showcaseUrl={work.showcaseUrl}
-						src={work.src}
+						Logo={work.Logo}
 					/>
 				</SwiperSlide>
 			))}

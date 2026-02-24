@@ -1,5 +1,5 @@
 import { StyledButton } from "./styled";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 //* Components
 import Text from "../Text";
@@ -11,12 +11,16 @@ function Button(props: ButtonProps) {
 	const [isHovered, setIsHovered] = useState(false);
 	const isLink = !!props.url;
 
+	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+	const handleMouseLeave = useCallback(() => setIsHovered(false), []);
+
 	return (
 		<StyledButton
 			as={isLink ? "a" : "span"}
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 			{...(isLink ? { href: props.url, target: "_blank", rel: "noopener noreferrer" } : {})}
+			{...(props.onClick ? { onClick: props.onClick } : {})}
 			$isHovered={isHovered}
 			$p={props.p}
 			$m={props.m}

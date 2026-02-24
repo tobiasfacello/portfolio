@@ -21,6 +21,6 @@ export const StyledPillTag = styled.span<{
 		props.$p &&
 		props.$p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
 	border: 1px solid var(--text);
-	border-radius: 30px;
-	transition: all 0.3s;
+	border-radius: var(--radius-pill);
+	transition: all var(--transition-normal);
 `;

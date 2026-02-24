@@ -4,8 +4,12 @@ export type ThemeProviderProps = {
 	children: ReactNode;
 };
 
+export type ThemeMode = 'system' | 'light' | 'dark';
+
 export type ThemeContextType = {
 	isDarkMode: boolean;
+	themeMode: ThemeMode;
+	setThemeMode: (mode: ThemeMode) => void;
 };
 
 export type ContainerProps = {
@@ -41,20 +45,16 @@ export type TextProps = {
 };
 
 export type WorkCardProps = {
-	title: string;
-	tags: string[];
-	details: string;
+	slug: string;
 	url: string;
 	showcaseUrl?: string;
-	src: string;
+	Logo: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 	p?: string[];
 	m?: string[];
 };
 
 export type ProjectCardProps = {
-	title: string;
-	details: string;
-	tag: string;
+	slug: string;
 	url: string;
 	src: string;
 };
@@ -65,24 +65,34 @@ export type ButtonProps = {
 	url?: string;
 	p?: string[];
 	m?: string[];
+	onClick?: (e: React.MouseEvent) => void;
 };
 
 export type SocialButtonProps = {
 	url: string;
-	src: string;
+	Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 	alt?: string;
+	tooltipPosition?: 'top' | 'bottom';
 };
 
 export type PillProps = {
 	tag: string;
+	spinnerName?: 'braille' | 'diagswipe' | 'breathe';
 	maxW?: string;
 	m?: string[];
 	p?: string[];
 };
 
+export type TooltipProps = {
+	text: string;
+	children: ReactNode;
+	position?: 'top' | 'bottom';
+	icon?: ReactNode;
+	href?: string;
+};
+
 export type IconFrameProps = {
-	src: string;
-	alt?: string;
+	Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
 export type ImageFrameProps = {
@@ -92,3 +102,19 @@ export type ImageFrameProps = {
 	m?: string[];
 };
 
+export type LightboxImage = {
+	src: string;
+	alt: string;
+};
+
+export type LightboxContextType = {
+	register: (images: LightboxImage[]) => () => void;
+	open: (src: string) => void;
+	close: () => void;
+	prev: () => void;
+	next: () => void;
+	currentIndex: number;
+	isOpen: boolean;
+	images: LightboxImage[];
+	direction: 1 | -1;
+};

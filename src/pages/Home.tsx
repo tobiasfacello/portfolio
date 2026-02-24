@@ -1,5 +1,6 @@
 //! Third-party
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 //* Components
 import Header from '../components/Containers/Header';
@@ -15,6 +16,8 @@ const StyledGrid = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	gap: 12px;
+	padding: 0 12px;
 
 	@media (min-width: 1280px) {
 		width: 90%;
@@ -24,8 +27,8 @@ const StyledGrid = styled.div`
 		grid-template-areas:
 			'about    profile  projects'
 			'skills   works    works';
-		border: 1px solid var(--secondary-60);
-		border-bottom: none;
+		gap: 12px;
+		padding: 0;
 	}
 
 	@media (min-width: 1440px) {
@@ -42,13 +45,21 @@ const StyledMain = styled.main`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	gap: 12px;
+	padding-bottom: 72px;
+
+	@media (min-width: 1280px) {
+		padding-bottom: 96px;
+	}
 `;
 
 function Home() {
+	const { t } = useTranslation('common');
+
 	return (
 		<>
 			<a href="#main-content" className="skip-link">
-				Skip to main content
+				{t('skipLink')}
 			</a>
 			<StyledMain id="main-content">
 				<Header />

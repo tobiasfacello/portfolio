@@ -1,48 +1,46 @@
-import moldeLogo from '../assets/works/molde.svg';
-import indaloLogo from '../assets/works/indalo.svg';
-import ranchoLogo from '../assets/works/rancho.svg';
-import clamacoLogo from '../assets/works/clamaco.svg';
+import MoldeLogo from '../assets/works/molde.svg?react';
+import IndaloLogo from '../assets/works/indalo.svg?react';
+import RanchoLogo from '../assets/works/rancho.svg?react';
+import ClamacoLogo from '../assets/works/clamaco.svg?react';
 
 export interface WorkItem {
-	title: string;
-	tags: string[];
-	details: string;
+	slug: string;
 	url: string;
 	showcaseUrl?: string;
-	src: string;
+	Logo: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 export const works: WorkItem[] = [
 	{
-		title: 'Molde',
-		tags: ['Development'],
-		details: 'Landing Page for an architecture studio.',
+		slug: 'molde',
 		url: 'https://www.estudiomolde.com/',
 		showcaseUrl: 'https://contra.com/p/o3YcvW6c-molde-architecture-studio-development',
-		src: moldeLogo,
+		Logo: MoldeLogo,
 	},
 	{
-		title: 'Indalo',
-		tags: ['Development'],
-		details: 'Landing Page for an enterprises group',
+		slug: 'indalo',
 		url: 'https://www.grupoindalo.com.ar/',
 		showcaseUrl: 'https://contra.com/p/WPl3g6WF-indalo-enterprises-group-development',
-		src: indaloLogo,
+		Logo: IndaloLogo,
 	},
 	{
-		title: 'Rancho',
-		tags: ['Design', 'Development'],
-		details: 'Landing Page for a rental business',
+		slug: 'rancho',
 		url: 'https://bungalowselrancho.com.ar/',
 		showcaseUrl:
 			'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development',
-		src: ranchoLogo,
+		Logo: RanchoLogo,
 	},
 	{
-		title: 'Clamaco',
-		tags: ['Design'],
-		details: 'Landing Page for a construction company',
+		slug: 'clamaco',
 		url: 'https://clamaco.com.ar/',
-		src: clamacoLogo,
+		Logo: ClamacoLogo,
 	},
 ];
+
+export function hasDetailPage(work: WorkItem): boolean {
+	return !!work.showcaseUrl;
+}
+
+export function getWorkBySlug(slug: string): WorkItem | undefined {
+	return works.find((w) => w.slug === slug);
+}

@@ -1,3 +1,7 @@
 dist
 node_modules
 public
+
+# Development tools
+.claude/
+.playwright-mcp/

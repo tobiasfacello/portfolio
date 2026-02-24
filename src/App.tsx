@@ -1,41 +1,88 @@
-import ReactLenis from "lenis/react";
-import { ThemeProvider } from "./context/ThemeContext";
-import { SplashProvider, useSplash } from "./context/SplashContext";
-import Cursor from "./components/Cursor";
-import Home from "./pages/Home";
-import SplashScreen from "./components/SplashScreen";
-import "./App.css";
+//! Router
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom';
 
-function AppContent() {
+//! Lenis
+import ReactLenis from 'lenis/react';
+
+//* Context
+import { ThemeProvider } from './context/ThemeContext';
+import { SplashProvider, useSplash } from './context/SplashContext';
+
+//* Components
+import ErrorBoundary from './components/ErrorBoundary';
+import Home from './pages/Home';
+import { RouterErrorPage, NotFoundPage } from './pages/ErrorPage';
+import SplashScreen from './components/SplashScreen';
+
+//? Hooks
+import { useScrollReset } from './hooks/useScrollReset';
+
+//* Styles
+import './App.css';
+
+function ScrollReset() {
+	useScrollReset();
+	return null;
+}
+
+function SplashGuard() {
 	const { isSplashActive } = useSplash();
+	const location = useLocation();
+
+	if (isSplashActive && location.pathname === '/') {
+		return <SplashScreen />;
+	}
+	return null;
+}
+
+function AppShell() {
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	const content = (
 		<ThemeProvider>
-			{!prefersReducedMotion && <Cursor />}
-			<Home />
+			<ScrollReset />
+			<SplashGuard />
+			<Outlet />
 		</ThemeProvider>
 	);
 
-	return (
-		<>
-			{isSplashActive && <SplashScreen />}
-			{prefersReducedMotion ? (
-				content
-			) : (
-				<ReactLenis options={{ lerp: 0.1, duration: 1.7, smoothWheel: true }} root>
-					{content}
-				</ReactLenis>
-			)}
-		</>
+	return prefersReducedMotion ? (
+		content
+	) : (
+		<ReactLenis options={{ lerp: 0.12, duration: 1.2, smoothWheel: true }} root>
+			{content}
+		</ReactLenis>
 	);
 }
 
+const router = createBrowserRouter([
+	{
+		element: <AppShell />,
+		errorElement: <RouterErrorPage />,
+		children: [
+			{ path: '/', element: <Home /> },
+			{
+				path: '/work/:slug',
+				lazy: async () => {
+					const mod = await import('./pages/WorkDetail');
+					return { Component: mod.default };
+				},
+			},
+			{
+				path: '*',
+				element: <NotFoundPage />,
+			},
+		],
+	},
+]);
+
 function App() {
 	return (
-		<SplashProvider>
-			<AppContent />
-		</SplashProvider>
+		<ErrorBoundary>
+			<SplashProvider>
+				<RouterProvider router={router} />
+			</SplashProvider>
+		</ErrorBoundary>
 	);
 }
 

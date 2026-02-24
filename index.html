@@ -3,18 +3,31 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="shortcut icon" type="image/svg+xml" href="/src/assets/icons/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
+  <link rel="icon" type="image/x-icon" sizes="64x64" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/favicon.ico" />
 
   <!-- Primary Meta Tags -->
   <title>FACHE • Personal Portfolio</title>
   <meta name="title" content="FACHE • Personal Portfolio" />
   <meta name="description" content="My personal portfolio on the web. Work, projects and more." />
+  <meta name="robots" content="index, follow" />
   <meta name="google-site-verification" content="zDHPaswGd6vpBUnHdX6TRoLeiaVE7FZJkENp0sB9K2c" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://fache.vercel.app/" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0a0b04" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f2ede8" media="(prefers-color-scheme: light)" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://fache.tech/" />
+  <meta property="og:url" content="https://fache.vercel.app/" />
   <meta property="og:title" content="FACHE • Personal Portfolio" />
   <meta property="og:description" content="My personal portfolio on the web. Work, projects and more." />
   <meta property="og:image"
@@ -22,11 +35,30 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://fache.tech/" />
+  <meta property="twitter:url" content="https://fache.vercel.app/" />
   <meta property="twitter:title" content="FACHE • Personal Portfolio" />
   <meta property="twitter:description" content="My personal portfolio on the web. Work, projects and more." />
   <meta property="twitter:image"
     content="https://res.cloudinary.com/dxfbsnehm/image/upload/v1722390567/Portfolio/fache_thumbnail.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Tobias Facello",
+      "alternateName": "FACHE",
+      "url": "https://fache.vercel.app",
+      "jobTitle": "Frontend Developer",
+      "sameAs": [
+        "https://github.com/tobiasfacello",
+        "https://linkedin.com/in/tobiasfacello"
+      ]
+    }
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -1,0 +1,104 @@
+{
+	"sections": {
+		"overview": "About the project",
+		"process": "The Process",
+		"mockups": "Project Mockups",
+		"collaborators": "Collaborators",
+		"tools": "Tools",
+		"roles": "Roles",
+		"outcome": "Outcome",
+		"publishedDate": "Published",
+		"livePreview": "Live Preview",
+		"designSystem": "Design System"
+	},
+	"molde": {
+		"type": "Development",
+		"publishedDate": "July 2024",
+		"outcome": "Website",
+		"livePreviewUrl": "estudiomolde.com",
+		"livePreviewDescription": "Architecture studio landing page",
+		"collaborators": ["Typeland", "Sutil Studio"],
+		"overview": "MOLDE is an architecture studio that needed a digital presence to showcase their projects and philosophy. The goal was to create a clean, minimal landing page that reflects their design sensibility while providing an engaging user experience.",
+		"process": {
+			"preparation": {
+				"title": "Preparation",
+				"content": "The project began with a thorough review of the design files provided by the design team. I analyzed the visual language, component hierarchy, and interaction patterns to plan the technical implementation."
+			},
+			"development": {
+				"title": "Development",
+				"content": "Built with React and TypeScript, focusing on component reusability and performance. Implemented smooth scroll animations, responsive layouts, and optimized asset loading for a seamless browsing experience."
+			},
+			"optimization": {
+				"title": "Optimization and Testing",
+				"content": "Conducted thorough cross-browser testing and performance optimization. Implemented lazy loading for images, optimized bundle size, and ensured accessibility compliance across all viewports."
+			},
+			"finalization": {
+				"title": "Finalization",
+				"content": "Final review with the client and design team, deployment setup, and performance monitoring. The site was launched with excellent Lighthouse scores across all metrics."
+			}
+		},
+		"roles": ["Fullstack Engineer", "Web Developer"],
+		"tags": ["Landing Page", "Architecture"],
+		"tools": ["Figma", "React", "TypeScript", "Styled Components", "GSAP", "Vite"]
+	},
+	"indalo": {
+		"type": "Development",
+		"publishedDate": "August 2024",
+		"outcome": "Website",
+		"livePreviewUrl": "grupoindalo.com.ar",
+		"livePreviewDescription": "Enterprises group corporate website",
+		"collaborators": ["Typeland"],
+		"overview": "Grupo Indalo is an enterprises group that required a modern corporate website to present their diverse portfolio of companies and services. The challenge was creating a unified digital experience that represents their multiple business verticals.",
+		"process": {
+			"preparation": {
+				"title": "Preparation",
+				"content": "Started by mapping the content architecture to properly represent the group's diverse business units. Coordinated with the design team to establish a visual system that works across all sections."
+			},
+			"development": {
+				"title": "Development",
+				"content": "Developed using React with a focus on modular architecture. Each business unit section was built as an independent module while maintaining visual consistency through shared components and design tokens."
+			},
+			"optimization": {
+				"title": "Optimization and Testing",
+				"content": "Performance optimization focused on image handling for the extensive visual content. Implemented responsive images with proper sizing and format selection for different viewports."
+			},
+			"finalization": {
+				"title": "Finalization",
+				"content": "Deployed with automated CI/CD pipeline. Conducted final stakeholder review ensuring all business units were accurately represented and all interactive elements functioned correctly."
+			}
+		},
+		"roles": ["Fullstack Engineer", "Web Developer"],
+		"tags": ["Corporate Website", "Enterprise"],
+		"tools": ["Figma", "React", "TypeScript", "Styled Components", "GSAP", "Vite"]
+	},
+	"rancho": {
+		"type": "Design & Development",
+		"publishedDate": "June 2024",
+		"outcome": "Website",
+		"livePreviewUrl": "bungalowselrancho.com.ar",
+		"livePreviewDescription": "Family-run rental business website",
+		"collaborators": [],
+		"overview": "El Rancho is a family-run bungalow rental business that needed both a brand identity and a web presence. This was an end-to-end project where I handled both the design and development, creating a warm and inviting digital experience that reflects the cozy nature of their accommodations.",
+		"process": {
+			"preparation": {
+				"title": "Preparation",
+				"content": "Met with the client to understand their brand values, target audience, and business goals. Conducted competitive research of similar rental businesses to identify opportunities for differentiation."
+			},
+			"design": {
+				"title": "Design",
+				"content": "Created the visual identity from scratch, including logo, color palette, and typography choices. Designed the complete UI in Figma with a focus on showcasing the property's atmosphere and making the booking process intuitive."
+			},
+			"development": {
+				"title": "Development",
+				"content": "Built the site with React, implementing smooth animations and transitions that enhance the browsing experience. Special attention was given to image presentation and mobile optimization for travelers browsing on their phones."
+			},
+			"finalization": {
+				"title": "Finalization",
+				"content": "Iterative review process with the client, adjusting visual elements and content until everything perfectly represented their business. Launched with SEO optimization for local search visibility."
+			}
+		},
+		"roles": ["Web Designer", "Fullstack Engineer", "Web Developer"],
+		"tags": ["Landing Page", "Hospitality"],
+		"tools": ["Figma", "React", "TypeScript", "Styled Components", "Vite"]
+	}
+}

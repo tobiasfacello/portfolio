@@ -1,0 +1,23 @@
+{
+	"about": {
+		"title": "ABOUT ME",
+		"paragraphs": [
+			"I'm Fache, a Fullstack Developer with +3 years collaborating with design and development teams to create high-impact digital experiences.",
+			"Currently working with TypeScript, Next.js, and PostgreSQL, always exploring new and improved techniques and tools.",
+			"Passionate about building applications that not only solve problems but also deliver smooth and engaging user experiences.",
+			"I've been part of teams dedicated to developing high-quality, high-performance, and adaptable products."
+		]
+	},
+	"profile": {
+		"findMeAt": "FIND ME AT"
+	},
+	"skills": {
+		"title": "SKILLS & TOOLS"
+	},
+	"works": {
+		"title": "WORK"
+	},
+	"projects": {
+		"title": "PROJECTS"
+	}
+}

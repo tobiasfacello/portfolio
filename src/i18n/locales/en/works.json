@@ -1,0 +1,22 @@
+{
+	"molde": {
+		"title": "Molde",
+		"tags": ["Development"],
+		"details": "Landing Page for an architecture studio."
+	},
+	"indalo": {
+		"title": "Indalo",
+		"tags": ["Development"],
+		"details": "Landing Page for an enterprises group"
+	},
+	"rancho": {
+		"title": "Rancho",
+		"tags": ["Design", "Development"],
+		"details": "Landing Page for a rental business"
+	},
+	"clamaco": {
+		"title": "Clamaco",
+		"tags": ["Design"],
+		"details": "Landing Page for a construction company"
+	}
+}

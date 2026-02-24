@@ -1,0 +1,23 @@
+{
+	"about": {
+		"title": "SOBRE M\u00cd",
+		"paragraphs": [
+			"Soy Fache, un Desarrollador Fullstack con +3 a\u00f1os colaborando con equipos de dise\u00f1o y desarrollo para crear experiencias digitales de alto impacto.",
+			"Actualmente trabajo con TypeScript, Next.js y PostgreSQL, siempre explorando nuevas t\u00e9cnicas y herramientas.",
+			"Apasionado por construir aplicaciones que no solo resuelven problemas sino que tambi\u00e9n ofrecen experiencias de usuario fluidas y atrapantes.",
+			"He sido parte de equipos dedicados a desarrollar productos de alta calidad, alto rendimiento y adaptables."
+		]
+	},
+	"profile": {
+		"findMeAt": "ENCONTRAME EN"
+	},
+	"skills": {
+		"title": "SKILLS & TOOLS"
+	},
+	"works": {
+		"title": "TRABAJO"
+	},
+	"projects": {
+		"title": "PROYECTOS"
+	}
+}

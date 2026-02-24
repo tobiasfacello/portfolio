@@ -1,4 +1,4 @@
-import { Breakpoint } from '../hooks/useBreakpoint';
+import type { Breakpoint } from './breakpoints';
 
 interface AboutConfig {
 	outerW: string;
@@ -74,13 +74,15 @@ interface SkillsConfig {
 	outerW: string;
 	outerMaxW?: string;
 	outerH: string;
+	outerGap?: string;
 	outerJustify: string;
 	iconRowW?: string;
-	iconRowJustify: string;
+	iconRowJustify?: string;
 	iconWrapperH?: string;
 	iconWrapperGap?: string;
+	useGrid?: boolean;
+	gridGap?: string;
 	titleOutside: boolean;
-	titleM?: string[];
 	iconContainerP?: string[];
 }
 
@@ -88,17 +90,19 @@ export const skillsConfig: Record<Breakpoint, SkillsConfig> = {
 	'mobile-sm': {
 		outerW: '100%',
 		outerMaxW: '500px',
-		outerH: '70%',
-		outerJustify: 'center',
+		outerH: '100%',
+		outerGap: '36px',
+		outerJustify: 'space-between',
 		iconRowJustify: 'space-between',
 		titleOutside: false,
 	},
 	'mobile-lg': {
 		outerW: '80%',
-		outerH: '70%',
-		outerJustify: 'center',
+		outerH: '100%',
+		outerGap: '36px',
+		outerJustify: 'space-between',
 		iconRowW: '100%',
-		iconRowJustify: 'space-evenly',
+		iconRowJustify: 'space-between',
 		iconWrapperH: '70%',
 		iconWrapperGap: '36px',
 		titleOutside: false,
@@ -106,48 +110,45 @@ export const skillsConfig: Record<Breakpoint, SkillsConfig> = {
 	tablet: {
 		outerW: '80%',
 		outerH: '100%',
-		outerJustify: 'center',
+		outerGap: '36px',
+		outerJustify: 'space-between',
 		iconRowW: '70%',
-		iconRowJustify: 'space-evenly',
+		iconRowJustify: 'space-between',
 		iconWrapperH: '70%',
 		iconWrapperGap: '36px',
 		titleOutside: false,
 	},
 	'desktop-sm': {
 		outerW: '100%',
-		outerH: 'auto',
-		outerJustify: 'center',
-		iconRowJustify: 'space-between',
-		iconWrapperH: 'auto',
-		iconWrapperGap: '36px',
+		outerH: '100%',
+		outerJustify: 'space-between',
+		useGrid: true,
+		gridGap: '20px',
 		titleOutside: false,
 	},
 	'desktop-md': {
 		outerW: '100%',
-		outerH: 'auto',
-		outerJustify: 'center',
-		iconRowJustify: 'space-between',
-		iconWrapperH: 'auto',
-		iconWrapperGap: '36px',
+		outerH: '100%',
+		outerJustify: 'space-between',
+		useGrid: true,
+		gridGap: '20px',
 		titleOutside: false,
 	},
 	'desktop-lg': {
-		outerW: '80%',
-		outerH: 'auto',
-		outerJustify: 'center',
-		iconRowJustify: 'space-between',
-		iconWrapperH: 'auto',
-		iconWrapperGap: '36px',
+		outerW: '100%',
+		outerH: '100%',
+		outerJustify: 'space-between',
+		useGrid: true,
+		gridGap: '20px',
 		titleOutside: false,
 	},
 	'desktop-xl': {
 		outerW: '100%',
-		outerH: '70%',
-		outerJustify: 'center',
-		iconRowJustify: 'space-between',
+		outerH: '100%',
+		outerJustify: 'space-between',
+		useGrid: true,
+		gridGap: '24px',
 		titleOutside: true,
-		titleM: ['48', '0', '36', '0'],
-		iconContainerP: ['0', '72', '0', '72'],
 	},
 };
 
@@ -156,9 +157,8 @@ interface ProjectsConfig {
 	outerMaxW?: string;
 	outerH: string;
 	outerMinH?: string;
+	outerGap: string;
 	outerJustify: string;
-	titleJustify: string;
-	titleH?: string;
 	cardGap: string;
 }
 
@@ -166,61 +166,55 @@ export const projectsConfig: Record<Breakpoint, ProjectsConfig> = {
 	'mobile-sm': {
 		outerW: '100%',
 		outerMaxW: '500px',
-		outerH: '80%',
+		outerH: '100%',
+		outerGap: '36px',
 		outerJustify: 'center',
-		titleJustify: 'flex-start',
-		titleH: undefined,
 		cardGap: '12px',
 	},
 	'mobile-lg': {
 		outerW: '80%',
-		outerH: '80%',
+		outerH: '100%',
+		outerGap: '36px',
 		outerJustify: 'center',
-		titleJustify: 'flex-start',
-		titleH: '100%',
 		cardGap: '12px',
 	},
 	tablet: {
 		outerW: '80%',
 		outerH: '100%',
+		outerGap: '36px',
 		outerJustify: 'center',
-		titleJustify: 'flex-start',
-		titleH: '100%',
 		cardGap: '12px',
 	},
 	'desktop-sm': {
 		outerW: '100%',
 		outerH: '100%',
 		outerMinH: '450px',
+		outerGap: '36px',
 		outerJustify: 'space-between',
-		titleJustify: 'space-between',
-		titleH: '100%',
 		cardGap: '20px',
 	},
 	'desktop-md': {
 		outerW: '100%',
 		outerH: '100%',
 		outerMinH: '450px',
+		outerGap: '36px',
 		outerJustify: 'space-between',
-		titleJustify: 'space-between',
-		titleH: '100%',
 		cardGap: '20px',
 	},
 	'desktop-lg': {
 		outerW: '100%',
 		outerH: '100%',
 		outerMinH: '490px',
+		outerGap: '36px',
 		outerJustify: 'space-between',
-		titleJustify: 'space-between',
-		titleH: '100%',
 		cardGap: '20px',
 	},
 	'desktop-xl': {
-		outerW: '75%',
+		outerW: '100%',
 		outerH: '100%',
 		outerMinH: '530px',
+		outerGap: '36px',
 		outerJustify: 'space-between',
-		titleJustify: 'flex-start',
 		cardGap: '20px',
 	},
 };
@@ -231,6 +225,7 @@ interface WorksConfig {
 	outerW: string;
 	outerMaxW?: string;
 	outerH: string;
+	outerGap: string;
 	carouselCss?: string;
 	carouselMinH?: string;
 	carouselW?: string;
@@ -243,24 +238,28 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 		outerW: '100%',
 		outerMaxW: '500px',
 		outerH: '100%',
+		outerGap: '36px',
 	},
 	'mobile-lg': {
 		titleOutside: false,
 		outerW: '80%',
 		outerH: '100%',
+		outerGap: '36px',
 	},
 	tablet: {
 		titleOutside: false,
 		outerW: '80%',
 		outerH: '100%',
+		outerGap: '36px',
 		carouselCss: 'overflow: hidden;',
 		carouselW: '100vw',
 	},
 	'desktop-sm': {
 		titleOutside: true,
 		titleM: ['36', '0', '0', '0'],
-		outerW: '90%',
+		outerW: '100%',
 		outerH: 'auto',
+		outerGap: '36px',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
 		carouselW: '100%',
@@ -269,8 +268,9 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 	'desktop-md': {
 		titleOutside: true,
 		titleM: ['36', '0', '0', '0'],
-		outerW: '90%',
+		outerW: '100%',
 		outerH: 'auto',
+		outerGap: '36px',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
 		carouselW: '100%',
@@ -279,8 +279,9 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 	'desktop-lg': {
 		titleOutside: true,
 		titleM: ['36', '0', '0', '0'],
-		outerW: '90%',
+		outerW: '100%',
 		outerH: 'auto',
+		outerGap: '36px',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
 		carouselW: '100%',
@@ -288,9 +289,10 @@ export const worksConfig: Record<Breakpoint, WorksConfig> = {
 	},
 	'desktop-xl': {
 		titleOutside: true,
-		titleM: ['48', '0', '0', '0'],
-		outerW: '90%',
+		titleM: ['36', '0', '0', '0'],
+		outerW: '100%',
 		outerH: 'auto',
+		outerGap: '36px',
 		carouselCss: 'overflow: hidden;',
 		carouselMinH: '402px',
 		carouselW: '100%',
@@ -314,4 +316,3 @@ export const carouselConfig: Record<Breakpoint, CarouselConfig> = {
 	'desktop-lg': { useSwiper: true, slidesPerView: 2, centeredSlides: false, spaceBetween: 10 },
 	'desktop-xl': { useSwiper: true, slidesPerView: 3, centeredSlides: false, spaceBetween: 10 },
 };
-

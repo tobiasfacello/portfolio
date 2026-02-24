@@ -1,21 +1,16 @@
 import { useMediaQuery } from 'react-responsive';
+import { BREAKPOINTS } from '../config/breakpoints';
 
-export type Breakpoint =
-	| 'mobile-sm'
-	| 'mobile-lg'
-	| 'tablet'
-	| 'desktop-sm'
-	| 'desktop-md'
-	| 'desktop-lg'
-	| 'desktop-xl';
+export type { Breakpoint } from '../config/breakpoints';
+import type { Breakpoint } from '../config/breakpoints';
 
 export function useBreakpoint(): Breakpoint {
-	const isDesktopXl = useMediaQuery({ minWidth: 1801 });
-	const isDesktopLg = useMediaQuery({ minWidth: 1440 });
-	const isDesktopMd = useMediaQuery({ minWidth: 1340 });
-	const isDesktopSm = useMediaQuery({ minWidth: 1280 });
-	const isTablet = useMediaQuery({ minWidth: 960 });
-	const isMobileLg = useMediaQuery({ minWidth: 768 });
+	const isDesktopXl = useMediaQuery({ minWidth: BREAKPOINTS['desktop-xl'] });
+	const isDesktopLg = useMediaQuery({ minWidth: BREAKPOINTS['desktop-lg'] });
+	const isDesktopMd = useMediaQuery({ minWidth: BREAKPOINTS['desktop-md'] });
+	const isDesktopSm = useMediaQuery({ minWidth: BREAKPOINTS['desktop-sm'] });
+	const isTablet = useMediaQuery({ minWidth: BREAKPOINTS.tablet });
+	const isMobileLg = useMediaQuery({ minWidth: BREAKPOINTS['mobile-lg'] });
 
 	if (isDesktopXl) return 'desktop-xl';
 	if (isDesktopLg) return 'desktop-lg';

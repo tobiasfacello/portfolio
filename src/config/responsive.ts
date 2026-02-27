@@ -1,4 +1,5 @@
 import type { Breakpoint } from './breakpoints';
+import type { TextVariant } from '../types';
 
 interface AboutConfig {
 	outerW: string;
@@ -7,7 +8,7 @@ interface AboutConfig {
 	outerMinH?: string;
 	outerGap: string;
 	paragraphGap: string;
-	paragraphVariant: string;
+	paragraphVariant: TextVariant;
 	titleAlign?: string;
 	innerW?: string;
 }
@@ -19,19 +20,19 @@ export const aboutConfig: Record<Breakpoint, AboutConfig> = {
 		outerH: '100%',
 		outerGap: '24px',
 		paragraphGap: '12px',
-		paragraphVariant: 'paragraph',
+		paragraphVariant: 'body',
 	},
 	'mobile-lg': {
 		outerW: '80%',
 		outerGap: '24px',
 		paragraphGap: '12px',
-		paragraphVariant: 'paragraph',
+		paragraphVariant: 'body',
 	},
 	tablet: {
 		outerW: '80%',
 		outerGap: '24px',
 		paragraphGap: '12px',
-		paragraphVariant: 'paragraph',
+		paragraphVariant: 'body',
 		titleAlign: 'left',
 	},
 	'desktop-sm': {
@@ -40,7 +41,7 @@ export const aboutConfig: Record<Breakpoint, AboutConfig> = {
 		outerMinH: '450px',
 		outerGap: '36px',
 		paragraphGap: '20px',
-		paragraphVariant: 'paragraph',
+		paragraphVariant: 'body',
 		titleAlign: 'left',
 	},
 	'desktop-md': {
@@ -49,7 +50,7 @@ export const aboutConfig: Record<Breakpoint, AboutConfig> = {
 		outerMinH: '450px',
 		outerGap: '36px',
 		paragraphGap: '20px',
-		paragraphVariant: 'paragraph',
+		paragraphVariant: 'body',
 	},
 	'desktop-lg': {
 		outerW: '100%',
@@ -57,7 +58,7 @@ export const aboutConfig: Record<Breakpoint, AboutConfig> = {
 		outerMinH: '490px',
 		outerGap: '36px',
 		paragraphGap: '20px',
-		paragraphVariant: 'paragraph-desktop',
+		paragraphVariant: 'body-lg',
 	},
 	'desktop-xl': {
 		outerW: '100%',
@@ -65,7 +66,7 @@ export const aboutConfig: Record<Breakpoint, AboutConfig> = {
 		outerMinH: '530px',
 		outerGap: '36px',
 		paragraphGap: '20px',
-		paragraphVariant: 'paragraph-desktop',
+		paragraphVariant: 'body-lg',
 		innerW: '80%',
 	},
 };

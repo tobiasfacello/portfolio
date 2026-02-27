@@ -1,21 +1,37 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyledProjectCard } from './styled';
+import { StyledProjectCard, TechPill, TechPillIcon, PillWrapper } from './styled';
 
 //* Components
 import Text from '../Text';
 import Container from '../Containers/Container';
 import PillTag from '../Pill';
-import UnicodeSpinner from '../UnicodeSpinner';
+import UnicodeAnimation from '../UnicodeAnimations';
+
+//* Icon registry
+import { iconRegistry } from '../Icon';
+
+//? Hooks
+import { usePillDegradation } from '../../hooks/usePillDegradation';
 
 //? Types
-import { ProjectCardProps } from '../../types';
+import { ProjectCardProps, PillDisplay } from '../../types';
+import type { AnimationName } from '../UnicodeAnimations/animations';
 
-const tagSpinnerMap: Record<string, 'braille' | 'diagswipe' | 'breathe'> = {
-	'Work in progress': 'braille',
+const tagAnimationMap: Record<string, AnimationName> = {
+	'Work in progress': 'typing',
 	'V2.0': 'diagswipe',
 	Development: 'breathe',
 	Design: 'breathe',
+};
+
+const techIconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+	'Next.js': iconRegistry.nextJs,
+	'TypeScript': iconRegistry.typescript,
+	'React': iconRegistry.react,
+	'Vite': iconRegistry.vite,
+	'Supabase': iconRegistry.supabase,
+	'OpenAI': iconRegistry.openAi,
 };
 
 function ProjectCard(props: ProjectCardProps) {
@@ -27,7 +43,12 @@ function ProjectCard(props: ProjectCardProps) {
 	const details = t(`${props.slug}.details`);
 	const tag = t(`${props.slug}.tag`);
 	const enTag = t(`${props.slug}.tag`, { lng: 'en' });
-	const spinner = tagSpinnerMap[enTag] || undefined;
+	const animationName = tagAnimationMap[enTag] || undefined;
+
+	const { level, techIconOnly, ready, cardRef, contentRef, logoRef, measureLayer } = usePillDegradation({
+		tag,
+		animationName,
+	});
 
 	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
 	const handleMouseLeave = useCallback(() => setIsHovered(false), []);
@@ -43,9 +64,23 @@ function ProjectCard(props: ProjectCardProps) {
 		}
 	}, [props.src]);
 
+	// Pill content derived from level — hide text when animation is present
+	const pillTag = animationName ? undefined : level === PillDisplay.FULL ? tag : undefined;
+	const pillPadding = level === PillDisplay.ICON_ONLY ? ['4', '6', '4', '6'] : ['4', '8', '4', '6'];
+
+	// CSS variables for smooth transitions (inline styles = real transitions, no class swap)
+	const pillStyle = useMemo(() => {
+		const isHidden = level === PillDisplay.HIDDEN;
+		return {
+			'--pill-max-w': isHidden ? '0px' : 'max-content',
+			'--pill-opacity': isHidden ? '0' : '1',
+		} as React.CSSProperties;
+	}, [level]);
+
 	return (
 		<StyledProjectCard
 			className={"project-card"}
+			ref={cardRef as React.Ref<HTMLAnchorElement>}
 			href={props.url}
 			target="_blank"
 			rel="noopener noreferrer"
@@ -53,28 +88,63 @@ function ProjectCard(props: ProjectCardProps) {
 			onMouseLeave={handleMouseLeave}
 			$isHovered={isHovered}
 		>
-			<Container direction={'column'} justify={'space-between'} align={'start'}>
-				<Text variant={'subtitle-fst'}>
-					{title}
-				</Text>
-				<Text variant={'details-fst'}>
+			<Container
+				ref={contentRef as React.Ref<HTMLDivElement>}
+				direction={'column'}
+				justify={'space-between'}
+				align={'start'}
+				h={'100%'}
+				gap={'8px'}
+				$css={'flex: 1; min-width: 0;'}
+			>
+				<Container align={'center'} gap={'8px'} w={'fit-content'} h={'fit-content'}>
+					<Text variant={'subtitle'}>
+						{title}
+					</Text>
+					<PillWrapper $ready={ready} style={pillStyle}>
+						<PillTag
+							tag={pillTag}
+							animationName={animationName}
+							p={pillPadding}
+						/>
+					</PillWrapper>
+				</Container>
+				<Text variant={'label'}>
 					{details}
 				</Text>
-				<PillTag
-					tag={tag}
-					spinnerName={spinner}
-					maxW={'140px'}
-					p={['4', '8', '4', '6']}
-				/>
+				<Container align={'center'} gap={'8px'} w={'fit-content'} h={'fit-content'}>
+					{props.tech.map((tech) => {
+						const Icon = techIconMap[tech];
+						return (
+							<TechPill key={tech} $iconOnly={techIconOnly}>
+								{Icon && (
+									<TechPillIcon>
+										<Icon />
+									</TechPillIcon>
+								)}
+								{!techIconOnly && tech}
+							</TechPill>
+						);
+					})}
+				</Container>
 			</Container>
-			<Container direction={'column'} justify={'center'} align={'end'}>
-				{!imageLoaded && <UnicodeSpinner name="pulse" />}
+			<Container
+				ref={logoRef as React.Ref<HTMLDivElement>}
+				direction={'column'}
+				justify={'center'}
+				align={'end'}
+				w={'auto'}
+				$css={'flex-shrink: 0;'}
+			>
+				{!imageLoaded && <UnicodeAnimation name="pulse" />}
 				<img
 					src={props.src}
 					alt={`${title} logo`}
+					loading="lazy"
 					style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
 				/>
 			</Container>
+			{measureLayer}
 		</StyledProjectCard>
 	);
 }

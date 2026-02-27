@@ -2,12 +2,14 @@
 	"centryboard": {
 		"title": "CentryBoard",
 		"details": "Productivity Booster App",
-		"tag": "Work in progress"
+		"tag": "Work in progress",
+		"shortTag": "WIP"
 	},
 	"fache-ai": {
 		"title": "fache.ai",
 		"details": "AI Assistant App",
-		"tag": "Work in progress"
+		"tag": "Work in progress",
+		"shortTag": "WIP"
 	},
 	"fache": {
 		"title": "fache.",

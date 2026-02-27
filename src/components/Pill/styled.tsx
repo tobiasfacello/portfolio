@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { spacingArray } from "../../styles/mixins";
 
 export const StyledPillTag = styled.span<{
 	$isHovered?: boolean;
@@ -6,21 +7,19 @@ export const StyledPillTag = styled.span<{
 	$m?: string[];
 	$p?: string[];
 }>`
-	width: auto;
-	max-width: ${(props) => (props.$maxW == null ? "130px" : props.$maxW)};
+	width: fit-content;
+	max-width: ${(props) => props.$maxW ?? "130px"};
 	height: 22px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 4px;
-	margin: ${(props) =>
-		props.$m &&
-		props.$m.map((marginSize) => `var(--${marginSize})`).join(" ")};
-
-	padding: ${(props) =>
-		props.$p &&
-		props.$p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
+	gap: var(--4);
+	margin: ${(props) => spacingArray(props.$m)};
+	padding: ${(props) => spacingArray(props.$p)};
 	border: 1px solid var(--text);
 	border-radius: var(--radius-pill);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	transition: all var(--transition-normal);
 `;

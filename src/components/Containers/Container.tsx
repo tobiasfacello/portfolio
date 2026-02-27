@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ContainerProps } from "../../types";
+import { spacingArray } from "../../styles/mixins";
 
 const StyledContainer = styled.div<{
 	$css?: string;
@@ -25,12 +26,8 @@ const StyledContainer = styled.div<{
 	min-height: ${(props) => (props.$minH == null ? "" : props.$minH)};
 	max-height: ${(props) => (props.$maxH == null ? "" : props.$maxH)};
 	display: flex;
-	margin: ${(props) =>
-		props.$m &&
-		props.$m.map((marginSize) => `var(--${marginSize})`).join(" ")};
-	padding: ${(props) =>
-		props.$p &&
-		props.$p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
+	margin: ${(props) => spacingArray(props.$m)};
+	padding: ${(props) => spacingArray(props.$p)};
 	flex-direction: ${(props) => props.$direction != null && props.$direction};
 	flex-wrap: ${(props) => props.$wrap != null && props.$wrap};
 	justify-content: ${(props) => props.$justify != null && props.$justify};
@@ -41,6 +38,7 @@ const StyledContainer = styled.div<{
 function Container(props: ContainerProps) {
 	return (
 		<StyledContainer
+			ref={props.ref}
 			$css={props.$css}
 			$w={props.w}
 			$minW={props.minW}

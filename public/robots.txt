@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fache.vercel.app/sitemap.xml

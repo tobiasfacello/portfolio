@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { interactiveHover } from "../../styles/mixins";
 
 export const StyledSocialIcon = styled.span`
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 20px;
-	height: 20px;
+	width: var(--icon-md);
+	height: var(--icon-md);
 	color: var(--text);
 	transition: color var(--transition-fast);
 
@@ -17,8 +18,8 @@ export const StyledSocialIcon = styled.span`
 
 export const StyledSocialButton = styled.a`
 	text-decoration: none;
-	width: 48px;
-	height: 48px;
+	width: var(--control-md);
+	height: var(--control-md);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -26,15 +27,12 @@ export const StyledSocialButton = styled.a`
 	background-color: var(--glass-bg);
 	border: 1px solid var(--glass-border-start);
 	border-radius: var(--radius-md);
-	opacity: 0.6;
 	color: var(--text);
 	transition: all var(--transition-fast);
 
-	&:hover {
-		opacity: 1;
-		background-color: var(--accent);
-		border: 1px solid var(--primary);
+	${interactiveHover}
 
+	&:hover {
 		${StyledSocialIcon} {
 			color: var(--pill-text-hovered);
 		}
@@ -42,6 +40,6 @@ export const StyledSocialButton = styled.a`
 
 	&:active {
 		background-color: var(--primary);
-		transition: all 100ms;
+		transition: all var(--transition-fast);
 	}
 `;

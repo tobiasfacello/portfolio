@@ -38,6 +38,7 @@ export function SplashProvider({ children }: { children: React.ReactNode }) {
 	);
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useSplash() {
 	const ctx = useContext(SplashContext);
 	if (!ctx) throw new Error("useSplash must be used within SplashProvider");

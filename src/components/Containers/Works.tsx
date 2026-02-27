@@ -45,7 +45,7 @@ function Works() {
 				>
 					<Text
 						as="h2"
-						variant={"subtitle-snd"}
+						variant={"subtitle-sm"}
 						m={cfg.titleM}
 					>
 						{t('works.title')}
@@ -85,7 +85,7 @@ function Works() {
 				>
 					<Text
 						as="h2"
-						variant={"subtitle-snd"}
+						variant={"subtitle-sm"}
 					>
 						{t('works.title')}
 					</Text>

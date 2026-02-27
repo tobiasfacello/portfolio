@@ -97,7 +97,7 @@ function Footer() {
 				align={"center"}
 			>
 				<Text
-					variant={"details-fst"}
+					variant={"label"}
 					m={["0", "0", "0", "0"]}
 				>
 					<Trans
@@ -124,7 +124,7 @@ function Footer() {
 				align={"center"}
 			>
 				<Text
-					variant={"details-fst"}
+					variant={"label"}
 					m={["0", "0", "0", "0"]}
 				>
 					{t('copyright', { year: currentDate.getFullYear() })}

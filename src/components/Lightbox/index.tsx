@@ -226,6 +226,7 @@ function Lightbox() {
 						ref={imageRef}
 						src={currentImage.src}
 						alt={currentImage.alt}
+						loading="lazy"
 						draggable={false}
 					/>
 				)}

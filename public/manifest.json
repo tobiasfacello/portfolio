@@ -1,0 +1,16 @@
+{
+  "name": "FACHE — Personal Portfolio",
+  "short_name": "FACHE",
+  "description": "Personal portfolio of Tobias Facello — Frontend Developer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f2ede8",
+  "theme_color": "#0a0b04",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32 64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

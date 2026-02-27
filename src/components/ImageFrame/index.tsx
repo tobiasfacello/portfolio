@@ -13,7 +13,7 @@ function ImageFrame(props: ImageFrameProps) {
 	return (
 		<div style={containerStyles}>
 			<StyledImageFrame $p={props.p} $m={props.m}>
-				<img src={props.src} alt={props.alt || ""} />
+				<img src={props.src} alt={props.alt || ""} loading={props.loading || "lazy"} />
 			</StyledImageFrame>
 		</div>
 	);

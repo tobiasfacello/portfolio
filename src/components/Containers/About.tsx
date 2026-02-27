@@ -54,7 +54,7 @@ export default function About() {
 				>
 					<Text
 						as="h2"
-						variant={"subtitle-snd"}
+						variant={"subtitle-sm"}
 						alignment={cfg.titleAlign}
 					>
 						{t('about.title')}

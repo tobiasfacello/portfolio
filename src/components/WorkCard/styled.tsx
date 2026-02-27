@@ -8,7 +8,7 @@ export const StyledWorkLogo = styled.span`
 	width: 190px;
 	height: 190px;
 	color: var(--primary);
-	transition: all 300ms;
+	transition: all var(--transition-normal);
 	z-index: -1;
 
 	svg {
@@ -25,7 +25,7 @@ export const StyledWorkCardContent = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	overflow: hidden;
-	border-radius: 20px;
+	border-radius: var(--radius-lg);
 	padding: 10px;
 `;
 
@@ -59,7 +59,7 @@ const workCardBase = css<{
 	}
 
 	${StyledWorkLogo} {
-		opacity: ${(props) => (props.$isHovered ? "1" : "0.2")};
+		opacity: ${(props) => (props.$isHovered ? "var(--opacity-full)" : "var(--opacity-subtle)")};
 	}
 
 	${(props) => hoveredPillStyles(props.$isHovered)}

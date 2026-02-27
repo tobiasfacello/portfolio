@@ -62,6 +62,7 @@ function Home() {
 				{t('skipLink')}
 			</a>
 			<StyledMain id="main-content">
+				<h1 className="sr-only">Tobias Facello — Frontend Developer</h1>
 				<Header />
 				<StyledGrid>
 					<Profile />

@@ -1,25 +1,4 @@
-import {
-	BashIcon,
-	NodeJSIcon,
-	JSIcon,
-	TSIcon,
-	CSSIcon,
-	WCIcon,
-	ReactJSIcon,
-	NextJSIcon,
-	ExpressJSIcon,
-	PostmanIcon,
-	FirebaseIcon,
-	PostgreSQLIcon,
-	SequelizeJSIcon,
-	PrismaIcon,
-	GitIcon,
-	ThreeJSIcon,
-	FramerMotionIcon,
-	FigmaIcon,
-	FramerIcon,
-	AISDKIcon,
-} from './icons';
+import { iconRegistry } from '../components/Icon';
 
 export interface SkillIcon {
 	Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -28,33 +7,33 @@ export interface SkillIcon {
 
 export const skillRows: SkillIcon[][] = [
 	[
-		{ Icon: BashIcon, title: 'Bash' },
-		{ Icon: NodeJSIcon, title: 'Node.js' },
-		{ Icon: JSIcon, title: 'JavaScript' },
-		{ Icon: TSIcon, title: 'TypeScript' },
+		{ Icon: iconRegistry.bash, title: 'Bash' },
+		{ Icon: iconRegistry.nodeJs, title: 'Node.js' },
+		{ Icon: iconRegistry.javascript, title: 'JavaScript' },
+		{ Icon: iconRegistry.typescript, title: 'TypeScript' },
 	],
 	[
-		{ Icon: CSSIcon, title: 'CSS' },
-		{ Icon: WCIcon, title: 'Web Components' },
-		{ Icon: ReactJSIcon, title: 'React.js' },
-		{ Icon: NextJSIcon, title: 'Next.js' },
+		{ Icon: iconRegistry.css, title: 'CSS' },
+		{ Icon: iconRegistry.webComponents, title: 'Web Components' },
+		{ Icon: iconRegistry.react, title: 'React.js' },
+		{ Icon: iconRegistry.nextJs, title: 'Next.js' },
 	],
 	[
-		{ Icon: ExpressJSIcon, title: 'Express.js' },
-		{ Icon: PostmanIcon, title: 'Postman' },
-		{ Icon: FirebaseIcon, title: 'Firebase' },
-		{ Icon: PostgreSQLIcon, title: 'PostgreSQL' },
+		{ Icon: iconRegistry.expressJs, title: 'Express.js' },
+		{ Icon: iconRegistry.postman, title: 'Postman' },
+		{ Icon: iconRegistry.firebase, title: 'Firebase' },
+		{ Icon: iconRegistry.postgreSql, title: 'PostgreSQL' },
 	],
 	[
-		{ Icon: SequelizeJSIcon, title: 'Sequelize' },
-		{ Icon: PrismaIcon, title: 'Prisma' },
-		{ Icon: GitIcon, title: 'Git' },
-		{ Icon: ThreeJSIcon, title: 'Three.js' },
+		{ Icon: iconRegistry.sequelizeJs, title: 'Sequelize' },
+		{ Icon: iconRegistry.prisma, title: 'Prisma' },
+		{ Icon: iconRegistry.git, title: 'Git' },
+		{ Icon: iconRegistry.threeJs, title: 'Three.js' },
 	],
 	[
-		{ Icon: FramerMotionIcon, title: 'Framer Motion' },
-		{ Icon: FigmaIcon, title: 'Figma' },
-		{ Icon: FramerIcon, title: 'Framer' },
-		{ Icon: AISDKIcon, title: 'AI SDK' },
+		{ Icon: iconRegistry.framerMotion, title: 'Framer Motion' },
+		{ Icon: iconRegistry.figma, title: 'Figma' },
+		{ Icon: iconRegistry.framer, title: 'Framer' },
+		{ Icon: iconRegistry.aiSdk, title: 'AI SDK' },
 	],
 ];

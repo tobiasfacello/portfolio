@@ -33,8 +33,8 @@ export const StyledToggleButton = styled.button<{
 			font-family: var(--font-geist-pixel-circle);
 			font-size: var(--font-size-caption);
 			letter-spacing: 0.5px;
+			width: var(--control-xs);
 			height: var(--control-xs);
-			padding: 0 var(--8);
 			font-weight: ${props.$active ? 'var(--font-weight-semibold)' : 'var(--font-weight-normal)'};
 		`
 		: `
@@ -48,8 +48,4 @@ export const StyledToggleButton = styled.button<{
 		`
 	}
 
-	@media (hover: none) and (pointer: coarse) {
-		min-width: 44px;
-		min-height: 44px;
-	}
 `;

@@ -30,6 +30,15 @@ function LanguageSwitcher() {
 			>
 				ES
 			</StyledToggleButton>
+			<StyledToggleButton
+				$active={i18n.language === 'pt'}
+				$variant="text"
+				onClick={() => changeLanguage('pt')}
+				aria-label="Mudar para português"
+				aria-pressed={i18n.language === 'pt'}
+			>
+				PT
+			</StyledToggleButton>
 		</StyledToggleGroup>
 	);
 }

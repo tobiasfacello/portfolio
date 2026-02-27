@@ -1,0 +1,19 @@
+{
+	"centryboard": {
+		"title": "CentryBoard",
+		"details": "App de Produtividade",
+		"tag": "Em desenvolvimento",
+		"shortTag": "WIP"
+	},
+	"fache-ai": {
+		"title": "fache.ai",
+		"details": "App de Assistente IA",
+		"tag": "Em desenvolvimento",
+		"shortTag": "WIP"
+	},
+	"fache": {
+		"title": "fache.",
+		"details": "Site Pessoal",
+		"tag": "V2.0"
+	}
+}

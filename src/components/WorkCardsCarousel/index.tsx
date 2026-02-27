@@ -12,7 +12,7 @@ import WorkCard from '../WorkCard';
 import Container from '../Containers/Container';
 
 //? Hooks, Config & Data
-import { useBreakpoint, isDesktop } from '../../hooks/useBreakpoint';
+import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { carouselConfig } from '../../config/responsive';
 import { works } from '../../data/works';
 
@@ -36,21 +36,18 @@ export default function WorkCardsCarousel() {
 		);
 	}
 
-	const swiperItems = [...works, ...works];
-
 	return (
 		<Swiper
 			className="swiper"
 			modules={[Autoplay]}
-			autoplay={true}
+			autoplay={{ delay: 5000, disableOnInteraction: false }}
 			loop={true}
 			centeredSlides={cfg.centeredSlides}
 			slidesPerView={cfg.slidesPerView}
 			spaceBetween={cfg.spaceBetween}
-			direction={isDesktop(bp) ? 'horizontal' : 'horizontal'}
 		>
-			{swiperItems.map((work, i) => (
-				<SwiperSlide key={`${work.slug}-${i}`} className="swiper-slide">
+			{works.map((work) => (
+				<SwiperSlide key={work.slug} className="swiper-slide">
 					<WorkCard
 						slug={work.slug}
 						url={work.url}

@@ -1,57 +1,131 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+//? Types
+import { ButtonVariant } from "../../types";
 
 //* Components
 import { StyledIconFrame } from "../IconFrame/styled";
 import { StyledText } from "../Text/styled";
 
-export const StyledButton = styled.a<{
-	$isHovered: boolean;
-	$m?: string[];
-	$p?: string[];
-}>`
-	width: auto;
-	height: 36px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: ${(props) =>
-		props.$m != null &&
-		props.$m.map((marginSize) => `var(--${marginSize})`).join(" ")};
-	padding: ${(props) =>
-		props.$p != null &&
-		props.$p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
-	opacity: 0.4;
+//* Mixins
+import { spacingArray, glassGradientBorder, interactiveHover } from "../../styles/mixins";
+
+const defaultVariant = css`
+	font-size: var(--font-size-label);
+	height: 3em;
+	opacity: var(--opacity-muted);
 	background-color: transparent;
 	border: 1px solid var(--text);
-	border-radius: var(--radius-md);
-	text-decoration: none;
-	transition: all var(--transition-fast);
-	z-index: 10;
+
+	${interactiveHover}
 
 	&:hover {
-		opacity: 1;
-		background-color: var(--accent);
-		border: 1px solid var(--primary);
-
 		${StyledText} {
-			font-weight: 500;
+			font-weight: var(--font-weight-medium);
 			color: var(--pill-text-hovered);
 		}
 	}
 
 	&:active {
 		background-color: var(--primary);
-		transition: all 100ms;
+		transition: all var(--transition-fast);
 	}
 
-
 	${StyledIconFrame} {
-		width: 30px;
-		height: 30px;
+		width: 2.5em;
+		height: 2.5em;
 		margin: 0;
 	}
 
 	&:hover ${StyledIconFrame} {
 		color: var(--pill-text-hovered);
 	}
+`;
+
+const glassVariant = css`
+	font-size: var(--font-size-caption);
+	position: relative;
+	height: 2.55em;
+	gap: 0.4em;
+	opacity: var(--opacity-full);
+	background-color: var(--glass-bg);
+	backdrop-filter: blur(var(--blur-sm));
+	-webkit-backdrop-filter: blur(var(--blur-sm));
+	${glassGradientBorder({ radius: 'var(--radius-md)' })}
+
+	${StyledText} {
+		font-size: inherit;
+		font-weight: var(--font-weight-medium);
+	}
+
+	${StyledIconFrame} {
+		width: 1.1em;
+		height: 1.1em;
+		margin: 0;
+	}
+
+	&:hover {
+		background-color: var(--accent);
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+		border-color: var(--primary);
+
+		&::after {
+			opacity: 0;
+		}
+
+		${StyledText} {
+			font-weight: var(--font-weight-medium);
+			color: var(--pill-text-hovered);
+		}
+
+		${StyledIconFrame} {
+			color: var(--pill-text-hovered);
+		}
+	}
+
+	&:active {
+		background-color: var(--primary);
+		transition: all var(--transition-fast);
+	}
+`;
+
+export const StyledButton = styled.a<{
+	$isHovered: boolean;
+	$variant: ButtonVariant;
+	$disabled?: boolean;
+	$m?: string[];
+	$p?: string[];
+}>`
+	background: none;
+	border: none;
+	color: inherit;
+	width: ${(props) => props.$variant === 'glass' ? 'fit-content' : 'auto'};
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: ${(props) => spacingArray(props.$m)};
+	padding: ${(props) => spacingArray(props.$p)};
+	border-radius: var(--radius-md);
+	text-decoration: none;
+	transition: all var(--transition-fast);
+	z-index: 10;
+	cursor: ${(props) => props.$disabled ? 'default' : 'pointer'};
+
+	${(props) => props.$variant === 'glass' ? glassVariant : defaultVariant}
+
+	${(props) => props.$disabled && css`
+		opacity: 0.35;
+
+		&:hover {
+			background-color: var(--glass-bg);
+			backdrop-filter: blur(var(--blur-sm));
+			-webkit-backdrop-filter: blur(var(--blur-sm));
+			border-color: transparent;
+
+			&::after { opacity: var(--opacity-full); }
+			${StyledText} { color: inherit; }
+			${StyledIconFrame} { color: inherit; }
+		}
+	`}
 `;

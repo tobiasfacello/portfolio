@@ -2,7 +2,7 @@
 import { useTheme } from '../../hooks/useTheme';
 
 //* Styles
-import { StyledThemeSwitcher, StyledThemeButton } from './styled';
+import { StyledToggleGroup, StyledToggleButton } from '../ToggleGroup/styled';
 
 //* Components
 import Tooltip from '../Tooltip';
@@ -40,19 +40,21 @@ function ThemeSwitcher() {
 	const { themeMode, setThemeMode } = useTheme();
 
 	return (
-		<StyledThemeSwitcher>
+		<StyledToggleGroup>
 			{modes.map(({ mode, Icon }) => (
 				<Tooltip key={mode} text={mode.charAt(0).toUpperCase() + mode.slice(1)}>
-					<StyledThemeButton
+					<StyledToggleButton
 						$active={themeMode === mode}
+						$variant="icon"
 						onClick={() => setThemeMode(mode)}
 						aria-label={`Theme: ${mode}`}
+						aria-pressed={themeMode === mode}
 					>
 						<Icon />
-					</StyledThemeButton>
+					</StyledToggleButton>
 				</Tooltip>
 			))}
-		</StyledThemeSwitcher>
+		</StyledToggleGroup>
 	);
 }
 

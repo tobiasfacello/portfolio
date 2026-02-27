@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { glassGradientBorder } from '../../styles/mixins';
 
 const arrowSize = 5;
 
@@ -44,21 +45,20 @@ export const StyledTooltip = styled.span<{
 	position: absolute;
 	z-index: var(--z-tooltip);
 	white-space: nowrap;
-	padding: 6px 10px;
+	padding: var(--6) var(--12);
 	border-radius: var(--radius-md);
 	pointer-events: ${({ $clickable }) => ($clickable ? 'auto' : 'none')};
 	${({ $clickable }) => $clickable && 'cursor: pointer;'}
 
-	font-family: 'Plus Jakarta Sans', sans-serif;
-	font-size: 12px;
-	font-weight: 500;
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-label);
+	font-weight: var(--font-weight-medium);
 	color: var(--text);
 
 	background-color: var(--glass-bg);
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	border: 1px solid transparent;
-	background-clip: padding-box;
+	backdrop-filter: blur(var(--blur-sm));
+	-webkit-backdrop-filter: blur(var(--blur-sm));
+	${glassGradientBorder({ radius: 'var(--radius-md)' })}
 
 	transition:
 		background-color var(--transition-base) ease-in-out,
@@ -72,27 +72,6 @@ export const StyledTooltip = styled.span<{
 		content: '';
 		position: absolute;
 		transition: border-color var(--transition-base) ease-in-out;
-	}
-
-	/* Glass gradient border */
-	&::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		border-radius: var(--radius-md);
-		padding: 1px;
-		background: linear-gradient(
-			to bottom,
-			var(--glass-border-start),
-			var(--glass-border-end)
-		);
-		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-		-webkit-mask: linear-gradient(#fff 0 0) content-box,
-			linear-gradient(#fff 0 0);
-		-webkit-mask-composite: xor;
-		mask-composite: exclude;
-		pointer-events: none;
-		transition: opacity var(--transition-base) ease-in-out;
 	}
 
 	${({ $clickable, $position }) =>
@@ -121,7 +100,7 @@ export const StyledTooltip = styled.span<{
 export const StyledTooltipContent = styled.span`
 	display: inline-flex;
 	align-items: center;
-	gap: 6px;
+	gap: var(--6);
 `;
 
 export const StyledTooltipBridge = styled.span<{
@@ -137,8 +116,8 @@ export const StyledTooltipBridge = styled.span<{
 
 export const StyledTooltipIcon = styled.span`
 	display: inline-flex;
-	width: 14px;
-	height: 14px;
+	width: var(--icon-xs);
+	height: var(--icon-xs);
 	color: inherit;
 
 	svg {

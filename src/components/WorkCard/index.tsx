@@ -3,35 +3,30 @@ import { useState, useCallback } from 'react';
 import { useNavigate, useViewTransitionState } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-//? Hooks
-import { useTooltipAnimation } from '../../hooks/useTooltipAnimation';
-
-//* Assets
-import ArrowIcon from '../../assets/icons/arrow-right-circle.svg?react';
-
 //* Components
 import Container from '../Containers/Container';
 import Text from '../Text';
 import PillTag from '../Pill';
 import Button from '../Button';
 import IconFrame from '../IconFrame';
-
-//* Styled (Tooltip)
-import {
-	StyledTooltip,
-	StyledTooltipBridge,
-	StyledTooltipContent,
-	StyledTooltipIcon,
-} from '../Tooltip/styled';
+import Tooltip from '../Tooltip';
+import { iconRegistry } from '../Icon';
 
 //? Types
 import { WorkCardProps } from '../../types';
+import type { AnimationName } from '../UnicodeAnimations/animations';
 
 //? Data
 import { hasDetailPage } from '../../data/works';
 
-const DocumentIcon = () => (
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+const HourglassIcon = () => (
+	<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+		<path d="M5 2h6M5 14h6M5 2c0 3 3 5 3 6s-3 3-3 6M11 2c0 3-3 5-3 6s3 3 3 6" />
+	</svg>
+);
+
+const DocumentIcon = (props: React.SVGProps<SVGSVGElement>) => (
+	<svg {...props} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
 		<path d="M9.5 1.5H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5L9.5 1.5Z" />
 		<polyline points="9.5 1.5 9.5 4.5 13 4.5" />
 		<line x1="5.5" y1="8" x2="10.5" y2="8" />
@@ -39,11 +34,11 @@ const DocumentIcon = () => (
 	</svg>
 );
 
-const tagSpinnerMap: Record<string, 'braille' | 'diagswipe' | 'breathe'> = {
+const tagAnimationMap: Record<string, AnimationName> = {
 	Development: 'breathe',
 	Design: 'breathe',
-	'Work in progress': 'braille',
 	'V2.0': 'diagswipe',
+	'Work in progress': 'typing',
 };
 
 function WorkCard(props: WorkCardProps) {
@@ -57,7 +52,6 @@ function WorkCard(props: WorkCardProps) {
 
 	const isDetail = hasDetailPage({ slug: props.slug, url: props.url, showcaseUrl: props.showcaseUrl, Logo: props.Logo });
 	const isTransitioning = useViewTransitionState(`/work/${props.slug}`);
-	const tooltipRef = useTooltipAnimation(isHovered, 'top');
 
 	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
 	const handleMouseLeave = useCallback(() => setIsHovered(false), []);
@@ -72,6 +66,11 @@ function WorkCard(props: WorkCardProps) {
 		e.stopPropagation();
 		window.open(props.url, '_blank', 'noopener,noreferrer');
 	}, [props.url]);
+
+	const handleDocClick = useCallback((e: React.MouseEvent) => {
+		e.stopPropagation();
+		navigate(`/work/${props.slug}`, { viewTransition: true });
+	}, [navigate, props.slug]);
 
 	const cardContent = (
 		<StyledWorkCardContent>
@@ -100,12 +99,12 @@ function WorkCard(props: WorkCardProps) {
 						gap={"6px"}
 					>
 						{tags.map((tag: string, i: number) => {
-							const spinner = tagSpinnerMap[enTags[i]] || undefined;
+							const animationName = tagAnimationMap[enTags[i]] || undefined;
 							return (
 								<PillTag
 									key={tag}
 									tag={tag}
-									spinnerName={spinner}
+									animationName={animationName}
 									p={['4', '8', '4', '8']}
 								/>
 							);
@@ -113,7 +112,7 @@ function WorkCard(props: WorkCardProps) {
 					</Container>
 					<Text
 						w={'90%'}
-						variant={'paragraph-work-card'}
+						variant={'body-sm'}
 						alignment={'start'}
 					>
 						{details}
@@ -125,16 +124,49 @@ function WorkCard(props: WorkCardProps) {
 						justify={'flex-end'}
 						align={'start'}
 					>
-						<Button
-							title={t('visitSite', { ns: 'common' })}
-							p={['0', '2', '0', '8']}
-							{...(isDetail
-								? { onClick: handleButtonClick }
-								: { url: props.url }
-							)}
+						<Container
+							w={'auto'}
+							h={'auto'}
+							direction={'column'}
+							gap={'6px'}
 						>
-							<IconFrame Icon={ArrowIcon} />
-						</Button>
+							<Button
+								variant={'glass'}
+								title={t('visitSite', { ns: 'common' })}
+								p={['0', '6', '0', '6']}
+								{...(isDetail
+									? { onClick: handleButtonClick }
+									: { url: props.url }
+								)}
+							>
+								<IconFrame Icon={iconRegistry.externalLink} />
+							</Button>
+							{isDetail ? (
+								<Button
+									variant={'glass'}
+									title={t('viewDocumentation', { ns: 'common' })}
+									p={['0', '6', '0', '6']}
+									onClick={handleDocClick}
+								>
+									<IconFrame Icon={DocumentIcon} />
+								</Button>
+							) : (
+								<Tooltip
+									text={t('inProgress', { ns: 'common' })}
+									position="bottom"
+									icon={<HourglassIcon />}
+								>
+									<Button
+										variant={'glass'}
+										title={t('viewDocumentation', { ns: 'common' })}
+										p={['0', '6', '0', '6']}
+										disabled
+									>
+										<IconFrame Icon={DocumentIcon} />
+									</Button>
+								</Tooltip>
+							)}
+						</Container>
 					</Container>
 				</Container>
 			</Container>
@@ -154,11 +186,21 @@ function WorkCard(props: WorkCardProps) {
 		</StyledWorkCardContent>
 	);
 
+	const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			handleCardClick();
+		}
+	}, [handleCardClick]);
+
 	if (isDetail) {
 		return (
 			<StyledWorkCardDiv
 				className={"work-card"}
+				role="button"
+				tabIndex={0}
 				onClick={handleCardClick}
+				onKeyDown={handleKeyDown}
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 				$isHovered={isHovered}
@@ -166,13 +208,6 @@ function WorkCard(props: WorkCardProps) {
 				$m={props.m}
 			>
 				{cardContent}
-				<StyledTooltip ref={tooltipRef} $position="top" $clickable role="tooltip">
-					<StyledTooltipBridge $position="top" />
-					<StyledTooltipContent>
-						<StyledTooltipIcon><DocumentIcon /></StyledTooltipIcon>
-						{t('viewCaseStudy', { ns: 'common' })}
-					</StyledTooltipContent>
-				</StyledTooltip>
 			</StyledWorkCardDiv>
 		);
 	}

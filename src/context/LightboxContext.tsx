@@ -78,6 +78,7 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
 	);
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useLightbox() {
 	const ctx = useContext(LightboxContext);
 	if (!ctx) throw new Error("useLightbox must be used within LightboxProvider");

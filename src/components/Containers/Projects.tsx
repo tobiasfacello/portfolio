@@ -55,7 +55,7 @@ function Projects() {
 					justify={"flex-start"}
 					align={'center'}
 				>
-					<Text as="h2" variant={'subtitle-snd'}>
+					<Text as="h2" variant={'subtitle-sm'}>
 						{t('projects.title')}
 					</Text>
 				</Container>
@@ -72,6 +72,7 @@ function Projects() {
 							slug={project.slug}
 							src={project.src}
 							url={project.url}
+							tech={project.tech}
 						/>
 					))}
 				</Container>

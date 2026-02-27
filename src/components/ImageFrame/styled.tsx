@@ -1,17 +1,12 @@
 import styled from "styled-components";
+import { spacingArray } from "../../styles/mixins";
+
 export const StyledImageFrame = styled.div<{
 	$m?: string[];
 	$p?: string[];
 }>`
-	//* Margin
-	margin: ${(props) =>
-		props.$m &&
-		props.$m.map((marginSize) => `var(--${marginSize})`).join(" ")};
-
-	//* Padding
-	padding: ${(props) =>
-		props.$p &&
-		props.$p.map((paddingSize) => `var(--${paddingSize})`).join(" ")};
+	margin: ${(props) => spacingArray(props.$m)};
+	padding: ${(props) => spacingArray(props.$p)};
 
 	@media (min-width: 360px) {
 		& {
@@ -26,7 +21,7 @@ export const StyledImageFrame = styled.div<{
 				width: 275px;
 				height: 275px;
 				border-width: 3px;
-				border-radius: 500px;
+				border-radius: var(--radius-circle);
 			}
 		}
 
@@ -35,7 +30,7 @@ export const StyledImageFrame = styled.div<{
 				width: 345px;
 				height: 345px;
 				border-width: 3px;
-				border-radius: 500px;
+				border-radius: var(--radius-circle);
 			}
 		}
 	}
@@ -45,6 +40,6 @@ export const StyledImageFrame = styled.div<{
 		height: 100%;
 		object-fit: cover;
 		object-position: center;
-		border-radius: 500px;
+		border-radius: var(--radius-circle);
 	}
 `;

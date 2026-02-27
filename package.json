@@ -20,8 +20,7 @@
 		"react-responsive": "^10.0.0",
 		"react-router-dom": "^7.13.1",
 		"styled-components": "^6.1.8",
-		"swiper": "^11.1.1",
-		"unicode-animations": "^1.0.3"
+		"swiper": "^11.1.1"
 	},
 	"devDependencies": {
 		"@types/react": "^19.2.11",

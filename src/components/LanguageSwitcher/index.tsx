@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { StyledLanguageSwitcher, StyledLangButton } from './styled';
+import { StyledToggleGroup, StyledToggleButton } from '../ToggleGroup/styled';
 
 function LanguageSwitcher() {
 	const { i18n } = useTranslation();
@@ -11,20 +11,26 @@ function LanguageSwitcher() {
 	};
 
 	return (
-		<StyledLanguageSwitcher>
-			<StyledLangButton
+		<StyledToggleGroup role="radiogroup" aria-label="Language">
+			<StyledToggleButton
 				$active={i18n.language === 'en'}
+				$variant="text"
 				onClick={() => changeLanguage('en')}
+				aria-label="Switch to English"
+				aria-pressed={i18n.language === 'en'}
 			>
 				EN
-			</StyledLangButton>
-			<StyledLangButton
+			</StyledToggleButton>
+			<StyledToggleButton
 				$active={i18n.language === 'es'}
+				$variant="text"
 				onClick={() => changeLanguage('es')}
+				aria-label="Cambiar a español"
+				aria-pressed={i18n.language === 'es'}
 			>
 				ES
-			</StyledLangButton>
-		</StyledLanguageSwitcher>
+			</StyledToggleButton>
+		</StyledToggleGroup>
 	);
 }
 

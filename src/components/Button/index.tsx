@@ -16,16 +16,19 @@ function Button(props: ButtonProps) {
 
 	return (
 		<StyledButton
-			as={isLink ? "a" : "span"}
+			as={isLink ? "a" : "button"}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
-			{...(isLink ? { href: props.url, target: "_blank", rel: "noopener noreferrer" } : {})}
-			{...(props.onClick ? { onClick: props.onClick } : {})}
+			{...(isLink && !props.disabled ? { href: props.url, target: "_blank", rel: "noopener noreferrer" } : {})}
+			{...(!isLink ? { type: "button" as const } : {})}
+			{...(props.onClick && !props.disabled ? { onClick: props.onClick } : {})}
 			$isHovered={isHovered}
+			$variant={props.variant || 'default'}
+			$disabled={props.disabled}
 			$p={props.p}
 			$m={props.m}
 		>
-			<Text variant={"details-fst"} alignment={"center"}>
+			<Text variant={"label"} alignment={"center"}>
 				{props.title}
 			</Text>
 			{props.children}

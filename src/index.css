@@ -1,40 +1,8 @@
 @import './styles/view-transitions.css';
 
 @font-face {
-	font-family: 'Geist Pixel Square';
-	src: url('assets/fonts/GeistPixel-Square.woff2') format('woff2');
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Geist Pixel Grid';
-	src: url('assets/fonts/GeistPixel-Grid.woff2') format('woff2');
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
 	font-family: 'Geist Pixel Circle';
 	src: url('assets/fonts/GeistPixel-Circle.woff2') format('woff2');
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Geist Pixel Triangle';
-	src: url('assets/fonts/GeistPixel-Triangle.woff2') format('woff2');
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Geist Pixel Line';
-	src: url('assets/fonts/GeistPixel-Line.woff2') format('woff2');
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -66,11 +34,17 @@
 	--line-height-label: 0.9375rem;
 	--line-height-caption: 0.625rem;
 
+	/* Font weight */
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+
 	/* Border radius */
 	--radius-sm: 0.5rem;
 	--radius-md: 0.625rem;
 	--radius-lg: 1.25rem;
 	--radius-pill: 1.875rem;
+	--radius-circle: 50%;
 
 	/* Transitions */
 	--transition-fast: 150ms;
@@ -78,6 +52,26 @@
 	--transition-normal: 300ms;
 	--transition-slow: 350ms;
 
+	/* Opacity scale */
+	--opacity-subtle: 0.2;
+	--opacity-muted: 0.4;
+	--opacity-soft: 0.6;
+	--opacity-medium: 0.8;
+	--opacity-full: 1;
+
+	/* Blur */
+	--blur-sm: 4px;
+
+	/* Icon sizes */
+	--icon-xs: 0.875rem;
+	--icon-sm: 1rem;
+	--icon-md: 1.25rem;
+
+	/* Control sizes */
+	--control-xs: 1.5rem;
+	--control-md: 3rem;
+
+	/* Spacing scale */
 	--0: 0px;
 	--2: 2px;
 	--4: 4px;
@@ -88,16 +82,9 @@
 	--24: 24px;
 	--36: 36px;
 	--48: 48px;
-	--64: 64px;
-	--72: 72px;
-	--translate-y: 0.25rem;
-	--translate-x: 0.5rem;
-	--rotate: 6deg;
-	--font-geist-pixel-square: 'Geist Pixel Square', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
-	--font-geist-pixel-grid: 'Geist Pixel Grid', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+
+	/* Font stacks */
 	--font-geist-pixel-circle: 'Geist Pixel Circle', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
-	--font-geist-pixel-triangle: 'Geist Pixel Triangle', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
-	--font-geist-pixel-line: 'Geist Pixel Line', ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Monaco, 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
 }
 
 /** Global Vars */
@@ -143,8 +130,8 @@
 		--pill-text-hovered: #f2ede8;
 		--background: #f2ede8;
 		--primary: #5a5d4e;
-		--secondary: #c5c7bc;
-		--secondary-60: rgba(197, 199, 188, 0.6);
+		--secondary: #6a6d5e;
+		--secondary-60: rgba(106, 109, 94, 0.6);
 		--accent: #444738;
 		--glass-bg: rgba(10, 11, 4, 0.04);
 		--glass-bg-bold: rgba(10, 11, 4, 0.06);
@@ -206,8 +193,8 @@
 	--pill-text-hovered: #f2ede8;
 	--background: #f2ede8;
 	--primary: #5a5d4e;
-	--secondary: #c5c7bc;
-	--secondary-60: rgba(197, 199, 188, 0.6);
+	--secondary: #6a6d5e;
+	--secondary-60: rgba(106, 109, 94, 0.6);
 	--accent: #444738;
 	--glass-bg: rgba(10, 11, 4, 0.04);
 	--glass-bg-bold: rgba(10, 11, 4, 0.06);
@@ -281,6 +268,18 @@
 
 .skip-link:focus {
 	top: 0;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }
 
 body {

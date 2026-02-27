@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
+//?  Hooks
+import { useTheme } from "../../hooks/useTheme";
+
 //* Components
 import Container from "./Container";
 import AsciiProfile from "../AsciiProfile";
@@ -9,12 +12,10 @@ import Text from "../Text";
 
 //* Assets
 import profilePicture from "../../assets/images/profile.jpg";
-import TwitterIcon from "../../assets/icons/Twitter.svg?react";
-import ThreadsIcon from "../../assets/icons/Threads.svg?react";
-import InstagramIcon from "../../assets/icons/Instagram.svg?react";
-import LinkedinIcon from "../../assets/icons/Linkedin.svg?react";
-import GithubIcon from "../../assets/icons/Github.svg?react";
-import ContraIcon from "../../assets/icons/Contra.svg?react";
+import profilePictureLight from "../../assets/images/profile-light.jpg";
+
+//* Icon registry
+import { iconRegistry } from "../Icon";
 
 //* Styles
 import { glassBorder } from "../../styles/mixins";
@@ -51,10 +52,11 @@ const StyledProfile = styled.div`
 
 export default function Profile() {
   const { t } = useTranslation("home");
+  const { isDarkMode } = useTheme();
 
   return (
     <StyledProfile>
-      <AsciiProfile src={profilePicture} />
+      <AsciiProfile src={isDarkMode ? profilePicture : profilePictureLight} />
       <Container
         w={"100%"}
         h={"auto"}
@@ -63,43 +65,43 @@ export default function Profile() {
         align={"center"}
         gap={"24px"}
       >
-        <Text as="h2" variant={"subtitle-snd"}>
+        <Text as="h2" variant={"subtitle-sm"}>
           {t("profile.findMeAt")}
         </Text>
         <Container justify={"center"} align={"center"} gap={"8px"}>
           <SocialButton
             url={"https://www.x.com/fachebits"}
-            Icon={TwitterIcon}
+            Icon={iconRegistry.twitter}
             alt="Twitter"
             tooltipPosition="bottom"
           />
           <SocialButton
             url={"https://www.threads.net/@fache.bits"}
-            Icon={ThreadsIcon}
+            Icon={iconRegistry.threads}
             alt="Threads"
             tooltipPosition="bottom"
           />
           <SocialButton
             url={"https://www.instagram.com/fache.bits/"}
-            Icon={InstagramIcon}
+            Icon={iconRegistry.instagram}
             alt="Instagram"
             tooltipPosition="bottom"
           />
           <SocialButton
             url={"https://www.linkedin.com/in/tobiasfacello/"}
-            Icon={LinkedinIcon}
+            Icon={iconRegistry.linkedin}
             alt="LinkedIn"
             tooltipPosition="bottom"
           />
           <SocialButton
             url={"https://www.github.com/tobiasfacello"}
-            Icon={GithubIcon}
+            Icon={iconRegistry.github}
             alt="GitHub"
             tooltipPosition="bottom"
           />
           <SocialButton
             url={"https://contra.com/tobiasfacello"}
-            Icon={ContraIcon}
+            Icon={iconRegistry.contra}
             alt="Contra"
             tooltipPosition="bottom"
           />

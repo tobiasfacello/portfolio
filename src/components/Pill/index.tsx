@@ -3,20 +3,24 @@ import { StyledPillTag } from "./styled";
 
 //* Components
 import Text from "../Text";
-import UnicodeSpinner from "../UnicodeSpinner";
+import UnicodeAnimation from "../UnicodeAnimations";
 
 //? Types
 import { PillProps } from "../../types";
 
+const animationStyle = { fontSize: "10px" } as const;
+
 export default memo(function PillTag(props: PillProps) {
 	return (
 		<StyledPillTag $maxW={props.maxW} $m={props.m} $p={props.p}>
-			{props.spinnerName && (
-				<UnicodeSpinner name={props.spinnerName} style={{ fontSize: "10px" }} />
+			{props.animationName && (
+				<UnicodeAnimation name={props.animationName} style={animationStyle} />
 			)}
-			<Text variant={"details-snd"} alignment={"center"}>
-				{props.tag}
-			</Text>
+			{props.tag && (
+				<Text variant={"caption"} alignment={"center"}>
+					{props.tag}
+				</Text>
+			)}
 		</StyledPillTag>
 	);
 });

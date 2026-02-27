@@ -1,22 +1,30 @@
 import { css, keyframes } from 'styled-components';
 import { StyledPillTag } from '../components/Pill/styled';
-import { StyledSpinner } from '../components/UnicodeSpinner/styled';
+import { StyledAnimation } from '../components/UnicodeAnimations/styled';
 
 //* Assets
 import noiseTexture from '../assets/images/noise-texture.webp';
 
-export const glassBorder = (bold = false) => css`
-	position: relative;
-	background-color: var(--glass-bg${bold ? '-bold' : ''});
+export const spacingArray = (values: string[] | undefined) =>
+	values ? values.map((v) => `var(--${v})`).join(' ') : undefined;
+
+export const glassGradientBorder = ({
+	bold = false,
+	radius = 'var(--radius-lg)',
+	pseudo = '::after',
+}: {
+	bold?: boolean;
+	radius?: string;
+	pseudo?: '::after' | '::before';
+} = {}) => css`
 	border: 1px solid transparent;
-	border-radius: 20px;
 	background-clip: padding-box;
 
-	&::after {
+	&${pseudo} {
 		content: '';
 		position: absolute;
 		inset: 0;
-		border-radius: 20px;
+		border-radius: ${radius};
 		padding: 1px;
 		background: linear-gradient(
 			to bottom,
@@ -29,8 +37,18 @@ export const glassBorder = (bold = false) => css`
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
 		pointer-events: none;
+		transition: background var(--transition-slow) ease-in-out;
+	}
+`;
+
+export const glassBorder = (bold = false) => css`
+	position: relative;
+	background-color: var(--glass-bg${bold ? '-bold' : ''});
+	border-radius: var(--radius-lg);
+	${glassGradientBorder({ bold })}
+
+	&::after {
 		z-index: 1;
-		transition: background 350ms ease-in-out;
 	}
 `;
 
@@ -38,28 +56,11 @@ export const glassCard = (bold = false) => css`
 	background-color: var(--glass-bg${bold ? '-bold' : ''});
 	background-clip: padding-box;
 	border: 1px solid transparent;
-	border-radius: 20px;
-	backdrop-filter: blur(4px);
-	transition: all 350ms ease-in-out;
+	border-radius: var(--radius-lg);
+	backdrop-filter: blur(var(--blur-sm));
+	transition: all var(--transition-slow) ease-in-out;
 
-	&::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		border-radius: 20px;
-		padding: 1px;
-		background: linear-gradient(
-			to bottom,
-			var(--glass-border${bold ? '-bold' : ''}-start),
-			var(--glass-border${bold ? '-bold' : ''}-end)
-		);
-		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-		-webkit-mask: linear-gradient(#fff 0 0) content-box,
-			linear-gradient(#fff 0 0);
-		-webkit-mask-composite: xor;
-		mask-composite: exclude;
-		transition: background 350ms ease-in-out;
-	}
+	${glassGradientBorder({ bold, pseudo: '::before' })}
 
 	&:hover::before {
 		background: linear-gradient(
@@ -75,27 +76,27 @@ export const hoveredPillStyles = (isHovered: boolean) => css`
 		color: ${isHovered ? "var(--pill-text-hovered)" : "var(--text)"};
 		background-color: ${isHovered ? "var(--accent)" : "transparent"};
 		border-color: ${isHovered ? "var(--primary)" : "inherit"};
-		opacity: ${isHovered ? "1" : "0.6"};
+		opacity: ${isHovered ? "var(--opacity-full)" : "var(--opacity-soft)"};
 
-		${StyledSpinner} {
+		${StyledAnimation} {
 			color: ${isHovered ? "var(--pill-text-hovered)" : "var(--primary)"};
 		}
 	}
 `;
 
 export const interactiveHover = css`
-	opacity: 0.6;
-	transition: all 150ms;
+	opacity: var(--opacity-soft);
+	transition: all var(--transition-fast);
 
 	&:hover {
-		opacity: 1;
+		opacity: var(--opacity-full);
 		background-color: var(--accent);
 		border: 1px solid var(--primary);
 	}
 
 	&:active {
 		background-color: var(--primary);
-		transition: all 100ms;
+		transition: all var(--transition-fast);
 	}
 `;
 
@@ -136,6 +137,3 @@ export const noisePatternBackground = css`
 		}
 	}
 `;
-
-export const spacingArray = (values: string[] | undefined) =>
-	values ? values.map((v) => `var(--${v})`).join(' ') : undefined;

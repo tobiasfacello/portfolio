@@ -30,13 +30,13 @@ const StyledSkills = styled.section`
 `;
 
 const StyledIcon = styled.span`
-	width: 48px;
-	height: 48px;
+	width: var(--control-md);
+	height: var(--control-md);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: var(--text);
-	opacity: 0.6;
+	opacity: var(--opacity-soft);
 
 	svg {
 		width: 100%;
@@ -81,7 +81,7 @@ function Skills() {
 						justify={"flex-start"}
 						align={"center"}
 					>
-						<Text as="h2" variant={"subtitle-snd"}>
+						<Text as="h2" variant={"subtitle-sm"}>
 							{t('skills.title')}
 						</Text>
 					</Container>
@@ -105,7 +105,7 @@ function Skills() {
 						justify={"flex-start"}
 						align={"center"}
 					>
-						<Text as="h2" variant={"subtitle-snd"}>
+						<Text as="h2" variant={"subtitle-sm"}>
 							{t('skills.title')}
 						</Text>
 					</Container>
@@ -151,7 +151,7 @@ function Skills() {
 					justify={"flex-start"}
 					align={"center"}
 				>
-					<Text as="h2" variant={"subtitle-snd"}>
+					<Text as="h2" variant={"subtitle-sm"}>
 						{t('skills.title')}
 					</Text>
 				</Container>

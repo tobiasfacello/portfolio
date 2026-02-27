@@ -1,4 +1,13 @@
 import { ReactNode } from 'react';
+import type { AnimationName } from '../components/UnicodeAnimations/animations';
+
+export const PillDisplay = {
+	FULL: 0,
+	ICON_ONLY: 1,
+	HIDDEN: 2,
+} as const;
+
+export type PillDisplayLevel = (typeof PillDisplay)[keyof typeof PillDisplay];
 
 export type ThemeProviderProps = {
 	children: ReactNode;
@@ -33,6 +42,16 @@ export type ContainerProps = {
 	ref?: React.Ref<HTMLDivElement>;
 };
 
+export type TextVariant =
+	| 'title'
+	| 'subtitle'
+	| 'subtitle-sm'
+	| 'body'
+	| 'body-sm'
+	| 'body-lg'
+	| 'label'
+	| 'caption';
+
 export type TextProps = {
 	children?: ReactNode;
 	as?: React.ElementType;
@@ -40,7 +59,7 @@ export type TextProps = {
 	h?: string;
 	m?: string[];
 	p?: string[];
-	variant?: string;
+	variant?: TextVariant;
 	alignment?: string;
 };
 
@@ -57,11 +76,16 @@ export type ProjectCardProps = {
 	slug: string;
 	url: string;
 	src: string;
+	tech: string[];
 };
+
+export type ButtonVariant = 'default' | 'glass';
 
 export type ButtonProps = {
 	children?: ReactNode;
 	title: string;
+	variant?: ButtonVariant;
+	disabled?: boolean;
 	url?: string;
 	p?: string[];
 	m?: string[];
@@ -76,12 +100,14 @@ export type SocialButtonProps = {
 };
 
 export type PillProps = {
-	tag: string;
-	spinnerName?: 'braille' | 'diagswipe' | 'breathe';
+	tag?: string;
+	animationName?: AnimationName;
 	maxW?: string;
 	m?: string[];
 	p?: string[];
 };
+
+export type { AnimationName };
 
 export type TooltipProps = {
 	text: string;
@@ -98,6 +124,7 @@ export type IconFrameProps = {
 export type ImageFrameProps = {
 	src: string;
 	alt?: string;
+	loading?: 'lazy' | 'eager';
 	p?: string[];
 	m?: string[];
 };

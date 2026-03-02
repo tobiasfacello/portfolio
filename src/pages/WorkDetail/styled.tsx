@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { glassBorder, glassCard, noisePatternBackground } from '../../styles/mixins';
+import { mq } from '../../config/breakpoints';
 
 export const StyledWorkDetail = styled.main`
 	width: 100%;
@@ -10,11 +11,11 @@ export const StyledWorkDetail = styled.main`
 	align-items: center;
 	padding: 0 20px;
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		padding: 0 40px;
 	}
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		padding: 0 60px;
 	}
 `;
@@ -27,7 +28,7 @@ export const StyledDetailContent = styled.article`
 	gap: 48px;
 	padding: 36px 0 72px;
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		gap: 64px;
 		padding: 48px 0 96px;
 	}
@@ -61,7 +62,7 @@ export const StyledParagraph = styled.p`
 	color: var(--text);
 	opacity: 0.85;
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		font-size: 16px;
 	}
 `;
@@ -80,7 +81,7 @@ export const StyledProcessTitle = styled.h3`
 	font-weight: 700;
 	color: var(--text);
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		font-size: 18px;
 	}
 `;
@@ -93,7 +94,7 @@ export const StyledHeroShowcase = styled.div`
 	overflow: hidden;
 	${glassBorder(true)}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		padding: 1rem;
 	}
 
@@ -105,7 +106,7 @@ export const StyledHeroShowcase = styled.div`
 		border-radius: 12px;
 		transition: transform 300ms ease-in-out;
 
-		@media (min-width: 768px) {
+		${mq.up('mobile-lg')} {
 			border-radius: 8px;
 		}
 	}
@@ -124,7 +125,7 @@ export const StyledDesignSystemFrame = styled.div`
 	border-radius: 20px;
 	${glassCard(true)}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		padding: 1rem;
 	}
 
@@ -136,7 +137,7 @@ export const StyledDesignSystemFrame = styled.div`
 		border-radius: 12px;
 		transition: transform 300ms ease-in-out;
 
-		@media (min-width: 768px) {
+		${mq.up('mobile-lg')} {
 			border-radius: 8px;
 		}
 	}
@@ -162,7 +163,7 @@ export const StyledPhoneGallery = styled.div`
 		display: none;
 	}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 		overflow-x: visible;
@@ -178,7 +179,7 @@ export const StyledPhoneCard = styled.div`
 	overflow: hidden;
 	${glassBorder(true)}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		flex: none;
 		padding: 1rem;
 	}
@@ -191,7 +192,7 @@ export const StyledPhoneCard = styled.div`
 		border-radius: 12px;
 		transition: transform 300ms ease-in-out;
 
-		@media (min-width: 768px) {
+		${mq.up('mobile-lg')} {
 			border-radius: 8px;
 		}
 	}
@@ -212,7 +213,7 @@ export const StyledMetaCard = styled.div`
 	${glassBorder(true)}
 	${noisePatternBackground}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		padding: 1rem;
 	}
 `;
@@ -222,7 +223,7 @@ export const StyledMetaGrid = styled.div`
 	grid-template-columns: 1fr 1fr;
 	gap: 24px;
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		grid-template-columns: repeat(3, 1fr);
 	}
 `;
@@ -338,7 +339,7 @@ export const StyledLinkPreview = styled.a`
 	color: inherit;
 	${glassBorder(true)}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		padding: 1rem;
 	}
 
@@ -377,7 +378,7 @@ export const StyledLinkThumbnail = styled.div`
 	border-radius: 12px;
 	overflow: hidden;
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		border-radius: 8px;
 	}
 
@@ -424,7 +425,7 @@ export const StyledTitle = styled.h1`
 	color: var(--text);
 	letter-spacing: -0.5px;
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		font-size: 48px;
 	}
 `;

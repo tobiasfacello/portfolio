@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { mq } from '../../config/breakpoints';
 
 //* Components
 import Container from '../../components/Containers/Container';
@@ -12,21 +13,14 @@ import { projectsConfig } from '../../config/responsive';
 import { projects } from '../../data/projects';
 
 //* Styles
-import { glassBorder, noisePatternBackground } from '../../styles/mixins';
+import { sectionBase } from '../../styles/mixins';
 
 const StyledProjects = styled.section`
-	width: 100%;
-	height: 100%;
-	padding: 0 var(--20);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	${sectionBase('projects')}
 	justify-content: center;
-	${glassBorder(true)}
-	${noisePatternBackground}
+	padding: 0 var(--20);
 
-	@media (min-width: 1280px) {
-		grid-area: projects;
+	${mq.up('desktop-sm')} {
 		justify-content: space-between;
 	}
 `;

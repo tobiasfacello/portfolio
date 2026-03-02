@@ -1,21 +1,22 @@
 import styled from "styled-components";
+import { mq } from "../../config/breakpoints";
 
 export const Wrapper = styled.div`
 	position: relative;
 	border-radius: 50%;
 	overflow: hidden;
 
-	@media (min-width: 360px) {
+	${mq.up(360)} {
 		width: 175px;
 		height: 175px;
 	}
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		width: 275px;
 		height: 275px;
 	}
 
-	@media (min-width: 1440px) {
+	${mq.up('desktop-lg')} {
 		width: 345px;
 		height: 345px;
 	}
@@ -44,11 +45,11 @@ export const AsciiLayer = styled.div`
 	transition: opacity 0.3s ease;
 	font-size: 5.3px;
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		font-size: 8.33px;
 	}
 
-	@media (min-width: 1440px) {
+	${mq.up('desktop-lg')} {
 		font-size: 10.45px;
 	}
 `;

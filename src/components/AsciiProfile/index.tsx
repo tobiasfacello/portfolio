@@ -46,7 +46,7 @@ function lineOpacity(i: number, total: number): number {
 export default function AsciiProfile(props: { src: string }) {
   return (
     <Wrapper>
-      <AsciiLayer>
+      <AsciiLayer aria-hidden="true">
         {asciiBlockLines.map((line, i) => (
           <span
             key={i}

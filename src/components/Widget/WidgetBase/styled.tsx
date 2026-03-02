@@ -5,6 +5,7 @@ export const StyledWidgetCard = styled.div`
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	padding: var(--12);
 	gap: var(--12);
 	overflow: hidden;

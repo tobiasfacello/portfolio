@@ -1,9 +1,7 @@
-//! GSAP
 import { useRef } from 'react';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(useGSAP);
+//! GSAP
+import { gsap, useGSAP } from '../lib/gsap';
 
 export function useTooltipAnimation(isVisible: boolean, position: 'top' | 'bottom' = 'top') {
 	const tooltipRef = useRef<HTMLSpanElement>(null);

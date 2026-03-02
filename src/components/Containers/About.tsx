@@ -10,22 +10,12 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { aboutConfig } from "../../config/responsive";
 
 //* Styles
-import { glassBorder, noisePatternBackground } from "../../styles/mixins";
+import { sectionBase } from "../../styles/mixins";
 
 const StyledAbout = styled.section`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+	${sectionBase('about')}
 	justify-content: space-evenly;
-	align-items: center;
 	padding: 0 var(--20);
-	${glassBorder(true)}
-	${noisePatternBackground}
-
-	@media (min-width: 1280px) {
-		grid-area: about;
-	}
 `;
 
 export default function About() {

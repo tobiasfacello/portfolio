@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mq } from "../../config/breakpoints";
 
 export const StyledAsciiLogo = styled.h1`
 	width: 100%;
@@ -12,27 +13,27 @@ export const StyledAsciiLogo = styled.h1`
 	contain: layout style paint;
 	font-size: 8px;
 
-	@media (min-width: 425px) {
+	${mq.up(425)} {
 		font-size: 9.5px;
 	}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		font-size: 15px;
 	}
 
-	@media (min-width: 960px) {
+	${mq.up('tablet')} {
 		font-size: 19px;
 	}
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		font-size: 24px;
 	}
 
-	@media (min-width: 1440px) {
+	${mq.up('desktop-lg')} {
 		font-size: 26px;
 	}
 
-	@media (min-width: 1800px) {
+	${mq.up(1800)} {
 		font-size: 30px;
 	}
 `;

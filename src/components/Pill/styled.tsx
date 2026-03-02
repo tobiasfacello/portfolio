@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { spacingArray } from "../../styles/mixins";
 
 export const StyledPillTag = styled.span<{
-	$isHovered?: boolean;
 	$maxW?: string;
 	$m?: string[];
 	$p?: string[];

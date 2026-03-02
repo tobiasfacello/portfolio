@@ -1,5 +1,4 @@
 import { StyledButton } from "./styled";
-import { useState, useCallback } from "react";
 
 //* Components
 import Text from "../Text";
@@ -8,21 +7,14 @@ import Text from "../Text";
 import { ButtonProps } from "../../types";
 
 function Button(props: ButtonProps) {
-	const [isHovered, setIsHovered] = useState(false);
 	const isLink = !!props.url;
-
-	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
-	const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
 	return (
 		<StyledButton
 			as={isLink ? "a" : "button"}
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
 			{...(isLink && !props.disabled ? { href: props.url, target: "_blank", rel: "noopener noreferrer" } : {})}
 			{...(!isLink ? { type: "button" as const } : {})}
 			{...(props.onClick && !props.disabled ? { onClick: props.onClick } : {})}
-			$isHovered={isHovered}
 			$variant={props.variant || 'default'}
 			aria-disabled={props.disabled || undefined}
 			$disabled={props.disabled}

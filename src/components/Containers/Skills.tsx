@@ -12,22 +12,12 @@ import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
 
 //* Styles
-import { glassBorder, noisePatternBackground } from "../../styles/mixins";
+import { sectionBase } from "../../styles/mixins";
 
 const StyledSkills = styled.section`
-	width: 100%;
-	height: 100%;
-	padding: var(--36) var(--20);
-	display: flex;
-	flex-direction: column;
+	${sectionBase('skills')}
 	justify-content: space-between;
-	align-items: center;
-	${glassBorder(true)}
-	${noisePatternBackground}
-
-	@media (min-width: 1280px) {
-		grid-area: skills;
-	}
+	padding: var(--36) var(--20);
 `;
 
 const StyledIcon = styled.span`

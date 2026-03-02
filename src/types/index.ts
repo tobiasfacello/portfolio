@@ -21,6 +21,11 @@ export type ThemeContextType = {
 	setThemeMode: (mode: ThemeMode) => void;
 };
 
+export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+export type FlexJustify = 'flex-start' | 'flex-end' | 'center' | 'start' | 'end' | 'space-between' | 'space-around' | 'space-evenly';
+export type FlexAlign = 'flex-start' | 'flex-end' | 'center' | 'start' | 'end' | 'stretch' | 'baseline';
+export type FlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
+
 export type ContainerProps = {
 	children?: ReactNode;
 	w?: string;
@@ -31,11 +36,11 @@ export type ContainerProps = {
 	maxH?: string;
 	m?: string[];
 	p?: string[];
-	direction?: string;
-	justify?: string;
-	align?: string;
+	direction?: FlexDirection;
+	justify?: FlexJustify;
+	align?: FlexAlign;
 	gap?: string;
-	wrap?: string;
+	wrap?: FlexWrap;
 	$css?: string;
 	ref?: React.Ref<HTMLDivElement>;
 };
@@ -179,32 +184,12 @@ export type GitHubTopRepo = {
 	count: number;
 };
 
-export type GitHubUserData = {
-	username: string;
-	avatarUrl: string;
-	publicRepos: number;
-	followers: number;
-	repos: GitHubRepo[];
-	events: GitHubEvent[];
-};
-
 export type Tweet = {
 	id: string;
 	text: string;
 	date: string;
 	authorName?: string;
 	url: string;
-	image?: string | null;
-};
-
-export type TwitterProfile = {
-	name: string;
-	username: string;
-	description: string;
-	profileImageUrl: string;
-	followers: number;
-	following: number;
-	tweetCount: number;
 };
 
 export type LinkedInExperience = {

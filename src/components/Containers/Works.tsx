@@ -11,22 +11,12 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { worksConfig } from "../../config/responsive";
 
 //* Styles
-import { glassBorder, noisePatternBackground } from "../../styles/mixins";
+import { sectionBase } from "../../styles/mixins";
 
 const StyledWorks = styled.section`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+	${sectionBase('works')}
 	justify-content: space-between;
-	align-items: center;
 	padding: 0 var(--20);
-	${glassBorder(true)}
-	${noisePatternBackground}
-
-	@media (min-width: 1280px) {
-		grid-area: works;
-	}
 `;
 
 function Works() {

@@ -66,7 +66,7 @@ export const StyledExperienceItem = styled.div`
 	flex-direction: row;
 	align-items: flex-start;
 	gap: var(--8);
-	padding-left: var(--8);
+	padding-left: var(--6);
 	border-left: 1px solid var(--glass-border-start);
 `;
 

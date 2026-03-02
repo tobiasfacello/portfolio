@@ -13,17 +13,22 @@ import { StyledSplashOverlay } from "./styled";
 //? Context
 import { useSplash } from "../../context/SplashContext";
 
+//? Hooks
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
+
 export default function SplashScreen() {
 	const { headerLogoRef, setSplashComplete, dismissSplash } = useSplash();
 	const splashLogoRef = useRef<HTMLHeadingElement>(null);
 	const overlayRef = useRef<HTMLDivElement>(null);
-	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const tlRef = useRef<gsap.core.Timeline | null>(null);
+	const prefersReducedMotion = usePrefersReducedMotion();
 
-	// Block scroll while splash is active
+	// Block scroll while splash is active; kill GSAP timeline on unmount
 	useEffect(() => {
 		document.documentElement.style.overflow = "hidden";
 		return () => {
 			document.documentElement.style.overflow = "";
+			tlRef.current?.kill();
 		};
 	}, []);
 
@@ -59,6 +64,7 @@ export default function SplashScreen() {
 		splashLogo.style.zIndex = "1001";
 
 		const tl = gsap.timeline();
+		tlRef.current = tl;
 
 		// Slide logo up to header position (overlay stays opaque, no resize)
 		tl.to(splashLogo, {

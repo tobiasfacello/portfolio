@@ -2,9 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 
 //! GSAP
-import { Expo, gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-gsap.registerPlugin(useGSAP);
+import { Expo } from "gsap";
+import { gsap, useGSAP } from "../../lib/gsap";
 
 //! Styles
 import styles from "./styles.module.css"
@@ -77,6 +76,7 @@ export default function Cursor() {
       id="cursor"
       className={styles.cursor}
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
       <path
         fill="var(--primary)"

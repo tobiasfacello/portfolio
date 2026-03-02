@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { mq } from "../../config/breakpoints";
 
 //?  Hooks
 import { useTheme } from "../../hooks/useTheme";
@@ -18,35 +19,28 @@ import profilePictureLight from "../../assets/images/profile-light.jpg";
 import { iconRegistry } from "../Icon";
 
 //* Styles
-import { glassBorder, noisePatternBackground } from "../../styles/mixins";
+import { sectionBase } from "../../styles/mixins";
 
 const StyledProfile = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  margin-top: var(--48);
-  flex-direction: column;
+  ${sectionBase('profile')}
   justify-content: space-between;
-  align-items: center;
+  margin-top: var(--48);
   padding: var(--20);
   gap: var(--36);
   order: -1;
-  ${glassBorder(true)}
-  ${noisePatternBackground}
 
-  @media (min-width: 1280px) {
-    grid-area: profile;
+  ${mq.up('desktop-sm')} {
     order: unset;
     justify-content: center;
     margin: var(--36) 0;
     min-height: 450px;
   }
 
-  @media (min-width: 1440px) {
+  ${mq.up('desktop-lg')} {
     min-height: 490px;
   }
 
-  @media (min-width: 1801px) {
+  ${mq.up('desktop-xl')} {
     min-height: 530px;
   }
 `;

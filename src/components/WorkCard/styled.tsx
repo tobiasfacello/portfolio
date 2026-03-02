@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { glassCard, hoveredPillStyles } from "../../styles/mixins";
+import { mq } from "../../config/breakpoints";
 
 export const StyledWorkLogo = styled.span`
 	display: block;
@@ -30,7 +31,6 @@ export const StyledWorkCardContent = styled.div`
 `;
 
 const workCardBase = css<{
-	$isHovered: boolean;
 	$m?: string[];
 	$p?: string[];
 }>`
@@ -44,14 +44,14 @@ const workCardBase = css<{
 	align-items: center;
 	${glassCard(true)}
 
-	@media (min-width: 375px) {
+	${mq.up(375)} {
 		& {
 			width: 335px;
 			min-width: 300px;
 			height: 250px;
 		}
 	}
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		& {
 			width: 340px;
 			height: 250px;
@@ -59,14 +59,21 @@ const workCardBase = css<{
 	}
 
 	${StyledWorkLogo} {
-		opacity: ${(props) => (props.$isHovered ? "var(--opacity-full)" : "var(--opacity-subtle)")};
+		opacity: var(--opacity-subtle);
 	}
 
-	${(props) => hoveredPillStyles(props.$isHovered)}
+	&:hover {
+		transform: translateY(-2px);
+	}
+
+	&:hover ${StyledWorkLogo} {
+		opacity: var(--opacity-full);
+	}
+
+	${hoveredPillStyles}
 `;
 
 export const StyledWorkCard = styled.a<{
-	$isHovered: boolean;
 	$m?: string[];
 	$p?: string[];
 }>`
@@ -74,7 +81,6 @@ export const StyledWorkCard = styled.a<{
 `;
 
 export const StyledWorkCardDiv = styled.div<{
-	$isHovered: boolean;
 	$m?: string[];
 	$p?: string[];
 }>`

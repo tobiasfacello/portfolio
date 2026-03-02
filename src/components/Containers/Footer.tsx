@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Trans, useTranslation } from "react-i18next";
+import { mq } from "../../config/breakpoints";
 
 //* Components
 import Container from "./Container";
@@ -23,7 +24,7 @@ const StyledFooter = styled.footer`
 	overflow: hidden;
 	${glassBorder(true)}
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		width: 90%;
 		text-align: initial;
 	}
@@ -47,7 +48,7 @@ const StyledFooter = styled.footer`
 		pointer-events: none;
 		z-index: 0;
 
-		@media (min-width: 1280px) {
+		${mq.up('desktop-sm')} {
 			background-image: url('/vectors/header-vector-desktop.svg');
 		}
 	}
@@ -56,7 +57,7 @@ const StyledFooter = styled.footer`
 		&::before {
 			background-image: url('/vectors/header-vector-light.svg');
 
-			@media (min-width: 1280px) {
+			${mq.up('desktop-sm')} {
 				background-image: url('/vectors/header-vector-desktop-light.svg');
 			}
 		}
@@ -65,7 +66,7 @@ const StyledFooter = styled.footer`
 	:root[data-theme="light"] &::before {
 		background-image: url('/vectors/header-vector-light.svg');
 
-		@media (min-width: 1280px) {
+		${mq.up('desktop-sm')} {
 			background-image: url('/vectors/header-vector-desktop-light.svg');
 		}
 	}
@@ -73,7 +74,7 @@ const StyledFooter = styled.footer`
 	:root[data-theme="dark"] &::before {
 		background-image: url('/vectors/header-vector.svg');
 
-		@media (min-width: 1280px) {
+		${mq.up('desktop-sm')} {
 			background-image: url('/vectors/header-vector-desktop.svg');
 		}
 	}
@@ -85,8 +86,9 @@ const SwitchersContainer = styled.div`
 	gap: 8px;
 `;
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 function Footer() {
-	const currentDate = new Date();
 	const { t } = useTranslation('common');
 
 	return (
@@ -127,7 +129,7 @@ function Footer() {
 					variant={"label"}
 					m={["0", "0", "0", "0"]}
 				>
-					{t('copyright', { year: currentDate.getFullYear() })}
+					{t('copyright', { year: CURRENT_YEAR })}
 				</Text>
 			</Container>
 		</StyledFooter>

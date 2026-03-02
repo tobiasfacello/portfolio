@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledProjectCard, TechPill, TechPillIcon, PillWrapper } from './styled';
 
@@ -16,14 +16,9 @@ import { usePillDegradation } from '../../hooks/usePillDegradation';
 
 //? Types
 import { ProjectCardProps, PillDisplay } from '../../types';
-import type { AnimationName } from '../UnicodeAnimations/animations';
 
-const tagAnimationMap: Record<string, AnimationName> = {
-	'Work in progress': 'typing',
-	'V2.0': 'diagswipe',
-	Development: 'breathe',
-	Design: 'breathe',
-};
+//? Data
+import { tagAnimationMap } from '../../data/tagAnimations';
 
 const techIconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
 	'Next.js': iconRegistry.nextJs,
@@ -35,7 +30,6 @@ const techIconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGEleme
 };
 
 function ProjectCard(props: ProjectCardProps) {
-	const [isHovered, setIsHovered] = useState(false);
 	const [imageLoaded, setImageLoaded] = useState(false);
 	const { t } = useTranslation('projects');
 
@@ -50,9 +44,6 @@ function ProjectCard(props: ProjectCardProps) {
 		animationName,
 	});
 
-	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
-	const handleMouseLeave = useCallback(() => setIsHovered(false), []);
-
 	useEffect(() => {
 		if (!props.src) return;
 		const img = new Image();
@@ -62,6 +53,7 @@ function ProjectCard(props: ProjectCardProps) {
 		} else {
 			img.onload = () => setImageLoaded(true);
 		}
+		return () => { img.onload = null; };
 	}, [props.src]);
 
 	// Pill content derived from level — hide text when animation is present
@@ -85,9 +77,6 @@ function ProjectCard(props: ProjectCardProps) {
 			href={props.url}
 			target="_blank"
 			rel="noopener noreferrer"
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
-			$isHovered={isHovered}
 		>
 			<Container
 				ref={contentRef as React.Ref<HTMLDivElement>}

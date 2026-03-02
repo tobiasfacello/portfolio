@@ -1,7 +1,6 @@
 import MoldeLogo from '../assets/works/molde.svg?react';
 import IndaloLogo from '../assets/works/indalo.svg?react';
 import RanchoLogo from '../assets/works/rancho.svg?react';
-import ClamacoLogo from '../assets/works/clamaco.svg?react';
 
 export interface WorkItem {
 	slug: string;
@@ -29,11 +28,6 @@ export const works: WorkItem[] = [
 		showcaseUrl:
 			'https://contra.com/p/XFlM23XE-el-rancho-family-run-rental-business-design-and-development',
 		Logo: RanchoLogo,
-	},
-	{
-		slug: 'clamaco',
-		url: 'https://clamaco.com.ar/',
-		Logo: ClamacoLogo,
 	},
 ];
 

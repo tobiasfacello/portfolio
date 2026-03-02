@@ -13,10 +13,5 @@
 		"title": "Rancho",
 		"tags": ["Design", "Desenvolvimento"],
 		"details": "Landing Page para um negócio de aluguéis"
-	},
-	"clamaco": {
-		"title": "Clamaco",
-		"tags": ["Design"],
-		"details": "Landing Page para uma construtora"
 	}
 }

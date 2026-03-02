@@ -2,36 +2,36 @@
 	padding-top: 85px;
 	text-align: start;
 	background-color: var(--background);
-	background-image: url('/src/assets/vectors/header-vector.svg');
+	background-image: url('/vectors/header-vector.svg');
 	background-position: top center;
 	background-size: auto;
 	background-repeat: repeat-x;
 
 	@media (min-width: 1280px) {
-		background-image: url('/src/assets/vectors/header-vector-desktop.svg');
+		background-image: url('/vectors/header-vector-desktop.svg');
 	}
 
 	@media (prefers-color-scheme: light) {
-		background-image: url('/src/assets/vectors/header-vector-light.svg');
+		background-image: url('/vectors/header-vector-light.svg');
 
 		@media (min-width: 1280px) {
-			background-image: url('/src/assets/vectors/header-vector-desktop-light.svg');
+			background-image: url('/vectors/header-vector-desktop-light.svg');
 		}
 	}
 }
 
 :root[data-theme="light"] #root {
-	background-image: url('/src/assets/vectors/header-vector-light.svg');
+	background-image: url('/vectors/header-vector-light.svg');
 
 	@media (min-width: 1280px) {
-		background-image: url('/src/assets/vectors/header-vector-desktop-light.svg');
+		background-image: url('/vectors/header-vector-desktop-light.svg');
 	}
 }
 
 :root[data-theme="dark"] #root {
-	background-image: url('/src/assets/vectors/header-vector.svg');
+	background-image: url('/vectors/header-vector.svg');
 
 	@media (min-width: 1280px) {
-		background-image: url('/src/assets/vectors/header-vector-desktop.svg');
+		background-image: url('/vectors/header-vector-desktop.svg');
 	}
 }

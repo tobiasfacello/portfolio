@@ -24,6 +24,7 @@ function Button(props: ButtonProps) {
 			{...(props.onClick && !props.disabled ? { onClick: props.onClick } : {})}
 			$isHovered={isHovered}
 			$variant={props.variant || 'default'}
+			aria-disabled={props.disabled || undefined}
 			$disabled={props.disabled}
 			$p={props.p}
 			$m={props.m}

@@ -10,7 +10,7 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { aboutConfig } from "../../config/responsive";
 
 //* Styles
-import { glassBorder } from "../../styles/mixins";
+import { glassBorder, noisePatternBackground } from "../../styles/mixins";
 
 const StyledAbout = styled.section`
 	width: 100%;
@@ -21,6 +21,7 @@ const StyledAbout = styled.section`
 	align-items: center;
 	padding: 0 var(--20);
 	${glassBorder(true)}
+	${noisePatternBackground}
 
 	@media (min-width: 1280px) {
 		grid-area: about;
@@ -62,7 +63,6 @@ export default function About() {
 				</Container>
 				<Container
 					w={cfg.innerW}
-					display={"flex"}
 					direction={"column"}
 					justify={"space-between"}
 					align={"flex-start"}

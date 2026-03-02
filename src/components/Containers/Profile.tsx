@@ -18,7 +18,7 @@ import profilePictureLight from "../../assets/images/profile-light.jpg";
 import { iconRegistry } from "../Icon";
 
 //* Styles
-import { glassBorder } from "../../styles/mixins";
+import { glassBorder, noisePatternBackground } from "../../styles/mixins";
 
 const StyledProfile = styled.div`
   width: 100%;
@@ -32,6 +32,7 @@ const StyledProfile = styled.div`
   gap: var(--36);
   order: -1;
   ${glassBorder(true)}
+  ${noisePatternBackground}
 
   @media (min-width: 1280px) {
     grid-area: profile;

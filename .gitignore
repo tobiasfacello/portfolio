@@ -1,7 +1,17 @@
 dist
 node_modules
-public
+public/*
+!public/vectors/
+!public/manifest.json
+!public/robots.txt
+!public/sitemap.xml
+!public/favicon.ico
+!public/_redirects
+!public/data/
 
 # Development tools
 .claude/
 .playwright-mcp/
+
+# Vercel
+.vercel/

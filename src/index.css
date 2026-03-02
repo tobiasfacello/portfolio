@@ -119,6 +119,13 @@
 		--lightbox-counter-color: rgba(242, 232, 234, 0.6);
 		--tooltip-clickable-hover-bg: #f2e8ea;
 		--tooltip-clickable-hover-text: #0a0b04;
+
+		/* Contribution grid */
+		--contrib-empty: rgba(197, 199, 188, 0.06);
+		--contrib-l1: #0e4429;
+		--contrib-l2: #006d32;
+		--contrib-l3: #26a641;
+		--contrib-l4: #39d353;
 	}
 }
 
@@ -152,6 +159,13 @@
 		--lightbox-counter-color: rgba(10, 11, 4, 0.6);
 		--tooltip-clickable-hover-bg: #444738;
 		--tooltip-clickable-hover-text: #f2ede8;
+
+		/* Contribution grid */
+		--contrib-empty: rgba(10, 11, 4, 0.06);
+		--contrib-l1: #3f8a4d;
+		--contrib-l2: #2b7d3a;
+		--contrib-l3: #1a6030;
+		--contrib-l4: #0d4420;
 	}
 }
 
@@ -184,6 +198,13 @@
 	--lightbox-counter-color: rgba(242, 232, 234, 0.6);
 	--tooltip-clickable-hover-bg: #f2e8ea;
 	--tooltip-clickable-hover-text: #0a0b04;
+
+	/* Contribution grid */
+	--contrib-empty: rgba(197, 199, 188, 0.06);
+	--contrib-l1: #0e4429;
+	--contrib-l2: #006d32;
+	--contrib-l3: #26a641;
+	--contrib-l4: #39d353;
 }
 
 :root[data-theme="light"] {
@@ -215,6 +236,13 @@
 	--lightbox-counter-color: rgba(10, 11, 4, 0.6);
 	--tooltip-clickable-hover-bg: #444738;
 	--tooltip-clickable-hover-text: #f2ede8;
+
+	/* Contribution grid */
+	--contrib-empty: rgba(10, 11, 4, 0.06);
+	--contrib-l1: #3f8a4d;
+	--contrib-l2: #2b7d3a;
+	--contrib-l3: #1a6030;
+	--contrib-l4: #0d4420;
 }
 
 * {

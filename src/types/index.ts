@@ -36,9 +36,7 @@ export type ContainerProps = {
 	align?: string;
 	gap?: string;
 	wrap?: string;
-	display?: string;
 	$css?: string;
-	flex?: number;
 	ref?: React.Ref<HTMLDivElement>;
 };
 
@@ -61,6 +59,7 @@ export type TextProps = {
 	p?: string[];
 	variant?: TextVariant;
 	alignment?: string;
+	style?: React.CSSProperties;
 };
 
 export type WorkCardProps = {
@@ -110,9 +109,10 @@ export type PillProps = {
 export type { AnimationName };
 
 export type TooltipProps = {
-	text: string;
+	text: ReactNode;
 	children: ReactNode;
 	position?: 'top' | 'bottom';
+	align?: 'center' | 'start' | 'end';
 	icon?: ReactNode;
 	href?: string;
 };
@@ -144,4 +144,83 @@ export type LightboxContextType = {
 	isOpen: boolean;
 	images: LightboxImage[];
 	direction: 1 | -1;
+};
+
+// Social feed types
+
+export type GitHubRepo = {
+	name: string;
+	description: string;
+	language: string;
+	stars: number;
+	forks: number;
+	url: string;
+};
+
+export type GitHubEvent = {
+	type: string;
+	repo: string;
+	createdAt: string;
+};
+
+export type GitHubContribution = {
+	date: string;
+	count: number;
+	level: 0 | 1 | 2 | 3 | 4;
+};
+
+export type GitHubContributionData = {
+	total: number;
+	contributions: GitHubContribution[];
+};
+
+export type GitHubTopRepo = {
+	name: string;
+	count: number;
+};
+
+export type GitHubUserData = {
+	username: string;
+	avatarUrl: string;
+	publicRepos: number;
+	followers: number;
+	repos: GitHubRepo[];
+	events: GitHubEvent[];
+};
+
+export type Tweet = {
+	id: string;
+	text: string;
+	date: string;
+	authorName?: string;
+	url: string;
+	image?: string | null;
+};
+
+export type TwitterProfile = {
+	name: string;
+	username: string;
+	description: string;
+	profileImageUrl: string;
+	followers: number;
+	following: number;
+	tweetCount: number;
+};
+
+export type LinkedInExperience = {
+	title: string;
+	company: string;
+	companyLogo?: string;
+	companyLogoLight?: string;
+	period: string;
+	current?: boolean;
+};
+
+export type LinkedInProfile = {
+	name: string;
+	headline: string;
+	position: string;
+	company: string;
+	location?: string;
+	experience?: LinkedInExperience[];
 };

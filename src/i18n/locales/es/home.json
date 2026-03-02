@@ -12,12 +12,29 @@
 		"findMeAt": "ENCONTRAME EN"
 	},
 	"skills": {
-		"title": "SKILLS & TOOLS"
+		"title": "HABILIDADES Y HERRAMIENTAS"
 	},
 	"works": {
 		"title": "TRABAJO"
 	},
 	"projects": {
 		"title": "PROYECTOS"
+	},
+	"activity": {
+		"title": "ACTIVIDAD",
+		"subtitle": "Lo que estuve haciendo",
+		"viewProfile": "Ver perfil",
+		"loading": "Cargando...",
+		"error": "No se pudo cargar la información",
+		"github": {
+			"repos": "Repositorios",
+			"followers": "Seguidores"
+		},
+		"twitter": {
+			"followOn": "Seguir en X"
+		},
+		"linkedin": {
+			"connectOn": "Conectar en LinkedIn"
+		}
 	}
 }

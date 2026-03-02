@@ -57,7 +57,7 @@ export default function AsciiProfile(props: { src: string }) {
         ))}
       </AsciiLayer>
       <ImageLayer>
-        <img src={props.src} alt="Profile" />
+        <img src={props.src} alt="Profile photo of Tobias Facello" />
       </ImageLayer>
     </Wrapper>
   );

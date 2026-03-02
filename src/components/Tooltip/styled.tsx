@@ -3,30 +3,40 @@ import { glassGradientBorder } from '../../styles/mixins';
 
 const arrowSize = 5;
 
-const positionTop = css`
+type Align = 'center' | 'start' | 'end';
+
+const alignStyles = (align: Align) => {
+	if (align === 'start') return css`left: 0;`;
+	if (align === 'end') return css`right: 0;`;
+	return css`left: 50%; transform: translateX(-50%);`;
+};
+
+const arrowAlign = (align: Align) => {
+	if (align === 'start') return css`left: 12px;`;
+	if (align === 'end') return css`right: 12px;`;
+	return css`left: 50%; transform: translateX(-50%);`;
+};
+
+const positionTop = (align: Align) => css`
 	bottom: calc(100% + ${arrowSize + 4}px);
-	left: 50%;
-	transform: translateX(-50%);
+	${alignStyles(align)}
 
 	&::before {
 		top: 100%;
-		left: 50%;
-		transform: translateX(-50%);
+		${arrowAlign(align)}
 		border-left: ${arrowSize}px solid transparent;
 		border-right: ${arrowSize}px solid transparent;
 		border-top: ${arrowSize}px solid var(--glass-border-start);
 	}
 `;
 
-const positionBottom = css`
+const positionBottom = (align: Align) => css`
 	top: calc(100% + ${arrowSize + 4}px);
-	left: 50%;
-	transform: translateX(-50%);
+	${alignStyles(align)}
 
 	&::before {
 		bottom: 100%;
-		left: 50%;
-		transform: translateX(-50%);
+		${arrowAlign(align)}
 		border-left: ${arrowSize}px solid transparent;
 		border-right: ${arrowSize}px solid transparent;
 		border-bottom: ${arrowSize}px solid var(--glass-border-start);
@@ -40,6 +50,7 @@ export const StyledTooltipWrapper = styled.div`
 
 export const StyledTooltip = styled.span<{
 	$position: 'top' | 'bottom';
+	$align: Align;
 	$clickable?: boolean;
 }>`
 	position: absolute;
@@ -65,7 +76,7 @@ export const StyledTooltip = styled.span<{
 		color var(--transition-base) ease-in-out,
 		border-color var(--transition-base) ease-in-out;
 
-	${({ $position }) => ($position === 'top' ? positionTop : positionBottom)}
+	${({ $position, $align }) => ($position === 'top' ? positionTop($align) : positionBottom($align))}
 
 	/* Arrow */
 	&::before {

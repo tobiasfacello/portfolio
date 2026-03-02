@@ -25,6 +25,3 @@ export function isMobile(bp: Breakpoint): boolean {
 	return bp === 'mobile-sm' || bp === 'mobile-lg';
 }
 
-export function isDesktop(bp: Breakpoint): boolean {
-	return bp.startsWith('desktop');
-}

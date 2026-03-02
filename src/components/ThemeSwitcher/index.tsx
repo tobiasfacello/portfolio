@@ -40,7 +40,7 @@ function ThemeSwitcher() {
 	const { themeMode, setThemeMode } = useTheme();
 
 	return (
-		<StyledToggleGroup>
+		<StyledToggleGroup role="group" aria-label="Theme">
 			{modes.map(({ mode, Icon }) => (
 				<Tooltip key={mode} text={mode.charAt(0).toUpperCase() + mode.slice(1)}>
 					<StyledToggleButton

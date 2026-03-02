@@ -198,6 +198,7 @@ function WorkCard(props: WorkCardProps) {
 			<StyledWorkCardDiv
 				className={"work-card"}
 				role="button"
+				aria-label={title}
 				tabIndex={0}
 				onClick={handleCardClick}
 				onKeyDown={handleKeyDown}
@@ -215,6 +216,7 @@ function WorkCard(props: WorkCardProps) {
 	return (
 		<StyledWorkCard
 			className={"work-card"}
+			aria-label={title}
 			href={props.url}
 			target="_blank"
 			rel="noopener noreferrer"

@@ -12,7 +12,7 @@ import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
 
 //* Styles
-import { glassBorder } from "../../styles/mixins";
+import { glassBorder, noisePatternBackground } from "../../styles/mixins";
 
 const StyledSkills = styled.section`
 	width: 100%;
@@ -23,6 +23,7 @@ const StyledSkills = styled.section`
 	justify-content: space-between;
 	align-items: center;
 	${glassBorder(true)}
+	${noisePatternBackground}
 
 	@media (min-width: 1280px) {
 		grid-area: skills;

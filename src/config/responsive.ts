@@ -317,3 +317,74 @@ export const carouselConfig: Record<Breakpoint, CarouselConfig> = {
 	'desktop-lg': { useSwiper: true, slidesPerView: 2, centeredSlides: false, spaceBetween: 10 },
 	'desktop-xl': { useSwiper: true, slidesPerView: 3, centeredSlides: false, spaceBetween: 10 },
 };
+
+interface ActivityFeedConfig {
+	outerW: string;
+	outerMaxW?: string;
+	outerGap: string;
+	gridColumns: number;
+	gridGap: string;
+}
+
+export const activityFeedConfig: Record<Breakpoint, ActivityFeedConfig> = {
+	'mobile-sm': {
+		outerW: '100%',
+		outerMaxW: '500px',
+		outerGap: '24px',
+		gridColumns: 1,
+		gridGap: '12px',
+	},
+	'mobile-lg': {
+		outerW: '80%',
+		outerGap: '24px',
+		gridColumns: 1,
+		gridGap: '12px',
+	},
+	tablet: {
+		outerW: '80%',
+		outerGap: '24px',
+		gridColumns: 3,
+		gridGap: '12px',
+	},
+	'desktop-sm': {
+		outerW: '100%',
+		outerGap: '24px',
+		gridColumns: 3,
+		gridGap: '12px',
+	},
+	'desktop-md': {
+		outerW: '100%',
+		outerGap: '24px',
+		gridColumns: 3,
+		gridGap: '12px',
+	},
+	'desktop-lg': {
+		outerW: '100%',
+		outerGap: '24px',
+		gridColumns: 3,
+		gridGap: '12px',
+	},
+	'desktop-xl': {
+		outerW: '100%',
+		outerGap: '24px',
+		gridColumns: 3,
+		gridGap: '12px',
+	},
+};
+
+interface GitHubCalendarConfig {
+	squareGap: number;
+	squareRadius: number;
+	showDayLabels: boolean;
+	showMonthLabels: boolean;
+}
+
+export const gitHubCalendarConfig: Record<Breakpoint, GitHubCalendarConfig> = {
+	'mobile-sm': { squareGap: 3, squareRadius: 2, showDayLabels: false, showMonthLabels: true },
+	'mobile-lg': { squareGap: 3, squareRadius: 2, showDayLabels: false, showMonthLabels: true },
+	tablet: { squareGap: 3, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
+	'desktop-sm': { squareGap: 3, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
+	'desktop-md': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
+	'desktop-lg': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
+	'desktop-xl': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
+};

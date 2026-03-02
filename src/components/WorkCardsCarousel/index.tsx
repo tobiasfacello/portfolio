@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 //* Swiper Modules
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, A11y } from 'swiper/modules';
 
 //* Swiper Styles
 import 'swiper/css';
@@ -39,8 +39,10 @@ export default function WorkCardsCarousel() {
 	return (
 		<Swiper
 			className="swiper"
-			modules={[Autoplay]}
-			autoplay={{ delay: 5000, disableOnInteraction: false }}
+			role="region"
+			aria-label="Work showcase carousel"
+			modules={[Autoplay, A11y]}
+			autoplay={{ delay: 5000, disableOnInteraction: true }}
 			loop={true}
 			centeredSlides={cfg.centeredSlides}
 			slidesPerView={cfg.slidesPerView}

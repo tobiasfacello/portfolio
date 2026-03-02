@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getWorkBySlug, hasDetailPage } from '../../data/works';
 import { workImages } from '../../data/workImages';
+import { loadWorkDetailNamespace } from '../../i18n';
 import { StyledWorkDetail, StyledDetailContent } from './styled';
 
 //? Context
@@ -23,12 +25,19 @@ import DetailFooter from './sections/DetailFooter';
 function WorkDetail() {
 	const { slug } = useParams<{ slug: string }>();
 	const { t } = useTranslation('workDetail');
+	const [nsReady, setNsReady] = useState(false);
+
+	useEffect(() => {
+		loadWorkDetailNamespace().then(() => setNsReady(true));
+	}, []);
 
 	const work = slug ? getWorkBySlug(slug) : undefined;
 
 	if (!work || !hasDetailPage(work)) {
 		return <Navigate to="/" replace />;
 	}
+
+	if (!nsReady) return null;
 
 	const workTitle = t(`${slug}.title`, { ns: 'works' });
 	const overview = t(`${slug}.overview`) as string;

@@ -15,7 +15,7 @@ import {
 	StyledTooltipIcon,
 } from './styled';
 
-function Tooltip({ text, children, position = 'top', icon, href }: TooltipProps) {
+function Tooltip({ text, children, position = 'top', align = 'center', icon, href }: TooltipProps) {
 	const [isVisible, setIsVisible] = useState(false);
 	const tooltipId = useId();
 	const tooltipRef = useTooltipAnimation(isVisible, position);
@@ -33,6 +33,8 @@ function Tooltip({ text, children, position = 'top', icon, href }: TooltipProps)
 		<StyledTooltipWrapper
 			onMouseEnter={() => setIsVisible(true)}
 			onMouseLeave={() => setIsVisible(false)}
+			onFocus={() => setIsVisible(true)}
+			onBlur={() => setIsVisible(false)}
 			aria-describedby={tooltipId}
 		>
 			{children}
@@ -40,6 +42,7 @@ function Tooltip({ text, children, position = 'top', icon, href }: TooltipProps)
 				ref={tooltipRef}
 				id={tooltipId}
 				$position={position}
+				$align={align}
 				$clickable={!!href}
 				role="tooltip"
 				aria-hidden={!isVisible}

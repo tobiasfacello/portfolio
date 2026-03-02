@@ -80,6 +80,7 @@ function ProjectCard(props: ProjectCardProps) {
 	return (
 		<StyledProjectCard
 			className={"project-card"}
+			aria-label={title}
 			ref={cardRef as React.Ref<HTMLAnchorElement>}
 			href={props.url}
 			target="_blank"

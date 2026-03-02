@@ -1,0 +1,118 @@
+import styled from 'styled-components';
+
+export const StyledProfileInfo = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: var(--8);
+	flex: 1;
+	justify-content: flex-start;
+`;
+
+export const StyledHeadline = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.875rem;
+	line-height: 1.4;
+	color: var(--text);
+	opacity: var(--opacity-medium);
+`;
+
+export const StyledPosition = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.75rem;
+	line-height: 1.25;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+`;
+
+export const StyledLocation = styled.span`
+	display: inline-flex;
+	align-items: center;
+	gap: var(--6);
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.75rem;
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+
+	&::before {
+		content: '';
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background-color: var(--accent);
+		flex-shrink: 0;
+	}
+`;
+
+export const StyledSectionLabel = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.5625rem;
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+`;
+
+export const StyledExperienceList = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: var(--6);
+	margin-top: var(--4);
+`;
+
+export const StyledExperienceItem = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: var(--8);
+	padding-left: var(--8);
+	border-left: 1px solid var(--glass-border-start);
+`;
+
+export const StyledCompanyLogo = styled.img`
+	width: 28px;
+	height: 28px;
+	border-radius: var(--radius-sm);
+	flex-shrink: 0;
+	object-fit: cover;
+`;
+
+export const StyledExperienceContent = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: var(--2);
+	min-width: 0;
+`;
+
+export const StyledExperienceTitle = styled.span`
+	display: flex;
+	align-items: center;
+	gap: var(--6);
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.75rem;
+	line-height: 1.25;
+	color: var(--text);
+	opacity: var(--opacity-medium);
+`;
+
+export const StyledExperiencePeriod = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.625rem;
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+`;
+
+export const StyledCurrentBadge = styled.span`
+	display: inline-flex;
+	align-items: center;
+	padding: var(--2) var(--6);
+	border-radius: var(--radius-sm);
+	background-color: var(--accent);
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.5rem;
+	line-height: 1;
+	color: var(--background);
+	font-weight: 600;
+`;

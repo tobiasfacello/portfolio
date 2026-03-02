@@ -6,6 +6,7 @@ import svgr from 'vite-plugin-svgr'
 export default defineConfig({
   plugins: [react(), svgr()],
   build: {
+    target: 'es2022',
     rollupOptions: {
       output: {
         manualChunks: {

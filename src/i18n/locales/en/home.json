@@ -19,5 +19,22 @@
 	},
 	"projects": {
 		"title": "PROJECTS"
+	},
+	"activity": {
+		"title": "ACTIVITY",
+		"subtitle": "What I've been up to lately",
+		"viewProfile": "View profile",
+		"loading": "Loading...",
+		"error": "Unable to load data",
+		"github": {
+			"repos": "Repositories",
+			"followers": "Followers"
+		},
+		"twitter": {
+			"followOn": "Follow on X"
+		},
+		"linkedin": {
+			"connectOn": "Connect on LinkedIn"
+		}
 	}
 }

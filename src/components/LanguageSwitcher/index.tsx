@@ -13,29 +13,32 @@ function LanguageSwitcher() {
 	return (
 		<StyledToggleGroup role="radiogroup" aria-label="Language">
 			<StyledToggleButton
+				role="radio"
 				$active={i18n.language === 'en'}
 				$variant="text"
 				onClick={() => changeLanguage('en')}
 				aria-label="Switch to English"
-				aria-pressed={i18n.language === 'en'}
+				aria-checked={i18n.language === 'en'}
 			>
 				EN
 			</StyledToggleButton>
 			<StyledToggleButton
+				role="radio"
 				$active={i18n.language === 'es'}
 				$variant="text"
 				onClick={() => changeLanguage('es')}
 				aria-label="Cambiar a español"
-				aria-pressed={i18n.language === 'es'}
+				aria-checked={i18n.language === 'es'}
 			>
 				ES
 			</StyledToggleButton>
 			<StyledToggleButton
+				role="radio"
 				$active={i18n.language === 'pt'}
 				$variant="text"
 				onClick={() => changeLanguage('pt')}
 				aria-label="Mudar para português"
-				aria-pressed={i18n.language === 'pt'}
+				aria-checked={i18n.language === 'pt'}
 			>
 				PT
 			</StyledToggleButton>

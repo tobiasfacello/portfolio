@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx @react-grab/claude-code@latest && vite --host",
-    "build": "tsc && vite build",
+    "fetch-tweets": "node scripts/fetch-tweets.mjs",
+    "build": "node scripts/fetch-tweets.mjs && tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -27,7 +28,6 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
-    "@vercel/node": "^5.6.9",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",

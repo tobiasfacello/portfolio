@@ -29,7 +29,6 @@ function HeroShowcase({ src, alt }: HeroShowcaseProps) {
 	return (
 		<StyledSection ref={revealRef} className="reveal-scale">
 			<StyledHeroShowcase
-				style={{ viewTransitionName: 'work-hero' }}
 				onClick={() => open(src)}
 				onKeyDown={handleKeyDown}
 				role="button"

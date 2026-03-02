@@ -1,6 +1,6 @@
 import { StyledWorkCard, StyledWorkCardDiv, StyledWorkCardContent, StyledWorkLogo } from './styled';
-import { useState, useCallback } from 'react';
-import { useNavigate, useViewTransitionState } from 'react-router-dom';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 //* Components
@@ -14,10 +14,9 @@ import { iconRegistry } from '../Icon';
 
 //? Types
 import { WorkCardProps } from '../../types';
-import type { AnimationName } from '../UnicodeAnimations/animations';
-
 //? Data
 import { hasDetailPage } from '../../data/works';
+import { tagAnimationMap } from '../../data/tagAnimations';
 
 const HourglassIcon = () => (
 	<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -34,15 +33,7 @@ const DocumentIcon = (props: React.SVGProps<SVGSVGElement>) => (
 	</svg>
 );
 
-const tagAnimationMap: Record<string, AnimationName> = {
-	Development: 'breathe',
-	Design: 'breathe',
-	'V2.0': 'diagswipe',
-	'Work in progress': 'typing',
-};
-
 function WorkCard(props: WorkCardProps) {
-	const [isHovered, setIsHovered] = useState(false);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const title = t(`${props.slug}.title`, { ns: 'works' });
@@ -51,10 +42,6 @@ function WorkCard(props: WorkCardProps) {
 	const enTags = t(`${props.slug}.tags`, { ns: 'works', lng: 'en', returnObjects: true }) as string[];
 
 	const isDetail = hasDetailPage({ slug: props.slug, url: props.url, showcaseUrl: props.showcaseUrl, Logo: props.Logo });
-	const isTransitioning = useViewTransitionState(`/work/${props.slug}`);
-
-	const handleMouseEnter = useCallback(() => setIsHovered(true), []);
-	const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
 	const handleCardClick = useCallback(() => {
 		if (isDetail) {
@@ -176,10 +163,7 @@ function WorkCard(props: WorkCardProps) {
 				justify={'center'}
 				align={'end'}
 			>
-				<StyledWorkLogo
-					aria-hidden="true"
-					style={isTransitioning ? { viewTransitionName: 'work-hero' } : undefined}
-				>
+				<StyledWorkLogo aria-hidden="true">
 					<props.Logo />
 				</StyledWorkLogo>
 			</Container>
@@ -202,9 +186,6 @@ function WorkCard(props: WorkCardProps) {
 				tabIndex={0}
 				onClick={handleCardClick}
 				onKeyDown={handleKeyDown}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				$isHovered={isHovered}
 				$p={props.p}
 				$m={props.m}
 			>
@@ -220,9 +201,6 @@ function WorkCard(props: WorkCardProps) {
 			href={props.url}
 			target="_blank"
 			rel="noopener noreferrer"
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
-			$isHovered={isHovered}
 			$p={props.p}
 			$m={props.m}
 		>

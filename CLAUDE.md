@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Portfolio personal construido con React 19, TypeScript, Vite y styled-components. Single-page app sin routing — toda la UI vive en `src/pages/Home.tsx`. Implementa un cursor SVG personalizado con animaciones GSAP y smooth scroll con Lenis.
+Portfolio personal construido con React 19, TypeScript, Vite y styled-components. Multi-page app con `react-router-dom` — Home (`/`) y WorkDetail (`/work/:slug`, lazy-loaded). Implementa un cursor SVG personalizado con animaciones GSAP y smooth scroll con Lenis.
 
 ## Commands
 
 ```bash
 npm run dev        # Servidor de desarrollo con --host (accesible desde la red local)
-npm run build      # tsc && vite build (compila TS y construye para producción)
+npm run build      # fetch-tweets + tsc + vite build (fetches tweets, compila TS y construye para producción)
 npm run preview    # Previsualiza la build de producción
 npm run lint       # ESLint con TypeScript (--max-warnings 0, falla con cualquier warning)
 ```
@@ -21,7 +21,7 @@ No hay tests configurados.
 
 ### Component Tree
 
-`App.tsx` monta: `ReactLenis` > `ThemeProvider` > `Cursor` + `Home`. No hay router.
+`App.tsx` monta: `ErrorBoundary` > `SplashProvider` > `RouterProvider`. El shell (`AppShell`) envuelve en `ReactLenis` (si no hay reduced-motion) > `ThemeProvider` > `SplashGuard` + `Outlet`.
 
 `Home.tsx` es el layout principal. Renderiza bloques `<MediaQuery>` completamente distintos para cada rango de tamaño — no es un layout adaptable, sino JSX diferente por breakpoint.
 
@@ -34,9 +34,9 @@ Los componentes usan rangos específicos con `react-responsive` `<MediaQuery>`:
 
 Cada sección (About, Skills, Works, etc.) define sus propios `<MediaQuery>` internamente — no dependen de un breakpoint centralizado.
 
-### Patrón `StyleSheetManager` (aplicado en múltiples componentes)
+### Transient Props (styled-components)
 
-`Container`, `Text`, `WorkCard`, `Button`, `Pill`, `SocialButton`, etc. todos usan `StyleSheetManager` con `shouldForwardProp` para evitar que props customizadas pasen al DOM. Cada componente define su array `filteredProps` localmente.
+Todos los componentes usan el prefijo `$` para props que no deben pasar al DOM (ej: `$variant`, `$m`, `$p`). Este es el patrón nativo de styled-components v5.1+ que reemplaza a `StyleSheetManager` + `shouldForwardProp`.
 
 ### Container Component
 
@@ -52,12 +52,12 @@ Cada sección (About, Skills, Works, etc.) define sus propios `<MediaQuery>` int
 
 ### Text Component & Variants
 
-`Text` acepta un `variant` string que determina estilos. Variantes existentes:
-- `title`, `subtitle-fst`, `subtitle-fst desktop`, `subtitle-snd`
-- `paragraph`, `paragraph work-card`, `paragraph desktop`
-- `details-fst`, `details-snd`
+`Text` acepta un `variant` tipado (`TextVariant`) que determina estilos. Variantes existentes:
+- `title`, `subtitle`, `subtitle-sm`
+- `body`, `body-sm`, `body-lg`
+- `label`, `caption`
 
-Los variantes con sufijo "desktop" incluyen media queries internas para ajustar font-size.
+La variante `body-lg` incluye media queries internas para ajustar font-size en desktop.
 
 ### CSS Variables (index.css)
 
@@ -67,8 +67,9 @@ Los variantes con sufijo "desktop" incluyen media queries internas para ajustar 
 
 ### Animation & Interaction
 
-- **GSAP**: `Cursor` usa `gsap.quickTo()` con `Expo.easeOut` para seguimiento del mouse. Se oculta en dispositivos táctiles (`hover: none` + `pointer: coarse`) y sobre elementos interactivos (`.button`, `.work-card`, `.project-card`, `a`, `link`)
-- **Lenis**: Smooth scroll con `lerp: 0.1, duration: 1.7, smoothWheel: true`
+- **GSAP**: Registrado centralmente en `src/lib/gsap.ts`. `Cursor` usa `gsap.quickTo()` con `Expo.easeOut` para seguimiento del mouse. Se oculta en dispositivos táctiles (`hover: none` + `pointer: coarse`) y sobre elementos interactivos (`.button`, `.work-card`, `.project-card`, `a`, `link`)
+- **Reduced motion**: Hook compartido `usePrefersReducedMotion()` — reactivo al cambio de preferencia del usuario
+- **Lenis**: Smooth scroll con `lerp: 0.12, duration: 1.2, smoothWheel: true` (desactivado si reduced-motion)
 - **Swiper**: `WorkCardsCarousel` usa Swiper con `Autoplay` module. En mobile muestra cards estáticas; en tablet/desktop usa carousel con `slidesPerView` variable (1, 2, o 3 según breakpoint)
 
 ### Theme System
@@ -78,8 +79,8 @@ Los variantes con sufijo "desktop" incluyen media queries internas para ajustar 
 ## Key Conventions
 
 - **Import comments**: `//!` terceros, `//?` lógica/hooks, `//*` componentes/assets internos
-- **Tipos**: definidos en `src/types/index.ts` (actualmente solo ThemeProviderProps y ThemeContextType)
-- **Props**: la mayoría de componentes usan `props: any` en lugar de interfaces tipadas
+- **Tipos**: definidos en `src/types/index.ts` — incluye props de todos los componentes principales y tipos de API
+- **Props**: todos los componentes usan interfaces tipadas (ej: `WorkCardProps`, `ButtonProps`, `TextProps`)
 - **Styled components**: separados en `styled.tsx` junto al `index.tsx` del componente (excepto secciones como About/Skills que definen styled-components inline)
 - **Cursor**: `body { cursor: none }` global — el cursor SVG customizado reemplaza al nativo
 - **Fonts**: Evolventa (Regular/Bold) via @font-face + Plus Jakarta Sans via Google Fonts

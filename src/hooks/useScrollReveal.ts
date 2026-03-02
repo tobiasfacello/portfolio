@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
+import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
 	const ref = useRef<T>(null);
+	const prefersReducedMotion = usePrefersReducedMotion();
 
 	useEffect(() => {
 		const el = ref.current;
 		if (!el) return;
 
-		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		if (prefersReducedMotion) {
 			el.classList.add('revealed');
 			return;
@@ -30,7 +31,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
 		return () => {
 			observer.disconnect();
 		};
-	}, []);
+	}, [prefersReducedMotion]);
 
 	return ref;
 }

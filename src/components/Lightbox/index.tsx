@@ -11,6 +11,9 @@ import { useLenis } from "lenis/react";
 //? Context
 import { useLightbox } from "../../context/LightboxContext";
 
+//? Hooks
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
+
 //* Styled
 import {
 	StyledLightboxOverlay,
@@ -32,9 +35,7 @@ function Lightbox() {
 
 	const lenis = useLenis();
 
-	const prefersReducedMotion =
-		typeof window !== "undefined" &&
-		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	const prefersReducedMotion = usePrefersReducedMotion();
 
 	// Scroll lock
 	useEffect(() => {

@@ -26,46 +26,6 @@ type WidgetBaseProps = {
 export default function WidgetBase(props: WidgetBaseProps) {
 	const { t } = useTranslation('home');
 
-	if (props.loading) {
-		return (
-			<StyledWidgetCard className="widget-card">
-				<StyledWidgetHeader>
-					<StyledWidgetPlatform>
-						<StyledWidgetIcon>
-							<props.icon />
-						</StyledWidgetIcon>
-						<Text as="h3" variant="subtitle-sm">
-							{props.platformName}
-						</Text>
-					</StyledWidgetPlatform>
-				</StyledWidgetHeader>
-				<StyledWidgetContent>
-					<Text variant="label">{t('activity.loading')}</Text>
-				</StyledWidgetContent>
-			</StyledWidgetCard>
-		);
-	}
-
-	if (props.error) {
-		return (
-			<StyledWidgetCard className="widget-card">
-				<StyledWidgetHeader>
-					<StyledWidgetPlatform>
-						<StyledWidgetIcon>
-							<props.icon />
-						</StyledWidgetIcon>
-						<Text as="h3" variant="subtitle-sm">
-							{props.platformName}
-						</Text>
-					</StyledWidgetPlatform>
-				</StyledWidgetHeader>
-				<StyledWidgetContent>
-					<Text variant="label">{t('activity.error')}</Text>
-				</StyledWidgetContent>
-			</StyledWidgetCard>
-		);
-	}
-
 	return (
 		<StyledWidgetCard className="widget-card">
 			<StyledWidgetHeader>
@@ -77,14 +37,24 @@ export default function WidgetBase(props: WidgetBaseProps) {
 						{props.platformName}
 					</Text>
 				</StyledWidgetPlatform>
-				<Button
-					variant="glass"
-					title={t('activity.viewProfile')}
-					url={props.profileUrl}
-					p={['4', '8', '4', '8']}
-				/>
+				{!props.loading && !props.error && (
+					<Button
+						variant="glass"
+						title={t('activity.viewProfile')}
+						url={props.profileUrl}
+						p={['4', '8', '4', '8']}
+					/>
+				)}
 			</StyledWidgetHeader>
-			<StyledWidgetContent>{props.children}</StyledWidgetContent>
+			<StyledWidgetContent>
+				{props.loading ? (
+					<Text variant="label">{t('activity.loading')}</Text>
+				) : props.error ? (
+					<Text variant="label">{t('activity.error')}</Text>
+				) : (
+					props.children
+				)}
+			</StyledWidgetContent>
 		</StyledWidgetCard>
 	);
 }

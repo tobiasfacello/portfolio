@@ -28,6 +28,7 @@ const defaultVariant = css`
 
 	&:active {
 		background-color: var(--primary);
+		transform: scale(0.97);
 		transition: all var(--transition-fast);
 	}
 
@@ -86,12 +87,12 @@ const glassVariant = css`
 
 	&:active {
 		background-color: var(--primary);
+		transform: scale(0.97);
 		transition: all var(--transition-fast);
 	}
 `;
 
 export const StyledButton = styled.a<{
-	$isHovered: boolean;
 	$variant: ButtonVariant;
 	$disabled?: boolean;
 	$m?: string[];

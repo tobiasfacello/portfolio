@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mq } from "../../config/breakpoints";
 
 export const StyledIconFrame = styled.span`
 	display: inline-flex;
@@ -14,7 +15,7 @@ export const StyledIconFrame = styled.span`
 		height: 100%;
 	}
 
-	@media (min-width: 960px) {
+	${mq.up('tablet')} {
 		height: calc(var(--icon-sm) + 0.125rem);
 	}
 `;

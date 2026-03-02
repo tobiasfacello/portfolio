@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { spacingArray } from "../../styles/mixins";
+import { mq } from "../../config/breakpoints";
 
 export const StyledImageFrame = styled.div<{
 	$m?: string[];
@@ -8,7 +9,7 @@ export const StyledImageFrame = styled.div<{
 	margin: ${(props) => spacingArray(props.$m)};
 	padding: ${(props) => spacingArray(props.$p)};
 
-	@media (min-width: 360px) {
+	${mq.up(360)} {
 		& {
 			width: 175px;
 			height: 175px;
@@ -16,7 +17,7 @@ export const StyledImageFrame = styled.div<{
 			border-radius: 100px;
 		}
 
-		@media (min-width: 1280px) {
+		${mq.up('desktop-sm')} {
 			& {
 				width: 275px;
 				height: 275px;
@@ -25,7 +26,7 @@ export const StyledImageFrame = styled.div<{
 			}
 		}
 
-		@media (min-width: 1440px) {
+		${mq.up('desktop-lg')} {
 			& {
 				width: 345px;
 				height: 345px;

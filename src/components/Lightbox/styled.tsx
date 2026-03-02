@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mq } from '../../config/breakpoints';
 
 export const StyledLightboxOverlay = styled.div`
 	position: fixed;
@@ -73,7 +74,7 @@ export const StyledNavButton = styled.button<{ $direction: 'prev' | 'next' }>`
 	transition: background var(--transition-base);
 	backdrop-filter: blur(8px);
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		width: 48px;
 		height: 48px;
 		${({ $direction }) => ($direction === 'prev' ? 'left: 24px;' : 'right: 24px;')}

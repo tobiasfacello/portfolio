@@ -13,23 +13,12 @@ import { useBreakpoint, isMobile } from '../../hooks/useBreakpoint';
 import { activityFeedConfig } from '../../config/responsive';
 
 //* Styles
-import { glassBorder, noisePatternBackground } from '../../styles/mixins';
+import { sectionBase } from '../../styles/mixins';
 
 const StyledActivityFeed = styled.section`
-	position: relative;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+	${sectionBase('activity')}
 	justify-content: space-between;
-	align-items: center;
 	padding: var(--20) var(--12);
-	${glassBorder(true)}
-	${noisePatternBackground}
-
-	@media (min-width: 1280px) {
-		grid-area: activity;
-	}
 `;
 
 const StyledWidgetGrid = styled.div<{ $columns: number; $gap: string }>`

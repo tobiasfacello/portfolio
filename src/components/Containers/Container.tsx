@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ContainerProps } from "../../types";
+import { ContainerProps, FlexDirection, FlexJustify, FlexAlign, FlexWrap } from "../../types";
 import { spacingArray } from "../../styles/mixins";
 
 const StyledContainer = styled.div<{
@@ -12,11 +12,11 @@ const StyledContainer = styled.div<{
 	$maxH?: string;
 	$m?: string[];
 	$p?: string[];
-	$direction?: string;
-	$justify?: string;
-	$align?: string;
+	$direction?: FlexDirection;
+	$justify?: FlexJustify;
+	$align?: FlexAlign;
 	$gap?: string;
-	$wrap?: string;
+	$wrap?: FlexWrap;
 }>`
 	${(props) => props.$css}
 	width: ${(props) => (props.$w == null ? "100%" : props.$w)};

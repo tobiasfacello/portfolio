@@ -1,6 +1,7 @@
 import { css, keyframes } from 'styled-components';
 import { StyledPillTag } from '../components/Pill/styled';
 import { StyledAnimation } from '../components/UnicodeAnimations/styled';
+import { mq } from '../config/breakpoints';
 
 //* Assets
 import noiseTexture from '../assets/images/noise-texture.webp';
@@ -71,15 +72,26 @@ export const glassCard = (bold = false) => css`
 	}
 `;
 
-export const hoveredPillStyles = (isHovered: boolean) => css`
+export const hoveredPillStyles = css`
 	${StyledPillTag} {
-		color: ${isHovered ? "var(--pill-text-hovered)" : "var(--text)"};
-		background-color: ${isHovered ? "var(--accent)" : "transparent"};
-		border-color: ${isHovered ? "var(--primary)" : "inherit"};
-		opacity: ${isHovered ? "var(--opacity-full)" : "var(--opacity-soft)"};
+		color: var(--text);
+		background-color: transparent;
+		border-color: inherit;
+		opacity: var(--opacity-soft);
 
 		${StyledAnimation} {
-			color: ${isHovered ? "var(--pill-text-hovered)" : "var(--primary)"};
+			color: var(--primary);
+		}
+	}
+
+	&:hover ${StyledPillTag} {
+		color: var(--pill-text-hovered);
+		background-color: var(--accent);
+		border-color: var(--primary);
+		opacity: var(--opacity-full);
+
+		${StyledAnimation} {
+			color: var(--pill-text-hovered);
 		}
 	}
 `;
@@ -107,6 +119,20 @@ const noiseDrift = keyframes`
 	60% { mask-position: 220px 670px; -webkit-mask-position: 220px 670px; }
 	80% { mask-position: 620px 140px; -webkit-mask-position: 620px 140px; }
 	100% { mask-position: 720px 720px; -webkit-mask-position: 720px 720px; }
+`;
+
+export const sectionBase = (gridArea: string) => css`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	${glassBorder(true)}
+	${noisePatternBackground}
+
+	${mq.up('desktop-sm')} {
+		grid-area: ${gridArea};
+	}
 `;
 
 export const noisePatternBackground = css`

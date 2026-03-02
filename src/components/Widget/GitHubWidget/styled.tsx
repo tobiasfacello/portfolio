@@ -1,50 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-import { glassCard, glassGradientBorder } from '../../../styles/mixins';
-
-export const StyledGitHubCard = styled.div`
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	min-height: 280px;
-	overflow: hidden;
-	${glassCard(true)}
-`;
-
-export const StyledCardInner = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: var(--12);
-	padding: var(--12);
-	flex: 1;
-`;
-
-export const StyledContributionHeader = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-`;
-
-export const StyledGitHubHeaderLeft = styled.div`
-	display: flex;
-	align-items: center;
-	gap: var(--8);
-`;
-
-export const StyledGitHubIcon = styled.span`
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: var(--control-xs);
-	height: var(--control-xs);
-	color: var(--primary);
-
-	svg {
-		width: 100%;
-		height: 100%;
-	}
-`;
+import styled from 'styled-components';
+import { glassGradientBorder } from '../../../styles/mixins';
 
 export const StyledContribCount = styled.span`
 	font-family: var(--font-geist-pixel-circle);
@@ -149,19 +104,6 @@ export const StyledSquare = styled.div<{ $level: 0 | 1 | 2 | 3 | 4; $radius: num
 type TooltipAlign = 'start' | 'center' | 'end';
 type TooltipPosition = 'top' | 'bottom';
 
-const tooltipTransform: Record<TooltipPosition, Record<TooltipAlign, string>> = {
-	top: {
-		start: 'translateX(-12px) translateY(-100%) translateY(-8px)',
-		center: 'translateX(-50%) translateY(-100%) translateY(-8px)',
-		end: 'translateX(calc(-100% + 12px)) translateY(-100%) translateY(-8px)',
-	},
-	bottom: {
-		start: 'translateX(-12px) translateY(8px)',
-		center: 'translateX(-50%) translateY(8px)',
-		end: 'translateX(calc(-100% + 12px)) translateY(8px)',
-	},
-};
-
 const arrowAlignCss: Record<TooltipAlign, string> = {
 	start: 'left: 12px;',
 	center: 'left: 50%; transform: translateX(-50%);',
@@ -169,8 +111,6 @@ const arrowAlignCss: Record<TooltipAlign, string> = {
 };
 
 export const StyledContribTooltip = styled.div<{
-	$x: number;
-	$y: number;
 	$position: TooltipPosition;
 	$align: TooltipAlign;
 }>`
@@ -191,10 +131,6 @@ export const StyledContribTooltip = styled.div<{
 	-webkit-backdrop-filter: blur(var(--blur-sm));
 	${glassGradientBorder({ radius: 'var(--radius-md)' })}
 
-	left: ${(props) => props.$x}px;
-	top: ${(props) => props.$y}px;
-	transform: ${(props) => tooltipTransform[props.$position][props.$align]};
-
 	&::before {
 		content: '';
 		position: absolute;
@@ -203,58 +139,5 @@ export const StyledContribTooltip = styled.div<{
 				? `top: 100%; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid var(--glass-border-start);`
 				: `bottom: 100%; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 5px solid var(--glass-border-start);`}
 		${(props) => arrowAlignCss[props.$align]}
-	}
-`;
-
-// Loading skeleton
-export const StyledSkeleton = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: var(--12);
-	padding: var(--24) var(--20);
-	flex: 1;
-`;
-
-const shimmer = keyframes`
-	0% { background-position: -200px 0; }
-	100% { background-position: calc(200px + 100%) 0; }
-`;
-
-export const StyledSkeletonLine = styled.div<{
-	$w?: string;
-	$h?: string;
-}>`
-	width: ${(props) => props.$w || '60%'};
-	height: ${(props) => props.$h || '14px'};
-	border-radius: 4px;
-	background: linear-gradient(
-		90deg,
-		var(--glass-bg-bold) 0px,
-		var(--glass-bg) 40px,
-		var(--glass-bg-bold) 80px
-	);
-	background-size: 200px 100%;
-	animation: ${shimmer} 1.5s infinite;
-
-	@media (prefers-reduced-motion: reduce) {
-		animation: none;
-	}
-`;
-
-export const StyledSkeletonGrid = styled.div`
-	flex: 1;
-	border-radius: 4px;
-	background: linear-gradient(
-		90deg,
-		var(--glass-bg-bold) 0px,
-		var(--glass-bg) 40px,
-		var(--glass-bg-bold) 80px
-	);
-	background-size: 200px 100%;
-	animation: ${shimmer} 1.5s infinite;
-	min-height: 100px;
-
-	@media (prefers-reduced-motion: reduce) {
-		animation: none;
 	}
 `;

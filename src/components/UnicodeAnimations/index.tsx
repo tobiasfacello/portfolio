@@ -62,6 +62,8 @@ export default memo(function UnicodeAnimation({
 		});
 		frameRef.current = 0;
 
+		const pendingTimeouts: ReturnType<typeof setTimeout>[] = [];
+
 		const id = setInterval(() => {
 			const nextIndex = (frameRef.current + 1) % animation.frames.length;
 			frameRef.current = nextIndex;
@@ -74,15 +76,18 @@ export default memo(function UnicodeAnimation({
 
 				if (target !== current) {
 					span.style.opacity = "0";
-					setTimeout(() => {
+					pendingTimeouts.push(setTimeout(() => {
 						span.textContent = target;
 						span.style.opacity = "1";
-					}, 150);
+					}, 150));
 				}
 			});
 		}, animation.interval);
 
-		return () => clearInterval(id);
+		return () => {
+			clearInterval(id);
+			pendingTimeouts.forEach(clearTimeout);
+		};
 	}, [animation, hasPrefix]);
 
 	// Simple mode render

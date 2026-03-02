@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledTweetList = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: var(--8);
+	gap: var(--6);
 	width: 100%;
 	flex: 1;
 `;
@@ -57,15 +57,15 @@ export const StyledTweetThumbnail = styled.div`
 export const StyledTweetContent = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: var(--4);
+	gap: var(--2);
 	min-width: 0;
 `;
 
 export const StyledTweetItem = styled.a`
 	display: flex;
 	flex-direction: row;
-	gap: var(--12);
-	padding: var(--8);
+	gap: var(--8);
+	padding: var(--6);
 	border-radius: var(--radius-sm);
 	text-decoration: none;
 	color: inherit;
@@ -88,17 +88,6 @@ export const StyledTweetMeta = styled.div`
 	display: flex;
 	align-items: center;
 	gap: var(--8);
-`;
-
-export const StyledTweetDivider = styled.div`
-	height: 1px;
-	margin: 0 var(--8);
-	background: linear-gradient(
-		90deg,
-		transparent 0%,
-		var(--glass-border-start) 50%,
-		transparent 100%
-	);
 `;
 
 export const StyledHandle = styled.span`

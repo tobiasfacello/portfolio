@@ -4,7 +4,14 @@ import { GITHUB_USERNAME } from '../data/socialFeed';
 const BASE_URL = 'https://api.github.com';
 const CONTRIBUTIONS_API = 'https://github-contributions-api.jogruber.de/v4';
 
-export async function fetchGitHubUser() {
+interface GitHubUserResponse {
+	login: string;
+	avatar_url: string;
+	public_repos: number;
+	followers: number;
+}
+
+export async function fetchGitHubUser(): Promise<GitHubUserResponse> {
 	const res = await fetch(`${BASE_URL}/users/${GITHUB_USERNAME}`);
 	if (!res.ok) throw new Error('Failed to fetch GitHub user');
 	return res.json();

@@ -7,6 +7,7 @@ import ReactLenis from 'lenis/react';
 //* Context
 import { ThemeProvider } from './context/ThemeContext';
 import { SplashProvider, useSplash } from './context/SplashContext';
+import { BreakpointProvider } from './context/BreakpointContext';
 
 //* Components
 import ErrorBoundary from './components/ErrorBoundary';
@@ -16,6 +17,7 @@ import SplashScreen from './components/SplashScreen';
 
 //? Hooks
 import { useScrollReset } from './hooks/useScrollReset';
+import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 
 //* Styles
 import './App.css';
@@ -36,14 +38,16 @@ function SplashGuard() {
 }
 
 function AppShell() {
-	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const prefersReducedMotion = usePrefersReducedMotion();
 
 	const content = (
-		<ThemeProvider>
-			<ScrollReset />
-			<SplashGuard />
-			<Outlet />
-		</ThemeProvider>
+		<BreakpointProvider>
+			<ThemeProvider>
+				<ScrollReset />
+				<SplashGuard />
+				<Outlet />
+			</ThemeProvider>
+		</BreakpointProvider>
 	);
 
 	return prefersReducedMotion ? (

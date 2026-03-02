@@ -1,13 +1,7 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 //* Styled
 import {
-	StyledGitHubCard,
-	StyledCardInner,
-	StyledContributionHeader,
-	StyledGitHubHeaderLeft,
-	StyledGitHubIcon,
 	StyledContribCount,
 	StyledCalendarWrapper,
 	StyledMonthRow,
@@ -18,14 +12,10 @@ import {
 	StyledSquare,
 	StyledContribTooltip,
 	StyledHandle,
-	StyledSkeleton,
-	StyledSkeletonLine,
-	StyledSkeletonGrid,
 } from './styled';
 
 //* Components
-import Text from '../../Text';
-import Button from '../../Button';
+import WidgetBase from '../WidgetBase';
 
 //* Icon registry
 import { iconRegistry } from '../../Icon';
@@ -207,12 +197,26 @@ interface TooltipState {
 	align: 'start' | 'center' | 'end';
 }
 
+const tooltipTransform: Record<'top' | 'bottom', Record<'start' | 'center' | 'end', string>> = {
+	top: {
+		start: 'translateX(-12px) translateY(-100%) translateY(-8px)',
+		center: 'translateX(-50%) translateY(-100%) translateY(-8px)',
+		end: 'translateX(calc(-100% + 12px)) translateY(-100%) translateY(-8px)',
+	},
+	bottom: {
+		start: 'translateX(-12px) translateY(8px)',
+		center: 'translateX(-50%) translateY(8px)',
+		end: 'translateX(calc(-100% + 12px)) translateY(8px)',
+	},
+};
+
 const isTouchDevice =
 	typeof window !== 'undefined' &&
 	window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export default function GitHubWidget() {
-	const { t } = useTranslation('home');
 	const {
 		contributions,
 		totalContributions,
@@ -234,11 +238,18 @@ export default function GitHubWidget() {
 		contributions.length
 	);
 
-	const year = new Date().getFullYear();
-
 	const gridData = useMemo(
 		() => (maxWeeks > 0 ? sliceLastWeeks(contributions, maxWeeks) : []),
 		[contributions, maxWeeks]
+	);
+
+	// Pre-compute aria-labels to avoid 365x toLocaleDateString per render
+	const ariaLabels = useMemo(
+		() => gridData.map((day) => {
+			const s = day.count !== 1 ? 's' : '';
+			return `${day.count} contribution${s} on ${formatDateForA11y(day.date)}`;
+		}),
+		[gridData]
 	);
 
 	const actualWeeks = Math.ceil(gridData.length / 7);
@@ -280,128 +291,83 @@ export default function GitHubWidget() {
 		setTooltip(null);
 	}, []);
 
-	if (loading) {
-		return (
-			<StyledGitHubCard className="widget-card">
-				<StyledSkeleton>
-					<StyledSkeletonLine $w="55%" $h="18px" />
-					<StyledSkeletonGrid />
-				</StyledSkeleton>
-			</StyledGitHubCard>
-		);
-	}
-
-	if (error) {
-		return (
-			<StyledGitHubCard className="widget-card">
-				<StyledCardInner>
-					<StyledContributionHeader>
-						<StyledGitHubHeaderLeft>
-							<StyledGitHubIcon>
-								<iconRegistry.github />
-							</StyledGitHubIcon>
-							<Text as="h3" variant="subtitle-sm">
-								<a
-									href={GITHUB_URL}
-									target="_blank"
-									rel="noopener noreferrer"
-									style={{ color: 'inherit', textDecoration: 'none' }}
-								>
-									GitHub
-								</a>
-							</Text>
-						</StyledGitHubHeaderLeft>
-					</StyledContributionHeader>
-				</StyledCardInner>
-			</StyledGitHubCard>
-		);
-	}
-
 	return (
-		<StyledGitHubCard className="widget-card">
-			<StyledCardInner>
-				<StyledContributionHeader>
-					<StyledGitHubHeaderLeft>
-						<StyledGitHubIcon>
-							<iconRegistry.github />
-						</StyledGitHubIcon>
-						<Text as="h3" variant="subtitle-sm">GitHub</Text>
-					</StyledGitHubHeaderLeft>
-					<Button
-						variant="glass"
-						title={t('activity.viewProfile')}
-						url={GITHUB_URL}
-						p={['4', '8', '4', '8']}
-					/>
-				</StyledContributionHeader>
+		<WidgetBase
+			icon={iconRegistry.github}
+			platformName="GitHub"
+			profileUrl={GITHUB_URL}
+			loading={loading}
+			error={error}
+		>
+			<StyledHandle>@{GITHUB_USERNAME}</StyledHandle>
+			<StyledContribCount>
+				{totalContributions.toLocaleString()} contributions in {CURRENT_YEAR}
+			</StyledContribCount>
 
-				<StyledHandle>@{GITHUB_USERNAME}</StyledHandle>
-				<StyledContribCount>
-					{totalContributions.toLocaleString()} contributions in {year}
-				</StyledContribCount>
+			<StyledCalendarWrapper ref={wrapperRef}>
+				{actualWeeks > 0 && (
+					<>
+						{config.showMonthLabels && monthLabels.length > 0 && (
+							<StyledMonthRow $weeks={actualWeeks} $hasDayLabels={config.showDayLabels}>
+								{monthLabels.map((label) => (
+									<StyledMonthLabel
+										key={label.key}
+										$startCol={label.startCol}
+										$span={label.span}
+									>
+										{label.name}
+									</StyledMonthLabel>
+								))}
+							</StyledMonthRow>
+						)}
 
-				<StyledCalendarWrapper ref={wrapperRef}>
-					{actualWeeks > 0 && (
-						<>
-							{config.showMonthLabels && monthLabels.length > 0 && (
-								<StyledMonthRow $weeks={actualWeeks} $hasDayLabels={config.showDayLabels}>
-									{monthLabels.map((label) => (
-										<StyledMonthLabel
-											key={label.key}
-											$startCol={label.startCol}
-											$span={label.span}
-										>
-											{label.name}
-										</StyledMonthLabel>
+						<StyledGridWithLabels>
+							{config.showDayLabels && (
+								<StyledDayLabels>
+									{DAY_LABELS.map((label, i) => (
+										<span key={i}>{label}</span>
 									))}
-								</StyledMonthRow>
+								</StyledDayLabels>
 							)}
 
-							<StyledGridWithLabels>
-								{config.showDayLabels && (
-									<StyledDayLabels>
-										{DAY_LABELS.map((label, i) => (
-											<span key={i}>{label}</span>
-										))}
-									</StyledDayLabels>
-								)}
+							<StyledContributionGrid
+								$weeks={actualWeeks}
+								$gap={config.squareGap}
+								role="grid"
+								aria-readonly="true"
+								aria-label={`${totalContributions.toLocaleString()} contributions in ${CURRENT_YEAR}`}
+							>
+								{gridData.map((day, i) => (
+									<StyledSquare
+										key={i}
+										$level={day.level}
+										$radius={config.squareRadius}
+										role="gridcell"
+										aria-label={ariaLabels[i]}
+										tabIndex={-1}
+										onMouseEnter={(e) => handleSquareEnter(e, day, i)}
+										onMouseLeave={handleSquareLeave}
+									/>
+								))}
+							</StyledContributionGrid>
+						</StyledGridWithLabels>
 
-								<StyledContributionGrid
-									$weeks={actualWeeks}
-									$gap={config.squareGap}
-									role="grid"
-									aria-readonly="true"
-									aria-label={`${totalContributions.toLocaleString()} contributions in ${year}`}
-								>
-									{gridData.map((day, i) => (
-										<StyledSquare
-											key={i}
-											$level={day.level}
-											$radius={config.squareRadius}
-											role="gridcell"
-											aria-label={`${day.count} contribution${day.count !== 1 ? 's' : ''} on ${formatDateForA11y(day.date)}`}
-											tabIndex={-1}
-											onMouseEnter={(e) => handleSquareEnter(e, day, i)}
-											onMouseLeave={handleSquareLeave}
-										/>
-									))}
-								</StyledContributionGrid>
-							</StyledGridWithLabels>
-
-							{tooltip && (
-								<StyledContribTooltip
-									$x={tooltip.x}
-									$y={tooltip.y}
-									$position={tooltip.position}
-									$align={tooltip.align}
-								>
-									{tooltip.text}
-								</StyledContribTooltip>
-							)}
-						</>
-					)}
-				</StyledCalendarWrapper>
-			</StyledCardInner>
-		</StyledGitHubCard>
+						{tooltip && (
+							<StyledContribTooltip
+								$position={tooltip.position}
+								$align={tooltip.align}
+								style={{
+									left: tooltip.x,
+									top: tooltip.y,
+									transform: tooltipTransform[tooltip.position][tooltip.align],
+								}}
+							>
+								{tooltip.text}
+							</StyledContribTooltip>
+						)}
+					</>
+				)}
+			</StyledCalendarWrapper>
+		</WidgetBase>
 	);
 }

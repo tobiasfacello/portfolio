@@ -1,5 +1,3 @@
-import { Fragment } from 'react';
-
 //* Components
 import WidgetBase from '../WidgetBase';
 
@@ -12,7 +10,6 @@ import {
 	StyledTweetText,
 	StyledTweetMeta,
 	StyledTweetStat,
-	StyledTweetDivider,
 	StyledHandle,
 	StyledPostCount,
 } from './styled';
@@ -56,7 +53,7 @@ function formatDate(dateStr: string): string {
 export default function TwitterWidget() {
 	const { tweets, loading, error } = useTweets();
 	const { isDarkMode } = useTheme();
-	const fallbackImg = isDarkMode ? profileDark : profileLight;
+	const profileImg = isDarkMode ? profileDark : profileLight;
 
 	return (
 		<WidgetBase
@@ -70,28 +67,26 @@ export default function TwitterWidget() {
 			<StyledPostCount>~100 posts</StyledPostCount>
 
 			<StyledTweetList>
-				{tweets.slice(0, 3).map((tweet, index) => (
-					<Fragment key={tweet.id}>
-						{index > 0 && <StyledTweetDivider />}
-						<StyledTweetItem
-							href={tweet.url}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<StyledTweetThumbnail>
-							<img src={tweet.image || fallbackImg} alt="" loading="lazy" />
+				{tweets.slice(0, 3).map((tweet) => (
+					<StyledTweetItem
+						key={tweet.id}
+						href={tweet.url}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<StyledTweetThumbnail>
+							<img src={profileImg} alt="Tobias Facello" loading="lazy" />
 						</StyledTweetThumbnail>
-							<StyledTweetContent>
-								<StyledTweetText>{tweet.text}</StyledTweetText>
-								<StyledTweetMeta>
-									<StyledTweetStat>
-										<ClockSvg />
-										{formatDate(tweet.date)}
-									</StyledTweetStat>
-								</StyledTweetMeta>
-							</StyledTweetContent>
-						</StyledTweetItem>
-					</Fragment>
+						<StyledTweetContent>
+							<StyledTweetText>{tweet.text}</StyledTweetText>
+							<StyledTweetMeta>
+								<StyledTweetStat>
+									<ClockSvg />
+									{formatDate(tweet.date)}
+								</StyledTweetStat>
+							</StyledTweetMeta>
+						</StyledTweetContent>
+					</StyledTweetItem>
 				))}
 			</StyledTweetList>
 		</WidgetBase>

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import { spacingArray } from '../../styles/mixins';
+import { mq } from '../../config/breakpoints';
+import type { TextVariant } from '../../types';
 
 type VariantConfig = {
 	fontSize: string;
@@ -9,7 +11,7 @@ type VariantConfig = {
 	extra?: ReturnType<typeof css>;
 };
 
-const variants: Record<string, VariantConfig> = {
+const variants: Record<TextVariant, VariantConfig> = {
 	title: {
 		fontSize: 'var(--font-size-title)',
 		lineHeight: 'var(--line-height-title)',
@@ -44,12 +46,12 @@ const variants: Record<string, VariantConfig> = {
 		extra: css`
 			word-spacing: 2px;
 
-			@media (min-width: 1440px) {
+			${mq.up('desktop-lg')} {
 				font-size: var(--font-size-body);
 				line-height: 1.75rem;
 			}
 
-			@media (min-width: 1800px) {
+			${mq.up(1800)} {
 				font-size: var(--font-size-subtitle-sm);
 				line-height: 2rem;
 			}
@@ -62,7 +64,7 @@ const variants: Record<string, VariantConfig> = {
 	},
 };
 
-const applyVariant = (variant: string | undefined) => {
+const applyVariant = (variant: TextVariant | undefined) => {
 	if (!variant) return '';
 	const config = variants[variant];
 	if (!config) return '';
@@ -81,7 +83,7 @@ export const StyledText = styled.p<{
 	$h?: string;
 	$m?: string[];
 	$p?: string[];
-	$variant?: string;
+	$variant?: TextVariant;
 	$alignment?: string;
 }>`
 	width: ${(props) => props.$w};

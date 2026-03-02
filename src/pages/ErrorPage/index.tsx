@@ -6,6 +6,7 @@ import { useNavigate, useRouteError, isRouteErrorResponse } from 'react-router-d
 
 //! Styled Components
 import styled from 'styled-components';
+import { mq } from '../../config/breakpoints';
 
 const asciiLines = [
 	'██╗  ██╗ ██████╗ ██╗  ██╗',
@@ -44,27 +45,27 @@ const AsciiContainer = styled.pre`
 	overflow: hidden;
 	font-size: 8px;
 
-	@media (min-width: 425px) {
+	${mq.up(425)} {
 		font-size: 11px;
 	}
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		font-size: 18px;
 	}
 
-	@media (min-width: 960px) {
+	${mq.up('tablet')} {
 		font-size: 22px;
 	}
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		font-size: 28px;
 	}
 
-	@media (min-width: 1440px) {
+	${mq.up('desktop-lg')} {
 		font-size: 32px;
 	}
 
-	@media (min-width: 1800px) {
+	${mq.up(1800)} {
 		font-size: 38px;
 	}
 `;
@@ -84,7 +85,7 @@ const Message = styled.p`
 	text-align: center;
 	opacity: 0.8;
 
-	@media (min-width: 768px) {
+	${mq.up('mobile-lg')} {
 		font-size: var(--font-size-subtitle);
 		line-height: var(--line-height-subtitle);
 	}

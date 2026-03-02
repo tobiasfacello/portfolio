@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { glassCard, hoveredPillStyles } from '../../styles/mixins';
+import { mq } from '../../config/breakpoints';
 
 export const TechPillIcon = styled.span`
 	display: inline-flex;
@@ -60,9 +61,7 @@ export const PillWrapper = styled.span<{ $ready?: boolean }>`
 			: 'max-width 250ms ease-out, opacity 180ms ease-out'};
 `;
 
-export const StyledProjectCard = styled.a<{
-	$isHovered: boolean;
-}>`
+export const StyledProjectCard = styled.a`
 	text-decoration: none;
 	color: inherit;
 	position: relative;
@@ -75,13 +74,13 @@ export const StyledProjectCard = styled.a<{
 	padding: var(--8);
 	${glassCard(true)}
 
-	@media (max-width: 768px) {
+	${mq.down('mobile-lg')} {
 		& {
 			max-width: 335px;
 		}
 	}
 
-	@media (min-width: 768px) and (max-width: 1279px) {
+	${mq.between('mobile-lg', 'desktop-sm')} {
 		& {
 			max-width: 380px;
 		}
@@ -93,13 +92,21 @@ export const StyledProjectCard = styled.a<{
 		width: auto;
 		height: auto;
 		object-fit: contain;
-		opacity: ${(props) => (props.$isHovered ? 'var(--opacity-full)' : 'var(--opacity-soft)')};
+		opacity: var(--opacity-soft);
 		transition: all var(--transition-normal);
+	}
+
+	&:hover {
+		transform: translateY(-2px);
+	}
+
+	&:hover > div:last-of-type img {
+		opacity: var(--opacity-full);
 	}
 
 	&:hover ${TechPill} {
 		opacity: var(--opacity-soft);
 	}
 
-	${(props) => hoveredPillStyles(props.$isHovered)}
+	${hoveredPillStyles}
 `;

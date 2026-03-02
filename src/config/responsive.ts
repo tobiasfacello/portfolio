@@ -1,5 +1,19 @@
 import type { Breakpoint } from './breakpoints';
-import type { TextVariant } from '../types';
+import type { TextVariant, FlexJustify, FlexDirection } from '../types';
+
+// Helper: fill all breakpoints from partial definitions, cascading from nearest smaller
+function fillBreakpoints<T>(partial: Partial<Record<Breakpoint, T>>, fallback: T): Record<Breakpoint, T> {
+	const order: Breakpoint[] = ['mobile-sm', 'mobile-lg', 'tablet', 'desktop-sm', 'desktop-md', 'desktop-lg', 'desktop-xl'];
+	const result = {} as Record<Breakpoint, T>;
+	let last = fallback;
+	for (const bp of order) {
+		if (partial[bp]) last = partial[bp];
+		result[bp] = last;
+	}
+	return result;
+}
+
+// ── About ────────────────────────────────────────────────
 
 interface AboutConfig {
 	outerW: string;
@@ -13,72 +27,31 @@ interface AboutConfig {
 	innerW?: string;
 }
 
-export const aboutConfig: Record<Breakpoint, AboutConfig> = {
-	'mobile-sm': {
-		outerW: '100%',
-		outerMaxW: '500px',
-		outerH: '100%',
-		outerGap: '24px',
-		paragraphGap: '12px',
-		paragraphVariant: 'body',
-	},
-	'mobile-lg': {
-		outerW: '80%',
-		outerGap: '24px',
-		paragraphGap: '12px',
-		paragraphVariant: 'body',
-	},
-	tablet: {
-		outerW: '80%',
-		outerGap: '24px',
-		paragraphGap: '12px',
-		paragraphVariant: 'body',
-		titleAlign: 'left',
-	},
-	'desktop-sm': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '450px',
-		outerGap: '36px',
-		paragraphGap: '20px',
-		paragraphVariant: 'body',
-		titleAlign: 'left',
-	},
-	'desktop-md': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '450px',
-		outerGap: '36px',
-		paragraphGap: '20px',
-		paragraphVariant: 'body',
-	},
-	'desktop-lg': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '490px',
-		outerGap: '36px',
-		paragraphGap: '20px',
-		paragraphVariant: 'body-lg',
-	},
-	'desktop-xl': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '530px',
-		outerGap: '36px',
-		paragraphGap: '20px',
-		paragraphVariant: 'body-lg',
-		innerW: '80%',
-	},
+const desktopAbout: AboutConfig = {
+	outerW: '100%', outerH: '100%', outerMinH: '450px',
+	outerGap: '36px', paragraphGap: '20px', paragraphVariant: 'body', titleAlign: 'left',
 };
+
+export const aboutConfig: Record<Breakpoint, AboutConfig> = fillBreakpoints({
+	'mobile-sm': { outerW: '100%', outerMaxW: '500px', outerH: '100%', outerGap: '24px', paragraphGap: '12px', paragraphVariant: 'body' },
+	'mobile-lg': { outerW: '80%', outerGap: '24px', paragraphGap: '12px', paragraphVariant: 'body' },
+	tablet: { outerW: '80%', outerGap: '24px', paragraphGap: '12px', paragraphVariant: 'body', titleAlign: 'left' },
+	'desktop-sm': { ...desktopAbout, titleAlign: 'left' },
+	'desktop-md': desktopAbout,
+	'desktop-lg': { ...desktopAbout, outerMinH: '490px', paragraphVariant: 'body-lg' },
+	'desktop-xl': { ...desktopAbout, outerMinH: '530px', paragraphVariant: 'body-lg', innerW: '80%' },
+}, { outerW: '100%', outerGap: '24px', paragraphGap: '12px', paragraphVariant: 'body' });
+
+// ── Skills ───────────────────────────────────────────────
 
 interface SkillsConfig {
 	outerW: string;
 	outerMaxW?: string;
 	outerH: string;
 	outerGap?: string;
-	outerJustify: string;
+	outerJustify: FlexJustify;
 	iconRowW?: string;
-	iconRowJustify?: string;
+	iconRowJustify?: FlexJustify;
 	iconWrapperH?: string;
 	iconWrapperGap?: string;
 	useGrid?: boolean;
@@ -87,71 +60,20 @@ interface SkillsConfig {
 	iconContainerP?: string[];
 }
 
-export const skillsConfig: Record<Breakpoint, SkillsConfig> = {
-	'mobile-sm': {
-		outerW: '100%',
-		outerMaxW: '500px',
-		outerH: '100%',
-		outerGap: '36px',
-		outerJustify: 'space-between',
-		iconRowJustify: 'space-between',
-		titleOutside: false,
-	},
-	'mobile-lg': {
-		outerW: '80%',
-		outerH: '100%',
-		outerGap: '36px',
-		outerJustify: 'space-between',
-		iconRowW: '100%',
-		iconRowJustify: 'space-between',
-		iconWrapperH: '70%',
-		iconWrapperGap: '36px',
-		titleOutside: false,
-	},
-	tablet: {
-		outerW: '80%',
-		outerH: '100%',
-		outerGap: '36px',
-		outerJustify: 'space-between',
-		iconRowW: '70%',
-		iconRowJustify: 'space-between',
-		iconWrapperH: '70%',
-		iconWrapperGap: '36px',
-		titleOutside: false,
-	},
-	'desktop-sm': {
-		outerW: '100%',
-		outerH: '100%',
-		outerJustify: 'space-between',
-		useGrid: true,
-		gridGap: '20px',
-		titleOutside: false,
-	},
-	'desktop-md': {
-		outerW: '100%',
-		outerH: '100%',
-		outerJustify: 'space-between',
-		useGrid: true,
-		gridGap: '20px',
-		titleOutside: false,
-	},
-	'desktop-lg': {
-		outerW: '100%',
-		outerH: '100%',
-		outerJustify: 'space-between',
-		useGrid: true,
-		gridGap: '20px',
-		titleOutside: false,
-	},
-	'desktop-xl': {
-		outerW: '100%',
-		outerH: '100%',
-		outerJustify: 'space-between',
-		useGrid: true,
-		gridGap: '24px',
-		titleOutside: true,
-	},
+const desktopSkills: SkillsConfig = {
+	outerW: '100%', outerH: '100%', outerJustify: 'space-between',
+	useGrid: true, gridGap: '20px', titleOutside: false,
 };
+
+export const skillsConfig: Record<Breakpoint, SkillsConfig> = fillBreakpoints({
+	'mobile-sm': { outerW: '100%', outerMaxW: '500px', outerH: '100%', outerGap: '36px', outerJustify: 'space-between', iconRowJustify: 'space-between', titleOutside: false },
+	'mobile-lg': { outerW: '80%', outerH: '100%', outerGap: '36px', outerJustify: 'space-between', iconRowW: '100%', iconRowJustify: 'space-between', iconWrapperH: '70%', iconWrapperGap: '36px', titleOutside: false },
+	tablet: { outerW: '80%', outerH: '100%', outerGap: '36px', outerJustify: 'space-between', iconRowW: '70%', iconRowJustify: 'space-between', iconWrapperH: '70%', iconWrapperGap: '36px', titleOutside: false },
+	'desktop-sm': desktopSkills,
+	'desktop-xl': { ...desktopSkills, gridGap: '24px', titleOutside: true },
+}, { outerW: '100%', outerH: '100%', outerJustify: 'space-between', titleOutside: false });
+
+// ── Projects ─────────────────────────────────────────────
 
 interface ProjectsConfig {
 	outerW: string;
@@ -159,66 +81,25 @@ interface ProjectsConfig {
 	outerH: string;
 	outerMinH?: string;
 	outerGap: string;
-	outerJustify: string;
+	outerJustify: FlexJustify;
 	cardGap: string;
 }
 
-export const projectsConfig: Record<Breakpoint, ProjectsConfig> = {
-	'mobile-sm': {
-		outerW: '100%',
-		outerMaxW: '500px',
-		outerH: '100%',
-		outerGap: '36px',
-		outerJustify: 'center',
-		cardGap: '12px',
-	},
-	'mobile-lg': {
-		outerW: '80%',
-		outerH: '100%',
-		outerGap: '36px',
-		outerJustify: 'center',
-		cardGap: '12px',
-	},
-	tablet: {
-		outerW: '80%',
-		outerH: '100%',
-		outerGap: '36px',
-		outerJustify: 'center',
-		cardGap: '12px',
-	},
-	'desktop-sm': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '450px',
-		outerGap: '36px',
-		outerJustify: 'space-between',
-		cardGap: '20px',
-	},
-	'desktop-md': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '450px',
-		outerGap: '36px',
-		outerJustify: 'space-between',
-		cardGap: '20px',
-	},
-	'desktop-lg': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '490px',
-		outerGap: '36px',
-		outerJustify: 'space-between',
-		cardGap: '20px',
-	},
-	'desktop-xl': {
-		outerW: '100%',
-		outerH: '100%',
-		outerMinH: '530px',
-		outerGap: '36px',
-		outerJustify: 'space-between',
-		cardGap: '20px',
-	},
+const desktopProjects: ProjectsConfig = {
+	outerW: '100%', outerH: '100%', outerMinH: '450px',
+	outerGap: '36px', outerJustify: 'space-between', cardGap: '20px',
 };
+
+export const projectsConfig: Record<Breakpoint, ProjectsConfig> = fillBreakpoints({
+	'mobile-sm': { outerW: '100%', outerMaxW: '500px', outerH: '100%', outerGap: '36px', outerJustify: 'center', cardGap: '12px' },
+	'mobile-lg': { outerW: '80%', outerH: '100%', outerGap: '36px', outerJustify: 'center', cardGap: '12px' },
+	tablet: { outerW: '80%', outerH: '100%', outerGap: '36px', outerJustify: 'center', cardGap: '12px' },
+	'desktop-sm': desktopProjects,
+	'desktop-lg': { ...desktopProjects, outerMinH: '490px' },
+	'desktop-xl': { ...desktopProjects, outerMinH: '530px' },
+}, { outerW: '100%', outerH: '100%', outerGap: '36px', outerJustify: 'center', cardGap: '12px' });
+
+// ── Works ────────────────────────────────────────────────
 
 interface WorksConfig {
 	titleOutside: boolean;
@@ -230,76 +111,24 @@ interface WorksConfig {
 	carouselCss?: string;
 	carouselMinH?: string;
 	carouselW?: string;
-	carouselDirection?: string;
+	carouselDirection?: FlexDirection;
 }
 
-export const worksConfig: Record<Breakpoint, WorksConfig> = {
-	'mobile-sm': {
-		titleOutside: false,
-		outerW: '100%',
-		outerMaxW: '500px',
-		outerH: '100%',
-		outerGap: '36px',
-	},
-	'mobile-lg': {
-		titleOutside: false,
-		outerW: '80%',
-		outerH: '100%',
-		outerGap: '36px',
-	},
-	tablet: {
-		titleOutside: false,
-		outerW: '80%',
-		outerH: '100%',
-		outerGap: '36px',
-		carouselCss: 'overflow: hidden;',
-		carouselW: '100vw',
-	},
-	'desktop-sm': {
-		titleOutside: true,
-		titleM: ['36', '0', '0', '0'],
-		outerW: '100%',
-		outerH: 'auto',
-		outerGap: '36px',
-		carouselCss: 'overflow: hidden;',
-		carouselMinH: '402px',
-		carouselW: '100%',
-		carouselDirection: 'row',
-	},
-	'desktop-md': {
-		titleOutside: true,
-		titleM: ['36', '0', '0', '0'],
-		outerW: '100%',
-		outerH: 'auto',
-		outerGap: '36px',
-		carouselCss: 'overflow: hidden;',
-		carouselMinH: '402px',
-		carouselW: '100%',
-		carouselDirection: 'row',
-	},
-	'desktop-lg': {
-		titleOutside: true,
-		titleM: ['36', '0', '0', '0'],
-		outerW: '100%',
-		outerH: 'auto',
-		outerGap: '36px',
-		carouselCss: 'overflow: hidden;',
-		carouselMinH: '402px',
-		carouselW: '100%',
-		carouselDirection: 'row',
-	},
-	'desktop-xl': {
-		titleOutside: true,
-		titleM: ['36', '0', '0', '0'],
-		outerW: '100%',
-		outerH: 'auto',
-		outerGap: '36px',
-		carouselCss: 'overflow: hidden;',
-		carouselMinH: '402px',
-		carouselW: '100%',
-		carouselDirection: 'row',
-	},
+const desktopWorks: WorksConfig = {
+	titleOutside: true, titleM: ['36', '0', '0', '0'],
+	outerW: '100%', outerH: 'auto', outerGap: '36px',
+	carouselCss: 'overflow: hidden;', carouselMinH: '402px',
+	carouselW: '100%', carouselDirection: 'row',
 };
+
+export const worksConfig: Record<Breakpoint, WorksConfig> = fillBreakpoints({
+	'mobile-sm': { titleOutside: false, outerW: '100%', outerMaxW: '500px', outerH: '100%', outerGap: '36px' },
+	'mobile-lg': { titleOutside: false, outerW: '80%', outerH: '100%', outerGap: '36px' },
+	tablet: { titleOutside: false, outerW: '80%', outerH: '100%', outerGap: '36px', carouselCss: 'overflow: hidden;', carouselW: '100vw' },
+	'desktop-sm': desktopWorks,
+}, { titleOutside: false, outerW: '100%', outerH: '100%', outerGap: '36px' });
+
+// ── Carousel ─────────────────────────────────────────────
 
 interface CarouselConfig {
 	useSwiper: boolean;
@@ -308,15 +137,16 @@ interface CarouselConfig {
 	spaceBetween?: number;
 }
 
-export const carouselConfig: Record<Breakpoint, CarouselConfig> = {
+const desktopCarousel: CarouselConfig = { useSwiper: true, slidesPerView: 2, centeredSlides: false, spaceBetween: 10 };
+
+export const carouselConfig: Record<Breakpoint, CarouselConfig> = fillBreakpoints({
 	'mobile-sm': { useSwiper: false },
-	'mobile-lg': { useSwiper: false },
 	tablet: { useSwiper: true, slidesPerView: 1, centeredSlides: true, spaceBetween: 5 },
-	'desktop-sm': { useSwiper: true, slidesPerView: 2, centeredSlides: false, spaceBetween: 10 },
-	'desktop-md': { useSwiper: true, slidesPerView: 2, centeredSlides: false, spaceBetween: 10 },
-	'desktop-lg': { useSwiper: true, slidesPerView: 2, centeredSlides: false, spaceBetween: 10 },
+	'desktop-sm': desktopCarousel,
 	'desktop-xl': { useSwiper: true, slidesPerView: 3, centeredSlides: false, spaceBetween: 10 },
-};
+}, { useSwiper: false });
+
+// ── Activity Feed ────────────────────────────────────────
 
 interface ActivityFeedConfig {
 	outerW: string;
@@ -326,51 +156,16 @@ interface ActivityFeedConfig {
 	gridGap: string;
 }
 
-export const activityFeedConfig: Record<Breakpoint, ActivityFeedConfig> = {
-	'mobile-sm': {
-		outerW: '100%',
-		outerMaxW: '500px',
-		outerGap: '24px',
-		gridColumns: 1,
-		gridGap: '12px',
-	},
-	'mobile-lg': {
-		outerW: '80%',
-		outerGap: '24px',
-		gridColumns: 1,
-		gridGap: '12px',
-	},
-	tablet: {
-		outerW: '80%',
-		outerGap: '24px',
-		gridColumns: 3,
-		gridGap: '12px',
-	},
-	'desktop-sm': {
-		outerW: '100%',
-		outerGap: '24px',
-		gridColumns: 3,
-		gridGap: '12px',
-	},
-	'desktop-md': {
-		outerW: '100%',
-		outerGap: '24px',
-		gridColumns: 3,
-		gridGap: '12px',
-	},
-	'desktop-lg': {
-		outerW: '100%',
-		outerGap: '24px',
-		gridColumns: 3,
-		gridGap: '12px',
-	},
-	'desktop-xl': {
-		outerW: '100%',
-		outerGap: '24px',
-		gridColumns: 3,
-		gridGap: '12px',
-	},
-};
+const desktopActivity: ActivityFeedConfig = { outerW: '100%', outerGap: '24px', gridColumns: 3, gridGap: '12px' };
+
+export const activityFeedConfig: Record<Breakpoint, ActivityFeedConfig> = fillBreakpoints({
+	'mobile-sm': { outerW: '100%', outerMaxW: '500px', outerGap: '24px', gridColumns: 1, gridGap: '12px' },
+	'mobile-lg': { outerW: '80%', outerGap: '24px', gridColumns: 1, gridGap: '12px' },
+	tablet: { outerW: '80%', outerGap: '24px', gridColumns: 3, gridGap: '12px' },
+	'desktop-sm': desktopActivity,
+}, { outerW: '100%', outerGap: '24px', gridColumns: 1, gridGap: '12px' });
+
+// ── GitHub Calendar ──────────────────────────────────────
 
 interface GitHubCalendarConfig {
 	squareGap: number;
@@ -379,12 +174,8 @@ interface GitHubCalendarConfig {
 	showMonthLabels: boolean;
 }
 
-export const gitHubCalendarConfig: Record<Breakpoint, GitHubCalendarConfig> = {
+export const gitHubCalendarConfig: Record<Breakpoint, GitHubCalendarConfig> = fillBreakpoints({
 	'mobile-sm': { squareGap: 3, squareRadius: 2, showDayLabels: false, showMonthLabels: true },
-	'mobile-lg': { squareGap: 3, squareRadius: 2, showDayLabels: false, showMonthLabels: true },
 	tablet: { squareGap: 3, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
-	'desktop-sm': { squareGap: 3, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
 	'desktop-md': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
-	'desktop-lg': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
-	'desktop-xl': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
-};
+}, { squareGap: 3, squareRadius: 2, showDayLabels: false, showMonthLabels: true });

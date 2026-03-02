@@ -1,15 +1,8 @@
 /* ── Global cross-fade ── */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-	animation-duration: 250ms;
-	animation-timing-function: ease-in-out;
-}
-
-/* ── Shared element: work-hero ── */
-::view-transition-old(work-hero),
-::view-transition-new(work-hero) {
 	animation-duration: 300ms;
-	animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /* ── Scroll reveal base ── */
@@ -73,9 +66,7 @@
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
 	::view-transition-old(root),
-	::view-transition-new(root),
-	::view-transition-old(work-hero),
-	::view-transition-new(work-hero) {
+	::view-transition-new(root) {
 		animation-duration: 0ms;
 	}
 

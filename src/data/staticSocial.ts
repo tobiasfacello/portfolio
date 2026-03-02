@@ -1,4 +1,4 @@
-import type { Tweet, TwitterProfile, LinkedInProfile } from '../types';
+import type { LinkedInProfile } from '../types';
 
 //* Company logos (dark)
 import henryLogo from '../assets/companies/Henry.svg';
@@ -41,46 +41,3 @@ export const linkedinProfile: LinkedInProfile = {
 		},
 	],
 };
-
-export const staticTwitterProfile: TwitterProfile = {
-	name: '',
-	username: 'fachebits',
-	description: '',
-	profileImageUrl: '',
-	followers: 0,
-	following: 0,
-	tweetCount: 0,
-};
-
-export const staticTweets: Tweet[] = [
-	{
-		id: '1',
-		text: 'Shipping a new portfolio built with React 19, GSAP animations, and smooth scroll. Check it out!',
-		date: '2025-01-15',
-		url: 'https://x.com/fachebits',
-	},
-	{
-		id: '2',
-		text: 'TypeScript + styled-components + Vite = the perfect stack for a fast, type-safe frontend.',
-		date: '2025-01-10',
-		url: 'https://x.com/fachebits',
-	},
-	{
-		id: '3',
-		text: 'Just explored GSAP quickTo() for cursor animations. The easing feels incredibly smooth.',
-		date: '2025-01-05',
-		url: 'https://x.com/fachebits',
-	},
-	{
-		id: '4',
-		text: 'Been diving deep into Lenis for smooth scroll — the lerp config makes a huge difference in feel.',
-		date: '2025-01-03',
-		url: 'https://x.com/fachebits',
-	},
-	{
-		id: '5',
-		text: 'Dark mode support with CSS custom properties is underrated. One source of truth for all your colors.',
-		date: '2024-12-28',
-		url: 'https://x.com/fachebits',
-	},
-];

@@ -32,7 +32,8 @@ function withTimeout(ms) {
 
 function extractTweetId(url) {
 	const match = url.match(/status\/(\d+)/);
-	return match ? match[1] : url;
+	if (!match) throw new Error(`Could not extract tweet ID from: ${url}`);
+	return match[1];
 }
 
 function parseTweetHtml(html) {
@@ -52,6 +53,9 @@ function parseTweetHtml(html) {
 		}
 	}
 
+	if (!rawText) console.warn('[fetch-tweets] parseTweetHtml: empty text extracted');
+	if (!date) console.warn('[fetch-tweets] parseTweetHtml: empty date extracted');
+
 	return { text: rawText, date };
 }
 
@@ -63,39 +67,21 @@ function cleanTweetText(text) {
 		.trim();
 }
 
-async function fetchTweetImage(tweetId, username) {
-	const { signal, clear } = withTimeout(FETCH_TIMEOUT_MS);
-	try {
-		const res = await fetch(
-			`https://api.vxtwitter.com/${username}/status/${tweetId}`,
-			{ signal }
-		);
-		clear();
-		if (!res.ok) return null;
-		const data = await res.json();
-		// Prefer thumbnail (works for both images and videos)
-		const media = data.media_extended?.[0];
-		return media?.thumbnail_url || media?.url || data.mediaURLs?.[0] || null;
-	} catch {
-		clear();
-		return null;
-	}
-}
-
 async function fetchTweet(url) {
 	const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(url)}&omit_script=true`;
 
 	const { signal, clear } = withTimeout(FETCH_TIMEOUT_MS);
-	const res = await fetch(oembedUrl, { signal });
-	clear();
+	let data;
+	try {
+		const res = await fetch(oembedUrl, { signal });
+		if (!res.ok) throw new Error(`oEmbed ${res.status} for ${url}`);
+		data = await res.json();
+	} finally {
+		clear();
+	}
 
-	if (!res.ok) throw new Error(`oEmbed ${res.status} for ${url}`);
-
-	const data = await res.json();
 	const { text, date } = parseTweetHtml(data.html);
 	const tweetId = extractTweetId(url);
-	const username = data.author_url?.split('/').pop() || url.split('/')[3];
-	const image = await fetchTweetImage(tweetId, username);
 
 	return {
 		id: tweetId,
@@ -103,7 +89,6 @@ async function fetchTweet(url) {
 		date,
 		authorName: data.author_name,
 		url: data.url || url,
-		image,
 	};
 }
 

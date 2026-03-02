@@ -1,6 +1,7 @@
 //! Third-party
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { mq } from '../config/breakpoints';
 
 //* Components
 import Header from '../components/Containers/Header';
@@ -20,7 +21,7 @@ const StyledGrid = styled.div`
 	gap: 12px;
 	padding: 0 12px;
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		width: 90%;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
@@ -33,11 +34,11 @@ const StyledGrid = styled.div`
 		padding: 0;
 	}
 
-	@media (min-width: 1440px) {
+	${mq.up('desktop-lg')} {
 		grid-template-rows: auto minmax(510px, auto) auto;
 	}
 
-	@media (min-width: 1801px) {
+	${mq.up('desktop-xl')} {
 		grid-template-rows: auto minmax(530px, auto) auto;
 	}
 `;
@@ -50,7 +51,7 @@ const StyledMain = styled.main`
 	gap: 12px;
 	padding-bottom: 72px;
 
-	@media (min-width: 1280px) {
+	${mq.up('desktop-sm')} {
 		padding-bottom: 96px;
 	}
 `;

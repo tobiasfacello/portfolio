@@ -2,9 +2,7 @@
 import { useRef, forwardRef, useImperativeHandle } from "react";
 
 //! GSAP
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-gsap.registerPlugin(useGSAP);
+import { gsap, useGSAP } from "../../lib/gsap";
 
 //* Styles
 import { StyledAsciiLogo, AsciiLine } from "./styled";

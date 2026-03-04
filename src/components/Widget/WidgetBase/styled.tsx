@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { glassCard } from '../../../styles/mixins';
+import { glassCard, iconWrapper } from '../../../styles/mixins';
 
 export const StyledWidgetCard = styled.div`
 	position: relative;
@@ -28,18 +28,9 @@ export const StyledWidgetPlatform = styled.div`
 `;
 
 export const StyledWidgetIcon = styled.span`
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: var(--control-xs);
-	height: var(--control-xs);
+	${iconWrapper('var(--control-xs)')}
 	color: var(--text);
 	opacity: var(--opacity-soft);
-
-	svg {
-		width: 100%;
-		height: 100%;
-	}
 `;
 
 export const StyledWidgetContent = styled.div`
@@ -48,4 +39,20 @@ export const StyledWidgetContent = styled.div`
 	flex-direction: column;
 	gap: var(--8);
 	overflow: hidden;
+`;
+
+export const StyledWidgetHandle = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.75rem;
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-soft);
+`;
+
+export const StyledWidgetStat = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-label);
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-muted);
 `;

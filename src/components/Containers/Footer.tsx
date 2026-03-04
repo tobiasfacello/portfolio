@@ -88,11 +88,11 @@ const SwitchersContainer = styled.div`
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-function Footer() {
+function Footer({ ref, ...props }: React.ComponentPropsWithRef<'footer'>) {
 	const { t } = useTranslation('common');
 
 	return (
-		<StyledFooter>
+		<StyledFooter ref={ref} {...props}>
 			<Container
 				w={"80%"}
 				justify={"center"}
@@ -100,7 +100,6 @@ function Footer() {
 			>
 				<Text
 					variant={"label"}
-					m={["0", "0", "0", "0"]}
 				>
 					<Trans
 						i18nKey="footerCta"
@@ -127,7 +126,6 @@ function Footer() {
 			>
 				<Text
 					variant={"label"}
-					m={["0", "0", "0", "0"]}
 				>
 					{t('copyright', { year: CURRENT_YEAR })}
 				</Text>

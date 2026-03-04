@@ -1,5 +1,5 @@
 //! React Core
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 //! Types
 import { ThemeContextType, ThemeMode, ThemeProviderProps } from '../types';
@@ -12,36 +12,38 @@ function getInitialMode(): ThemeMode {
   return 'system';
 }
 
+const darkMql = typeof window !== 'undefined'
+  ? window.matchMedia('(prefers-color-scheme: dark)')
+  : null;
+
+function subscribeSystemDark(callback: () => void) {
+  darkMql?.addEventListener('change', callback);
+  return () => { darkMql?.removeEventListener('change', callback); };
+}
+
+function getSystemDark() {
+  return darkMql?.matches ?? false;
+}
+
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [themeMode, setThemeModeState] = useState<ThemeMode>(getInitialMode);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const systemDark = useSyncExternalStore(subscribeSystemDark, getSystemDark, () => false);
+
+  const isDarkMode = themeMode === 'system' ? systemDark : themeMode === 'dark';
 
   const setThemeMode = useCallback((mode: ThemeMode) => {
     setThemeModeState(mode);
     localStorage.setItem('theme', mode);
   }, []);
 
-  //? Apply data-theme attribute to <html> and derive isDarkMode
+  //? Apply data-theme attribute to <html>
   useEffect(() => {
     const root = document.documentElement;
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
     if (themeMode === 'system') {
       root.removeAttribute('data-theme');
-      setIsDarkMode(darkModeMediaQuery.matches);
     } else {
       root.dataset.theme = themeMode;
-      setIsDarkMode(themeMode === 'dark');
     }
-
-    const handler = (e: MediaQueryListEvent) => {
-      if (themeMode === 'system') {
-        setIsDarkMode(e.matches);
-      }
-    };
-
-    darkModeMediaQuery.addEventListener('change', handler);
-    return () => darkModeMediaQuery.removeEventListener('change', handler);
   }, [themeMode]);
 
   const value = useMemo(

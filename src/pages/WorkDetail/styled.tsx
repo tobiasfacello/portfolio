@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { glassBorder, glassCard, noisePatternBackground } from '../../styles/mixins';
+import { glassBorder, glassCard, noisePatternBackground, iconWrapper, responsiveCardPadding, imageCardContent } from '../../styles/mixins';
 import { mq } from '../../config/breakpoints';
 
 export const StyledWorkDetail = styled.main`
@@ -90,30 +90,10 @@ export const StyledProcessTitle = styled.h3`
 
 export const StyledHeroShowcase = styled.div`
 	width: 100%;
-	padding: 0.5rem;
 	overflow: hidden;
 	${glassBorder(true)}
-
-	${mq.up('mobile-lg')} {
-		padding: 1rem;
-	}
-
-	& > img {
-		width: 100%;
-		height: auto;
-		display: block;
-		object-fit: cover;
-		border-radius: 12px;
-		transition: transform 300ms ease-in-out;
-
-		${mq.up('mobile-lg')} {
-			border-radius: 8px;
-		}
-	}
-
-	&:hover > img {
-		transform: scale(1.01);
-	}
+	${responsiveCardPadding}
+	${imageCardContent()}
 `;
 
 /* ── Design System Frame ── */
@@ -121,30 +101,10 @@ export const StyledHeroShowcase = styled.div`
 export const StyledDesignSystemFrame = styled.div`
 	position: relative;
 	width: 100%;
-	padding: 0.5rem;
 	border-radius: 20px;
 	${glassCard(true)}
-
-	${mq.up('mobile-lg')} {
-		padding: 1rem;
-	}
-
-	& > img {
-		width: 100%;
-		height: auto;
-		display: block;
-		object-fit: cover;
-		border-radius: 12px;
-		transition: transform 300ms ease-in-out;
-
-		${mq.up('mobile-lg')} {
-			border-radius: 8px;
-		}
-	}
-
-	&:hover > img {
-		transform: scale(1.01);
-	}
+	${responsiveCardPadding}
+	${imageCardContent()}
 `;
 
 /* ── Phone Mockups Gallery ── */
@@ -175,30 +135,13 @@ export const StyledPhoneGallery = styled.div`
 export const StyledPhoneCard = styled.div`
 	flex: 0 0 75%;
 	scroll-snap-align: start;
-	padding: 0.5rem;
 	overflow: hidden;
 	${glassBorder(true)}
+	${responsiveCardPadding}
+	${imageCardContent(1.02)}
 
 	${mq.up('mobile-lg')} {
 		flex: none;
-		padding: 1rem;
-	}
-
-	& > img {
-		width: 100%;
-		height: auto;
-		display: block;
-		object-fit: cover;
-		border-radius: 12px;
-		transition: transform 300ms ease-in-out;
-
-		${mq.up('mobile-lg')} {
-			border-radius: 8px;
-		}
-	}
-
-	&:hover > img {
-		transform: scale(1.02);
 	}
 `;
 
@@ -209,13 +152,9 @@ export const StyledMetaCard = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	padding: 0.5rem;
 	${glassBorder(true)}
 	${noisePatternBackground}
-
-	${mq.up('mobile-lg')} {
-		padding: 1rem;
-	}
+	${responsiveCardPadding}
 `;
 
 export const StyledMetaGrid = styled.div`
@@ -260,17 +199,9 @@ export const StyledPillsRow = styled.div`
 /* ── Tool Pill (work detail variant) ── */
 
 export const StyledToolPillIcon = styled.span`
-	display: inline-flex;
-	width: 14px;
-	height: 14px;
-	flex-shrink: 0;
+	${iconWrapper('14px')}
 	color: var(--text);
 	transition: color 300ms;
-
-	svg {
-		width: 100%;
-		height: 100%;
-	}
 `;
 
 export const StyledToolPillLabel = styled.span`
@@ -334,14 +265,10 @@ export const StyledLinkPreview = styled.a`
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
-	padding: 0.5rem;
 	text-decoration: none;
 	color: inherit;
 	${glassBorder(true)}
-
-	${mq.up('mobile-lg')} {
-		padding: 1rem;
-	}
+	${responsiveCardPadding}
 
 	&:hover::after {
 		background: linear-gradient(
@@ -430,8 +357,3 @@ export const StyledTitle = styled.h1`
 	}
 `;
 
-export const StyledTagsRow = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-`;

@@ -2,8 +2,7 @@
 import { useRef, useEffect, useCallback } from "react";
 
 //! GSAP
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { gsap, useGSAP } from "../../lib/gsap";
 
 //! Lenis
 import { useLenis } from "lenis/react";

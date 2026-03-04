@@ -6,6 +6,14 @@ import type { LightboxImage, LightboxContextType } from "../types";
 
 const LightboxContext = createContext<LightboxContextType | null>(null);
 
+function flattenRegistry(registry: Map<symbol, LightboxImage[]>): LightboxImage[] {
+	const flat: LightboxImage[] = [];
+	for (const imgs of registry.values()) {
+		flat.push(...imgs);
+	}
+	return flat;
+}
+
 export function LightboxProvider({ children }: { children: React.ReactNode }) {
 	const [images, setImages] = useState<LightboxImage[]>([]);
 	const [isOpen, setIsOpen] = useState(false);
@@ -15,11 +23,7 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
 	const registryRef = useRef<Map<symbol, LightboxImage[]>>(new Map());
 
 	const rebuildImages = useCallback(() => {
-		const flat: LightboxImage[] = [];
-		for (const imgs of registryRef.current.values()) {
-			flat.push(...imgs);
-		}
-		setImages(flat);
+		setImages(flattenRegistry(registryRef.current));
 	}, []);
 
 	const register = useCallback(
@@ -38,10 +42,7 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
 
 	const open = useCallback(
 		(src: string) => {
-			const flat: LightboxImage[] = [];
-			for (const imgs of registryRef.current.values()) {
-				flat.push(...imgs);
-			}
+			const flat = flattenRegistry(registryRef.current);
 			const idx = flat.findIndex((img) => img.src === src);
 			if (idx !== -1) {
 				setImages(flat);

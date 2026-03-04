@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { mq } from '../../config/breakpoints';
 
 export const StyledLightboxOverlay = styled.div`
@@ -29,10 +29,7 @@ export const StyledLightboxImageContainer = styled.div`
 	}
 `;
 
-export const StyledCloseButton = styled.button`
-	position: fixed;
-	top: 20px;
-	right: 20px;
+const lightboxButton = css`
 	z-index: var(--z-overlay-content);
 	width: 44px;
 	height: 44px;
@@ -56,37 +53,24 @@ export const StyledCloseButton = styled.button`
 	}
 `;
 
+export const StyledCloseButton = styled.button`
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	${lightboxButton}
+`;
+
 export const StyledNavButton = styled.button<{ $direction: 'prev' | 'next' }>`
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
 	${({ $direction }) => ($direction === 'prev' ? 'left: 16px;' : 'right: 16px;')}
-	z-index: var(--z-overlay-content);
-	width: 44px;
-	height: 44px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-	border: 1px solid var(--lightbox-btn-border);
-	background: var(--lightbox-btn-bg);
-	color: var(--lightbox-btn-color);
-	transition: background var(--transition-base);
-	backdrop-filter: blur(8px);
+	${lightboxButton}
 
 	${mq.up('mobile-lg')} {
 		width: 48px;
 		height: 48px;
 		${({ $direction }) => ($direction === 'prev' ? 'left: 24px;' : 'right: 24px;')}
-	}
-
-	&:hover {
-		background: var(--lightbox-btn-hover-bg);
-	}
-
-	&:focus-visible {
-		outline: 2px solid var(--lightbox-btn-focus);
-		outline-offset: 2px;
 	}
 `;
 

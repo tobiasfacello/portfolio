@@ -1,21 +1,5 @@
 import styled from 'styled-components';
-import { glassGradientBorder } from '../../../styles/mixins';
-
-export const StyledContribCount = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-label);
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-muted);
-`;
-
-export const StyledHandle = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.75rem;
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-soft);
-`;
+import { tooltipBase } from '../../../styles/mixins';
 
 // Calendar wrapper — contains month labels, day labels, and contribution grid
 export const StyledCalendarWrapper = styled.div`
@@ -114,22 +98,7 @@ export const StyledContribTooltip = styled.div<{
 	$position: TooltipPosition;
 	$align: TooltipAlign;
 }>`
-	position: absolute;
-	z-index: var(--z-tooltip);
-	white-space: nowrap;
-	padding: var(--6) var(--12);
-	border-radius: var(--radius-md);
-	pointer-events: none;
-
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-label);
-	font-weight: var(--font-weight-medium);
-	color: var(--text);
-
-	background-color: var(--glass-bg);
-	backdrop-filter: blur(var(--blur-sm));
-	-webkit-backdrop-filter: blur(var(--blur-sm));
-	${glassGradientBorder({ radius: 'var(--radius-md)' })}
+	${tooltipBase}
 
 	&::before {
 		content: '';

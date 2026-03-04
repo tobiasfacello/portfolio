@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { widgetText } from '../../../styles/mixins';
 
 export const StyledProfileInfo = styled.div`
 	display: flex;
@@ -17,11 +18,8 @@ export const StyledHeadline = styled.span`
 `;
 
 export const StyledPosition = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.75rem;
+	${widgetText('0.75rem', 'var(--opacity-muted)')}
 	line-height: 1.25;
-	color: var(--text);
-	opacity: var(--opacity-muted);
 `;
 
 export const StyledLocation = styled.span`
@@ -45,13 +43,9 @@ export const StyledLocation = styled.span`
 `;
 
 export const StyledSectionLabel = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.5625rem;
-	line-height: 1;
+	${widgetText('0.5625rem', 'var(--opacity-muted)')}
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
-	color: var(--text);
-	opacity: var(--opacity-muted);
 `;
 
 export const StyledExperienceList = styled.div`
@@ -89,19 +83,12 @@ export const StyledExperienceTitle = styled.span`
 	display: flex;
 	align-items: center;
 	gap: var(--6);
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.75rem;
+	${widgetText('0.75rem', 'var(--opacity-medium)')}
 	line-height: 1.25;
-	color: var(--text);
-	opacity: var(--opacity-medium);
 `;
 
 export const StyledExperiencePeriod = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.625rem;
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-muted);
+	${widgetText('0.625rem', 'var(--opacity-muted)')}
 `;
 
 export const StyledCurrentBadge = styled.span`

@@ -6,6 +6,7 @@ export default memo(function Text(props: TextProps) {
 	return (
 		<StyledText
 			as={props.as}
+			style={props.style}
 			$w={props.w}
 			$h={props.h}
 			$m={props.m}

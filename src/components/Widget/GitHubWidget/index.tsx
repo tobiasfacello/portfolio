@@ -2,7 +2,6 @@ import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 
 //* Styled
 import {
-	StyledContribCount,
 	StyledCalendarWrapper,
 	StyledMonthRow,
 	StyledMonthLabel,
@@ -11,8 +10,8 @@ import {
 	StyledContributionGrid,
 	StyledSquare,
 	StyledContribTooltip,
-	StyledHandle,
 } from './styled';
+import { StyledWidgetHandle, StyledWidgetStat } from '../WidgetBase/styled';
 
 //* Components
 import WidgetBase from '../WidgetBase';
@@ -299,10 +298,10 @@ export default function GitHubWidget() {
 			loading={loading}
 			error={error}
 		>
-			<StyledHandle>@{GITHUB_USERNAME}</StyledHandle>
-			<StyledContribCount>
+			<StyledWidgetHandle>@{GITHUB_USERNAME}</StyledWidgetHandle>
+			<StyledWidgetStat>
 				{totalContributions.toLocaleString()} contributions in {CURRENT_YEAR}
-			</StyledContribCount>
+			</StyledWidgetStat>
 
 			<StyledCalendarWrapper ref={wrapperRef}>
 				{actualWeeks > 0 && (

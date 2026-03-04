@@ -12,7 +12,7 @@ import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
 
 //* Styles
-import { sectionBase } from "../../styles/mixins";
+import { sectionBase, iconWrapper } from "../../styles/mixins";
 
 const StyledSkills = styled.section`
 	${sectionBase('skills')}
@@ -21,18 +21,9 @@ const StyledSkills = styled.section`
 `;
 
 const StyledIcon = styled.span`
-	width: var(--control-md);
-	height: var(--control-md);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${iconWrapper('var(--control-md)')}
 	color: var(--text);
 	opacity: var(--opacity-soft);
-
-	svg {
-		width: 100%;
-		height: 100%;
-	}
 `;
 
 const StyledIconGrid = styled.div<{ $gap: string }>`

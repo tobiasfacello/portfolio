@@ -1,18 +1,11 @@
 import styled from 'styled-components';
-import { glassCard, hoveredPillStyles } from '../../styles/mixins';
+import { glassCard, hoveredPillStyles, iconWrapper } from '../../styles/mixins';
 import { mq } from '../../config/breakpoints';
 
 export const TechPillIcon = styled.span`
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 10px;
-	height: 10px;
-	flex-shrink: 0;
+	${iconWrapper('10px')}
 
 	& svg {
-		width: 100%;
-		height: 100%;
 		pointer-events: none;
 	}
 `;

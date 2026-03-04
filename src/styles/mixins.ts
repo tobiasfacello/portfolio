@@ -135,6 +135,73 @@ export const sectionBase = (gridArea: string) => css`
 	}
 `;
 
+export const tooltipBase = css`
+	position: absolute;
+	z-index: var(--z-tooltip);
+	white-space: nowrap;
+	padding: var(--6) var(--12);
+	border-radius: var(--radius-md);
+	pointer-events: none;
+
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-label);
+	font-weight: var(--font-weight-medium);
+	color: var(--text);
+
+	background-color: var(--glass-bg);
+	backdrop-filter: blur(var(--blur-sm));
+	-webkit-backdrop-filter: blur(var(--blur-sm));
+	${glassGradientBorder({ radius: 'var(--radius-md)' })}
+`;
+
+export const iconWrapper = (size: string) => css`
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: ${size};
+	height: ${size};
+	flex-shrink: 0;
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+`;
+
+export const responsiveCardPadding = css`
+	padding: 0.5rem;
+	${mq.up('mobile-lg')} {
+		padding: 1rem;
+	}
+`;
+
+export const imageCardContent = (hoverScale = 1.01) => css`
+	& > img {
+		width: 100%;
+		height: auto;
+		display: block;
+		object-fit: cover;
+		border-radius: 12px;
+		transition: transform 300ms ease-in-out;
+
+		${mq.up('mobile-lg')} {
+			border-radius: 8px;
+		}
+	}
+
+	&:hover > img {
+		transform: scale(${hoverScale});
+	}
+`;
+
+export const widgetText = (fontSize: string, opacity: string) => css`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: ${fontSize};
+	line-height: 1;
+	color: var(--text);
+	opacity: ${opacity};
+`;
+
 export const noisePatternBackground = css`
 	position: relative;
 	isolation: isolate;

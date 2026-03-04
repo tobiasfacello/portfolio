@@ -170,8 +170,8 @@ export function usePillDegradation(options: UsePillDegradationOptions): UsePillD
 		setLevel(newLevel);
 		setTechIconOnly(newTechIconOnly);
 		techIconOnlyRef.current = newTechIconOnly;
-		setReady(true);
-	}, [resizeTick, gap, tag]);
+		if (!ready) setReady(true);
+	}, [resizeTick, gap, tag, ready]);
 
 	// Hidden measurement layer — FULL (with tag) and ICON_ONLY (no tag)
 	const defaultPadding = ['4', '8', '4', '6'];

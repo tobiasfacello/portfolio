@@ -10,9 +10,8 @@ import {
 	StyledTweetText,
 	StyledTweetMeta,
 	StyledTweetStat,
-	StyledHandle,
-	StyledPostCount,
 } from './styled';
+import { StyledWidgetHandle, StyledWidgetStat } from '../WidgetBase/styled';
 
 //* Icon registry
 import { iconRegistry } from '../../Icon';
@@ -37,17 +36,25 @@ function ClockSvg() {
 	);
 }
 
+const formatDateCache = new Map<string, string>();
 function formatDate(dateStr: string): string {
+	const cached = formatDateCache.get(dateStr);
+	if (cached) return cached;
+
 	const date = new Date(dateStr);
 	const now = new Date();
 	const diffMs = now.getTime() - date.getTime();
 	const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-	if (diffDays === 0) return 'today';
-	if (diffDays === 1) return '1d ago';
-	if (diffDays < 30) return `${diffDays}d ago`;
-	if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`;
-	return `${Math.floor(diffDays / 365)}y ago`;
+	let result: string;
+	if (diffDays === 0) result = 'today';
+	else if (diffDays === 1) result = '1d ago';
+	else if (diffDays < 30) result = `${diffDays}d ago`;
+	else if (diffDays < 365) result = `${Math.floor(diffDays / 30)}mo ago`;
+	else result = `${Math.floor(diffDays / 365)}y ago`;
+
+	formatDateCache.set(dateStr, result);
+	return result;
 }
 
 export default function TwitterWidget() {
@@ -63,8 +70,8 @@ export default function TwitterWidget() {
 			loading={loading}
 			error={error}
 		>
-			<StyledHandle>{TWITTER_HANDLE}</StyledHandle>
-			<StyledPostCount>~100 posts</StyledPostCount>
+			<StyledWidgetHandle>{TWITTER_HANDLE}</StyledWidgetHandle>
+			<StyledWidgetStat>~100 posts</StyledWidgetStat>
 
 			<StyledTweetList>
 				{tweets.slice(0, 3).map((tweet) => (

@@ -6,7 +6,7 @@ import {
 	StyledTitle,
 	StyledMetaSummary,
 	StyledMetaDot,
-	StyledTagsRow,
+	StyledPillsRow,
 } from '../styled';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 
@@ -33,7 +33,7 @@ function DetailHeader({ title, roles, tags, publishedDate, outcome }: DetailHead
 				<StyledMetaDot />
 				<span>{outcome}</span>
 			</StyledMetaSummary>
-			<StyledTagsRow>
+			<StyledPillsRow>
 				{roles.map((role) => (
 					<PillTag
 						key={role}
@@ -48,7 +48,7 @@ function DetailHeader({ title, roles, tags, publishedDate, outcome }: DetailHead
 						p={['4', '8', '4', '8']}
 					/>
 				))}
-			</StyledTagsRow>
+			</StyledPillsRow>
 		</StyledDetailHeader>
 	);
 }

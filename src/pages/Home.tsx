@@ -1,10 +1,13 @@
 //! Third-party
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { mq } from '../config/breakpoints';
 
+//? Hooks
+import { useStaggerReveal } from '../hooks/useStaggerReveal';
+
 //* Components
-import Header from '../components/Containers/Header';
 import Profile from '../components/Containers/Profile';
 import About from '../components/Containers/About';
 import Projects from '../components/Containers/Projects';
@@ -58,6 +61,10 @@ const StyledMain = styled.main`
 
 function Home() {
 	const { t } = useTranslation('common');
+	const gridRef = useRef<HTMLDivElement>(null);
+	const footerRef = useRef<HTMLElement>(null);
+
+	useStaggerReveal(gridRef, footerRef);
 
 	return (
 		<>
@@ -66,8 +73,7 @@ function Home() {
 			</a>
 			<StyledMain id="main-content">
 				<h1 className="sr-only">Tobias Facello — Frontend Developer</h1>
-				<Header />
-				<StyledGrid>
+				<StyledGrid ref={gridRef}>
 					<Profile />
 					<About />
 					<Projects />
@@ -75,7 +81,7 @@ function Home() {
 					<Works />
 					<ActivityFeed />
 				</StyledGrid>
-				<Footer />
+				<Footer ref={footerRef} />
 			</StyledMain>
 		</>
 	);

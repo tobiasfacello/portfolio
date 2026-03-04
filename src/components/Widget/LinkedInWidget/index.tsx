@@ -27,9 +27,10 @@ import { iconRegistry } from '../../Icon';
 import { LINKEDIN_URL } from '../../../data/socialFeed';
 import { linkedinProfile } from '../../../data/staticSocial';
 
+const visibleExperience = linkedinProfile.experience?.slice(0, 4);
+
 export default function LinkedInWidget() {
 	const { isDarkMode } = useTheme();
-	const visibleExperience = linkedinProfile.experience?.slice(0, 4);
 
 	return (
 		<WidgetBase

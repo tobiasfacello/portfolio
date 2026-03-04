@@ -10,9 +10,13 @@ const breakpointOrder: { key: Breakpoint; minWidth: number }[] = [
 	{ key: 'mobile-lg', minWidth: BREAKPOINTS['mobile-lg'] },
 ];
 
+const mqls = typeof window !== 'undefined'
+	? breakpointOrder.map(({ minWidth }) => window.matchMedia(`(min-width: ${minWidth}px)`))
+	: [];
+
 function computeBreakpoint(): Breakpoint {
-	for (const { key, minWidth } of breakpointOrder) {
-		if (window.matchMedia(`(min-width: ${minWidth}px)`).matches) return key;
+	for (let i = 0; i < breakpointOrder.length; i++) {
+		if (mqls[i].matches) return breakpointOrder[i].key;
 	}
 	return 'mobile-sm';
 }
@@ -21,9 +25,8 @@ const listeners = new Set<() => void>();
 let cachedBreakpoint = typeof window !== 'undefined' ? computeBreakpoint() : 'mobile-sm' as Breakpoint;
 
 if (typeof window !== 'undefined') {
-	// Single set of listeners for all breakpoints
-	for (const { minWidth } of breakpointOrder) {
-		window.matchMedia(`(min-width: ${minWidth}px)`).addEventListener('change', () => {
+	for (const mql of mqls) {
+		mql.addEventListener('change', () => {
 			const next = computeBreakpoint();
 			if (next !== cachedBreakpoint) {
 				cachedBreakpoint = next;

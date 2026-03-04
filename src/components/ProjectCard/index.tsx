@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledProjectCard, TechPill, TechPillIcon, PillWrapper } from './styled';
 
@@ -44,17 +44,7 @@ function ProjectCard(props: ProjectCardProps) {
 		animationName,
 	});
 
-	useEffect(() => {
-		if (!props.src) return;
-		const img = new Image();
-		img.src = props.src;
-		if (img.complete) {
-			setImageLoaded(true);
-		} else {
-			img.onload = () => setImageLoaded(true);
-		}
-		return () => { img.onload = null; };
-	}, [props.src]);
+	const handleImageLoad = () => setImageLoaded(true);
 
 	// Pill content derived from level — hide text when animation is present
 	const pillTag = animationName ? undefined : level === PillDisplay.FULL ? tag : undefined;
@@ -131,6 +121,7 @@ function ProjectCard(props: ProjectCardProps) {
 					src={props.src}
 					alt={`${title} logo`}
 					loading="lazy"
+					onLoad={handleImageLoad}
 					style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
 				/>
 			</Container>

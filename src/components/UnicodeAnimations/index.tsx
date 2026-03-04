@@ -62,12 +62,15 @@ export default memo(function UnicodeAnimation({
 		});
 		frameRef.current = 0;
 
-		const pendingTimeouts: ReturnType<typeof setTimeout>[] = [];
+		let pendingTimeouts: ReturnType<typeof setTimeout>[] = [];
 
 		const id = setInterval(() => {
 			const nextIndex = (frameRef.current + 1) % animation.frames.length;
 			frameRef.current = nextIndex;
 			const frame = animation.frames[nextIndex];
+
+			pendingTimeouts.forEach(clearTimeout);
+			pendingTimeouts = [];
 
 			chars.forEach((span, i) => {
 				if (!span) return;

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { glassGradientBorder } from '../../styles/mixins';
+import { glassGradientBorder, iconWrapper } from '../../styles/mixins';
 
 const arrowSize = 5;
 
@@ -126,13 +126,6 @@ export const StyledTooltipBridge = styled.span<{
 `;
 
 export const StyledTooltipIcon = styled.span`
-	display: inline-flex;
-	width: var(--icon-xs);
-	height: var(--icon-xs);
+	${iconWrapper('var(--icon-xs)')}
 	color: inherit;
-
-	svg {
-		width: 100%;
-		height: 100%;
-	}
 `;

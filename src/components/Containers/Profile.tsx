@@ -21,6 +21,9 @@ import { iconRegistry } from "../Icon";
 //* Styles
 import { sectionBase } from "../../styles/mixins";
 
+//? Data
+import { TWITTER_URL, THREADS_URL, INSTAGRAM_URL, LINKEDIN_URL, GITHUB_URL, CONTRA_URL } from "../../data/socialFeed";
+
 const StyledProfile = styled.div`
   ${sectionBase('profile')}
   justify-content: space-between;
@@ -65,37 +68,37 @@ export default function Profile() {
         </Text>
         <Container justify={"center"} align={"center"} gap={"8px"}>
           <SocialButton
-            url={"https://www.x.com/fachebits"}
+            url={TWITTER_URL}
             Icon={iconRegistry.twitter}
             alt="Twitter"
             tooltipPosition="bottom"
           />
           <SocialButton
-            url={"https://www.threads.net/@fache.bits"}
+            url={THREADS_URL}
             Icon={iconRegistry.threads}
             alt="Threads"
             tooltipPosition="bottom"
           />
           <SocialButton
-            url={"https://www.instagram.com/fache.bits/"}
+            url={INSTAGRAM_URL}
             Icon={iconRegistry.instagram}
             alt="Instagram"
             tooltipPosition="bottom"
           />
           <SocialButton
-            url={"https://www.linkedin.com/in/tobiasfacello/"}
+            url={LINKEDIN_URL}
             Icon={iconRegistry.linkedin}
             alt="LinkedIn"
             tooltipPosition="bottom"
           />
           <SocialButton
-            url={"https://www.github.com/tobiasfacello"}
+            url={GITHUB_URL}
             Icon={iconRegistry.github}
             alt="GitHub"
             tooltipPosition="bottom"
           />
           <SocialButton
-            url={"https://contra.com/tobiasfacello"}
+            url={CONTRA_URL}
             Icon={iconRegistry.contra}
             alt="Contra"
             tooltipPosition="bottom"

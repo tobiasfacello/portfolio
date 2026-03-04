@@ -20,19 +20,19 @@ const StyledContainer = styled.div<{
 }>`
 	${(props) => props.$css}
 	width: ${(props) => (props.$w == null ? "100%" : props.$w)};
-	min-width: ${(props) => (props.$minW == null ? "" : props.$minW)};
-	max-width: ${(props) => (props.$maxW == null ? "" : props.$maxW)};
-	height: ${(props) => (props.$h == null ? "100%" : props.$h)};
-	min-height: ${(props) => (props.$minH == null ? "" : props.$minH)};
-	max-height: ${(props) => (props.$maxH == null ? "" : props.$maxH)};
+	${(props) => props.$minW != null && `min-width: ${props.$minW};`}
+	${(props) => props.$maxW != null && `max-width: ${props.$maxW};`}
+	height: ${(props) => props.$h ?? "100%"};
+	${(props) => props.$minH != null && `min-height: ${props.$minH};`}
+	${(props) => props.$maxH != null && `max-height: ${props.$maxH};`}
 	display: flex;
 	margin: ${(props) => spacingArray(props.$m)};
 	padding: ${(props) => spacingArray(props.$p)};
-	flex-direction: ${(props) => props.$direction != null && props.$direction};
-	flex-wrap: ${(props) => props.$wrap != null && props.$wrap};
-	justify-content: ${(props) => props.$justify != null && props.$justify};
-	align-items: ${(props) => props.$align != null && props.$align};
-	gap: ${(props) => props.$gap != null && props.$gap};
+	${(props) => props.$direction != null && `flex-direction: ${props.$direction};`}
+	${(props) => props.$wrap != null && `flex-wrap: ${props.$wrap};`}
+	${(props) => props.$justify != null && `justify-content: ${props.$justify};`}
+	${(props) => props.$align != null && `align-items: ${props.$align};`}
+	${(props) => props.$gap != null && `gap: ${props.$gap};`}
 `;
 
 function Container(props: ContainerProps) {

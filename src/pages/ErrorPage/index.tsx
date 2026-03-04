@@ -7,6 +7,7 @@ import { useNavigate, useRouteError, isRouteErrorResponse } from 'react-router-d
 //! Styled Components
 import styled from 'styled-components';
 import { mq } from '../../config/breakpoints';
+import { interactiveHover } from '../../styles/mixins';
 
 const asciiLines = [
 	'██╗  ██╗ ██████╗ ██╗  ██╗',
@@ -97,12 +98,10 @@ const HomeButton = styled.a`
 	align-items: center;
 	height: 36px;
 	padding: var(--8) var(--24);
-	opacity: 0.4;
 	background-color: transparent;
 	border: 1px solid var(--text);
 	border-radius: var(--radius-md);
 	text-decoration: none;
-	transition: all var(--transition-fast);
 	cursor: pointer;
 
 	font-family: var(--font-geist-pixel-circle);
@@ -111,17 +110,10 @@ const HomeButton = styled.a`
 	font-weight: 500;
 	color: var(--text);
 
-	&:hover {
-		opacity: 1;
-		background-color: var(--accent);
-		border: 1px solid var(--primary);
-		color: var(--pill-text-hovered);
-		font-weight: 500;
-	}
+	${interactiveHover}
 
-	&:active {
-		background-color: var(--primary);
-		transition: all 100ms;
+	&:hover {
+		color: var(--pill-text-hovered);
 	}
 `;
 
@@ -153,24 +145,27 @@ interface ErrorPageProps {
 	onReset?: () => void;
 }
 
-/**
- * RouterErrorPage -- used as `errorElement` in the router config.
- * Has access to useNavigate and useRouteError hooks.
- */
-function RouterErrorPage() {
+function useGoHome() {
 	const navigate = useNavigate();
-	const routeError = useRouteError();
-
-	const is404 = isRouteErrorResponse(routeError) && routeError.status === 404;
-	const message = is404 ? 'Pagina no encontrada :(' : 'Algo salio mal :(';
-
-	const handleGoHome = useCallback(
+	return useCallback(
 		(e: React.MouseEvent) => {
 			e.preventDefault();
 			navigate('/');
 		},
 		[navigate]
 	);
+}
+
+/**
+ * RouterErrorPage -- used as `errorElement` in the router config.
+ * Has access to useNavigate and useRouteError hooks.
+ */
+function RouterErrorPage() {
+	const routeError = useRouteError();
+	const handleGoHome = useGoHome();
+
+	const is404 = isRouteErrorResponse(routeError) && routeError.status === 404;
+	const message = is404 ? 'Pagina no encontrada :(' : 'Algo salio mal :(';
 
 	return <ErrorLayout message={message} onGoHome={handleGoHome} />;
 }
@@ -180,15 +175,7 @@ function RouterErrorPage() {
  * Has router context (useNavigate) but no route error.
  */
 function NotFoundPage() {
-	const navigate = useNavigate();
-
-	const handleGoHome = useCallback(
-		(e: React.MouseEvent) => {
-			e.preventDefault();
-			navigate('/');
-		},
-		[navigate]
-	);
+	const handleGoHome = useGoHome();
 
 	return <ErrorLayout message="Pagina no encontrada :(" onGoHome={handleGoHome} />;
 }

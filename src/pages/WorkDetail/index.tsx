@@ -51,7 +51,7 @@ function WorkDetail() {
 	const tools = t(`${slug}.tools`, { returnObjects: true }) as string[];
 	const process = t(`${slug}.process`, { returnObjects: true }) as Record<string, { title: string; content: string }>;
 
-	const images = slug ? workImages[slug] : undefined;
+	const images = workImages[slug!];
 
 	return (
 		<LightboxProvider>

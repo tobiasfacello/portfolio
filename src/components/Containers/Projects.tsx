@@ -56,7 +56,7 @@ function Projects() {
 				<Container
 					h={bp.startsWith('desktop') ? '100%' : undefined}
 					direction={'column'}
-					justify={bp.startsWith('desktop') ? 'center' : 'center'}
+					justify={'center'}
 					align={'center'}
 					gap={cfg.cardGap}
 				>

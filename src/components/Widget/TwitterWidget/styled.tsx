@@ -90,18 +90,3 @@ export const StyledTweetMeta = styled.div`
 	gap: var(--8);
 `;
 
-export const StyledHandle = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.75rem;
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-soft);
-`;
-
-export const StyledPostCount = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-label);
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-muted);
-`;

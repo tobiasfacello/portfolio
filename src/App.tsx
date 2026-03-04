@@ -1,19 +1,17 @@
 //! Router
-import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
 //! Lenis
 import ReactLenis from 'lenis/react';
 
 //* Context
 import { ThemeProvider } from './context/ThemeContext';
-import { SplashProvider, useSplash } from './context/SplashContext';
 import { BreakpointProvider } from './context/BreakpointContext';
 
 //* Components
 import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import { RouterErrorPage, NotFoundPage } from './pages/ErrorPage';
-import SplashScreen from './components/SplashScreen';
 
 //? Hooks
 import { useScrollReset } from './hooks/useScrollReset';
@@ -27,16 +25,6 @@ function ScrollReset() {
 	return null;
 }
 
-function SplashGuard() {
-	const { isSplashActive } = useSplash();
-	const location = useLocation();
-
-	if (isSplashActive && location.pathname === '/') {
-		return <SplashScreen />;
-	}
-	return null;
-}
-
 function AppShell() {
 	const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -44,7 +32,6 @@ function AppShell() {
 		<BreakpointProvider>
 			<ThemeProvider>
 				<ScrollReset />
-				<SplashGuard />
 				<Outlet />
 			</ThemeProvider>
 		</BreakpointProvider>
@@ -83,9 +70,7 @@ const router = createBrowserRouter([
 function App() {
 	return (
 		<ErrorBoundary>
-			<SplashProvider>
-				<RouterProvider router={router} />
-			</SplashProvider>
+			<RouterProvider router={router} />
 		</ErrorBoundary>
 	);
 }

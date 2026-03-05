@@ -179,3 +179,22 @@ export const gitHubCalendarConfig: Record<Breakpoint, GitHubCalendarConfig> = fi
 	tablet: { squareGap: 3, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
 	'desktop-md': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
 }, { squareGap: 3, squareRadius: 2, showDayLabels: false, showMonthLabels: true });
+
+// ── Blog ────────────────────────────────────────────────
+
+interface BlogConfig {
+	outerW: string;
+	outerMaxW?: string;
+	outerGap: string;
+	gridColumns: number;
+	gridGap: string;
+}
+
+const desktopBlog: BlogConfig = { outerW: '100%', outerGap: '24px', gridColumns: 3, gridGap: '12px' };
+
+export const blogConfig: Record<Breakpoint, BlogConfig> = fillBreakpoints({
+	'mobile-sm': { outerW: '100%', outerMaxW: '500px', outerGap: '24px', gridColumns: 1, gridGap: '12px' },
+	'mobile-lg': { outerW: '80%', outerGap: '24px', gridColumns: 1, gridGap: '12px' },
+	tablet: { outerW: '80%', outerGap: '24px', gridColumns: 3, gridGap: '12px' },
+	'desktop-sm': desktopBlog,
+}, { outerW: '100%', outerGap: '24px', gridColumns: 1, gridGap: '12px' });

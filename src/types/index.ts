@@ -210,4 +210,9 @@ export type LinkedInProfile = {
 	experience?: LinkedInExperience[];
 };
 
-export type BlogCardLayout = 'vertical' | 'horizontal' | 'horizontal-reverse';
+export type BlogCardProps = {
+	title: string;
+	excerpt: string;
+	thumbnail: string;
+	tags: string[];
+};

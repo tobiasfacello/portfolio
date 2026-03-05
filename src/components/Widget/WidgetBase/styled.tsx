@@ -12,6 +12,21 @@ export const StyledWidgetCard = styled.div`
 	width: 100%;
 	min-height: 280px;
 	${glassCard(true)}
+
+	/* Move backdrop-filter to pseudo so nested tooltip blur works */
+	backdrop-filter: none;
+	isolation: isolate;
+
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		backdrop-filter: blur(var(--blur-sm));
+		-webkit-backdrop-filter: blur(var(--blur-sm));
+		z-index: -1;
+		pointer-events: none;
+	}
 `;
 
 export const StyledWidgetHeader = styled.div`

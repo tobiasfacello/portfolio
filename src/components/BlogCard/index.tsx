@@ -4,31 +4,31 @@ import {
 	StyledBlogCard,
 	StyledBlogCardContent,
 	StyledBlogCardExcerpt,
-	StyledBlogCardImage,
+	StyledBlogCardImageWrapper,
+	StyledBlogCardTags,
+	StyledBlogTag,
 } from './styled';
 
 //? Types
-import type { BlogCardLayout } from '../../types';
+import type { BlogCardProps } from '../../types';
 
-type BlogCardProps = {
-	title: string;
-	excerpt: string;
-	thumbnail: string;
-	layout: BlogCardLayout;
-};
-
-function BlogCard({ title, excerpt, thumbnail, layout }: BlogCardProps) {
+function BlogCard({ title, excerpt, thumbnail, tags }: BlogCardProps) {
 	return (
-		<StyledBlogCard $layout={layout}>
-			<StyledBlogCardContent $layout={layout}>
-				<Text as="h3" variant="subtitle">
+		<StyledBlogCard>
+			<StyledBlogCardContent>
+				<Text as="h3" variant="body">
 					{title}
 				</Text>
 				<StyledBlogCardExcerpt>{excerpt}</StyledBlogCardExcerpt>
 			</StyledBlogCardContent>
-			<StyledBlogCardImage $layout={layout}>
+			<StyledBlogCardImageWrapper>
 				<img src={thumbnail} alt={title} loading="lazy" />
-			</StyledBlogCardImage>
+				<StyledBlogCardTags>
+					{tags.map((tag) => (
+						<StyledBlogTag key={tag}>{tag}</StyledBlogTag>
+					))}
+				</StyledBlogCardTags>
+			</StyledBlogCardImageWrapper>
 		</StyledBlogCard>
 	);
 }

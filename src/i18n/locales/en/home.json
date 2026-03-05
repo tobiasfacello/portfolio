@@ -39,18 +39,22 @@
 	},
 	"blog": {
 		"title": "BLOG",
+		"comingSoon": "Coming Soon",
 		"posts": [
 			{
 				"title": "Building interfaces with glassmorphism",
-				"excerpt": "Glassmorphism has established itself as a design trend that combines transparency, blur and subtle borders to create modern interfaces. In this article we explore how to implement it with CSS and styled-components..."
+				"excerpt": "Glassmorphism has established itself as a design trend that combines transparency, blur and subtle borders to create modern interfaces. In this article we explore how to implement it with CSS and styled-components...",
+				"tags": ["Design", "CSS"]
 			},
 			{
 				"title": "Performant animations with GSAP and React",
-				"excerpt": "GSAP is one of the most powerful animation libraries in the web ecosystem. Integrating it with React requires understanding component lifecycle and how to handle DOM references correctly..."
+				"excerpt": "GSAP is one of the most powerful animation libraries in the web ecosystem. Integrating it with React requires understanding component lifecycle and how to handle DOM references correctly...",
+				"tags": ["React", "GSAP"]
 			},
 			{
 				"title": "Scalable design systems in TypeScript",
-				"excerpt": "A good design system doesn't just define colors and typography, it establishes typed contracts between design and development. We explore how TypeScript helps us maintain consistency..."
+				"excerpt": "A good design system doesn't just define colors and typography, it establishes typed contracts between design and development. We explore how TypeScript helps us maintain consistency...",
+				"tags": ["Design", "TypeScript"]
 			}
 		]
 	}

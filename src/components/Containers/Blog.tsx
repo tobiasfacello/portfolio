@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Container from './Container';
 import Text from '../Text';
 import BlogCard from '../BlogCard';
+import { iconRegistry } from '../Icon';
 
 //? Hooks & Config
 import { useBreakpoint, isMobile } from '../../hooks/useBreakpoint';
@@ -12,9 +13,6 @@ import { blogConfig } from '../../config/responsive';
 
 //* Styles
 import { sectionBase } from '../../styles/mixins';
-
-//? Types
-import type { BlogCardLayout } from '../../types';
 
 //? Data
 import { blogPlaceholders } from '../../data/blogPlaceholders';
@@ -32,7 +30,27 @@ const StyledBlogGrid = styled.div<{ $columns: number; $gap: string }>`
 	gap: ${(props) => props.$gap};
 `;
 
-const CARD_LAYOUTS: BlogCardLayout[] = ['horizontal', 'vertical', 'horizontal-reverse'];
+const StyledComingSoonOverlay = styled.div`
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(
+		to bottom,
+		transparent 0%,
+		color-mix(in srgb, var(--overlay-solid) 70%, transparent) 55%
+	);
+	backdrop-filter: blur(var(--blur-sm));
+	-webkit-backdrop-filter: blur(var(--blur-sm));
+	border-radius: inherit;
+	user-select: none;
+	pointer-events: none;
+	gap: var(--8);
+`;
+
+const MOBILE_TITLE_STYLE = { alignSelf: 'flex-start' } as const;
 
 export default function Blog() {
 	const bp = useBreakpoint();
@@ -42,10 +60,17 @@ export default function Blog() {
 	const posts = t('blog.posts', { returnObjects: true }) as Array<{
 		title: string;
 		excerpt: string;
+		tags: string[];
 	}>;
 
 	return (
 		<StyledBlog>
+			<StyledComingSoonOverlay>
+				<iconRegistry.toolCase width={32} height={32} />
+				<Text as="span" variant="title">
+					{t('blog.comingSoon')}
+				</Text>
+			</StyledComingSoonOverlay>
 			<Container
 				w={cfg.outerW}
 				maxW={cfg.outerMaxW}
@@ -54,17 +79,17 @@ export default function Blog() {
 				align={isMobile(bp) ? 'center' : 'start'}
 				gap={cfg.outerGap}
 			>
-				<Text as="h2" variant="subtitle-sm" style={isMobile(bp) ? { alignSelf: 'flex-start' } : undefined}>
+				<Text as="h2" variant="subtitle-sm" style={isMobile(bp) ? MOBILE_TITLE_STYLE : undefined}>
 					{t('blog.title')}
 				</Text>
 				<StyledBlogGrid $columns={cfg.gridColumns} $gap={cfg.gridGap}>
 					{posts.map((post, i) => (
 						<BlogCard
-							key={i}
+							key={post.title}
 							title={post.title}
 							excerpt={post.excerpt}
 							thumbnail={blogPlaceholders[i]}
-							layout={isMobile(bp) ? 'vertical' : CARD_LAYOUTS[i]}
+							tags={post.tags}
 						/>
 					))}
 				</StyledBlogGrid>

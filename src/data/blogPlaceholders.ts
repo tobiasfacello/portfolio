@@ -1,5 +1,5 @@
-export const blogPlaceholders = [
-	'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect fill="%231a1a2e" width="800" height="600"/></svg>',
-	'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800"><rect fill="%2316213e" width="600" height="800"/></svg>',
-	'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800"><rect fill="%230f3460" width="600" height="800"/></svg>',
-] as const;
+import blog1 from '../assets/images/blog-1.jpg';
+import blog2 from '../assets/images/blog-2.jpg';
+import blog3 from '../assets/images/blog-3.jpg';
+
+export const blogPlaceholders = [blog1, blog2, blog3] as const;

@@ -1,20 +1,12 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { glassCard } from '../../styles/mixins';
-import type { BlogCardLayout } from '../../types';
 
-const layoutDirection = (layout: BlogCardLayout) => {
-	if (layout === 'vertical') return 'column';
-	if (layout === 'horizontal-reverse') return 'row-reverse';
-	return 'row';
-};
-
-export const StyledBlogCard = styled.article<{ $layout: BlogCardLayout }>`
+export const StyledBlogCard = styled.article`
 	position: relative;
 	width: 100%;
 	display: flex;
-	flex-direction: ${(props) => layoutDirection(props.$layout)};
-	gap: var(--12);
-	padding: var(--12);
+	flex-direction: column;
+	padding: var(--8);
 	${glassCard(true)}
 	overflow: hidden;
 
@@ -23,56 +15,70 @@ export const StyledBlogCard = styled.article<{ $layout: BlogCardLayout }>`
 	}
 `;
 
-export const StyledBlogCardContent = styled.div<{ $layout: BlogCardLayout }>`
+export const StyledBlogCardContent = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	gap: var(--8);
-	${(props) =>
-		props.$layout !== 'vertical' &&
-		css`
-			flex: 1;
-			min-width: 0;
-		`}
+	gap: var(--4);
+	padding-bottom: var(--8);
 `;
 
 export const StyledBlogCardExcerpt = styled.p`
 	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-body-sm);
-	line-height: 1.5;
+	font-size: var(--font-size-label);
+	line-height: 1.4;
 	color: var(--text);
 	opacity: var(--opacity-medium);
 	display: -webkit-box;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 `;
 
-export const StyledBlogCardImage = styled.div<{ $layout: BlogCardLayout }>`
+export const StyledBlogCardImageWrapper = styled.div`
+	position: relative;
+	width: 100%;
+	height: 150px;
 	flex-shrink: 0;
 	overflow: hidden;
 	border-radius: var(--radius-md);
-
-	${(props) =>
-		props.$layout === 'vertical'
-			? css`
-					width: 100%;
-					aspect-ratio: 4/3;
-				`
-			: css`
-					width: 40%;
-					aspect-ratio: 3/4;
-				`}
 
 	& > img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center;
 		display: block;
-		transition: transform 300ms ease-in-out;
+		filter: sepia(0.3) saturate(0.6) brightness(0.9) hue-rotate(30deg);
+		transition: transform 300ms ease-in-out, filter 300ms ease-in-out;
 	}
 
 	${StyledBlogCard}:hover & > img {
 		transform: scale(1.03);
+		filter: sepia(0.15) saturate(0.7) brightness(0.95) hue-rotate(30deg);
 	}
+`;
+
+export const StyledBlogCardTags = styled.div`
+	position: absolute;
+	bottom: var(--8);
+	left: var(--8);
+	display: flex;
+	gap: var(--4);
+	z-index: 1;
+`;
+
+export const StyledBlogTag = styled.span`
+	display: inline-flex;
+	align-items: center;
+	height: 20px;
+	padding: 0 var(--8);
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-caption);
+	line-height: 1;
+	color: var(--text);
+	background-color: var(--glass-bg-bold);
+	backdrop-filter: blur(var(--blur-sm));
+	border: 1px solid var(--text);
+	border-radius: var(--radius-pill);
+	white-space: nowrap;
 `;

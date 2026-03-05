@@ -209,3 +209,12 @@ export type LinkedInProfile = {
 	location?: string;
 	experience?: LinkedInExperience[];
 };
+
+export type BlogCardLayout = 'vertical' | 'horizontal' | 'horizontal-reverse';
+
+export type BlogPostMock = {
+	title: string;
+	excerpt: string;
+	thumbnail: string;
+	layout: BlogCardLayout;
+};

@@ -36,5 +36,26 @@
 		"linkedin": {
 			"connectOn": "Conectar no LinkedIn"
 		}
+	},
+	"blog": {
+		"title": "BLOG",
+		"comingSoon": "Em Breve",
+		"posts": [
+			{
+				"title": "Construindo interfaces com glassmorphism",
+				"excerpt": "O glassmorphism se consolidou como uma tendência de design que combina transparência, blur e bordas sutis para criar interfaces modernas. Neste artigo exploramos como implementá-lo com CSS e styled-components...",
+				"tags": ["Design", "CSS"]
+			},
+			{
+				"title": "Animações performáticas com GSAP e React",
+				"excerpt": "GSAP é uma das bibliotecas de animação mais poderosas do ecossistema web. Integrá-la com React requer entender o ciclo de vida dos componentes e como lidar com referências do DOM corretamente...",
+				"tags": ["React", "GSAP"]
+			},
+			{
+				"title": "Sistemas de design escaláveis em TypeScript",
+				"excerpt": "Um bom sistema de design não define apenas cores e tipografias, mas estabelece contratos tipados entre design e desenvolvimento. Exploramos como TypeScript nos ajuda a manter a consistência...",
+				"tags": ["Design", "TypeScript"]
+			}
+		]
 	}
 }

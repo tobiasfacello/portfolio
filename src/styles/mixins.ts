@@ -149,8 +149,8 @@ export const tooltipBase = css`
 	color: var(--text);
 
 	background-color: var(--glass-bg);
-	backdrop-filter: blur(var(--blur-sm));
-	-webkit-backdrop-filter: blur(var(--blur-sm));
+	backdrop-filter: blur(var(--blur-md));
+	-webkit-backdrop-filter: blur(var(--blur-md));
 	${glassGradientBorder({ radius: 'var(--radius-md)' })}
 `;
 

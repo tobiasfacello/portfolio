@@ -61,6 +61,7 @@
 
 	/* Blur */
 	--blur-sm: 4px;
+	--blur-md: 12px;
 
 	/* Icon sizes */
 	--icon-xs: 0.875rem;
@@ -99,6 +100,7 @@
 		--primary: #c5c7bc;
 		--secondary: #444738;
 		--secondary-60: rgba(68, 71, 56, 0.6);
+		--overlay-solid: #27291e;
 		--accent: #dddfd8;
 		--glass-bg: rgba(197, 199, 188, 0.05);
 		--glass-bg-bold: rgba(197, 199, 188, 0.025);
@@ -139,6 +141,7 @@
 		--primary: #5a5d4e;
 		--secondary: #6a6d5e;
 		--secondary-60: rgba(106, 109, 94, 0.6);
+		--overlay-solid: #aeada3;
 		--accent: #444738;
 		--glass-bg: rgba(10, 11, 4, 0.04);
 		--glass-bg-bold: rgba(10, 11, 4, 0.06);
@@ -178,6 +181,7 @@
 	--primary: #c5c7bc;
 	--secondary: #444738;
 	--secondary-60: rgba(68, 71, 56, 0.6);
+	--overlay-solid: #27291e;
 	--accent: #dddfd8;
 	--glass-bg: rgba(197, 199, 188, 0.05);
 	--glass-bg-bold: rgba(197, 199, 188, 0.025);
@@ -216,6 +220,7 @@
 	--primary: #5a5d4e;
 	--secondary: #6a6d5e;
 	--secondary-60: rgba(106, 109, 94, 0.6);
+	--overlay-solid: #aeada3;
 	--accent: #444738;
 	--glass-bg: rgba(10, 11, 4, 0.04);
 	--glass-bg-bold: rgba(10, 11, 4, 0.06);

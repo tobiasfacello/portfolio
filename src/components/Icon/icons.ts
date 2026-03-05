@@ -41,6 +41,7 @@ import TwitterIcon from '../../assets/icons/Twitter.svg?react';
 import ArrowRightCircleIcon from '../../assets/icons/arrow-right-circle.svg?react';
 import ArrowUpRightIcon from '../../assets/icons/arrow-up-right.svg?react';
 import ExternalLinkIcon from '../../assets/icons/external-link.svg?react';
+import ToolCaseIcon from '../../assets/icons/tool-case.svg?react';
 
 export const iconRegistry = {
 	//* Technology
@@ -82,6 +83,7 @@ export const iconRegistry = {
 	arrowRightCircle: ArrowRightCircleIcon,
 	arrowUpRight: ArrowUpRightIcon,
 	externalLink: ExternalLinkIcon,
+	toolCase: ToolCaseIcon,
 } as const;
 
 export type IconName = keyof typeof iconRegistry;

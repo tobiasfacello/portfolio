@@ -209,3 +209,10 @@ export type LinkedInProfile = {
 	location?: string;
 	experience?: LinkedInExperience[];
 };
+
+export type BlogCardProps = {
+	title: string;
+	excerpt: string;
+	thumbnail: string;
+	tags: string[];
+};

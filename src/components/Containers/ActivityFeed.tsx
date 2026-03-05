@@ -29,6 +29,8 @@ const StyledWidgetGrid = styled.div<{ $columns: number; $gap: string }>`
 `;
 
 
+const MOBILE_TITLE_STYLE = { alignSelf: 'flex-start' } as const;
+
 export default function ActivityFeed() {
 	const bp = useBreakpoint();
 	const cfg = activityFeedConfig[bp];
@@ -44,7 +46,7 @@ export default function ActivityFeed() {
 				align={isMobile(bp) ? 'center' : 'start'}
 				gap={cfg.outerGap}
 			>
-				<Text as="h2" variant="subtitle-sm" style={isMobile(bp) ? { alignSelf: 'flex-start' } : undefined}>
+				<Text as="h2" variant="subtitle-sm" style={isMobile(bp) ? MOBILE_TITLE_STYLE : undefined}>
 					{t('activity.title')}
 				</Text>
 				<StyledWidgetGrid $columns={cfg.gridColumns} $gap={cfg.gridGap}>

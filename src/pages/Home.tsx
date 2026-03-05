@@ -14,6 +14,7 @@ import Projects from '../components/Containers/Projects';
 import Skills from '../components/Containers/Skills';
 import Works from '../components/Containers/Works';
 import ActivityFeed from '../components/Containers/ActivityFeed';
+import Blog from '../components/Containers/Blog';
 import Footer from '../components/Containers/Footer';
 
 const StyledGrid = styled.div`
@@ -28,21 +29,22 @@ const StyledGrid = styled.div`
 		width: 90%;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
-		grid-template-rows: auto minmax(462px, auto) auto;
+		grid-template-rows: auto auto minmax(462px, auto) auto;
 		grid-template-areas:
 			'about    profile  projects'
+			'activity activity activity'
 			'skills   works    works'
-			'activity activity activity';
+			'blog     blog     blog';
 		gap: 12px;
 		padding: 0;
 	}
 
 	${mq.up('desktop-lg')} {
-		grid-template-rows: auto minmax(510px, auto) auto;
+		grid-template-rows: auto auto minmax(510px, auto) auto;
 	}
 
 	${mq.up('desktop-xl')} {
-		grid-template-rows: auto minmax(530px, auto) auto;
+		grid-template-rows: auto auto minmax(530px, auto) auto;
 	}
 `;
 
@@ -77,9 +79,10 @@ function Home() {
 					<Profile />
 					<About />
 					<Projects />
+					<ActivityFeed />
 					<Skills />
 					<Works />
-					<ActivityFeed />
+					<Blog />
 				</StyledGrid>
 				<Footer ref={footerRef} />
 			</StyledMain>

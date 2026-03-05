@@ -146,9 +146,9 @@ export const carouselConfig: Record<Breakpoint, CarouselConfig> = fillBreakpoint
 	'desktop-xl': { useSwiper: true, slidesPerView: 3, centeredSlides: false, spaceBetween: 10 },
 }, { useSwiper: false });
 
-// ── Activity Feed ────────────────────────────────────────
+// ── Grid Section (shared by Activity Feed & Blog) ───────
 
-interface ActivityFeedConfig {
+interface GridSectionConfig {
 	outerW: string;
 	outerMaxW?: string;
 	outerGap: string;
@@ -156,14 +156,18 @@ interface ActivityFeedConfig {
 	gridGap: string;
 }
 
-const desktopActivity: ActivityFeedConfig = { outerW: '100%', outerGap: '24px', gridColumns: 3, gridGap: '12px' };
+const desktopGrid: GridSectionConfig = { outerW: '100%', outerGap: '24px', gridColumns: 3, gridGap: '12px' };
 
-export const activityFeedConfig: Record<Breakpoint, ActivityFeedConfig> = fillBreakpoints({
+const gridSectionBreakpoints: Partial<Record<Breakpoint, GridSectionConfig>> = {
 	'mobile-sm': { outerW: '100%', outerMaxW: '500px', outerGap: '24px', gridColumns: 1, gridGap: '12px' },
 	'mobile-lg': { outerW: '80%', outerGap: '24px', gridColumns: 1, gridGap: '12px' },
 	tablet: { outerW: '80%', outerGap: '24px', gridColumns: 3, gridGap: '12px' },
-	'desktop-sm': desktopActivity,
-}, { outerW: '100%', outerGap: '24px', gridColumns: 1, gridGap: '12px' });
+	'desktop-sm': desktopGrid,
+};
+
+const gridSectionFallback: GridSectionConfig = { outerW: '100%', outerGap: '24px', gridColumns: 1, gridGap: '12px' };
+
+export const activityFeedConfig: Record<Breakpoint, GridSectionConfig> = fillBreakpoints(gridSectionBreakpoints, gridSectionFallback);
 
 // ── GitHub Calendar ──────────────────────────────────────
 
@@ -179,3 +183,7 @@ export const gitHubCalendarConfig: Record<Breakpoint, GitHubCalendarConfig> = fi
 	tablet: { squareGap: 3, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
 	'desktop-md': { squareGap: 4, squareRadius: 3, showDayLabels: true, showMonthLabels: true },
 }, { squareGap: 3, squareRadius: 2, showDayLabels: false, showMonthLabels: true });
+
+// ── Blog ────────────────────────────────────────────────
+
+export const blogConfig: Record<Breakpoint, GridSectionConfig> = fillBreakpoints(gridSectionBreakpoints, gridSectionFallback);

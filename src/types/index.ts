@@ -211,10 +211,3 @@ export type LinkedInProfile = {
 };
 
 export type BlogCardLayout = 'vertical' | 'horizontal' | 'horizontal-reverse';
-
-export type BlogPostMock = {
-	title: string;
-	excerpt: string;
-	thumbnail: string;
-	layout: BlogCardLayout;
-};

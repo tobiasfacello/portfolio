@@ -64,7 +64,7 @@ export default function Blog() {
 							title={post.title}
 							excerpt={post.excerpt}
 							thumbnail={blogPlaceholders[i]}
-							layout={CARD_LAYOUTS[i]}
+							layout={isMobile(bp) ? 'vertical' : CARD_LAYOUTS[i]}
 						/>
 					))}
 				</StyledBlogGrid>

@@ -66,44 +66,46 @@ export default function Profile() {
         <Text as="h2" variant={"subtitle-sm"}>
           {t("profile.findMeAt")}
         </Text>
-        <Container justify={"center"} align={"center"} gap={"8px"}>
-          <SocialButton
-            url={TWITTER_URL}
-            Icon={iconRegistry.twitter}
-            alt="Twitter"
-            tooltipPosition="bottom"
-          />
-          <SocialButton
-            url={THREADS_URL}
-            Icon={iconRegistry.threads}
-            alt="Threads"
-            tooltipPosition="bottom"
-          />
-          <SocialButton
-            url={INSTAGRAM_URL}
-            Icon={iconRegistry.instagram}
-            alt="Instagram"
-            tooltipPosition="bottom"
-          />
-          <SocialButton
-            url={LINKEDIN_URL}
-            Icon={iconRegistry.linkedin}
-            alt="LinkedIn"
-            tooltipPosition="bottom"
-          />
-          <SocialButton
-            url={GITHUB_URL}
-            Icon={iconRegistry.github}
-            alt="GitHub"
-            tooltipPosition="bottom"
-          />
-          <SocialButton
-            url={CONTRA_URL}
-            Icon={iconRegistry.contra}
-            alt="Contra"
-            tooltipPosition="bottom"
-          />
-        </Container>
+        <nav aria-label="Social links">
+          <Container justify={"center"} align={"center"} gap={"8px"}>
+            <SocialButton
+              url={TWITTER_URL}
+              Icon={iconRegistry.twitter}
+              alt="Twitter"
+              tooltipPosition="bottom"
+            />
+            <SocialButton
+              url={THREADS_URL}
+              Icon={iconRegistry.threads}
+              alt="Threads"
+              tooltipPosition="bottom"
+            />
+            <SocialButton
+              url={INSTAGRAM_URL}
+              Icon={iconRegistry.instagram}
+              alt="Instagram"
+              tooltipPosition="bottom"
+            />
+            <SocialButton
+              url={LINKEDIN_URL}
+              Icon={iconRegistry.linkedin}
+              alt="LinkedIn"
+              tooltipPosition="bottom"
+            />
+            <SocialButton
+              url={GITHUB_URL}
+              Icon={iconRegistry.github}
+              alt="GitHub"
+              tooltipPosition="bottom"
+            />
+            <SocialButton
+              url={CONTRA_URL}
+              Icon={iconRegistry.contra}
+              alt="Contra"
+              tooltipPosition="bottom"
+            />
+          </Container>
+        </nav>
       </Container>
     </StyledProfile>
   );

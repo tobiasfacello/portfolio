@@ -12,7 +12,7 @@ const animationStyle = { fontSize: "10px" } as const;
 
 export default memo(function PillTag(props: PillProps) {
 	return (
-		<StyledPillTag $maxW={props.maxW} $m={props.m} $p={props.p}>
+		<StyledPillTag $hasIcon={!!props.animationName} $m={props.m} $p={props.p}>
 			{props.animationName && (
 				<UnicodeAnimation name={props.animationName} style={animationStyle} />
 			)}

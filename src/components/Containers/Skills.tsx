@@ -10,6 +10,7 @@ import Tooltip from "../Tooltip";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
+import { mq } from "../../config/breakpoints";
 
 //* Styles
 import { sectionBase, iconWrapper } from "../../styles/mixins";
@@ -21,7 +22,7 @@ const StyledSkills = styled.section`
 `;
 
 const StyledIcon = styled.span`
-	${iconWrapper('var(--control-md)')}
+	${iconWrapper('2rem')}
 	color: var(--text);
 	opacity: var(--opacity-soft);
 `;
@@ -32,6 +33,10 @@ const StyledIconGrid = styled.div<{ $gap: string }>`
 	grid-template-columns: repeat(4, 1fr);
 	gap: ${(props) => props.$gap};
 	place-items: center;
+
+	${mq.up('desktop-sm')} {
+		margin-block: auto;
+	}
 `;
 
 function Skills() {

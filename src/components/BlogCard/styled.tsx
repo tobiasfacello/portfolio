@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { glassCard } from '../../styles/mixins';
+import { glassCard, glassGradientBorder } from '../../styles/mixins';
 
 export const StyledBlogCard = styled.article`
 	position: relative;
@@ -20,6 +20,10 @@ export const StyledBlogCardContent = styled.div`
 	flex-direction: column;
 	gap: var(--4);
 	padding-bottom: var(--8);
+
+	& > h3 {
+		opacity: 1;
+	}
 `;
 
 export const StyledBlogCardExcerpt = styled.p`
@@ -30,6 +34,7 @@ export const StyledBlogCardExcerpt = styled.p`
 	opacity: var(--opacity-medium);
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
+	line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 `;
@@ -48,13 +53,11 @@ export const StyledBlogCardImageWrapper = styled.div`
 		object-fit: cover;
 		object-position: center;
 		display: block;
-		filter: sepia(0.3) saturate(0.6) brightness(0.9) hue-rotate(30deg);
-		transition: transform 300ms ease-in-out, filter 300ms ease-in-out;
+		transition: transform var(--transition-normal) ease-in-out;
 	}
 
 	${StyledBlogCard}:hover & > img {
 		transform: scale(1.03);
-		filter: sepia(0.15) saturate(0.7) brightness(0.95) hue-rotate(30deg);
 	}
 `;
 
@@ -68,6 +71,7 @@ export const StyledBlogCardTags = styled.div`
 `;
 
 export const StyledBlogTag = styled.span`
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	height: 20px;
@@ -76,9 +80,10 @@ export const StyledBlogTag = styled.span`
 	font-size: var(--font-size-caption);
 	line-height: 1;
 	color: var(--text);
-	background-color: var(--glass-bg-bold);
-	backdrop-filter: blur(var(--blur-sm));
-	border: 1px solid var(--text);
+	background-color: color-mix(in srgb, var(--overlay-solid) 40%, transparent);
+	backdrop-filter: blur(var(--blur-md));
+	-webkit-backdrop-filter: blur(var(--blur-md));
 	border-radius: var(--radius-pill);
 	white-space: nowrap;
+	${glassGradientBorder({ radius: 'var(--radius-pill)' })}
 `;

@@ -11,7 +11,7 @@ export default memo(function SocialButton(props: SocialButtonProps) {
 				href={props.url}
 				target="_blank"
 				rel="noopener noreferrer"
-				aria-label={props.alt}
+				aria-label={`${props.alt} (opens in new tab)`}
 			>
 				<StyledSocialIcon aria-hidden="true">
 					<props.Icon />

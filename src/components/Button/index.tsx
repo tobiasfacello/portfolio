@@ -16,6 +16,7 @@ function Button(props: ButtonProps) {
 			{...(!isLink ? { type: "button" as const } : {})}
 			{...(props.onClick && !props.disabled ? { onClick: props.onClick } : {})}
 			$variant={props.variant || 'default'}
+			$hasIcon={!!props.children}
 			aria-disabled={props.disabled || undefined}
 			$disabled={props.disabled}
 			$p={props.p}

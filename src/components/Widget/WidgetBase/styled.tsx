@@ -71,3 +71,12 @@ export const StyledWidgetStat = styled.span`
 	color: var(--text);
 	opacity: var(--opacity-muted);
 `;
+
+export const StyledErrorState = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: var(--12);
+	flex: 1;
+`;

@@ -8,12 +8,9 @@ import Text from "../Text";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LanguageSwitcher from "../LanguageSwitcher";
 
-//* Styles
-import { glassBorder } from "../../styles/mixins";
-
 const StyledFooter = styled.footer`
+	position: relative;
 	width: calc(100% - 24px);
-	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -21,8 +18,6 @@ const StyledFooter = styled.footer`
 	gap: var(--24);
 	padding: var(--36) var(--20);
 	text-align: center;
-	overflow: hidden;
-	${glassBorder(true)}
 
 	${mq.up('desktop-sm')} {
 		width: 90%;
@@ -31,52 +26,6 @@ const StyledFooter = styled.footer`
 
 	& a {
 		color: var(--text);
-	}
-
-	&::before {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 357px;
-		background-image: url('/vectors/header-vector.svg');
-		background-position: top center;
-		background-size: 100% auto;
-		background-repeat: no-repeat;
-		transform: scaleY(-1);
-		pointer-events: none;
-		z-index: 0;
-
-		${mq.up('desktop-sm')} {
-			background-image: url('/vectors/header-vector-desktop.svg');
-		}
-	}
-
-	@media (prefers-color-scheme: light) {
-		&::before {
-			background-image: url('/vectors/header-vector-light.svg');
-
-			${mq.up('desktop-sm')} {
-				background-image: url('/vectors/header-vector-desktop-light.svg');
-			}
-		}
-	}
-
-	:root[data-theme="light"] &::before {
-		background-image: url('/vectors/header-vector-light.svg');
-
-		${mq.up('desktop-sm')} {
-			background-image: url('/vectors/header-vector-desktop-light.svg');
-		}
-	}
-
-	:root[data-theme="dark"] &::before {
-		background-image: url('/vectors/header-vector.svg');
-
-		${mq.up('desktop-sm')} {
-			background-image: url('/vectors/header-vector-desktop.svg');
-		}
 	}
 `;
 

@@ -1,5 +1,5 @@
 //! React Core
-import { memo, useRef, useEffect, useMemo } from "react";
+import { memo, useRef, useEffect, useMemo, useState } from "react";
 
 //? Animations registry
 import animations from "./animations";
@@ -14,6 +14,47 @@ interface UnicodeAnimationProps {
 	style?: React.CSSProperties;
 }
 
+// Pauses animations when the tab is hidden or the component is offscreen.
+// Avoids burning CPU and triggering repaints on animations nobody can see.
+function useAnimationActive(
+	targetRef: React.RefObject<HTMLElement | null>,
+): boolean {
+	const [active, setActive] = useState(true);
+
+	useEffect(() => {
+		const el = targetRef.current;
+		if (!el) return;
+
+		let inView = true;
+		let visible =
+			typeof document === "undefined" ? true : !document.hidden;
+
+		const update = () => setActive(inView && visible);
+
+		const io = new IntersectionObserver(
+			(entries) => {
+				inView = entries[0]?.isIntersecting ?? false;
+				update();
+			},
+			{ threshold: 0 },
+		);
+		io.observe(el);
+
+		const onVisibility = () => {
+			visible = !document.hidden;
+			update();
+		};
+		document.addEventListener("visibilitychange", onVisibility);
+
+		return () => {
+			io.disconnect();
+			document.removeEventListener("visibilitychange", onVisibility);
+		};
+	}, [targetRef]);
+
+	return active;
+}
+
 export default memo(function UnicodeAnimation({
 	name,
 	className,
@@ -21,6 +62,7 @@ export default memo(function UnicodeAnimation({
 }: UnicodeAnimationProps) {
 	const animation = animations[name] as { frames: readonly string[]; interval: number; prefix?: string };
 	const hasPrefix = !!animation.prefix;
+	const wrapperRef = useRef<HTMLSpanElement>(null);
 	const spanRef = useRef<HTMLSpanElement>(null);
 	const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
 	const frameRef = useRef(0);
@@ -30,15 +72,16 @@ export default memo(function UnicodeAnimation({
 		[animation.frames],
 	);
 
+	const active = useAnimationActive(wrapperRef);
+
 	// Simple mode: direct textContent swap (braille spinners)
 	useEffect(() => {
-		if (hasPrefix) return;
+		if (hasPrefix || !active) return;
 
 		const span = spanRef.current;
 		if (!span) return;
 
-		span.textContent = animation.frames[0];
-		frameRef.current = 0;
+		span.textContent = animation.frames[frameRef.current] ?? animation.frames[0];
 
 		const id = setInterval(() => {
 			const nextIndex = (frameRef.current + 1) % animation.frames.length;
@@ -47,20 +90,19 @@ export default memo(function UnicodeAnimation({
 		}, animation.interval);
 
 		return () => clearInterval(id);
-	}, [animation, hasPrefix]);
+	}, [animation, hasPrefix, active]);
 
 	// Per-char mode: opacity crossfade (custom animations with prefix)
 	useEffect(() => {
-		if (!hasPrefix) return;
+		if (!hasPrefix || !active) return;
 
 		const chars = charRefs.current;
-		const first = animation.frames[0];
+		const startFrame = animation.frames[frameRef.current] ?? animation.frames[0];
 		chars.forEach((span, i) => {
 			if (!span) return;
-			span.textContent = i < first.length ? first[i] : "";
+			span.textContent = i < startFrame.length ? startFrame[i] : "";
 			span.style.opacity = "1";
 		});
-		frameRef.current = 0;
 
 		let pendingTimeouts: ReturnType<typeof setTimeout>[] = [];
 
@@ -91,12 +133,12 @@ export default memo(function UnicodeAnimation({
 			clearInterval(id);
 			pendingTimeouts.forEach(clearTimeout);
 		};
-	}, [animation, hasPrefix]);
+	}, [animation, hasPrefix, active]);
 
 	// Simple mode render
 	if (!hasPrefix) {
 		return (
-			<StyledAnimation className={className} style={style}>
+			<StyledAnimation ref={wrapperRef} className={className} style={style}>
 				<span ref={spanRef}>{animation.frames[0]}</span>
 			</StyledAnimation>
 		);
@@ -104,7 +146,7 @@ export default memo(function UnicodeAnimation({
 
 	// Per-char mode render
 	return (
-		<StyledAnimation className={className} style={style}>
+		<StyledAnimation ref={wrapperRef} className={className} style={style}>
 			<span>{animation.prefix}</span>
 			{Array.from({ length: maxChars }, (_, i) => (
 				<CharSpan

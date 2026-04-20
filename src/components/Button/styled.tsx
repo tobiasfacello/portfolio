@@ -12,7 +12,6 @@ import { spacingArray, glassGradientBorder, interactiveHover } from "../../style
 
 const defaultVariant = css`
 	font-size: var(--font-size-label);
-	height: 3em;
 	opacity: var(--opacity-muted);
 	background-color: transparent;
 	border: 1px solid var(--text);
@@ -46,8 +45,7 @@ const defaultVariant = css`
 const glassVariant = css`
 	font-size: var(--font-size-caption);
 	position: relative;
-	height: 2.55em;
-	gap: 0.4em;
+	gap: var(--4);
 	opacity: var(--opacity-full);
 	background-color: var(--glass-bg);
 	backdrop-filter: blur(var(--blur-sm));
@@ -94,6 +92,7 @@ const glassVariant = css`
 
 export const StyledButton = styled.a<{
 	$variant: ButtonVariant;
+	$hasIcon?: boolean;
 	$disabled?: boolean;
 	$m?: string[];
 	$p?: string[];
@@ -101,12 +100,16 @@ export const StyledButton = styled.a<{
 	background: none;
 	border: none;
 	color: inherit;
-	width: ${(props) => props.$variant === 'glass' ? 'fit-content' : 'auto'};
+	width: fit-content;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: ${(props) => spacingArray(props.$m)};
-	padding: ${(props) => spacingArray(props.$p)};
+	padding: ${(props) =>
+		spacingArray(props.$p) ??
+		(props.$variant === 'glass'
+			? (props.$hasIcon ? 'var(--4) var(--8) var(--4) var(--6)' : 'var(--4) var(--8)')
+			: (props.$hasIcon ? 'var(--6) var(--12) var(--6) var(--8)' : 'var(--6) var(--12)'))};
 	border-radius: var(--radius-md);
 	text-decoration: none;
 	transition: all var(--transition-fast);

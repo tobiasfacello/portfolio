@@ -120,7 +120,7 @@ function WorkCard(props: WorkCardProps) {
 							<Button
 								variant={'glass'}
 								title={t('visitSite', { ns: 'common' })}
-								p={['0', '6', '0', '6']}
+								p={['6', '8', '6', '8']}
 								{...(isDetail
 									? { onClick: handleButtonClick }
 									: { url: props.url }
@@ -132,7 +132,7 @@ function WorkCard(props: WorkCardProps) {
 								<Button
 									variant={'glass'}
 									title={t('viewDocumentation', { ns: 'common' })}
-									p={['0', '6', '0', '6']}
+									p={['6', '8', '6', '8']}
 									onClick={handleDocClick}
 								>
 									<IconFrame Icon={DocumentIcon} />
@@ -146,7 +146,7 @@ function WorkCard(props: WorkCardProps) {
 									<Button
 										variant={'glass'}
 										title={t('viewDocumentation', { ns: 'common' })}
-										p={['0', '6', '0', '6']}
+										p={['6', '8', '6', '8']}
 										disabled
 									>
 										<IconFrame Icon={DocumentIcon} />

@@ -1,5 +1,12 @@
 dist
 node_modules
+
+# macOS
+.DS_Store
+
+# Local design artifacts (root-level screenshots/exports)
+/*.png
+
 public/*
 !public/vectors/
 !public/manifest.json

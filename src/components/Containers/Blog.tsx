@@ -1,11 +1,14 @@
+import { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 //* Components
 import Container from './Container';
 import Text from '../Text';
-import BlogCard from '../BlogCard';
+import BlogCardSkeleton from '../Skeleton/BlogCardSkeleton';
 import { iconRegistry } from '../Icon';
+
+const BlogCard = lazy(() => import('../BlogCard'));
 
 //? Hooks & Config
 import { useBreakpoint, isMobile } from '../../hooks/useBreakpoint';
@@ -30,27 +33,24 @@ const StyledBlogGrid = styled.div<{ $columns: number; $gap: string }>`
 	gap: ${(props) => props.$gap};
 `;
 
-const StyledComingSoonOverlay = styled.div`
-	position: absolute;
-	inset: 0;
-	z-index: 2;
+const StyledTitleRow = styled.div`
 	display: flex;
+	width: 100%;
 	align-items: center;
-	justify-content: center;
-	background: linear-gradient(
-		to bottom,
-		transparent 0%,
-		color-mix(in srgb, var(--overlay-solid) 70%, transparent) 55%
-	);
-	backdrop-filter: blur(var(--blur-sm));
-	-webkit-backdrop-filter: blur(var(--blur-sm));
-	border-radius: inherit;
-	user-select: none;
-	pointer-events: none;
-	gap: var(--8);
+	gap: var(--12);
 `;
 
-const MOBILE_TITLE_STYLE = { alignSelf: 'flex-start' } as const;
+const StyledComingSoon = styled.span`
+	display: inline-flex;
+	align-items: center;
+	gap: var(--4);
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-caption);
+	line-height: 1;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--accent);
+`;
 
 export default function Blog() {
 	const bp = useBreakpoint();
@@ -65,12 +65,6 @@ export default function Blog() {
 
 	return (
 		<StyledBlog>
-			<StyledComingSoonOverlay>
-				<iconRegistry.toolCase width={32} height={32} />
-				<Text as="span" variant="title">
-					{t('blog.comingSoon')}
-				</Text>
-			</StyledComingSoonOverlay>
 			<Container
 				w={cfg.outerW}
 				maxW={cfg.outerMaxW}
@@ -79,18 +73,29 @@ export default function Blog() {
 				align={isMobile(bp) ? 'center' : 'start'}
 				gap={cfg.outerGap}
 			>
-				<Text as="h2" variant="subtitle-sm" style={isMobile(bp) ? MOBILE_TITLE_STYLE : undefined}>
-					{t('blog.title')}
-				</Text>
-				<StyledBlogGrid $columns={cfg.gridColumns} $gap={cfg.gridGap}>
+				<StyledTitleRow>
+					<Text as="h2" variant="subtitle-sm">
+						{t('blog.title')}
+					</Text>
+					<StyledComingSoon role="status">
+						<iconRegistry.toolCase width={12} height={12} aria-hidden="true" focusable="false" />
+						{t('blog.comingSoon')}
+					</StyledComingSoon>
+				</StyledTitleRow>
+				<StyledBlogGrid
+					$columns={cfg.gridColumns}
+					$gap={cfg.gridGap}
+					aria-hidden="true"
+				>
 					{posts.map((post, i) => (
-						<BlogCard
-							key={post.title}
-							title={post.title}
-							excerpt={post.excerpt}
-							thumbnail={blogPlaceholders[i]}
-							tags={post.tags}
-						/>
+						<Suspense key={post.title} fallback={<BlogCardSkeleton />}>
+							<BlogCard
+								title={post.title}
+								excerpt={post.excerpt}
+								thumbnail={blogPlaceholders[i]}
+								tags={post.tags}
+							/>
+						</Suspense>
 					))}
 				</StyledBlogGrid>
 			</Container>

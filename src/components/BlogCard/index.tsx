@@ -22,7 +22,7 @@ function BlogCard({ title, excerpt, thumbnail, tags }: BlogCardProps) {
 				<StyledBlogCardExcerpt>{excerpt}</StyledBlogCardExcerpt>
 			</StyledBlogCardContent>
 			<StyledBlogCardImageWrapper>
-				<img src={thumbnail} alt={title} loading="lazy" />
+				<img src={thumbnail} alt="" loading="lazy" decoding="async" />
 				<StyledBlogCardTags>
 					{tags.map((tag) => (
 						<StyledBlogTag key={tag}>{tag}</StyledBlogTag>

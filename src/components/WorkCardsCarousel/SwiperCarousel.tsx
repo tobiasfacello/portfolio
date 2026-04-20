@@ -1,10 +1,13 @@
+import { lazy, Suspense } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, A11y } from 'swiper/modules';
 import 'swiper/css';
 import './swiper.style.css';
 
-import WorkCard from '../WorkCard';
+import WorkCardSkeleton from '../Skeleton/WorkCardSkeleton';
 import { works } from '../../data/works';
+
+const WorkCard = lazy(() => import('../WorkCard'));
 
 const SWIPER_MODULES = [Autoplay, A11y];
 
@@ -29,12 +32,14 @@ export default function SwiperCarousel({ slidesPerView, centeredSlides, spaceBet
 		>
 			{works.map((work) => (
 				<SwiperSlide key={work.slug} className="swiper-slide">
-					<WorkCard
-						slug={work.slug}
-						url={work.url}
-						showcaseUrl={work.showcaseUrl}
-						Logo={work.Logo}
-					/>
+					<Suspense fallback={<WorkCardSkeleton />}>
+						<WorkCard
+							slug={work.slug}
+							url={work.url}
+							showcaseUrl={work.showcaseUrl}
+							Logo={work.Logo}
+						/>
+					</Suspense>
 				</SwiperSlide>
 			))}
 		</Swiper>

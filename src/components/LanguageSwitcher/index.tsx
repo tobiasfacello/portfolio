@@ -1,8 +1,16 @@
+import { useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledToggleGroup, StyledToggleButton } from '../ToggleGroup/styled';
 
+const languages = [
+	{ code: 'en', label: 'Switch to English', text: 'EN' },
+	{ code: 'es', label: 'Cambiar a español', text: 'ES' },
+	{ code: 'pt', label: 'Mudar para português', text: 'PT' },
+] as const;
+
 function LanguageSwitcher() {
 	const { i18n } = useTranslation();
+	const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
 	const changeLanguage = (lng: string) => {
 		i18n.changeLanguage(lng);
@@ -10,38 +18,43 @@ function LanguageSwitcher() {
 		document.documentElement.lang = lng;
 	};
 
+	const handleKeyDown = useCallback(
+		(e: React.KeyboardEvent, index: number) => {
+			let nextIndex: number | null = null;
+
+			if (e.key === 'ArrowRight') {
+				nextIndex = (index + 1) % languages.length;
+			} else if (e.key === 'ArrowLeft') {
+				nextIndex = (index - 1 + languages.length) % languages.length;
+			}
+
+			if (nextIndex !== null) {
+				e.preventDefault();
+				buttonsRef.current[nextIndex]?.focus();
+				changeLanguage(languages[nextIndex].code);
+			}
+		},
+		[changeLanguage],
+	);
+
 	return (
 		<StyledToggleGroup role="radiogroup" aria-label="Language">
-			<StyledToggleButton
-				role="radio"
-				$active={i18n.language === 'en'}
-				$variant="text"
-				onClick={() => changeLanguage('en')}
-				aria-label="Switch to English"
-				aria-checked={i18n.language === 'en'}
-			>
-				EN
-			</StyledToggleButton>
-			<StyledToggleButton
-				role="radio"
-				$active={i18n.language === 'es'}
-				$variant="text"
-				onClick={() => changeLanguage('es')}
-				aria-label="Cambiar a español"
-				aria-checked={i18n.language === 'es'}
-			>
-				ES
-			</StyledToggleButton>
-			<StyledToggleButton
-				role="radio"
-				$active={i18n.language === 'pt'}
-				$variant="text"
-				onClick={() => changeLanguage('pt')}
-				aria-label="Mudar para português"
-				aria-checked={i18n.language === 'pt'}
-			>
-				PT
-			</StyledToggleButton>
+			{languages.map(({ code, label, text }, index) => (
+				<StyledToggleButton
+					key={code}
+					ref={(el) => { buttonsRef.current[index] = el; }}
+					role="radio"
+					$active={i18n.language === code}
+					$variant="text"
+					onClick={() => changeLanguage(code)}
+					onKeyDown={(e) => handleKeyDown(e, index)}
+					tabIndex={i18n.language === code ? 0 : -1}
+					aria-label={label}
+					aria-checked={i18n.language === code}
+				>
+					{text}
+				</StyledToggleButton>
+			))}
 		</StyledToggleGroup>
 	);
 }

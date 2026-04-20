@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledToggleGroup = styled.div`
+	width: fit-content;
 	display: flex;
 	align-items: center;
-	gap: var(--4);
+	gap: var(--2);
 	border: 1px solid var(--text);
 	border-radius: var(--radius-pill);
 	padding: var(--2);
@@ -20,6 +21,7 @@ export const StyledToggleButton = styled.button<{
 	$variant?: 'icon' | 'text';
 }>`
 	all: unset;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -28,18 +30,27 @@ export const StyledToggleButton = styled.button<{
 	color: ${(props) => (props.$active ? 'var(--background)' : 'var(--text)')};
 	background-color: ${(props) => (props.$active ? 'var(--accent)' : 'transparent')};
 
+	/* Expand touch target to 44px without changing visual size */
+	&::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 44px;
+		height: 44px;
+	}
+
 	${(props) => props.$variant === 'text'
 		? `
 			font-family: var(--font-geist-pixel-circle);
 			font-size: var(--font-size-caption);
 			letter-spacing: 0.5px;
-			width: var(--control-xs);
-			height: var(--control-xs);
+			padding: var(--4);
 			font-weight: ${props.$active ? 'var(--font-weight-semibold)' : 'var(--font-weight-normal)'};
 		`
 		: `
-			width: var(--control-xs);
-			height: var(--control-xs);
+			padding: var(--4);
 
 			& svg {
 				width: var(--icon-xs);

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 //* Components
 import Text from '../../Text';
 import Button from '../../Button';
+import WidgetSkeleton from '../../Skeleton/WidgetSkeleton';
 
 //* Styled
 import {
@@ -12,6 +13,7 @@ import {
 	StyledWidgetPlatform,
 	StyledWidgetIcon,
 	StyledWidgetContent,
+	StyledErrorState,
 } from './styled';
 
 type WidgetBaseProps = {
@@ -21,6 +23,7 @@ type WidgetBaseProps = {
 	children: ReactNode;
 	loading?: boolean;
 	error?: string | null;
+	onRetry?: () => void;
 };
 
 export default function WidgetBase(props: WidgetBaseProps) {
@@ -48,9 +51,19 @@ export default function WidgetBase(props: WidgetBaseProps) {
 			</StyledWidgetHeader>
 			<StyledWidgetContent>
 				{props.loading ? (
-					<Text variant="label">{t('activity.loading')}</Text>
+					<WidgetSkeleton />
 				) : props.error ? (
-					<Text variant="label">{t('activity.error')}</Text>
+					<StyledErrorState>
+						<Text variant="label">{t('activity.error')}</Text>
+						{props.onRetry && (
+							<Button
+								variant="glass"
+								title={t('activity.retry', 'Reintentar')}
+								onClick={props.onRetry}
+								p={['4', '12', '4', '12']}
+							/>
+						)}
+					</StyledErrorState>
 				) : (
 					props.children
 				)}

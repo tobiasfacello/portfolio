@@ -1,27 +1,29 @@
 import { lazy, Suspense } from 'react';
 
 //* Components
-import WorkCard from '../WorkCard';
 import Container from '../Containers/Container';
+import WorkCardSkeleton from '../Skeleton/WorkCardSkeleton';
 
 //? Hooks, Config & Data
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { carouselConfig } from '../../config/responsive';
 import { works } from '../../data/works';
 
+const WorkCard = lazy(() => import('../WorkCard'));
 const SwiperCarousel = lazy(() => import('./SwiperCarousel'));
 
 function StaticCards() {
 	return (
 		<Container direction={"column"} justify={"center"} align={"center"} gap={"20px"}>
 			{works.map((work) => (
-				<WorkCard
-					key={work.slug}
-					slug={work.slug}
-					url={work.url}
-					showcaseUrl={work.showcaseUrl}
-					Logo={work.Logo}
-				/>
+				<Suspense key={work.slug} fallback={<WorkCardSkeleton />}>
+					<WorkCard
+						slug={work.slug}
+						url={work.url}
+						showcaseUrl={work.showcaseUrl}
+						Logo={work.Logo}
+					/>
+				</Suspense>
 			))}
 		</Container>
 	);

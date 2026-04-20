@@ -1,3 +1,6 @@
+//! React
+import { useRef, useCallback } from 'react';
+
 //? Hooks
 import { useTheme } from '../../hooks/useTheme';
 
@@ -38,15 +41,38 @@ const modes: { mode: ThemeMode; Icon: React.FC }[] = [
 
 function ThemeSwitcher() {
 	const { themeMode, setThemeMode } = useTheme();
+	const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+	const handleKeyDown = useCallback(
+		(e: React.KeyboardEvent, index: number) => {
+			let nextIndex: number | null = null;
+
+			if (e.key === 'ArrowRight') {
+				nextIndex = (index + 1) % modes.length;
+			} else if (e.key === 'ArrowLeft') {
+				nextIndex = (index - 1 + modes.length) % modes.length;
+			}
+
+			if (nextIndex !== null) {
+				e.preventDefault();
+				buttonsRef.current[nextIndex]?.focus();
+				setThemeMode(modes[nextIndex].mode);
+			}
+		},
+		[setThemeMode],
+	);
 
 	return (
 		<StyledToggleGroup role="group" aria-label="Theme">
-			{modes.map(({ mode, Icon }) => (
+			{modes.map(({ mode, Icon }, index) => (
 				<Tooltip key={mode} text={mode.charAt(0).toUpperCase() + mode.slice(1)}>
 					<StyledToggleButton
+						ref={(el) => { buttonsRef.current[index] = el; }}
 						$active={themeMode === mode}
 						$variant="icon"
 						onClick={() => setThemeMode(mode)}
+						onKeyDown={(e) => handleKeyDown(e, index)}
+						tabIndex={themeMode === mode ? 0 : -1}
 						aria-label={`Theme: ${mode}`}
 						aria-pressed={themeMode === mode}
 					>

@@ -106,7 +106,6 @@ export type SocialButtonProps = {
 export type PillProps = {
 	tag?: string;
 	animationName?: AnimationName;
-	maxW?: string;
 	m?: string[];
 	p?: string[];
 };

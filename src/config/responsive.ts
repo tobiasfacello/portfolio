@@ -61,7 +61,7 @@ interface SkillsConfig {
 }
 
 const desktopSkills: SkillsConfig = {
-	outerW: '100%', outerH: '100%', outerJustify: 'space-between',
+	outerW: '100%', outerH: '100%', outerJustify: 'flex-start',
 	useGrid: true, gridGap: '20px', titleOutside: false,
 };
 

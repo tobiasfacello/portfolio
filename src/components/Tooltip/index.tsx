@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 //* Types
 import type { TooltipProps } from '../../types';
@@ -19,6 +19,34 @@ function Tooltip({ text, children, position = 'top', align = 'center', icon, hre
 	const [isVisible, setIsVisible] = useState(false);
 	const tooltipId = useId();
 	const tooltipRef = useTooltipAnimation(isVisible, position);
+	const enterTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	const showTooltip = () => {
+		enterTimeoutRef.current = setTimeout(() => setIsVisible(true), 300);
+	};
+
+	const hideTooltip = () => {
+		if (enterTimeoutRef.current) {
+			clearTimeout(enterTimeoutRef.current);
+			enterTimeoutRef.current = null;
+		}
+		setIsVisible(false);
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent) => {
+		if (e.key === 'Escape') {
+			hideTooltip();
+		}
+	};
+
+	useEffect(() => {
+		return () => {
+			if (enterTimeoutRef.current) {
+				clearTimeout(enterTimeoutRef.current);
+				enterTimeoutRef.current = null;
+			}
+		};
+	}, []);
 
 	const content = icon ? (
 		<StyledTooltipContent>
@@ -31,10 +59,11 @@ function Tooltip({ text, children, position = 'top', align = 'center', icon, hre
 
 	return (
 		<StyledTooltipWrapper
-			onMouseEnter={() => setIsVisible(true)}
-			onMouseLeave={() => setIsVisible(false)}
-			onFocus={() => setIsVisible(true)}
-			onBlur={() => setIsVisible(false)}
+			onMouseEnter={showTooltip}
+			onMouseLeave={hideTooltip}
+			onFocus={showTooltip}
+			onBlur={hideTooltip}
+			onKeyDown={handleKeyDown}
 			aria-describedby={tooltipId}
 		>
 			{children}

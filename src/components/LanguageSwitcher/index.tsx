@@ -12,11 +12,14 @@ function LanguageSwitcher() {
 	const { i18n } = useTranslation();
 	const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-	const changeLanguage = (lng: string) => {
-		i18n.changeLanguage(lng);
-		localStorage.setItem('language', lng);
-		document.documentElement.lang = lng;
-	};
+	const changeLanguage = useCallback(
+		(lng: string) => {
+			i18n.changeLanguage(lng);
+			localStorage.setItem('language', lng);
+			document.documentElement.lang = lng;
+		},
+		[i18n],
+	);
 
 	const handleKeyDown = useCallback(
 		(e: React.KeyboardEvent, index: number) => {

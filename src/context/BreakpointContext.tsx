@@ -1,4 +1,4 @@
-import { createContext, useSyncExternalStore, ReactNode } from 'react';
+import { createContext, useEffect, useSyncExternalStore, ReactNode } from 'react';
 import { BREAKPOINTS, type Breakpoint } from '../config/breakpoints';
 
 const breakpointOrder: { key: Breakpoint; minWidth: number }[] = [
@@ -22,23 +22,45 @@ function computeBreakpoint(): Breakpoint {
 }
 
 const listeners = new Set<() => void>();
-let cachedBreakpoint = typeof window !== 'undefined' ? computeBreakpoint() : 'mobile-sm' as Breakpoint;
+let cachedBreakpoint: Breakpoint =
+	typeof window !== 'undefined' ? computeBreakpoint() : 'mobile-sm';
 
-if (typeof window !== 'undefined') {
-	for (const mql of mqls) {
-		mql.addEventListener('change', () => {
-			const next = computeBreakpoint();
-			if (next !== cachedBreakpoint) {
-				cachedBreakpoint = next;
-				listeners.forEach((cb) => cb());
-			}
-		});
+function handleMqlChange() {
+	const next = computeBreakpoint();
+	if (next !== cachedBreakpoint) {
+		cachedBreakpoint = next;
+		listeners.forEach((cb) => cb());
+	}
+}
+
+let mqlSubscribers = 0;
+
+function attachMqls() {
+	mqlSubscribers += 1;
+	if (mqlSubscribers === 1) {
+		// Re-read before attaching in case the viewport changed between
+		// module init and the first provider mount.
+		cachedBreakpoint = computeBreakpoint();
+		for (const mql of mqls) {
+			mql.addEventListener('change', handleMqlChange);
+		}
+	}
+}
+
+function detachMqls() {
+	mqlSubscribers -= 1;
+	if (mqlSubscribers === 0) {
+		for (const mql of mqls) {
+			mql.removeEventListener('change', handleMqlChange);
+		}
 	}
 }
 
 function subscribe(callback: () => void) {
 	listeners.add(callback);
-	return () => { listeners.delete(callback); };
+	return () => {
+		listeners.delete(callback);
+	};
 }
 
 function getSnapshot() {
@@ -53,5 +75,11 @@ export const BreakpointContext = createContext<Breakpoint>('mobile-sm');
 
 export function BreakpointProvider({ children }: { children: ReactNode }) {
 	const bp = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+	useEffect(() => {
+		attachMqls();
+		return detachMqls;
+	}, []);
+
 	return <BreakpointContext.Provider value={bp}>{children}</BreakpointContext.Provider>;
 }

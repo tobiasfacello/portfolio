@@ -1,11 +1,14 @@
+import { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { mq } from '../../config/breakpoints';
 
 //* Components
 import Container from '../../components/Containers/Container';
-import ProjectCard from '../../components/ProjectCard';
+import ProjectCardSkeleton from '../../components/Skeleton/ProjectCardSkeleton';
 import Text from '../../components/Text';
+
+const ProjectCard = lazy(() => import('../../components/ProjectCard'));
 
 //? Hooks, Config & Data
 import { useBreakpoint } from '../../hooks/useBreakpoint';
@@ -61,13 +64,14 @@ function Projects() {
 					gap={cfg.cardGap}
 				>
 					{projects.map((project) => (
-						<ProjectCard
-							key={project.slug}
-							slug={project.slug}
-							src={project.src}
-							url={project.url}
-							tech={project.tech}
-						/>
+						<Suspense key={project.slug} fallback={<ProjectCardSkeleton />}>
+							<ProjectCard
+								slug={project.slug}
+								src={project.src}
+								url={project.url}
+								tech={project.tech}
+							/>
+						</Suspense>
 					))}
 				</Container>
 			</Container>

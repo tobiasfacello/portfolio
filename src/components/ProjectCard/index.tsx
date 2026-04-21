@@ -1,24 +1,19 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyledProjectCard, TechPill, TechPillIcon, PillWrapper } from './styled';
+import { StyledProjectCard, TechPill, TechPillIcon, TechPillText } from './styled';
 
 //* Components
 import Text from '../Text';
 import Container from '../Containers/Container';
-import PillTag from '../Pill';
-import UnicodeAnimation from '../UnicodeAnimations';
 
 //* Icon registry
 import { iconRegistry } from '../Icon';
 
 //? Hooks
-import { usePillDegradation } from '../../hooks/usePillDegradation';
+import { useTechPillDegradation } from '../../hooks/usePillDegradation';
 
 //? Types
-import { ProjectCardProps, PillDisplay } from '../../types';
-
-//? Data
-import { tagAnimationMap } from '../../data/tagAnimations';
+import { ProjectCardProps } from '../../types';
 
 const techIconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
 	'Next.js': iconRegistry.nextJs,
@@ -35,29 +30,10 @@ function ProjectCard(props: ProjectCardProps) {
 
 	const title = t(`${props.slug}.title`);
 	const details = t(`${props.slug}.details`);
-	const tag = t(`${props.slug}.tag`);
-	const enTag = t(`${props.slug}.tag`, { lng: 'en' });
-	const animationName = tagAnimationMap[enTag] || undefined;
 
-	const { level, techIconOnly, ready, cardRef, contentRef, logoRef, measureLayer } = usePillDegradation({
-		tag,
-		animationName,
-	});
+	const { techIconOnly, cardRef, contentRef, logoRef } = useTechPillDegradation();
 
 	const handleImageLoad = () => setImageLoaded(true);
-
-	// Pill content derived from level — hide text when animation is present
-	const pillTag = animationName ? undefined : level === PillDisplay.FULL ? tag : undefined;
-	const pillPadding = level === PillDisplay.ICON_ONLY ? ['4', '6', '4', '6'] : ['4', '8', '4', '6'];
-
-	// CSS variables for smooth transitions (inline styles = real transitions, no class swap)
-	const pillStyle = useMemo(() => {
-		const isHidden = level === PillDisplay.HIDDEN;
-		return {
-			'--pill-max-w': isHidden ? '0px' : 'max-content',
-			'--pill-opacity': isHidden ? '0' : '1',
-		} as React.CSSProperties;
-	}, [level]);
 
 	return (
 		<StyledProjectCard
@@ -77,18 +53,9 @@ function ProjectCard(props: ProjectCardProps) {
 				gap={'8px'}
 				$css={'flex: 1; min-width: 0;'}
 			>
-				<Container align={'center'} gap={'8px'} w={'fit-content'} h={'fit-content'}>
-					<Text variant={'subtitle'}>
-						{title}
-					</Text>
-					<PillWrapper $ready={ready} style={pillStyle}>
-						<PillTag
-							tag={pillTag}
-							animationName={animationName}
-							p={pillPadding}
-						/>
-					</PillWrapper>
-				</Container>
+				<Text variant={'subtitle'}>
+					{title}
+				</Text>
 				<Text variant={'label'}>
 					{details}
 				</Text>
@@ -102,7 +69,7 @@ function ProjectCard(props: ProjectCardProps) {
 										<Icon />
 									</TechPillIcon>
 								)}
-								{!techIconOnly && tech}
+								<TechPillText>{tech}</TechPillText>
 							</TechPill>
 						);
 					})}
@@ -116,16 +83,14 @@ function ProjectCard(props: ProjectCardProps) {
 				w={'auto'}
 				$css={'flex-shrink: 0;'}
 			>
-				{!imageLoaded && <UnicodeAnimation name="pulse" />}
 				<img
 					src={props.src}
 					alt={`${title} logo`}
 					loading="lazy"
 					onLoad={handleImageLoad}
-					style={{ opacity: imageLoaded ? undefined : 0, position: imageLoaded ? undefined : 'absolute' }}
+					style={{ opacity: imageLoaded ? undefined : 0 }}
 				/>
 			</Container>
-			{measureLayer}
 		</StyledProjectCard>
 	);
 }

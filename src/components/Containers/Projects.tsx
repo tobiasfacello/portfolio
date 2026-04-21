@@ -7,6 +7,7 @@ import { mq } from '../../config/breakpoints';
 import Container from '../../components/Containers/Container';
 import ProjectCardSkeleton from '../../components/Skeleton/ProjectCardSkeleton';
 import Text from '../../components/Text';
+import ShinyLabel from '../../components/ShinyLabel';
 
 const ProjectCard = lazy(() => import('../../components/ProjectCard'));
 
@@ -51,10 +52,12 @@ function Projects() {
 					w={'100%'}
 					justify={"flex-start"}
 					align={'center'}
+					gap={'var(--12)'}
 				>
 					<Text as="h2" variant={'subtitle-sm'}>
 						{t('projects.title')}
 					</Text>
+					<ShinyLabel label={t('projects.currentlyBuilding')} icon="hammer" />
 				</Container>
 				<Container
 					h={bp.startsWith('desktop') ? '100%' : undefined}

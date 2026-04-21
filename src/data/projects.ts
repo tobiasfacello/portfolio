@@ -13,7 +13,7 @@ export const projects: ProjectItem[] = [
 	{
 		slug: 'centryboard',
 		src: centryBoardVector,
-		url: 'https://centryboard.site/',
+		url: 'https://centryboard.vercel.app/',
 		tech: ['Next.js', 'TypeScript', 'Supabase'],
 	},
 	{

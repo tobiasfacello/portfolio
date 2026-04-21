@@ -41,6 +41,10 @@ import TwitterIcon from '../../assets/icons/Twitter.svg?react';
 import ArrowRightCircleIcon from '../../assets/icons/arrow-right-circle.svg?react';
 import ArrowUpRightIcon from '../../assets/icons/arrow-up-right.svg?react';
 import ExternalLinkIcon from '../../assets/icons/external-link.svg?react';
+import HammerIcon from '../../assets/icons/hammer.svg?react';
+import PackageCheckIcon from '../../assets/icons/package-check.svg?react';
+import PenLineIcon from '../../assets/icons/pen-line.svg?react';
+import RadioTowerIcon from '../../assets/icons/radio-tower.svg?react';
 import ToolCaseIcon from '../../assets/icons/tool-case.svg?react';
 
 export const iconRegistry = {
@@ -83,6 +87,10 @@ export const iconRegistry = {
 	arrowRightCircle: ArrowRightCircleIcon,
 	arrowUpRight: ArrowUpRightIcon,
 	externalLink: ExternalLinkIcon,
+	hammer: HammerIcon,
+	packageCheck: PackageCheckIcon,
+	penLine: PenLineIcon,
+	radioTower: RadioTowerIcon,
 	toolCase: ToolCaseIcon,
 } as const;
 

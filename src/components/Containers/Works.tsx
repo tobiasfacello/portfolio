@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import Container from "./Container";
 import WorkCardsCarousel from "../WorkCardsCarousel";
 import Text from "../Text";
+import ShinyLabel from "../ShinyLabel";
 
 //? Hooks & Config
 import { useBreakpoint } from "../../hooks/useBreakpoint";
@@ -30,16 +31,15 @@ function Works() {
 				<Container
 					h={"auto"}
 					w={cfg.outerW}
+					m={cfg.titleM}
 					justify={"flex-start"}
 					align={"center"}
+					gap={"var(--12)"}
 				>
-					<Text
-						as="h2"
-						variant={"subtitle-sm"}
-						m={cfg.titleM}
-					>
+					<Text as="h2" variant={"subtitle-sm"}>
 						{t('works.title')}
 					</Text>
+					<ShinyLabel label={t('works.previouslyShipped')} icon="packageCheck" />
 				</Container>
 				<Container
 					$css={cfg.carouselCss}
@@ -72,13 +72,12 @@ function Works() {
 					w={"100%"}
 					justify={"flex-start"}
 					align={"center"}
+					gap={"var(--12)"}
 				>
-					<Text
-						as="h2"
-						variant={"subtitle-sm"}
-					>
+					<Text as="h2" variant={"subtitle-sm"}>
 						{t('works.title')}
 					</Text>
+					<ShinyLabel label={t('works.previouslyShipped')} icon="packageCheck" />
 				</Container>
 				<Container
 					$css={cfg.carouselCss}

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { glassCard, hoveredPillStyles, iconWrapper } from '../../styles/mixins';
+import styled, { css } from 'styled-components';
+import { glassCard, iconWrapper } from '../../styles/mixins';
 import { mq } from '../../config/breakpoints';
 
 export const TechPillIcon = styled.span`
@@ -7,6 +7,21 @@ export const TechPillIcon = styled.span`
 
 	& svg {
 		pointer-events: none;
+	}
+`;
+
+export const TechPillText = styled.span`
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 80px;
+	opacity: 1;
+	transition:
+		max-width var(--transition-normal) ease-in-out,
+		opacity var(--transition-fast) ease-in-out;
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
 	}
 `;
 
@@ -24,34 +39,29 @@ export const TechPill = styled.span<{ $iconOnly?: boolean }>`
 	border: 1px solid var(--text);
 	border-radius: var(--radius-pill);
 	white-space: nowrap;
-	transition: opacity var(--transition-normal);
-`;
+	transition:
+		opacity var(--transition-normal),
+		gap var(--transition-normal) ease-in-out,
+		padding var(--transition-normal) ease-in-out;
 
-export const MeasureContainer = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 0;
-	overflow: hidden;
-	visibility: hidden;
-	pointer-events: none;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-`;
+	${(props) =>
+		props.$iconOnly &&
+		css`
+			${TechPillText} {
+				max-width: 0;
+				opacity: 0;
+			}
+		`}
 
-export const PillWrapper = styled.span<{ $ready?: boolean }>`
-	display: inline-flex;
-	align-items: center;
-	overflow: hidden;
-	max-width: var(--pill-max-w);
-	opacity: var(--pill-opacity);
-	visibility: ${(props) => (props.$ready === false ? 'hidden' : 'visible')};
-	transition: ${(props) =>
-		props.$ready === false
-			? 'none'
-			: 'max-width 250ms ease-out, opacity 180ms ease-out'};
+	${mq.up('desktop-sm')} {
+		gap: 0;
+		padding: 0 var(--4);
+
+		${TechPillText} {
+			max-width: 0;
+			opacity: 0;
+		}
+	}
 `;
 
 export const StyledProjectCard = styled.a`
@@ -101,5 +111,15 @@ export const StyledProjectCard = styled.a`
 		opacity: var(--opacity-soft);
 	}
 
-	${hoveredPillStyles}
+	${mq.up('desktop-sm')} {
+		&:hover ${TechPill} {
+			gap: var(--4);
+			padding: 0 var(--6);
+		}
+
+		&:hover ${TechPillText} {
+			max-width: 80px;
+			opacity: 1;
+		}
+	}
 `;

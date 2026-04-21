@@ -38,8 +38,8 @@
 	z-index: -1;
 	background-image: radial-gradient(circle, var(--secondary) 1px, transparent 1px);
 	background-size: 13.5px 13.5px;
-	-webkit-mask-image: url('/images/noise-texture.webp');
-	mask-image: url('/images/noise-texture.webp');
+	-webkit-mask-image: url('./assets/images/noise-texture.webp');
+	mask-image: url('./assets/images/noise-texture.webp');
 	-webkit-mask-size: 720px 720px;
 	mask-size: 720px 720px;
 	-webkit-mask-repeat: repeat;

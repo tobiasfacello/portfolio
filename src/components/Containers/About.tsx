@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 //* Components
 import Container from "./Container";
-import Text from "../../components/Text";
+import Text from "../Text";
 
 //? Hooks & Config
 import { useBreakpoint } from "../../hooks/useBreakpoint";
@@ -43,11 +43,7 @@ export default function About() {
 					justify={"flex-start"}
 					align={"center"}
 				>
-					<Text
-						as="h2"
-						variant={"subtitle-sm"}
-						alignment={cfg.titleAlign}
-					>
+					<Text as="h2" variant={"subtitle-sm"} alignment={cfg.titleAlign}>
 						{t('about.title')}
 					</Text>
 				</Container>

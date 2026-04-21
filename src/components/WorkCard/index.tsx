@@ -16,7 +16,6 @@ import { iconRegistry } from '../Icon';
 import { WorkCardProps } from '../../types';
 //? Data
 import { hasDetailPage } from '../../data/works';
-import { tagAnimationMap } from '../../data/tagAnimations';
 
 const HourglassIcon = () => (
 	<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -39,7 +38,6 @@ function WorkCard(props: WorkCardProps) {
 	const title = t(`${props.slug}.title`, { ns: 'works' });
 	const tags = t(`${props.slug}.tags`, { ns: 'works', returnObjects: true }) as string[];
 	const details = t(`${props.slug}.details`, { ns: 'works' });
-	const enTags = t(`${props.slug}.tags`, { ns: 'works', lng: 'en', returnObjects: true }) as string[];
 
 	const isDetail = hasDetailPage({ slug: props.slug, url: props.url, showcaseUrl: props.showcaseUrl, Logo: props.Logo });
 
@@ -85,17 +83,13 @@ function WorkCard(props: WorkCardProps) {
 						direction={'row'}
 						gap={"6px"}
 					>
-						{tags.map((tag: string, i: number) => {
-							const animationName = tagAnimationMap[enTags[i]] || undefined;
-							return (
-								<PillTag
-									key={tag}
-									tag={tag}
-									animationName={animationName}
-									p={['4', '8', '4', '8']}
-								/>
-							);
-						})}
+						{tags.map((tag: string) => (
+							<PillTag
+								key={tag}
+								tag={tag}
+								p={['4', '8', '4', '8']}
+							/>
+						))}
 					</Container>
 					<Text
 						w={'90%'}

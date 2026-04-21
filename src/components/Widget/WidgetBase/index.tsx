@@ -24,6 +24,7 @@ type WidgetBaseProps = {
 	loading?: boolean;
 	error?: string | null;
 	onRetry?: () => void;
+	skeleton?: ReactNode;
 };
 
 export default function WidgetBase(props: WidgetBaseProps) {
@@ -51,7 +52,7 @@ export default function WidgetBase(props: WidgetBaseProps) {
 			</StyledWidgetHeader>
 			<StyledWidgetContent>
 				{props.loading ? (
-					<WidgetSkeleton />
+					props.skeleton ?? <WidgetSkeleton />
 				) : props.error ? (
 					<StyledErrorState>
 						<Text variant="label">{t('activity.error')}</Text>

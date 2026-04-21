@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 //* Components
 import Container from './Container';
 import Text from '../Text';
+import ShinyLabel from '../ShinyLabel';
 import BlogCardSkeleton from '../Skeleton/BlogCardSkeleton';
-import { iconRegistry } from '../Icon';
 
 const BlogCard = lazy(() => import('../BlogCard'));
 
@@ -40,18 +40,6 @@ const StyledTitleRow = styled.div`
 	gap: var(--12);
 `;
 
-const StyledComingSoon = styled.span`
-	display: inline-flex;
-	align-items: center;
-	gap: var(--4);
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-caption);
-	line-height: 1;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: var(--accent);
-`;
-
 export default function Blog() {
 	const bp = useBreakpoint();
 	const cfg = blogConfig[bp];
@@ -60,7 +48,6 @@ export default function Blog() {
 	const posts = t('blog.posts', { returnObjects: true }) as Array<{
 		title: string;
 		excerpt: string;
-		tags: string[];
 	}>;
 
 	return (
@@ -77,10 +64,7 @@ export default function Blog() {
 					<Text as="h2" variant="subtitle-sm">
 						{t('blog.title')}
 					</Text>
-					<StyledComingSoon role="status">
-						<iconRegistry.toolCase width={12} height={12} aria-hidden="true" focusable="false" />
-						{t('blog.comingSoon')}
-					</StyledComingSoon>
+					<ShinyLabel label={t('blog.comingSoon')} icon="toolCase" />
 				</StyledTitleRow>
 				<StyledBlogGrid
 					$columns={cfg.gridColumns}
@@ -93,7 +77,7 @@ export default function Blog() {
 								title={post.title}
 								excerpt={post.excerpt}
 								thumbnail={blogPlaceholders[i]}
-								tags={post.tags}
+								status="in-progress"
 							/>
 						</Suspense>
 					))}

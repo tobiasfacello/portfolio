@@ -45,7 +45,7 @@ function WorkCardSkeleton() {
 	return (
 		<Card>
 			<LeftColumn>
-				<StyledSkeletonStack $gap="var(--12)">
+				<StyledSkeletonStack $gap="var(--20)">
 					<Skeleton variant="text" h="var(--32)" w="70%" />
 					<StyledSkeletonStack $direction="row" $gap="var(--6)">
 						<PillSkeleton w="56px" />
@@ -57,12 +57,12 @@ function WorkCardSkeleton() {
 					</StyledSkeletonStack>
 				</StyledSkeletonStack>
 				<StyledSkeletonStack $gap="var(--6)" $w="auto">
-					<Skeleton variant="rect" w="32px" h="32px" radius="var(--radius-md)" />
-					<Skeleton variant="rect" w="32px" h="32px" radius="var(--radius-md)" />
+					<Skeleton variant="rect" w="28px" h="24px" radius="var(--radius-md)" />
+					<Skeleton variant="rect" w="28px" h="24px" radius="var(--radius-md)" />
 				</StyledSkeletonStack>
 			</LeftColumn>
 			<LogoBox>
-				<Skeleton variant="circle" w="120px" h="120px" />
+				<Skeleton variant="rect" w="130px" h="130px" radius="var(--radius-lg)" />
 			</LogoBox>
 		</Card>
 	);

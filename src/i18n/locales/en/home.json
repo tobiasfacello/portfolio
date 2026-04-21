@@ -15,13 +15,16 @@
 		"title": "SKILLS & TOOLS"
 	},
 	"works": {
-		"title": "WORK"
+		"title": "WORK",
+		"previouslyShipped": "Previously Shipped"
 	},
 	"projects": {
-		"title": "PROJECTS"
+		"title": "PROJECTS",
+		"currentlyBuilding": "Currently Building"
 	},
 	"activity": {
 		"title": "ACTIVITY",
+		"liveFeed": "Live Feed",
 		"subtitle": "What I've been up to lately",
 		"viewProfile": "View profile",
 		"loading": "Loading...",
@@ -40,6 +43,8 @@
 	"blog": {
 		"title": "BLOG",
 		"comingSoon": "Coming Soon",
+		"readPost": "Read post",
+		"inProgress": "In progress",
 		"posts": [
 			{
 				"title": "Building interfaces with glassmorphism",

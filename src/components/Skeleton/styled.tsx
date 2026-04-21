@@ -1,26 +1,35 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { spacingArray, glassCard } from '../../styles/mixins';
+import { shimmerKeyframes, shimmerSurface } from './shimmer';
 
 export type SkeletonVariant = 'rect' | 'circle' | 'pill' | 'text';
 
-const shimmer = keyframes`
-	0% { background-position: -200% 0; }
-	100% { background-position: 200% 0; }
-`;
-
-const skeletonSurface = css`
+/**
+ * Container-level shimmer overlay — use when a skeleton has many child elements
+ * (e.g. GitHub contribution grid) to run a single sweep instead of per-child animations.
+ * Drop as the last child of a `position: relative; overflow: hidden;` container.
+ */
+export const ShimmerOverlay = styled.div.attrs({ 'aria-hidden': true })<{
+	$angle?: number;
+	$duration?: number;
+}>`
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 1;
 	background: linear-gradient(
-		90deg,
-		var(--glass-bg-bold) 25%,
+		${({ $angle }) => $angle ?? 110}deg,
+		transparent 0%,
 		var(--glass-border-start) 50%,
-		var(--glass-bg-bold) 75%
+		transparent 100%
 	);
-	background-size: 200% 100%;
-	animation: ${shimmer} 1.5s ease-in-out infinite;
+	animation: ${shimmerKeyframes} ${({ $duration }) => $duration ?? 1.8}s ease-in-out infinite;
+	will-change: transform;
 
 	@media (prefers-reduced-motion: reduce) {
 		animation: none;
-		background: var(--glass-bg-bold);
+		opacity: 0;
+		will-change: auto;
 	}
 `;
 
@@ -49,7 +58,7 @@ export const StyledSkeleton = styled.span<{
 	height: ${({ $h, $variant }) => $h || heightByVariant[$variant] || '100%'};
 	border-radius: ${({ $radius, $variant }) => $radius || radiusByVariant[$variant]};
 	margin: ${({ $m }) => spacingArray($m)};
-	${skeletonSurface}
+	${shimmerSurface}
 `;
 
 export const StyledSkeletonStack = styled.div<{
@@ -85,5 +94,6 @@ export const StyledSkeletonCard = styled.div<{
 	${({ $minH }) => $minH && `min-height: ${$minH};`}
 	padding: ${({ $p }) => spacingArray($p) || 'var(--8)'};
 	overflow: hidden;
+	contain: layout paint;
 	${glassCard(true)}
 `;

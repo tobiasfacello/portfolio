@@ -15,6 +15,7 @@ import { StyledWidgetHandle, StyledWidgetStat } from '../WidgetBase/styled';
 
 //* Components
 import WidgetBase from '../WidgetBase';
+import GitHubWidgetSkeleton from '../../Skeleton/GitHubWidgetSkeleton';
 
 //* Icon registry
 import { iconRegistry } from '../../Icon';
@@ -297,6 +298,7 @@ export default function GitHubWidget() {
 			profileUrl={GITHUB_URL}
 			loading={loading}
 			error={error}
+			skeleton={<GitHubWidgetSkeleton />}
 		>
 			<StyledWidgetHandle>@{GITHUB_USERNAME}</StyledWidgetHandle>
 			<StyledWidgetStat>

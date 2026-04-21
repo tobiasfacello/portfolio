@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 //* Components
 import Container from './Container';
 import Text from '../Text';
+import ShinyLabel from '../ShinyLabel';
 import GitHubWidget from '../Widget/GitHubWidget';
 import TwitterWidget from '../Widget/TwitterWidget';
 import LinkedInWidget from '../Widget/LinkedInWidget';
@@ -28,8 +29,12 @@ const StyledWidgetGrid = styled.div<{ $columns: number; $gap: string }>`
 	gap: ${(props) => props.$gap};
 `;
 
-
-const MOBILE_TITLE_STYLE = { alignSelf: 'flex-start' } as const;
+const StyledTitleRow = styled.div`
+	display: flex;
+	width: 100%;
+	align-items: center;
+	gap: var(--12);
+`;
 
 export default function ActivityFeed() {
 	const bp = useBreakpoint();
@@ -46,9 +51,12 @@ export default function ActivityFeed() {
 				align={isMobile(bp) ? 'center' : 'start'}
 				gap={cfg.outerGap}
 			>
-				<Text as="h2" variant="subtitle-sm" style={isMobile(bp) ? MOBILE_TITLE_STYLE : undefined}>
-					{t('activity.title')}
-				</Text>
+				<StyledTitleRow>
+					<Text as="h2" variant="subtitle-sm">
+						{t('activity.title')}
+					</Text>
+					<ShinyLabel label={t('activity.liveFeed')} icon="radioTower" />
+				</StyledTitleRow>
 				<StyledWidgetGrid $columns={cfg.gridColumns} $gap={cfg.gridGap}>
 					<GitHubWidget />
 					<TwitterWidget />

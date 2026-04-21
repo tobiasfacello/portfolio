@@ -1,5 +1,6 @@
 //* Components
 import WidgetBase from '../WidgetBase';
+import TwitterWidgetSkeleton from '../../Skeleton/TwitterWidgetSkeleton';
 
 //* Styled
 import {
@@ -69,6 +70,7 @@ export default function TwitterWidget() {
 			profileUrl={TWITTER_URL}
 			loading={loading}
 			error={error}
+			skeleton={<TwitterWidgetSkeleton />}
 		>
 			<StyledWidgetHandle>{TWITTER_HANDLE}</StyledWidgetHandle>
 			<StyledWidgetStat>~100 posts</StyledWidgetStat>

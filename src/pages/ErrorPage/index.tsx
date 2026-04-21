@@ -27,12 +27,13 @@ const PageWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	min-height: 100vh;
-	min-height: 100dvh;
+	height: 100vh;
+	height: 100dvh;
 	width: 100%;
+	margin-top: -85px;
 	padding: var(--24);
-	background-color: var(--background);
 	gap: var(--36);
+	overflow: hidden;
 `;
 
 const AsciiContainer = styled.pre`

@@ -15,13 +15,16 @@
 		"title": "HABILIDADES Y HERRAMIENTAS"
 	},
 	"works": {
-		"title": "TRABAJO"
+		"title": "TRABAJO",
+		"previouslyShipped": "Trabajos Previos"
 	},
 	"projects": {
-		"title": "PROYECTOS"
+		"title": "PROYECTOS",
+		"currentlyBuilding": "En Desarrollo"
 	},
 	"activity": {
 		"title": "ACTIVIDAD",
+		"liveFeed": "En Vivo",
 		"subtitle": "Lo que estuve haciendo",
 		"viewProfile": "Ver perfil",
 		"loading": "Cargando...",
@@ -40,6 +43,8 @@
 	"blog": {
 		"title": "BLOG",
 		"comingSoon": "Próximamente",
+		"readPost": "Leer post",
+		"inProgress": "En progreso",
 		"posts": [
 			{
 				"title": "Construyendo interfaces con glassmorphism",

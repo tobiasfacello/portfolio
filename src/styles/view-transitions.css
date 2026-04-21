@@ -10,10 +10,17 @@
 .reveal-scale,
 .reveal-stagger > * {
 	opacity: 0;
-	will-change: opacity, transform;
 	transition:
 		opacity 0.6s ease-out,
 		transform 0.6s ease-out;
+}
+
+/* Apply will-change only while waiting to reveal, so the stacking context
+   is released once the animation ends (otherwise it scopes backdrop-filter). */
+.reveal-fade-up:not(.revealed),
+.reveal-scale:not(.revealed),
+.reveal-stagger:not(.revealed) > * {
+	will-change: opacity, transform;
 }
 
 .reveal-fade-up {

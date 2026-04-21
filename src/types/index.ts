@@ -1,13 +1,4 @@
 import { ReactNode } from 'react';
-import type { AnimationName } from '../components/UnicodeAnimations/animations';
-
-export const PillDisplay = {
-	FULL: 0,
-	ICON_ONLY: 1,
-	HIDDEN: 2,
-} as const;
-
-export type PillDisplayLevel = (typeof PillDisplay)[keyof typeof PillDisplay];
 
 export type ThemeProviderProps = {
 	children: ReactNode;
@@ -105,12 +96,9 @@ export type SocialButtonProps = {
 
 export type PillProps = {
 	tag?: string;
-	animationName?: AnimationName;
 	m?: string[];
 	p?: string[];
 };
-
-export type { AnimationName };
 
 export type TooltipProps = {
 	text: ReactNode;
@@ -209,9 +197,12 @@ export type LinkedInProfile = {
 	experience?: LinkedInExperience[];
 };
 
+export type BlogCardStatus = 'in-progress' | 'published';
+
 export type BlogCardProps = {
 	title: string;
 	excerpt: string;
 	thumbnail: string;
-	tags: string[];
+	status: BlogCardStatus;
+	url?: string;
 };

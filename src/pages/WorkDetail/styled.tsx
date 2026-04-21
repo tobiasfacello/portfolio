@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { glassBorder, glassCard, noisePatternBackground, iconWrapper, responsiveCardPadding, imageCardContent } from '../../styles/mixins';
+import { glassBorder, glassCard, iconWrapper, responsiveCardPadding, imageCardContent } from '../../styles/mixins';
 import { mq } from '../../config/breakpoints';
 
 export const StyledWorkDetail = styled.main`
@@ -153,7 +153,6 @@ export const StyledMetaCard = styled.div`
 	flex-direction: column;
 	gap: 24px;
 	${glassBorder(true)}
-	${noisePatternBackground}
 	${responsiveCardPadding}
 `;
 
@@ -269,14 +268,6 @@ export const StyledLinkPreview = styled.a`
 	color: inherit;
 	${glassBorder(true)}
 	${responsiveCardPadding}
-
-	&:hover::after {
-		background: linear-gradient(
-			to bottom,
-			var(--glass-border-bold-hover-start),
-			var(--glass-border-bold-hover-end)
-		);
-	}
 `;
 
 export const StyledLinkUrl = styled.span`

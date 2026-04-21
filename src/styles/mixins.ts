@@ -1,6 +1,5 @@
 import { css, keyframes } from 'styled-components';
 import { StyledPillTag } from '../components/Pill/styled';
-import { StyledAnimation } from '../components/UnicodeAnimations/styled';
 import { mq } from '../config/breakpoints';
 
 //* Assets
@@ -45,11 +44,23 @@ export const glassGradientBorder = ({
 export const glassBorder = (bold = false) => css`
 	position: relative;
 	background-color: var(--glass-bg${bold ? '-bold' : ''});
+	background-clip: padding-box;
 	border-radius: var(--radius-lg);
+	backdrop-filter: blur(var(--blur-sm));
+	-webkit-backdrop-filter: blur(var(--blur-sm));
+	transition: all var(--transition-slow) ease-in-out;
 	${glassGradientBorder({ bold })}
 
 	&::after {
 		z-index: 1;
+	}
+
+	&:hover::after {
+		background: linear-gradient(
+			to bottom,
+			var(--glass-border${bold ? '-bold-' : '-'}hover-start),
+			var(--glass-border${bold ? '-bold-' : '-'}hover-end)
+		);
 	}
 `;
 
@@ -78,10 +89,6 @@ export const hoveredPillStyles = css`
 		background-color: transparent;
 		border-color: inherit;
 		opacity: var(--opacity-soft);
-
-		${StyledAnimation} {
-			color: var(--primary);
-		}
 	}
 
 	&:hover ${StyledPillTag} {
@@ -89,10 +96,6 @@ export const hoveredPillStyles = css`
 		background-color: var(--accent);
 		border-color: var(--primary);
 		opacity: var(--opacity-full);
-
-		${StyledAnimation} {
-			color: var(--pill-text-hovered);
-		}
 	}
 `;
 

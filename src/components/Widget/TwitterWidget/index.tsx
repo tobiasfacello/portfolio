@@ -68,7 +68,7 @@ export default function TwitterWidget() {
 	const { isDarkMode } = useTheme();
 	const profileImg = isDarkMode ? profileDark : profileLight;
 
-	const visibleTweets = tweets.slice(0, 3);
+	const visibleTweets = tweets;
 	const lastActivity = visibleTweets[0]
 		? formatRelativeTime(t, visibleTweets[0].date)
 		: null;
@@ -100,7 +100,7 @@ export default function TwitterWidget() {
 		>
 			<StyledWidgetHandle>{TWITTER_HANDLE}</StyledWidgetHandle>
 
-			<StyledTweetList>
+			<StyledTweetList data-lenis-prevent>
 				{visibleTweets.map((tweet, i) => (
 					<StyledTweetItem
 						key={tweet.id}

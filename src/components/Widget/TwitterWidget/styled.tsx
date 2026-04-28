@@ -6,7 +6,25 @@ export const StyledTweetList = styled.div`
 	flex-direction: column;
 	gap: var(--6);
 	width: 100%;
-	flex: 1;
+	/* ~3 visible items at default sizing — anything beyond scrolls without
+	   pushing the widget taller. */
+	max-height: 160px;
+	min-height: 0;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	scrollbar-width: thin;
+	scrollbar-color: var(--glass-border-start) transparent;
+
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--glass-border-start);
+		border-radius: var(--radius-pill);
+	}
 `;
 
 export const StyledTweetText = styled.p`

@@ -29,6 +29,8 @@ export default function SwiperCarousel({ slidesPerView, centeredSlides, spaceBet
 			centeredSlides={centeredSlides}
 			slidesPerView={slidesPerView}
 			spaceBetween={spaceBetween}
+			speed={1400}
+			grabCursor={true}
 		>
 			{works.map((work) => (
 				<SwiperSlide key={work.slug} className="swiper-slide">

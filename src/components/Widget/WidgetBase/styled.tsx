@@ -80,3 +80,15 @@ export const StyledErrorState = styled.div`
 	gap: var(--12);
 	flex: 1;
 `;
+
+// Footer slot — anchored to the widget bottom via margin-top: auto, with
+// space-between so a left stat and a right stat read as a balanced pair.
+export const StyledWidgetFooter = styled.div`
+	margin-top: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--12);
+	flex-wrap: wrap;
+	padding-top: var(--6);
+`;

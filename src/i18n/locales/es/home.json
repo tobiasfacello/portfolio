@@ -31,13 +31,29 @@
 		"error": "No se pudo cargar la información",
 		"github": {
 			"repos": "Repositorios",
-			"followers": "Seguidores"
+			"followers": "Seguidores",
+			"legendLess": "Menos",
+			"legendMore": "Más",
+			"totalThisYear": "{{total}} contribuciones en lo que va del año"
 		},
 		"twitter": {
-			"followOn": "Seguir en X"
+			"followOn": "Seguir en X",
+			"recentCount": "{{count}} posts recientes",
+			"lastActivity": "Último post {{time}}",
+			"timeAgo": {
+				"today": "hoy",
+				"oneDay": "hace 1d",
+				"daysAgo": "hace {{count}}d",
+				"monthsAgo": "hace {{count}}m",
+				"yearsAgo": "hace {{count}}a"
+			}
 		},
 		"linkedin": {
-			"connectOn": "Conectar en LinkedIn"
+			"connectOn": "Conectar en LinkedIn",
+			"experience": "Experiencia",
+			"currentBadge": "Actual",
+			"positionsCount": "{{count}} posiciones",
+			"basedIn": "Desde {{location}}"
 		}
 	},
 	"blog": {

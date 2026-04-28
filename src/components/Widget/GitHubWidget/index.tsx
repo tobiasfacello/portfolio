@@ -11,9 +11,8 @@ import {
 	StyledSquare,
 	StyledContribTooltip,
 	StyledTooltipPositioner,
-	StyledTooltipDigitGroup,
-	StyledTooltipDigit,
-	StyledTooltipText,
+	StyledDigitGroup,
+	StyledDigit,
 } from './styled';
 import { StyledWidgetHandle, StyledWidgetStat } from '../WidgetBase/styled';
 
@@ -174,13 +173,12 @@ function computeMonthLabels(
 	return labels.filter((l) => l.span >= 2);
 }
 
-function formatDateDisplay(dateStr: string): string {
+function formatDateDisplay(dateStr: string): { monthDay: string; year: string } {
 	const date = new Date(dateStr + 'T00:00:00');
-	return date.toLocaleDateString('en-US', {
-		month: 'short',
-		day: 'numeric',
-		year: 'numeric',
-	});
+	return {
+		monthDay: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+		year: date.toLocaleDateString('en-US', { year: 'numeric' }),
+	};
 }
 
 function formatDateForA11y(dateStr: string): string {
@@ -193,16 +191,29 @@ function formatDateForA11y(dateStr: string): string {
 	});
 }
 
-interface TooltipState {
-	count: number;
-	dateLabel: string;
+interface TooltipPlacement {
 	x: number;
 	y: number;
 	position: 'top' | 'bottom';
 	align: 'start' | 'center' | 'end';
-	// Bumped on every hover so React remounts the inner tooltip and replays
-	// the entry animations even when the day-to-day position is identical.
-	key: number;
+}
+
+const TOOLTIP_CLOSE_DUR = 150;
+const DIGIT_STAGGER_MS = 70;
+
+// Tracks one piece of dynamic content. The replay animation lives on the
+// rendered <StyledDigitGroup> via React `key` — when `displayed` changes,
+// the keyed element remounts and the digit pop-in keyframe runs again.
+function useTooltipSwap<T>() {
+	const [displayed, setDisplayedState] = useState<T | null>(null);
+	const valueRef = useRef<T | null>(null);
+
+	const setValue = useCallback((next: T | null) => {
+		setDisplayedState(next);
+		valueRef.current = next;
+	}, []);
+
+	return { displayed, setValue, valueRef };
 }
 
 const tooltipTransform: Record<'top' | 'bottom', Record<'start' | 'center' | 'end', string>> = {
@@ -217,6 +228,22 @@ const tooltipTransform: Record<'top' | 'bottom', Record<'start' | 'center' | 'en
 		end: 'translateX(calc(-100% + 12px)) translateY(8px)',
 	},
 };
+
+// Splits a value into per-character spans so each one runs the digit pop-in
+// with a staggered animation-delay. Keying the wrapper by the value means React
+// remounts it on change, replaying the keyframe animation for the new content.
+function renderDigits(value: string | number | null, prefix: string) {
+	const text = value != null ? String(value) : '';
+	return (
+		<StyledDigitGroup key={`${prefix}-${text}`}>
+			{text.split('').map((char, i) => (
+				<StyledDigit key={i} style={{ animationDelay: `${i * DIGIT_STAGGER_MS}ms` }}>
+					{char}
+				</StyledDigit>
+			))}
+		</StyledDigitGroup>
+	);
+}
 
 const isTouchDevice =
 	typeof window !== 'undefined' &&
@@ -235,7 +262,25 @@ export default function GitHubWidget() {
 	const bp = useBreakpoint();
 	const config = gitHubCalendarConfig[bp];
 
-	const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+	// Single mounted tooltip. The connector text (" contributions on ", ", ")
+	// stays static; each dynamic field — count, month/day, and year — runs
+	// its own three-phase swap so a hover only animates the parts whose value
+	// actually changed (year only flips when crossing into a new year).
+	const [placement, setPlacement] = useState<TooltipPlacement | null>(null);
+	const [isOpen, setIsOpen] = useState(false);
+
+	const countSwap = useTooltipSwap<number>();
+	const monthDaySwap = useTooltipSwap<string>();
+	const yearSwap = useTooltipSwap<string>();
+
+	const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const isOpenRef = useRef(false);
+
+	useEffect(() => {
+		return () => {
+			if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+		};
+	}, []);
 
 	const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -289,22 +334,55 @@ export default function GitHubWidget() {
 				? squareRect.top - wrapperRect.top
 				: squareRect.bottom - wrapperRect.top;
 
-			setTooltip((prev) => ({
-				count: day.count,
-				dateLabel: formatDateDisplay(day.date),
-				x,
-				y,
-				position,
-				align,
-				key: (prev?.key ?? 0) + 1,
-			}));
+			if (closeTimeoutRef.current) {
+				clearTimeout(closeTimeoutRef.current);
+				closeTimeoutRef.current = null;
+			}
+
+			const newCount = day.count;
+			const { monthDay: newMonthDay, year: newYear } = formatDateDisplay(day.date);
+			const newPlacement: TooltipPlacement = { x, y, position, align };
+
+			// Position update — CSS transition on the positioner smooths the move.
+			setPlacement(newPlacement);
+
+			const prevCount = countSwap.valueRef.current;
+			const prevMonthDay = monthDaySwap.valueRef.current;
+			const prevYear = yearSwap.valueRef.current;
+			const wasOpen = isOpenRef.current;
+
+			// Each dynamic field updates independently — only the changed value
+			// pops in (its <StyledDigitGroup> remounts via key). The year usually
+			// stays the same within a calendar year, so it only animates when
+			// crossing into a new one.
+			if (prevCount !== newCount) countSwap.setValue(newCount);
+			if (prevMonthDay !== newMonthDay) monthDaySwap.setValue(newMonthDay);
+			if (prevYear !== newYear) yearSwap.setValue(newYear);
+
+			if (!wasOpen) {
+				requestAnimationFrame(() => {
+					requestAnimationFrame(() => {
+						setIsOpen(true);
+						isOpenRef.current = true;
+					});
+				});
+			}
 		},
-		[actualWeeks]
+		[actualWeeks, countSwap, monthDaySwap, yearSwap]
 	);
 
 	const handleSquareLeave = useCallback(() => {
-		setTooltip(null);
-	}, []);
+		setIsOpen(false);
+		isOpenRef.current = false;
+		if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+		closeTimeoutRef.current = setTimeout(() => {
+			setPlacement(null);
+			countSwap.setValue(null);
+			monthDaySwap.setValue(null);
+			yearSwap.setValue(null);
+			closeTimeoutRef.current = null;
+		}, TOOLTIP_CLOSE_DUR);
+	}, [countSwap, monthDaySwap, yearSwap]);
 
 	return (
 		<WidgetBase
@@ -352,6 +430,7 @@ export default function GitHubWidget() {
 								role="grid"
 								aria-readonly="true"
 								aria-label={`${totalContributions.toLocaleString()} contributions in ${CURRENT_YEAR}`}
+								onMouseLeave={handleSquareLeave}
 							>
 								{gridData.map((day, i) => (
 									<StyledSquare
@@ -362,40 +441,29 @@ export default function GitHubWidget() {
 										aria-label={ariaLabels[i]}
 										tabIndex={-1}
 										onMouseEnter={(e) => handleSquareEnter(e, day, i)}
-										onMouseLeave={handleSquareLeave}
 									/>
 								))}
 							</StyledContributionGrid>
 						</StyledGridWithLabels>
 
-						{tooltip && (
+						{placement && (
 							<StyledTooltipPositioner
 								style={{
-									left: tooltip.x,
-									top: tooltip.y,
-									transform: tooltipTransform[tooltip.position][tooltip.align],
+									left: placement.x,
+									top: placement.y,
+									transform: tooltipTransform[placement.position][placement.align],
 								}}
 							>
 								<StyledContribTooltip
-									key={tooltip.key}
-									$position={tooltip.position}
-									$align={tooltip.align}
+									$position={placement.position}
+									$align={placement.align}
+									$visible={isOpen}
 								>
-									<StyledTooltipDigitGroup>
-										{String(tooltip.count)
-											.split('')
-											.map((digit, i) => (
-												<StyledTooltipDigit
-													key={`${tooltip.key}-${i}`}
-													style={{ animationDelay: `${i * 70}ms` }}
-												>
-													{digit}
-												</StyledTooltipDigit>
-											))}
-									</StyledTooltipDigitGroup>
-									<StyledTooltipText>
-										{` contribution${tooltip.count !== 1 ? 's' : ''} on ${tooltip.dateLabel}`}
-									</StyledTooltipText>
+									{renderDigits(countSwap.displayed, 'count')}
+									{' contributions on '}
+									{renderDigits(monthDaySwap.displayed, 'md')}
+									{', '}
+									{renderDigits(yearSwap.displayed, 'year')}
 								</StyledContribTooltip>
 							</StyledTooltipPositioner>
 						)}

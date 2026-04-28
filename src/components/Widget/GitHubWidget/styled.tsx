@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { tooltipBase } from '../../../styles/mixins';
 
 // Calendar wrapper — contains month labels, day labels, and contribution grid
@@ -84,6 +84,44 @@ export const StyledSquare = styled.div<{ $level: 0 | 1 | 2 | 3 | 4; $radius: num
 	}
 `;
 
+// GitHub-style legend.
+export const StyledLegend = styled.div`
+	display: flex;
+	align-items: center;
+	gap: var(--6);
+`;
+
+export const StyledLegendSwatchRow = styled.span`
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+`;
+
+export const StyledLegendSwatch = styled.span<{ $level: 0 | 1 | 2 | 3 | 4 }>`
+	width: 10px;
+	height: 10px;
+	border-radius: 2px;
+	background-color: ${(props) => CONTRIB_LEVELS[props.$level]};
+	border: 1px solid var(--glass-border-start);
+`;
+
+export const StyledFooterLabel = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-label);
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-soft);
+`;
+
+export const StyledTotalLabel = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-label);
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+	text-align: right;
+`;
+
 // Contribution tooltip — positioned absolutely within CalendarWrapper
 type TooltipAlign = 'start' | 'center' | 'end';
 type TooltipPosition = 'top' | 'bottom';
@@ -159,35 +197,3 @@ export const StyledContribTooltip = styled.div<{
 	}
 `;
 
-// Per-character pop-in: each digit slides up from below with a blur fade,
-// staggered via animation-delay set inline. The wrapping element is keyed by
-// its current value, so React remounts it on change and the animation replays
-// from scratch (matches the user-supplied "Number pop-in" pattern).
-const digitPopIn = keyframes`
-	0% {
-		transform: translateY(8px);
-		opacity: 0;
-		filter: blur(2px);
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-		filter: blur(0);
-	}
-`;
-
-export const StyledDigitGroup = styled.span`
-	display: inline-flex;
-	align-items: baseline;
-`;
-
-export const StyledDigit = styled.span`
-	display: inline-block;
-	white-space: pre;
-	will-change: transform, opacity, filter;
-	animation: ${digitPopIn} 500ms cubic-bezier(0.34, 1.45, 0.64, 1) both;
-
-	@media (prefers-reduced-motion: reduce) {
-		animation: none;
-	}
-`;

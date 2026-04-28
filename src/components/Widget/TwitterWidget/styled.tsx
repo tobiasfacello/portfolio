@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { popInAnimation } from '../shared/digitPop';
 
 export const StyledTweetList = styled.div`
 	display: flex;
@@ -69,6 +70,8 @@ export const StyledTweetItem = styled.a`
 	border-radius: var(--radius-sm);
 	text-decoration: none;
 	color: inherit;
+	will-change: transform, opacity, filter;
+	${popInAnimation}
 	transition:
 		background-color var(--transition-fast),
 		transform var(--transition-fast);
@@ -82,6 +85,23 @@ export const StyledTweetItem = styled.a`
 			opacity: 1;
 		}
 	}
+`;
+
+export const StyledFooterLabel = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-label);
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-soft);
+`;
+
+export const StyledFooterMeta = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-label);
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+	text-align: right;
 `;
 
 export const StyledTweetMeta = styled.div`

@@ -14,6 +14,7 @@ import {
 	StyledWidgetIcon,
 	StyledWidgetContent,
 	StyledErrorState,
+	StyledWidgetFooter,
 } from './styled';
 
 type WidgetBaseProps = {
@@ -25,6 +26,7 @@ type WidgetBaseProps = {
 	error?: string | null;
 	onRetry?: () => void;
 	skeleton?: ReactNode;
+	footer?: ReactNode;
 };
 
 export default function WidgetBase(props: WidgetBaseProps) {
@@ -66,7 +68,10 @@ export default function WidgetBase(props: WidgetBaseProps) {
 						)}
 					</StyledErrorState>
 				) : (
-					props.children
+					<>
+						{props.children}
+						{props.footer && <StyledWidgetFooter>{props.footer}</StyledWidgetFooter>}
+					</>
 				)}
 			</StyledWidgetContent>
 		</StyledWidgetCard>

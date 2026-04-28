@@ -1,0 +1,52 @@
+name: Refresh tweets
+
+# Re-fetches the tweet metadata listed in scripts/tweets-config.json,
+# updates src/data/tweets.json, and pushes if the file changed. The push
+# triggers the standard Vercel deploy from main.
+#
+# To add new tweets to the activity widget, append URLs to
+# scripts/tweets-config.json — this workflow will keep their text/dates
+# fresh on every run.
+
+on:
+  schedule:
+    # Daily at 12:00 UTC (~09:00 ART).
+    - cron: '0 12 * * *'
+  # Manual trigger from the Actions tab for ad-hoc refreshes.
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+
+      - name: Fetch tweets
+        run: npm run fetch-tweets
+
+      - name: Commit and push if changed
+        run: |
+          if [ -n "$(git status --porcelain src/data/tweets.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/data/tweets.json
+            git commit -m "chore(data): refresh tweets via scheduled workflow"
+            git push origin main
+            echo "Pushed updated tweets.json — Vercel will redeploy."
+          else
+            echo "tweets.json is already up to date."
+          fi

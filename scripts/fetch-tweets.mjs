@@ -36,9 +36,29 @@ function extractTweetId(url) {
 	return match[1];
 }
 
+function decodeHtmlEntities(text) {
+	return text
+		.replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+		.replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+		.replace(/&quot;/g, '"')
+		.replace(/&apos;/g, "'")
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&nbsp;/g, ' ')
+		.replace(/&amp;/g, '&');
+}
+
 function parseTweetHtml(html) {
 	const pMatch = html.match(/<p[^>]*>([\s\S]*?)<\/p>/);
-	const rawText = pMatch ? pMatch[1].replace(/<[^>]+>/g, '').trim() : '';
+	const rawText = pMatch
+		? decodeHtmlEntities(
+			pMatch[1]
+				// Preserve paragraph breaks Twitter encodes as <br>.
+				.replace(/<br\s*\/?>/gi, '\n')
+				.replace(/<[^>]+>/g, '')
+				.trim()
+		)
+		: '';
 
 	const dateMatches = html.match(/<a[^>]*>([A-Za-z]+ \d{1,2}, \d{4})<\/a>/g);
 	let date = '';
@@ -63,7 +83,10 @@ function cleanTweetText(text) {
 	return text
 		.replace(/https?:\/\/t\.co\/\w+/g, '')
 		.replace(/pic\.twitter\.com\/\w+/g, '')
-		.replace(/\s{2,}/g, ' ')
+		// Collapse only horizontal whitespace runs so paragraph breaks survive.
+		.replace(/[ \t]{2,}/g, ' ')
+		// Cap consecutive newlines at two (one blank line max).
+		.replace(/\n{3,}/g, '\n\n')
 		.trim();
 }
 

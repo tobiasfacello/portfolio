@@ -1,4 +1,4 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { tooltipBase } from '../../../styles/mixins';
 
 // Calendar wrapper — contains month labels, day labels, and contribution grid
@@ -109,41 +109,43 @@ const originMap: Record<TooltipPosition, Record<TooltipAlign, string>> = {
 	},
 };
 
-const tooltipPopIn = keyframes`
-	0%   { transform: scale(0.96); opacity: 0; }
-	100% { transform: scale(1); opacity: 1; }
-`;
-
-const digitPopIn = keyframes`
-	0%   { transform: translateY(8px); opacity: 0; filter: blur(2px); }
-	100% { transform: translateY(0); opacity: 1; filter: blur(0); }
-`;
-
-const textSwapIn = keyframes`
-	0%   { transform: translateY(8px); opacity: 0; filter: blur(2px); }
-	100% { transform: translateY(0); opacity: 1; filter: blur(0); }
-`;
+const tooltipModalEase = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 // Wrapper that owns the absolute positioning (left/top + position translate).
-// Keeping the layout transform here lets the inner tooltip animate `scale`
-// cleanly without fighting the positioning translate.
+// Position transitions live here so the tooltip glides between adjacent
+// squares without remounting the inner element.
 export const StyledTooltipPositioner = styled.div`
 	position: absolute;
 	z-index: var(--z-tooltip);
 	pointer-events: none;
+	transition:
+		left 220ms ease-out,
+		top 220ms ease-out,
+		transform 220ms ease-out;
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+	}
 `;
 
+// Single mounted tooltip that pops in/out via $visible. Kept mounted across
+// hover transitions between squares; only the swap area inside mutates.
 export const StyledContribTooltip = styled.div<{
 	$position: TooltipPosition;
 	$align: TooltipAlign;
+	$visible: boolean;
 }>`
 	${tooltipBase}
 	position: relative;
 	transform-origin: ${(props) => originMap[props.$position][props.$align]};
-	animation: ${tooltipPopIn} 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	transform: scale(${(props) => (props.$visible ? 1 : 0.96)});
+	opacity: ${(props) => (props.$visible ? 1 : 0)};
+	transition:
+		transform ${(props) => (props.$visible ? '250ms' : '150ms')} ${tooltipModalEase},
+		opacity ${(props) => (props.$visible ? '250ms' : '150ms')} ${tooltipModalEase};
 
 	@media (prefers-reduced-motion: reduce) {
-		animation: none;
+		transition: none;
 	}
 
 	&::before {
@@ -157,27 +159,35 @@ export const StyledContribTooltip = styled.div<{
 	}
 `;
 
-const reducedMotionReset = css`
-	@media (prefers-reduced-motion: reduce) {
-		animation: none;
+// Per-character pop-in: each digit slides up from below with a blur fade,
+// staggered via animation-delay set inline. The wrapping element is keyed by
+// its current value, so React remounts it on change and the animation replays
+// from scratch (matches the user-supplied "Number pop-in" pattern).
+const digitPopIn = keyframes`
+	0% {
+		transform: translateY(8px);
+		opacity: 0;
+		filter: blur(2px);
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+		filter: blur(0);
 	}
 `;
 
-export const StyledTooltipDigitGroup = styled.span`
+export const StyledDigitGroup = styled.span`
 	display: inline-flex;
 	align-items: baseline;
 `;
 
-export const StyledTooltipDigit = styled.span`
+export const StyledDigit = styled.span`
 	display: inline-block;
+	white-space: pre;
 	will-change: transform, opacity, filter;
 	animation: ${digitPopIn} 500ms cubic-bezier(0.34, 1.45, 0.64, 1) both;
-	${reducedMotionReset}
-`;
 
-export const StyledTooltipText = styled.span`
-	display: inline-block;
-	will-change: transform, opacity, filter;
-	animation: ${textSwapIn} 200ms ease-out both;
-	${reducedMotionReset}
+	@media (prefers-reduced-motion: reduce) {
+		animation: none;
+	}
 `;

@@ -3,9 +3,6 @@ import { useEffect, useId, useRef, useState } from 'react';
 //* Types
 import type { TooltipProps } from '../../types';
 
-//? Hooks
-import { useTooltipAnimation } from '../../hooks/useTooltipAnimation';
-
 //* Styled
 import {
 	StyledTooltipWrapper,
@@ -13,16 +10,22 @@ import {
 	StyledTooltipBridge,
 	StyledTooltipContent,
 	StyledTooltipIcon,
+	StyledTooltipReveal,
 } from './styled';
 
 function Tooltip({ text, children, position = 'top', align = 'center', icon, href }: TooltipProps) {
 	const [isVisible, setIsVisible] = useState(false);
+	// Bumped on every show so the inner reveal animation replays even when the
+	// content is unchanged.
+	const [revealKey, setRevealKey] = useState(0);
 	const tooltipId = useId();
-	const tooltipRef = useTooltipAnimation(isVisible, position);
 	const enterTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const showTooltip = () => {
-		enterTimeoutRef.current = setTimeout(() => setIsVisible(true), 300);
+		enterTimeoutRef.current = setTimeout(() => {
+			setIsVisible(true);
+			setRevealKey((k) => k + 1);
+		}, 300);
 	};
 
 	const hideTooltip = () => {
@@ -68,16 +71,18 @@ function Tooltip({ text, children, position = 'top', align = 'center', icon, hre
 		>
 			{children}
 			<StyledTooltip
-				ref={tooltipRef}
 				id={tooltipId}
 				$position={position}
 				$align={align}
 				$clickable={!!href}
+				$visible={isVisible}
 				role="tooltip"
 				aria-hidden={!isVisible}
 			>
 				{href && <StyledTooltipBridge $position={position} />}
-				{href ? <a href={href}>{content}</a> : content}
+				<StyledTooltipReveal key={revealKey}>
+					{href ? <a href={href}>{content}</a> : content}
+				</StyledTooltipReveal>
 			</StyledTooltip>
 		</StyledTooltipWrapper>
 	);

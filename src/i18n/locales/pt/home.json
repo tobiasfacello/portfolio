@@ -31,13 +31,29 @@
 		"error": "Não foi possível carregar os dados",
 		"github": {
 			"repos": "Repositórios",
-			"followers": "Seguidores"
+			"followers": "Seguidores",
+			"legendLess": "Menos",
+			"legendMore": "Mais",
+			"totalThisYear": "{{total}} contribuições no ano até agora"
 		},
 		"twitter": {
-			"followOn": "Seguir no X"
+			"followOn": "Seguir no X",
+			"recentCount": "{{count}} posts recentes",
+			"lastActivity": "Último post {{time}}",
+			"timeAgo": {
+				"today": "hoje",
+				"oneDay": "1d atrás",
+				"daysAgo": "{{count}}d atrás",
+				"monthsAgo": "{{count}}m atrás",
+				"yearsAgo": "{{count}}a atrás"
+			}
 		},
 		"linkedin": {
-			"connectOn": "Conectar no LinkedIn"
+			"connectOn": "Conectar no LinkedIn",
+			"experience": "Experiência",
+			"currentBadge": "Atual",
+			"positionsCount": "{{count}} posições",
+			"basedIn": "Em {{location}}"
 		}
 	},
 	"blog": {

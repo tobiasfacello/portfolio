@@ -31,13 +31,29 @@
 		"error": "Unable to load data",
 		"github": {
 			"repos": "Repositories",
-			"followers": "Followers"
+			"followers": "Followers",
+			"legendLess": "Less",
+			"legendMore": "More",
+			"totalThisYear": "{{total}} contributions total this year"
 		},
 		"twitter": {
-			"followOn": "Follow on X"
+			"followOn": "Follow on X",
+			"recentCount": "{{count}} recent posts",
+			"lastActivity": "Last posted {{time}}",
+			"timeAgo": {
+				"today": "today",
+				"oneDay": "1d ago",
+				"daysAgo": "{{count}}d ago",
+				"monthsAgo": "{{count}}mo ago",
+				"yearsAgo": "{{count}}y ago"
+			}
 		},
 		"linkedin": {
-			"connectOn": "Connect on LinkedIn"
+			"connectOn": "Connect on LinkedIn",
+			"experience": "Experience",
+			"currentBadge": "Current",
+			"positionsCount": "{{count}} positions",
+			"basedIn": "Based in {{location}}"
 		}
 	},
 	"blog": {

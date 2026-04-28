@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 //* Styled
 import {
@@ -11,10 +12,15 @@ import {
 	StyledSquare,
 	StyledContribTooltip,
 	StyledTooltipPositioner,
-	StyledDigitGroup,
-	StyledDigit,
+	StyledLegend,
+	StyledLegendSwatchRow,
+	StyledLegendSwatch,
+	StyledFooterLabel,
+	StyledTotalLabel,
 } from './styled';
-import { StyledWidgetHandle, StyledWidgetStat } from '../WidgetBase/styled';
+import { useTooltipSwap } from '../shared/digitPop';
+import DigitGroup from '../shared/DigitGroup';
+import { StyledWidgetHandle } from '../WidgetBase/styled';
 
 //* Components
 import WidgetBase from '../WidgetBase';
@@ -199,22 +205,6 @@ interface TooltipPlacement {
 }
 
 const TOOLTIP_CLOSE_DUR = 150;
-const DIGIT_STAGGER_MS = 70;
-
-// Tracks one piece of dynamic content. The replay animation lives on the
-// rendered <StyledDigitGroup> via React `key` — when `displayed` changes,
-// the keyed element remounts and the digit pop-in keyframe runs again.
-function useTooltipSwap<T>() {
-	const [displayed, setDisplayedState] = useState<T | null>(null);
-	const valueRef = useRef<T | null>(null);
-
-	const setValue = useCallback((next: T | null) => {
-		setDisplayedState(next);
-		valueRef.current = next;
-	}, []);
-
-	return { displayed, setValue, valueRef };
-}
 
 const tooltipTransform: Record<'top' | 'bottom', Record<'start' | 'center' | 'end', string>> = {
 	top: {
@@ -229,29 +219,17 @@ const tooltipTransform: Record<'top' | 'bottom', Record<'start' | 'center' | 'en
 	},
 };
 
-// Splits a value into per-character spans so each one runs the digit pop-in
-// with a staggered animation-delay. Keying the wrapper by the value means React
-// remounts it on change, replaying the keyframe animation for the new content.
-function renderDigits(value: string | number | null, prefix: string) {
-	const text = value != null ? String(value) : '';
-	return (
-		<StyledDigitGroup key={`${prefix}-${text}`}>
-			{text.split('').map((char, i) => (
-				<StyledDigit key={i} style={{ animationDelay: `${i * DIGIT_STAGGER_MS}ms` }}>
-					{char}
-				</StyledDigit>
-			))}
-		</StyledDigitGroup>
-	);
-}
-
 const isTouchDevice =
 	typeof window !== 'undefined' &&
 	window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
 const CURRENT_YEAR = new Date().getFullYear();
 
+const LEGEND_LEVELS = [0, 1, 2, 3, 4] as const;
+
 export default function GitHubWidget() {
+	const { t } = useTranslation('home');
+
 	const {
 		contributions,
 		totalContributions,
@@ -392,11 +370,26 @@ export default function GitHubWidget() {
 			loading={loading}
 			error={error}
 			skeleton={<GitHubWidgetSkeleton />}
+			footer={
+				<>
+					<StyledLegend aria-hidden="true">
+						<StyledFooterLabel>{t('activity.github.legendLess')}</StyledFooterLabel>
+						<StyledLegendSwatchRow>
+							{LEGEND_LEVELS.map((level) => (
+								<StyledLegendSwatch key={level} $level={level} />
+							))}
+						</StyledLegendSwatchRow>
+						<StyledFooterLabel>{t('activity.github.legendMore')}</StyledFooterLabel>
+					</StyledLegend>
+					<StyledTotalLabel>
+						{t('activity.github.totalThisYear', {
+							total: totalContributions.toLocaleString(),
+						})}
+					</StyledTotalLabel>
+				</>
+			}
 		>
 			<StyledWidgetHandle>@{GITHUB_USERNAME}</StyledWidgetHandle>
-			<StyledWidgetStat>
-				{totalContributions.toLocaleString()} contributions in {CURRENT_YEAR}
-			</StyledWidgetStat>
 
 			<StyledCalendarWrapper ref={wrapperRef}>
 				{actualWeeks > 0 && (
@@ -459,11 +452,20 @@ export default function GitHubWidget() {
 									$align={placement.align}
 									$visible={isOpen}
 								>
-									{renderDigits(countSwap.displayed, 'count')}
+									<DigitGroup
+										key={`count-${countSwap.displayed ?? ''}`}
+										value={countSwap.displayed}
+									/>
 									{' contributions on '}
-									{renderDigits(monthDaySwap.displayed, 'md')}
+									<DigitGroup
+										key={`md-${monthDaySwap.displayed ?? ''}`}
+										value={monthDaySwap.displayed}
+									/>
 									{', '}
-									{renderDigits(yearSwap.displayed, 'year')}
+									<DigitGroup
+										key={`year-${yearSwap.displayed ?? ''}`}
+										value={yearSwap.displayed}
+									/>
 								</StyledContribTooltip>
 							</StyledTooltipPositioner>
 						)}

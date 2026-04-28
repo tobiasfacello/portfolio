@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
+
 //* Components
 import WidgetBase from '../WidgetBase';
 import TwitterWidgetSkeleton from '../../Skeleton/TwitterWidgetSkeleton';
@@ -11,8 +14,13 @@ import {
 	StyledTweetText,
 	StyledTweetMeta,
 	StyledTweetStat,
+	StyledFooterLabel,
+	StyledFooterMeta,
 } from './styled';
-import { StyledWidgetHandle, StyledWidgetStat } from '../WidgetBase/styled';
+import { StyledWidgetHandle } from '../WidgetBase/styled';
+
+//* Shared
+import { POP_IN_STAGGER_MS } from '../shared/digitPop';
 
 //* Icon registry
 import { iconRegistry } from '../../Icon';
@@ -37,31 +45,33 @@ function ClockSvg() {
 	);
 }
 
-const formatDateCache = new Map<string, string>();
-function formatDate(dateStr: string): string {
-	const cached = formatDateCache.get(dateStr);
-	if (cached) return cached;
-
+function getRelativeTimeKey(dateStr: string): { key: string; count: number } {
 	const date = new Date(dateStr);
 	const now = new Date();
-	const diffMs = now.getTime() - date.getTime();
-	const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+	const diffDays = Math.floor((now.getTime() - date.getTime()) / 86400000);
 
-	let result: string;
-	if (diffDays === 0) result = 'today';
-	else if (diffDays === 1) result = '1d ago';
-	else if (diffDays < 30) result = `${diffDays}d ago`;
-	else if (diffDays < 365) result = `${Math.floor(diffDays / 30)}mo ago`;
-	else result = `${Math.floor(diffDays / 365)}y ago`;
+	if (diffDays <= 0) return { key: 'today', count: 0 };
+	if (diffDays === 1) return { key: 'oneDay', count: 1 };
+	if (diffDays < 30) return { key: 'daysAgo', count: diffDays };
+	if (diffDays < 365) return { key: 'monthsAgo', count: Math.floor(diffDays / 30) };
+	return { key: 'yearsAgo', count: Math.floor(diffDays / 365) };
+}
 
-	formatDateCache.set(dateStr, result);
-	return result;
+function formatRelativeTime(t: TFunction<'home'>, dateStr: string): string {
+	const { key, count } = getRelativeTimeKey(dateStr);
+	return t(`activity.twitter.timeAgo.${key}`, { count });
 }
 
 export default function TwitterWidget() {
+	const { t } = useTranslation('home');
 	const { tweets, loading, error } = useTweets();
 	const { isDarkMode } = useTheme();
 	const profileImg = isDarkMode ? profileDark : profileLight;
+
+	const visibleTweets = tweets.slice(0, 3);
+	const lastActivity = visibleTweets[0]
+		? formatRelativeTime(t, visibleTweets[0].date)
+		: null;
 
 	return (
 		<WidgetBase
@@ -71,17 +81,33 @@ export default function TwitterWidget() {
 			loading={loading}
 			error={error}
 			skeleton={<TwitterWidgetSkeleton />}
+			footer={
+				visibleTweets.length > 0
+					? (
+						<>
+							<StyledFooterLabel>
+								{t('activity.twitter.recentCount', { count: visibleTweets.length })}
+							</StyledFooterLabel>
+							{lastActivity && (
+								<StyledFooterMeta>
+									{t('activity.twitter.lastActivity', { time: lastActivity })}
+								</StyledFooterMeta>
+							)}
+						</>
+					)
+					: undefined
+			}
 		>
 			<StyledWidgetHandle>{TWITTER_HANDLE}</StyledWidgetHandle>
-			<StyledWidgetStat>~100 posts</StyledWidgetStat>
 
 			<StyledTweetList>
-				{tweets.slice(0, 3).map((tweet) => (
+				{visibleTweets.map((tweet, i) => (
 					<StyledTweetItem
 						key={tweet.id}
 						href={tweet.url}
 						target="_blank"
 						rel="noopener noreferrer"
+						style={{ animationDelay: `${i * POP_IN_STAGGER_MS}ms` }}
 					>
 						<StyledTweetThumbnail>
 							<img src={profileImg} alt="Tobias Facello" loading="lazy" />
@@ -91,7 +117,7 @@ export default function TwitterWidget() {
 							<StyledTweetMeta>
 								<StyledTweetStat>
 									<ClockSvg />
-									{formatDate(tweet.date)}
+									{formatRelativeTime(t, tweet.date)}
 								</StyledTweetStat>
 							</StyledTweetMeta>
 						</StyledTweetContent>

@@ -10,6 +10,10 @@ import {
 	StyledContributionGrid,
 	StyledSquare,
 	StyledContribTooltip,
+	StyledTooltipPositioner,
+	StyledTooltipDigitGroup,
+	StyledTooltipDigit,
+	StyledTooltipText,
 } from './styled';
 import { StyledWidgetHandle, StyledWidgetStat } from '../WidgetBase/styled';
 
@@ -190,11 +194,15 @@ function formatDateForA11y(dateStr: string): string {
 }
 
 interface TooltipState {
-	text: string;
+	count: number;
+	dateLabel: string;
 	x: number;
 	y: number;
 	position: 'top' | 'bottom';
 	align: 'start' | 'center' | 'end';
+	// Bumped on every hover so React remounts the inner tooltip and replays
+	// the entry animations even when the day-to-day position is identical.
+	key: number;
 }
 
 const tooltipTransform: Record<'top' | 'bottom', Record<'start' | 'center' | 'end', string>> = {
@@ -281,8 +289,15 @@ export default function GitHubWidget() {
 				? squareRect.top - wrapperRect.top
 				: squareRect.bottom - wrapperRect.top;
 
-			const text = `${day.count} contribution${day.count !== 1 ? 's' : ''} on ${formatDateDisplay(day.date)}`;
-			setTooltip({ text, x, y, position, align });
+			setTooltip((prev) => ({
+				count: day.count,
+				dateLabel: formatDateDisplay(day.date),
+				x,
+				y,
+				position,
+				align,
+				key: (prev?.key ?? 0) + 1,
+			}));
 		},
 		[actualWeeks]
 	);
@@ -354,17 +369,35 @@ export default function GitHubWidget() {
 						</StyledGridWithLabels>
 
 						{tooltip && (
-							<StyledContribTooltip
-								$position={tooltip.position}
-								$align={tooltip.align}
+							<StyledTooltipPositioner
 								style={{
 									left: tooltip.x,
 									top: tooltip.y,
 									transform: tooltipTransform[tooltip.position][tooltip.align],
 								}}
 							>
-								{tooltip.text}
-							</StyledContribTooltip>
+								<StyledContribTooltip
+									key={tooltip.key}
+									$position={tooltip.position}
+									$align={tooltip.align}
+								>
+									<StyledTooltipDigitGroup>
+										{String(tooltip.count)
+											.split('')
+											.map((digit, i) => (
+												<StyledTooltipDigit
+													key={`${tooltip.key}-${i}`}
+													style={{ animationDelay: `${i * 70}ms` }}
+												>
+													{digit}
+												</StyledTooltipDigit>
+											))}
+									</StyledTooltipDigitGroup>
+									<StyledTooltipText>
+										{` contribution${tooltip.count !== 1 ? 's' : ''} on ${tooltip.dateLabel}`}
+									</StyledTooltipText>
+								</StyledContribTooltip>
+							</StyledTooltipPositioner>
 						)}
 					</>
 				)}

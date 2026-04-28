@@ -82,7 +82,10 @@ export const StyledErrorState = styled.div`
 `;
 
 // Footer slot — anchored to the widget bottom via margin-top: auto, with
-// space-between so a left stat and a right stat read as a balanced pair.
+// space-between so a left stat and a right stat read as a balanced pair on
+// wider screens. On narrow viewports we stack the items vertically and
+// align everything left so the right-justified total stops orphaning on a
+// solo line.
 export const StyledWidgetFooter = styled.div`
 	margin-top: auto;
 	display: flex;
@@ -91,4 +94,14 @@ export const StyledWidgetFooter = styled.div`
 	gap: var(--12);
 	flex-wrap: wrap;
 	padding-top: var(--6);
+
+	@media (max-width: 479px) {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--4);
+
+		& > * {
+			text-align: left;
+		}
+	}
 `;

@@ -20,3 +20,17 @@
 	justify-content: center;
 	align-items: center;
 }
+
+/* Symmetric ease-in-out so slides accelerate gently from rest, glide
+   through the middle, and decelerate softly into place — no abrupt
+   start, no hard stop. Pair with a long `speed` on the Swiper for a
+   continuous-feeling motion. */
+.swiper-wrapper {
+	transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.swiper-wrapper {
+		transition: none !important;
+	}
+}

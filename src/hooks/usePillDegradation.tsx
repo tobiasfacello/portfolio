@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect } from 'react';
+import { useRef, useState, useLayoutEffect, useCallback } from 'react';
 
 interface UseTechPillDegradationResult {
 	techIconOnly: boolean;
@@ -11,7 +11,6 @@ interface UseTechPillDegradationResult {
 // with the card's logo. Also flips back to full text when there's room again.
 export function useTechPillDegradation(gap = 16): UseTechPillDegradationResult {
 	const [techIconOnly, setTechIconOnly] = useState(false);
-	const [resizeTick, setResizeTick] = useState(0);
 
 	const cardRef = useRef<HTMLElement | null>(null);
 	const contentRef = useRef<HTMLElement | null>(null);
@@ -20,21 +19,7 @@ export function useTechPillDegradation(gap = 16): UseTechPillDegradationResult {
 	const techIconOnlyRef = useRef(false);
 	const techFullWidthRef = useRef(0);
 
-	useLayoutEffect(() => {
-		const card = cardRef.current;
-		if (!card) return;
-
-		setResizeTick((t) => t + 1);
-
-		const observer = new ResizeObserver(() => {
-			setResizeTick((t) => t + 1);
-		});
-
-		observer.observe(card);
-		return () => observer.disconnect();
-	}, []);
-
-	useLayoutEffect(() => {
+	const recompute = useCallback(() => {
 		if (!contentRef.current || !logoRef.current) return;
 
 		const img = logoRef.current.querySelector('img');
@@ -63,9 +48,30 @@ export function useTechPillDegradation(gap = 16): UseTechPillDegradationResult {
 			next = false;
 		}
 
-		setTechIconOnly(next);
+		// Skip render when the collapse decision didn't change.
+		if (next === techIconOnlyRef.current) return;
 		techIconOnlyRef.current = next;
-	}, [resizeTick, gap]);
+		setTechIconOnly(next);
+	}, [gap]);
+
+	useLayoutEffect(() => {
+		const card = cardRef.current;
+		if (!card) return;
+
+		recompute();
+
+		let lastWidth = card.getBoundingClientRect().width;
+		const observer = new ResizeObserver((entries) => {
+			const width = entries[0].contentRect.width;
+			// Coarse debounce: only react to width deltas the layout would notice.
+			if (Math.abs(width - lastWidth) < 1) return;
+			lastWidth = width;
+			recompute();
+		});
+
+		observer.observe(card);
+		return () => observer.disconnect();
+	}, [recompute]);
 
 	return { techIconOnly, cardRef, contentRef, logoRef };
 }

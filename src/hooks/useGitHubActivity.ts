@@ -92,21 +92,22 @@ export function useGitHubActivity(): GitHubActivityState {
 	useEffect(() => {
 		if (getCached()) return;
 
-		let cancelled = false;
+		const controller = new AbortController();
+		const { signal } = controller;
 
 		async function load() {
 			try {
 				const [user, repos, events, contribData] = await Promise.all([
-					fetchGitHubUser(),
-					fetchGitHubRepos(),
-					fetchGitHubEvents(),
-					fetchGitHubContributions().catch(() => ({
+					fetchGitHubUser(signal),
+					fetchGitHubRepos(signal),
+					fetchGitHubEvents(signal),
+					fetchGitHubContributions(signal).catch(() => ({
 						total: 0,
 						contributions: [],
 					})),
 				]);
 
-				if (cancelled) return;
+				if (signal.aborted) return;
 
 				const topRepos = deriveTopRepos(events);
 
@@ -125,20 +126,17 @@ export function useGitHubActivity(): GitHubActivityState {
 				setCache(result);
 				setState({ ...result, loading: false, error: null });
 			} catch (err) {
-				if (!cancelled) {
-					setState((prev) => ({
-						...prev,
-						loading: false,
-						error: (err as Error).message,
-					}));
-				}
+				if (signal.aborted) return;
+				setState((prev) => ({
+					...prev,
+					loading: false,
+					error: (err as Error).message,
+				}));
 			}
 		}
 
 		load();
-		return () => {
-			cancelled = true;
-		};
+		return () => controller.abort();
 	}, []);
 
 	return state;

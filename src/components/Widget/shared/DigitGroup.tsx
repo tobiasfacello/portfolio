@@ -10,7 +10,6 @@ const StyledDigitGroup = styled.span`
 const StyledDigit = styled.span`
 	display: inline-block;
 	white-space: pre;
-	will-change: transform, opacity, filter;
 	${popInAnimation}
 `;
 

@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { StyledToggleGroup, StyledToggleButton } from '../ToggleGroup/styled';
 
 const languages = [
-	{ code: 'en', label: 'Switch to English', text: 'EN' },
-	{ code: 'es', label: 'Cambiar a español', text: 'ES' },
-	{ code: 'pt', label: 'Mudar para português', text: 'PT' },
+	{ code: 'en', label: 'EN — Switch to English', text: 'EN' },
+	{ code: 'es', label: 'ES — Cambiar a español', text: 'ES' },
+	{ code: 'pt', label: 'PT — Mudar para português', text: 'PT' },
 ] as const;
 
 function LanguageSwitcher() {

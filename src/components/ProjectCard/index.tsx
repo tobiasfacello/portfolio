@@ -38,7 +38,6 @@ function ProjectCard(props: ProjectCardProps) {
 	return (
 		<StyledProjectCard
 			className={"project-card"}
-			aria-label={title}
 			ref={cardRef as React.Ref<HTMLAnchorElement>}
 			href={props.url}
 			target="_blank"
@@ -87,6 +86,7 @@ function ProjectCard(props: ProjectCardProps) {
 					src={props.src}
 					alt={`${title} logo`}
 					loading="lazy"
+					decoding="async"
 					onLoad={handleImageLoad}
 					style={{ opacity: imageLoaded ? undefined : 0 }}
 				/>

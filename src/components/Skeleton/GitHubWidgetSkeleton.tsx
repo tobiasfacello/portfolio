@@ -40,7 +40,8 @@ function useAutoWeeks(
 			if (gridWidth <= 0) return;
 
 			const w = Math.floor((gridWidth + gap) / (MIN_SQUARE_SIZE + gap));
-			setWeeks(Math.max(1, Math.min(w, MAX_WEEKS)));
+			const next = Math.max(1, Math.min(w, MAX_WEEKS));
+			setWeeks((prev) => (prev === next ? prev : next));
 		});
 
 		observer.observe(el);

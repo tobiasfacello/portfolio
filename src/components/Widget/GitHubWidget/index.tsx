@@ -111,7 +111,8 @@ function useAutoWeeks(
 
 			const maxFromContainer = Math.floor((gridWidth + gap) / (MIN_SQUARE_SIZE + gap));
 			const maxFromData = Math.ceil(contributionCount / 7);
-			setWeeks(Math.max(1, Math.min(maxFromContainer, maxFromData)));
+			const next = Math.max(1, Math.min(maxFromContainer, maxFromData));
+			setWeeks((prev) => (prev === next ? prev : next));
 		});
 
 		observer.observe(el);
@@ -420,8 +421,7 @@ export default function GitHubWidget() {
 							<StyledContributionGrid
 								$weeks={actualWeeks}
 								$gap={config.squareGap}
-								role="grid"
-								aria-readonly="true"
+								role="img"
 								aria-label={`${totalContributions.toLocaleString()} contributions in ${CURRENT_YEAR}`}
 								onMouseLeave={handleSquareLeave}
 							>
@@ -430,10 +430,9 @@ export default function GitHubWidget() {
 										key={i}
 										$level={day.level}
 										$radius={config.squareRadius}
-										role="gridcell"
-										aria-label={ariaLabels[i]}
-										tabIndex={-1}
+										aria-hidden="true"
 										onMouseEnter={(e) => handleSquareEnter(e, day, i)}
+										title={ariaLabels[i]}
 									/>
 								))}
 							</StyledContributionGrid>

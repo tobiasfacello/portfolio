@@ -42,7 +42,7 @@ function PhoneMockupsGallery({ images }: PhoneMockupsGalleryProps) {
 						tabIndex={0}
 						aria-label={`View ${img.alt} full size`}
 					>
-						<img src={img.src} alt={img.alt} loading="lazy" />
+						<img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
 					</StyledPhoneCard>
 				))}
 			</StyledPhoneGallery>

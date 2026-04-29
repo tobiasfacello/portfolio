@@ -33,8 +33,8 @@ import { useTheme } from '../../../hooks/useTheme';
 import { TWITTER_HANDLE, TWITTER_URL } from '../../../data/socialFeed';
 
 //* Assets
-import profileDark from '../../../assets/images/profile.jpg';
-import profileLight from '../../../assets/images/profile-light.jpg';
+import profileDark from '../../../assets/images/profile.webp';
+import profileLight from '../../../assets/images/profile-light.webp';
 
 function ClockSvg() {
 	return (
@@ -110,7 +110,7 @@ export default function TwitterWidget() {
 						style={{ animationDelay: `${i * POP_IN_STAGGER_MS}ms` }}
 					>
 						<StyledTweetThumbnail>
-							<img src={profileImg} alt="Tobias Facello" loading="lazy" />
+							<img src={profileImg} alt="Tobias Facello" loading="lazy" decoding="async" />
 						</StyledTweetThumbnail>
 						<StyledTweetContent>
 							<StyledTweetText>{tweet.text}</StyledTweetText>

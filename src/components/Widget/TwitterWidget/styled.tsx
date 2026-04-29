@@ -88,7 +88,6 @@ export const StyledTweetItem = styled.a`
 	border-radius: var(--radius-sm);
 	text-decoration: none;
 	color: inherit;
-	will-change: transform, opacity, filter;
 	${popInAnimation}
 	transition:
 		background-color var(--transition-fast),

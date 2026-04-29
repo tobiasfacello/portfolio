@@ -153,7 +153,6 @@ export const StyledTooltip = styled.span<{
 
 export const StyledTooltipReveal = styled.span`
 	display: inline-block;
-	will-change: transform, opacity, filter;
 	animation: ${tooltipTextSwapIn} 200ms ease-out both;
 
 	@media (prefers-reduced-motion: reduce) {

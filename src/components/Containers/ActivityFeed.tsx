@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
@@ -5,9 +6,13 @@ import { useTranslation } from 'react-i18next';
 import Container from './Container';
 import Text from '../Text';
 import ShinyLabel from '../ShinyLabel';
-import GitHubWidget from '../Widget/GitHubWidget';
-import TwitterWidget from '../Widget/TwitterWidget';
-import LinkedInWidget from '../Widget/LinkedInWidget';
+import GitHubWidgetSkeleton from '../Skeleton/GitHubWidgetSkeleton';
+import TwitterWidgetSkeleton from '../Skeleton/TwitterWidgetSkeleton';
+import LinkedInWidgetSkeleton from '../Skeleton/LinkedInWidgetSkeleton';
+
+const GitHubWidget = lazy(() => import('../Widget/GitHubWidget'));
+const TwitterWidget = lazy(() => import('../Widget/TwitterWidget'));
+const LinkedInWidget = lazy(() => import('../Widget/LinkedInWidget'));
 
 //? Hooks & Config
 import { useBreakpoint, isMobile } from '../../hooks/useBreakpoint';
@@ -58,9 +63,15 @@ export default function ActivityFeed() {
 					<ShinyLabel label={t('activity.liveFeed')} icon="radioTower" />
 				</StyledTitleRow>
 				<StyledWidgetGrid $columns={cfg.gridColumns} $gap={cfg.gridGap}>
-					<GitHubWidget />
-					<TwitterWidget />
-					<LinkedInWidget />
+					<Suspense fallback={<GitHubWidgetSkeleton />}>
+						<GitHubWidget />
+					</Suspense>
+					<Suspense fallback={<TwitterWidgetSkeleton />}>
+						<TwitterWidget />
+					</Suspense>
+					<Suspense fallback={<LinkedInWidgetSkeleton />}>
+						<LinkedInWidget />
+					</Suspense>
 				</StyledWidgetGrid>
 			</Container>
 		</StyledActivityFeed>

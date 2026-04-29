@@ -113,14 +113,6 @@ export type IconFrameProps = {
 	Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
-export type ImageFrameProps = {
-	src: string;
-	alt?: string;
-	loading?: 'lazy' | 'eager';
-	p?: string[];
-	m?: string[];
-};
-
 export type LightboxImage = {
 	src: string;
 	alt: string;

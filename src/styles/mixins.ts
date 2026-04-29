@@ -1,9 +1,6 @@
-import { css, keyframes } from 'styled-components';
+import { css } from 'styled-components';
 import { StyledPillTag } from '../components/Pill/styled';
 import { mq } from '../config/breakpoints';
-
-//* Assets
-import noiseTexture from '../assets/images/noise-texture.webp';
 
 export const spacingArray = (values: string[] | undefined) =>
 	values ? values.map((v) => `var(--${v})`).join(' ') : undefined;
@@ -115,15 +112,6 @@ export const interactiveHover = css`
 	}
 `;
 
-const noiseDrift = keyframes`
-	0% { mask-position: 0px 0px; -webkit-mask-position: 0px 0px; }
-	20% { mask-position: 170px 500px; -webkit-mask-position: 170px 500px; }
-	40% { mask-position: 530px 280px; -webkit-mask-position: 530px 280px; }
-	60% { mask-position: 220px 670px; -webkit-mask-position: 220px 670px; }
-	80% { mask-position: 620px 140px; -webkit-mask-position: 620px 140px; }
-	100% { mask-position: 720px 720px; -webkit-mask-position: 720px 720px; }
-`;
-
 export const sectionBase = (gridArea: string) => css`
 	position: relative;
 	width: 100%;
@@ -204,31 +192,3 @@ export const widgetText = (fontSize: string, opacity: string) => css`
 	opacity: ${opacity};
 `;
 
-export const noisePatternBackground = css`
-	position: relative;
-	isolation: isolate;
-	overflow: hidden;
-
-	&::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-		background-image: radial-gradient(circle, var(--secondary) 1px, transparent 1px);
-		background-size: 13.5px 13.5px;
-		-webkit-mask-image: url(${noiseTexture});
-		mask-image: url(${noiseTexture});
-		-webkit-mask-size: 720px 720px;
-		mask-size: 720px 720px;
-		-webkit-mask-repeat: repeat;
-		mask-repeat: repeat;
-		-webkit-transform: translateZ(0);
-		transform: translateZ(0);
-		will-change: mask-position;
-		animation: ${noiseDrift} 150s linear infinite;
-
-		@media (prefers-reduced-motion: reduce) {
-			animation: none;
-		}
-	}
-`;

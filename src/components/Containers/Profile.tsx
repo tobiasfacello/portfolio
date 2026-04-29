@@ -12,8 +12,8 @@ import SocialButton from "../SocialButton";
 import Text from "../Text";
 
 //* Assets
-import profilePicture from "../../assets/images/profile.jpg";
-import profilePictureLight from "../../assets/images/profile-light.jpg";
+import profilePicture from "../../assets/images/profile.webp";
+import profilePictureLight from "../../assets/images/profile-light.webp";
 
 //* Icon registry
 import { iconRegistry } from "../Icon";

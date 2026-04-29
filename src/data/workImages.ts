@@ -1,21 +1,21 @@
 //? MOLDE
-import moldeMacbook from '../assets/works/detail/molde/mockup-macbook.jpg';
-import moldeDesignSystem from '../assets/works/detail/molde/design-system.jpg';
-import moldeMockupPhone1 from '../assets/works/detail/molde/mockup-phone-1.jpg';
-import moldeMockupPhone2 from '../assets/works/detail/molde/mockup-phone-2.jpg';
+import moldeMacbook from '../assets/works/detail/molde/mockup-macbook.webp';
+import moldeDesignSystem from '../assets/works/detail/molde/design-system.webp';
+import moldeMockupPhone1 from '../assets/works/detail/molde/mockup-phone-1.webp';
+import moldeMockupPhone2 from '../assets/works/detail/molde/mockup-phone-2.webp';
 
 //? INDALO
-import indaloMacbook from '../assets/works/detail/indalo/mockup-macbook.jpg';
-import indaloDesignSystem from '../assets/works/detail/indalo/design-system.jpg';
-import indaloMockupPhone1 from '../assets/works/detail/indalo/mockup-phone-1.jpg';
-import indaloMockupPhone2 from '../assets/works/detail/indalo/mockup-phone-2.jpg';
+import indaloMacbook from '../assets/works/detail/indalo/mockup-macbook.webp';
+import indaloDesignSystem from '../assets/works/detail/indalo/design-system.webp';
+import indaloMockupPhone1 from '../assets/works/detail/indalo/mockup-phone-1.webp';
+import indaloMockupPhone2 from '../assets/works/detail/indalo/mockup-phone-2.webp';
 
 //? RANCHO
-import ranchoMacbook from '../assets/works/detail/rancho/mockup-macbook.jpg';
-import ranchoFinalDesign from '../assets/works/detail/rancho/final-design.jpg';
-import ranchoMockupPhone1 from '../assets/works/detail/rancho/mockup-phone-1.jpg';
-import ranchoMockupPhone2 from '../assets/works/detail/rancho/mockup-phone-2.jpg';
-import ranchoMockupPhone3 from '../assets/works/detail/rancho/mockup-phone-3.jpg';
+import ranchoMacbook from '../assets/works/detail/rancho/mockup-macbook.webp';
+import ranchoFinalDesign from '../assets/works/detail/rancho/final-design.webp';
+import ranchoMockupPhone1 from '../assets/works/detail/rancho/mockup-phone-1.webp';
+import ranchoMockupPhone2 from '../assets/works/detail/rancho/mockup-phone-2.webp';
+import ranchoMockupPhone3 from '../assets/works/detail/rancho/mockup-phone-3.webp';
 
 export interface WorkImages {
 	hero: string;

@@ -1,12 +1,11 @@
 name: Refresh tweets
 
-# Re-fetches the tweet metadata listed in scripts/tweets-config.json,
+# Pulls the latest tweets for the configured handle from twitterapi.io,
 # updates src/data/tweets.json, and pushes if the file changed. The push
 # triggers the standard Vercel deploy from main.
 #
-# To add new tweets to the activity widget, append URLs to
-# scripts/tweets-config.json — this workflow will keep their text/dates
-# fresh on every run.
+# Requires a repo secret named TWITTERAPI_IO_KEY (sign up at
+# https://twitterapi.io and grab the key from the dashboard).
 
 on:
   schedule:
@@ -37,6 +36,8 @@ jobs:
 
       - name: Fetch tweets
         run: npm run fetch-tweets
+        env:
+          TWITTERAPI_IO_KEY: ${{ secrets.TWITTERAPI_IO_KEY }}
 
       - name: Commit and push if changed
         run: |

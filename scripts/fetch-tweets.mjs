@@ -1,23 +1,36 @@
 #!/usr/bin/env node
 
 /**
- * Build-time script: fetches tweets via Twitter oEmbed API
- * and writes static JSON consumed by the frontend.
+ * Discovers and writes the latest tweets for the configured handle into
+ * src/data/tweets.json — consumed by the activity widget at runtime.
  *
- * Runs before every build (local + CI/CD) so the serverless
- * function is no longer needed — data is baked into the bundle.
+ * Source: twitterapi.io (https://twitterapi.io). Pricing is pay-as-you-go
+ * (~$0.07/year at this cadence) with $0.10 free credit on signup. Auth is a
+ * single `x-api-key` header — no OAuth, no Twitter cookies, no ban risk.
+ *
+ * Usage
+ * -----
+ * Set TWITTERAPI_IO_KEY in the environment:
+ *   - Locally: export TWITTERAPI_IO_KEY=...
+ *   - CI:      add it as a GitHub Secret consumed by .github/workflows/refresh-tweets.yml
+ *
+ * If the env var is missing, the script logs a warning and exits without
+ * touching tweets.json so the build still succeeds against the committed
+ * fallback data.
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-
-const URLS_PATH = join(ROOT, 'scripts', 'tweets-config.json');
 const OUTPUT_PATH = join(ROOT, 'src', 'data', 'tweets.json');
-const FETCH_TIMEOUT_MS = 8_000;
+
+const USERNAME = 'fachebits';
+const TWEET_COUNT = 10;
+const FETCH_TIMEOUT_MS = 15_000;
+const API_BASE = 'https://api.twitterapi.io';
 
 // ── Helpers ──────────────────────────────────────────────
 
@@ -30,131 +43,108 @@ function withTimeout(ms) {
 	};
 }
 
-function extractTweetId(url) {
-	const match = url.match(/status\/(\d+)/);
-	if (!match) throw new Error(`Could not extract tweet ID from: ${url}`);
-	return match[1];
-}
-
-function decodeHtmlEntities(text) {
-	return text
-		.replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
-		.replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
-		.replace(/&quot;/g, '"')
-		.replace(/&apos;/g, "'")
-		.replace(/&lt;/g, '<')
-		.replace(/&gt;/g, '>')
-		.replace(/&nbsp;/g, ' ')
-		.replace(/&amp;/g, '&');
-}
-
-function parseTweetHtml(html) {
-	const pMatch = html.match(/<p[^>]*>([\s\S]*?)<\/p>/);
-	const rawText = pMatch
-		? decodeHtmlEntities(
-			pMatch[1]
-				// Preserve paragraph breaks Twitter encodes as <br>.
-				.replace(/<br\s*\/?>/gi, '\n')
-				.replace(/<[^>]+>/g, '')
-				.trim()
-		)
-		: '';
-
-	const dateMatches = html.match(/<a[^>]*>([A-Za-z]+ \d{1,2}, \d{4})<\/a>/g);
-	let date = '';
-	if (dateMatches?.length) {
-		const last = dateMatches[dateMatches.length - 1];
-		const m = last.match(/>([A-Za-z]+ \d{1,2}, \d{4})</);
-		if (m) {
-			const parsed = new Date(m[1]);
-			if (!isNaN(parsed.getTime())) {
-				date = parsed.toISOString().split('T')[0];
-			}
-		}
-	}
-
-	if (!rawText) console.warn('[fetch-tweets] parseTweetHtml: empty text extracted');
-	if (!date) console.warn('[fetch-tweets] parseTweetHtml: empty date extracted');
-
-	return { text: rawText, date };
-}
-
-function cleanTweetText(text) {
+function cleanText(text) {
 	return text
 		.replace(/https?:\/\/t\.co\/\w+/g, '')
 		.replace(/pic\.twitter\.com\/\w+/g, '')
-		// Collapse only horizontal whitespace runs so paragraph breaks survive.
 		.replace(/[ \t]{2,}/g, ' ')
-		// Cap consecutive newlines at two (one blank line max).
 		.replace(/\n{3,}/g, '\n\n')
 		.trim();
 }
 
-async function fetchTweet(url) {
-	const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(url)}&omit_script=true`;
+function toIsoDate(twitterDateString) {
+	// Twitter format: "Tue Apr 28 20:57:14 +0000 2026" → "2026-04-28"
+	const parsed = new Date(twitterDateString);
+	if (isNaN(parsed.getTime())) return '';
+	return parsed.toISOString().split('T')[0];
+}
+
+function isOriginalTweet(tweet) {
+	// Skip retweets ("RT @user: …"). Replies are excluded server-side via
+	// includeReplies=false default. Quote-tweets are kept — they're original
+	// posts authored by the user.
+	return !/^RT @/.test(tweet.text ?? '');
+}
+
+async function callApi(path, params, apiKey) {
+	const url = new URL(`${API_BASE}${path}`);
+	for (const [k, v] of Object.entries(params)) {
+		if (v !== undefined && v !== '' && v !== null) {
+			url.searchParams.set(k, String(v));
+		}
+	}
 
 	const { signal, clear } = withTimeout(FETCH_TIMEOUT_MS);
-	let data;
 	try {
-		const res = await fetch(oembedUrl, { signal });
-		if (!res.ok) throw new Error(`oEmbed ${res.status} for ${url}`);
-		data = await res.json();
+		const res = await fetch(url, {
+			signal,
+			headers: { 'x-api-key': apiKey },
+		});
+		const body = await res.json().catch(() => ({}));
+		if (!res.ok) {
+			throw new Error(`HTTP ${res.status} ${res.statusText} — ${body?.msg ?? body?.detail ?? 'unknown'}`);
+		}
+		return body;
 	} finally {
 		clear();
 	}
-
-	const { text, date } = parseTweetHtml(data.html);
-	const tweetId = extractTweetId(url);
-
-	return {
-		id: tweetId,
-		text: cleanTweetText(text),
-		date,
-		authorName: data.author_name,
-		url: data.url || url,
-	};
 }
 
 // ── Main ─────────────────────────────────────────────────
 
 async function main() {
-	console.log('[fetch-tweets] Starting build-time tweet fetch…');
-
-	let urls;
-	try {
-		urls = JSON.parse(readFileSync(URLS_PATH, 'utf-8'));
-	} catch (err) {
-		console.error('[fetch-tweets] Could not read config:', err.message);
-		process.exit(0); // non-fatal — keep existing tweets.json
-	}
-
-	const results = await Promise.allSettled(urls.map(fetchTweet));
-
-	const tweets = results
-		.filter((r) => r.status === 'fulfilled')
-		.map((r) => r.value);
-
-	results.forEach((r, i) => {
-		if (r.status === 'rejected') {
-			console.warn(`[fetch-tweets] Failed for ${urls[i]}: ${r.reason?.message}`);
-		}
-	});
-
-	if (tweets.length === 0) {
-		console.warn('[fetch-tweets] No tweets fetched — keeping existing data.');
-		if (!existsSync(OUTPUT_PATH)) {
-			console.error('[fetch-tweets] No existing tweets.json found either. Writing empty array.');
-			writeFileSync(OUTPUT_PATH, '[]', 'utf-8');
-		}
+	const apiKey = process.env.TWITTERAPI_IO_KEY;
+	if (!apiKey) {
+		console.warn('[fetch-tweets] TWITTERAPI_IO_KEY not set — skipping refresh.');
+		console.warn('[fetch-tweets] Existing src/data/tweets.json is preserved.');
 		return;
 	}
 
-	writeFileSync(OUTPUT_PATH, JSON.stringify(tweets, null, '\t'), 'utf-8');
-	console.log(`[fetch-tweets] Wrote ${tweets.length} tweets to src/data/tweets.json`);
+	console.log(`[fetch-tweets] Fetching last ${TWEET_COUNT} tweets for @${USERNAME}…`);
+
+	let body;
+	try {
+		body = await callApi('/twitter/user/last_tweets', { userName: USERNAME }, apiKey);
+	} catch (err) {
+		console.error('[fetch-tweets] Request failed:', err?.message ?? err);
+		process.exit(0); // non-fatal — committed tweets.json keeps the build green
+	}
+
+	if (body?.status && body.status !== 'success') {
+		console.error(`[fetch-tweets] API status="${body.status}": ${body.msg ?? ''}`);
+		process.exit(0);
+	}
+
+	// last_tweets returns the data-wrapped envelope: { status, msg, data: {...} }.
+	// Defensively support both shapes — flat or wrapped — so we don't break if
+	// the backend layout shifts.
+	const rawTweets = body?.data?.tweets ?? body?.tweets ?? [];
+	if (!Array.isArray(rawTweets) || rawTweets.length === 0) {
+		console.warn('[fetch-tweets] API returned no tweets — keeping existing data.');
+		return;
+	}
+
+	const tweets = rawTweets
+		.filter(isOriginalTweet)
+		.slice(0, TWEET_COUNT)
+		.map((t) => ({
+			id: String(t.id),
+			text: cleanText(String(t.text ?? '')),
+			date: toIsoDate(t.createdAt),
+			authorName: String(t.author?.name ?? ''),
+			url: `https://twitter.com/${t.author?.userName ?? USERNAME}/status/${t.id}`,
+		}));
+
+	if (tweets.length === 0) {
+		console.warn('[fetch-tweets] All fetched tweets filtered out — keeping existing data.');
+		return;
+	}
+
+	writeFileSync(OUTPUT_PATH, JSON.stringify(tweets, null, '\t') + '\n', 'utf-8');
+	console.log(`[fetch-tweets] Wrote ${tweets.length} tweets to src/data/tweets.json.`);
 }
 
 main().catch((err) => {
 	console.error('[fetch-tweets] Unexpected error:', err);
-	// Non-fatal: if tweets.json already exists the build continues fine.
 	process.exit(0);
 });

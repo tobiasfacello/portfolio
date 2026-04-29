@@ -11,15 +11,16 @@ interface GitHubUserResponse {
 	followers: number;
 }
 
-export async function fetchGitHubUser(): Promise<GitHubUserResponse> {
-	const res = await fetch(`${BASE_URL}/users/${GITHUB_USERNAME}`);
+export async function fetchGitHubUser(signal?: AbortSignal): Promise<GitHubUserResponse> {
+	const res = await fetch(`${BASE_URL}/users/${GITHUB_USERNAME}`, { signal });
 	if (!res.ok) throw new Error('Failed to fetch GitHub user');
 	return res.json();
 }
 
-export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
+export async function fetchGitHubRepos(signal?: AbortSignal): Promise<GitHubRepo[]> {
 	const res = await fetch(
-		`${BASE_URL}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`
+		`${BASE_URL}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`,
+		{ signal }
 	);
 	if (!res.ok) throw new Error('Failed to fetch GitHub repos');
 	const data = await res.json();
@@ -33,9 +34,10 @@ export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
 	}));
 }
 
-export async function fetchGitHubEvents(): Promise<GitHubEvent[]> {
+export async function fetchGitHubEvents(signal?: AbortSignal): Promise<GitHubEvent[]> {
 	const res = await fetch(
-		`${BASE_URL}/users/${GITHUB_USERNAME}/events/public?per_page=30`
+		`${BASE_URL}/users/${GITHUB_USERNAME}/events/public?per_page=30`,
+		{ signal }
 	);
 	if (!res.ok) throw new Error('Failed to fetch GitHub events');
 	const data = await res.json();
@@ -46,9 +48,10 @@ export async function fetchGitHubEvents(): Promise<GitHubEvent[]> {
 	}));
 }
 
-export async function fetchGitHubContributions(): Promise<GitHubContributionData> {
+export async function fetchGitHubContributions(signal?: AbortSignal): Promise<GitHubContributionData> {
 	const res = await fetch(
-		`${CONTRIBUTIONS_API}/${GITHUB_USERNAME}?y=last`
+		`${CONTRIBUTIONS_API}/${GITHUB_USERNAME}?y=last`,
+		{ signal }
 	);
 	if (!res.ok) throw new Error('Failed to fetch contributions');
 	const data = await res.json();

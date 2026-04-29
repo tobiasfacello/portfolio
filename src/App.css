@@ -46,8 +46,7 @@
 	mask-repeat: repeat;
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
-	will-change: mask-position;
-	animation: noise-drift 150s linear infinite;
+	animation: noise-drift 180s linear infinite;
 	pointer-events: none;
 }
 

@@ -227,6 +227,7 @@ function Lightbox() {
 						src={currentImage.src}
 						alt={currentImage.alt}
 						loading="lazy"
+						decoding="async"
 						draggable={false}
 					/>
 				)}

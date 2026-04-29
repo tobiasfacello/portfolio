@@ -1,3 +1,6 @@
+//! React
+import { Suspense } from 'react';
+
 //! Router
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
@@ -32,7 +35,9 @@ function AppShell() {
 		<BreakpointProvider>
 			<ThemeProvider>
 				<ScrollReset />
-				<Outlet />
+				<Suspense fallback={null}>
+					<Outlet />
+				</Suspense>
 			</ThemeProvider>
 		</BreakpointProvider>
 	);

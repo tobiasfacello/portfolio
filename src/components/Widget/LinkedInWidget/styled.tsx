@@ -63,7 +63,6 @@ export const StyledExperienceItem = styled.div`
 	gap: var(--8);
 	padding-left: var(--6);
 	border-left: 1px solid var(--glass-border-start);
-	will-change: transform, opacity, filter;
 	${popInAnimation}
 `;
 

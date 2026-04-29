@@ -27,7 +27,7 @@ function LinkPreview({ title, description, url, thumbnail }: LinkPreviewProps) {
 			<StyledLinkPreview href={`https://${url}`} target="_blank" rel="noopener noreferrer">
 				{thumbnail && (
 					<StyledLinkThumbnail>
-						<img src={thumbnail} alt={title} loading="lazy" />
+						<img src={thumbnail} alt={title} loading="lazy" decoding="async" />
 					</StyledLinkThumbnail>
 				)}
 				<StyledLinkUrl>{url}</StyledLinkUrl>

@@ -38,7 +38,7 @@ function DesignSystemSection({ src, alt }: DesignSystemSectionProps) {
 				tabIndex={0}
 				aria-label={`View ${alt} full size`}
 			>
-				<img src={src} alt={alt} loading="lazy" />
+				<img src={src} alt={alt} loading="lazy" decoding="async" />
 			</StyledDesignSystemFrame>
 		</StyledSection>
 	);

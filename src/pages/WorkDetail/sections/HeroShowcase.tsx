@@ -35,7 +35,7 @@ function HeroShowcase({ src, alt }: HeroShowcaseProps) {
 				tabIndex={0}
 				aria-label={`View ${alt} full size`}
 			>
-				<img src={src} alt={alt} loading="eager" />
+				<img src={src} alt={alt} loading="eager" decoding="async" fetchPriority="high" />
 			</StyledHeroShowcase>
 		</StyledSection>
 	);

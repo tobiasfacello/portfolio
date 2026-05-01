@@ -1,5 +1,12 @@
 [
 	{
+		"id": "2049937323047936254",
+		"text": "Estuve queriendo hacer una extensión justamente para esto hace mucho tiempo, me encontraba a diario con esta necesidad. Bien ahí que lo implementaron 👏🏼",
+		"date": "2026-04-30",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2049937323047936254"
+	},
+	{
 		"id": "2049629126315647283",
 		"text": "Me gustaría saber de la comunidad argentina de Devs, si alguno ya levantó su propia LLM local en una PC dedicada (no necesariamente una Mac Mini, la spec que sea).\n\nEntiendo que estamos yendo/entrando hacia la AI como commodity lentamente y quiero empezar a explorar anternativas.",
 		"date": "2026-04-29",
@@ -61,12 +68,5 @@
 		"date": "2026-04-24",
 		"authorName": "Fache 🧉",
 		"url": "https://twitter.com/fachebits/status/2047646740371636667"
-	},
-	{
-		"id": "2047305306275811790",
-		"text": "Hora de empezar a usar HyperFrames para contenido",
-		"date": "2026-04-23",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2047305306275811790"
 	}
 ]

@@ -1,5 +1,12 @@
 [
 	{
+		"id": "2050673448905564183",
+		"text": "",
+		"date": "2026-05-02",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2050673448905564183"
+	},
+	{
 		"id": "2049937323047936254",
 		"text": "Estuve queriendo hacer una extensión justamente para esto hace mucho tiempo, me encontraba a diario con esta necesidad. Bien ahí que lo implementaron 👏🏼",
 		"date": "2026-04-30",
@@ -61,12 +68,5 @@
 		"date": "2026-04-25",
 		"authorName": "Fache 🧉",
 		"url": "https://twitter.com/fachebits/status/2048037422718411150"
-	},
-	{
-		"id": "2047646740371636667",
-		"text": "El concepto de Design Engineering se hace más fuerte en un momento donde ~80% del código lo escribe la AI.\n\nMás código se genera, más valor tiene el tiempo invertido en el último 5%.\n\nEse 5% es el que hace que un producto se sienta premium o barato. Y por ahora es 100% humano.",
-		"date": "2026-04-24",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2047646740371636667"
 	}
 ]

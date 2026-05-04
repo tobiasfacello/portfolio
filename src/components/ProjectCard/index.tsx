@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledProjectCard, TechPill, TechPillIcon, TechPillText } from './styled';
 
@@ -87,6 +87,8 @@ function ProjectCard(props: ProjectCardProps) {
 					alt={`${title} logo`}
 					loading="lazy"
 					decoding="async"
+					width="100"
+					height="100"
 					onLoad={handleImageLoad}
 					style={{ opacity: imageLoaded ? undefined : 0 }}
 				/>
@@ -95,4 +97,5 @@ function ProjectCard(props: ProjectCardProps) {
 	);
 }
 
-export default ProjectCard;
+const ProjectCardMemo = memo(ProjectCard);
+export default ProjectCardMemo;

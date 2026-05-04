@@ -1,5 +1,5 @@
 import { StyledWorkCard, StyledWorkCardDiv, StyledWorkCardContent, StyledWorkLogo } from './styled';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -201,4 +201,5 @@ function WorkCard(props: WorkCardProps) {
 	);
 }
 
-export default WorkCard;
+const WorkCardMemo = memo(WorkCard);
+export default WorkCardMemo;

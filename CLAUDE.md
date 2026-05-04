@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Portfolio personal construido con React 19, TypeScript, Vite y styled-components. Multi-page app con `react-router-dom` — Home (`/`) y WorkDetail (`/work/:slug`, lazy-loaded). Implementa un cursor SVG personalizado con animaciones GSAP y smooth scroll con Lenis.
+Portfolio personal construido con React 19, TypeScript, Vite y styled-components. Multi-page app con `react-router-dom` — Home (`/`) y WorkDetail (`/work/:slug`, lazy-loaded). Implementa smooth scroll con Lenis.
 
 ## Commands
 
@@ -23,16 +23,16 @@ No hay tests configurados.
 
 `App.tsx` monta: `ErrorBoundary` > `SplashProvider` > `RouterProvider`. El shell (`AppShell`) envuelve en `ReactLenis` (si no hay reduced-motion) > `ThemeProvider` > `SplashGuard` + `Outlet`.
 
-`Home.tsx` es el layout principal. Renderiza bloques `<MediaQuery>` completamente distintos para cada rango de tamaño — no es un layout adaptable, sino JSX diferente por breakpoint.
+`Home.tsx` es el layout principal. Usa `BreakpointContext` para adaptar el layout según el tamaño de pantalla.
 
 ### Breakpoints (más granulares que mobile/tablet/desktop)
 
-Los componentes usan rangos específicos con `react-responsive` `<MediaQuery>`:
+Los componentes consumen `useBreakpoint()` del `BreakpointContext`. Rangos:
 - **Mobile**: 360-767px, 768-959px (sub-rangos frecuentes)
 - **Tablet**: 960-1279px
 - **Desktop**: 1280-1339px, 1340-1439px, 1440-1800px, 1801px+
 
-Cada sección (About, Skills, Works, etc.) define sus propios `<MediaQuery>` internamente — no dependen de un breakpoint centralizado.
+Cada sección (About, Skills, Works, etc.) puede bifurcar su layout internamente usando el breakpoint context.
 
 ### Transient Props (styled-components)
 
@@ -48,7 +48,7 @@ Todos los componentes usan el prefijo `$` para props que no deben pasar al DOM (
 
 ### Section Containers
 
-`src/components/Containers/{About,Profile,Projects,Skills,Works,Header,Footer}.tsx` — cada uno es un componente auto-contenido con su propio styled-component y múltiples `<MediaQuery>` internos. Algunos aceptan `flex` prop para layout desktop (ej: `<Skills flex={1} />`, `<Works flex={2} />`).
+`src/components/Containers/{About,Profile,Projects,Skills,Works,Header,Footer}.tsx` — cada uno es un componente auto-contenido con su propio styled-component. Algunos aceptan `flex` prop para layout desktop (ej: `<Skills flex={1} />`, `<Works flex={2} />`).
 
 ### Text Component & Variants
 
@@ -67,7 +67,6 @@ La variante `body-lg` incluye media queries internas para ajustar font-size en d
 
 ### Animation & Interaction
 
-- **GSAP**: Registrado centralmente en `src/lib/gsap.ts`. `Cursor` usa `gsap.quickTo()` con `Expo.easeOut` para seguimiento del mouse. Se oculta en dispositivos táctiles (`hover: none` + `pointer: coarse`) y sobre elementos interactivos (`.button`, `.work-card`, `.project-card`, `a`, `link`)
 - **Reduced motion**: Hook compartido `usePrefersReducedMotion()` — reactivo al cambio de preferencia del usuario
 - **Lenis**: Smooth scroll con `lerp: 0.12, duration: 1.2, smoothWheel: true` (desactivado si reduced-motion)
 - **Swiper**: `WorkCardsCarousel` usa Swiper con `Autoplay` module. En mobile muestra cards estáticas; en tablet/desktop usa carousel con `slidesPerView` variable (1, 2, o 3 según breakpoint)
@@ -82,6 +81,5 @@ La variante `body-lg` incluye media queries internas para ajustar font-size en d
 - **Tipos**: definidos en `src/types/index.ts` — incluye props de todos los componentes principales y tipos de API
 - **Props**: todos los componentes usan interfaces tipadas (ej: `WorkCardProps`, `ButtonProps`, `TextProps`)
 - **Styled components**: separados en `styled.tsx` junto al `index.tsx` del componente (excepto secciones como About/Skills que definen styled-components inline)
-- **Cursor**: `body { cursor: none }` global — el cursor SVG customizado reemplaza al nativo
 - **Fonts**: Evolventa (Regular/Bold) via @font-face + Plus Jakarta Sans via Google Fonts
 - **Assets**: organizados en `/assets/{fonts,images,vectors,icons,works}`

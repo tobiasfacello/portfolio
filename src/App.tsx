@@ -23,6 +23,8 @@ import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 //* Styles
 import './App.css';
 
+const LENIS_OPTIONS = { lerp: 0.12, duration: 1.2, smoothWheel: true } as const;
+
 function ScrollReset() {
 	useScrollReset();
 	return null;
@@ -45,7 +47,7 @@ function AppShell() {
 	return prefersReducedMotion ? (
 		content
 	) : (
-		<ReactLenis options={{ lerp: 0.12, duration: 1.2, smoothWheel: true }} root>
+		<ReactLenis options={LENIS_OPTIONS} root>
 			{content}
 		</ReactLenis>
 	);

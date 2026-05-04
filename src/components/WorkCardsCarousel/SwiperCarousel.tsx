@@ -10,6 +10,7 @@ import { works } from '../../data/works';
 const WorkCard = lazy(() => import('../WorkCard'));
 
 const SWIPER_MODULES = [Autoplay, A11y];
+const SWIPER_AUTOPLAY = { delay: 5000, disableOnInteraction: true } as const;
 
 interface SwiperCarouselProps {
 	slidesPerView?: number;
@@ -24,12 +25,12 @@ export default function SwiperCarousel({ slidesPerView, centeredSlides, spaceBet
 			role="region"
 			aria-label="Work showcase carousel"
 			modules={SWIPER_MODULES}
-			autoplay={{ delay: 5000, disableOnInteraction: true }}
+			autoplay={SWIPER_AUTOPLAY}
 			loop={true}
 			centeredSlides={centeredSlides}
 			slidesPerView={slidesPerView}
 			spaceBetween={spaceBetween}
-			speed={1400}
+			speed={600}
 			grabCursor={true}
 		>
 			{works.map((work) => (

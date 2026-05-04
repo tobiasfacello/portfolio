@@ -12,13 +12,13 @@ import typelandLogoLight from '../assets/companies/TypelandLight.svg';
 
 export const linkedinProfile: LinkedInProfile = {
 	name: 'Tobias Facello',
-	headline: 'AI Developer \u00B7 UX Engineer \u00B7 TypeScript \u00B7 Next.js \u00B7 Node.js',
-	position: 'AI Developer \u00B7 UX Engineer',
+	headline: 'AI Developer \u00B7 Design Engineer \u00B7 TypeScript \u00B7 Next.js \u00B7 Node.js',
+	position: 'AI Developer \u00B7 Design Engineer',
 	company: 'Henry',
 	location: 'Argentina',
 	experience: [
 		{
-			title: 'AI Developer \u00B7 UX Engineer',
+			title: 'AI Developer \u00B7 Design Engineer',
 			company: 'Henry',
 			companyLogo: henryLogo,
 			companyLogoLight: henryLogoLight,

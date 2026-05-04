@@ -7,7 +7,6 @@ import { useTheme } from "../../hooks/useTheme";
 
 //* Components
 import Container from "./Container";
-import AsciiProfile from "../AsciiProfile";
 import SocialButton from "../SocialButton";
 import Text from "../Text";
 
@@ -23,6 +22,23 @@ import { sectionBase } from "../../styles/mixins";
 
 //? Data
 import { TWITTER_URL, THREADS_URL, INSTAGRAM_URL, LINKEDIN_URL, GITHUB_URL, CONTRA_URL } from "../../data/socialFeed";
+
+const ProfileImage = styled.img`
+  border-radius: 50%;
+  object-fit: cover;
+  width: 175px;
+  height: 175px;
+
+  ${mq.up('desktop-sm')} {
+    width: 275px;
+    height: 275px;
+  }
+
+  ${mq.up('desktop-lg')} {
+    width: 345px;
+    height: 345px;
+  }
+`;
 
 const StyledProfile = styled.div`
   ${sectionBase('profile')}
@@ -54,7 +70,14 @@ export default function Profile() {
 
   return (
     <StyledProfile>
-      <AsciiProfile src={isDarkMode ? profilePicture : profilePictureLight} />
+      <ProfileImage
+        src={isDarkMode ? profilePicture : profilePictureLight}
+        alt="Profile photo of Tobias Facello"
+        width={345}
+        height={345}
+        decoding="async"
+        fetchPriority="high"
+      />
       <Container
         w={"100%"}
         h={"auto"}

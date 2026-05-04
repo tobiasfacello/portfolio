@@ -51,6 +51,48 @@ function useAutoWeeks(
 	return weeks;
 }
 
+/**
+ * Simulates the trimming applied by GitHubWidget's `sliceLastWeeks`:
+ * 1. Align the window start to a Sunday (drops up to 6 days).
+ * 2. Skip the partial first month (drops 1-4 extra weeks).
+ *
+ * Uses today as the anchor — same as the real contribution series — so the
+ * skeleton column count matches the rendered widget exactly.
+ */
+function computeActualWeeks(maxWeeks: number): number {
+	if (maxWeeks <= 0) return 0;
+
+	const totalDays = maxWeeks * 7;
+	const today = new Date();
+	today.setHours(0, 0, 0, 0);
+
+	const firstDate = new Date(today);
+	firstDate.setDate(today.getDate() - (totalDays - 1));
+
+	let remainingDays = totalDays;
+	if (remainingDays < 7) return Math.ceil(remainingDays / 7);
+
+	const firstDow = firstDate.getDay();
+	if (firstDow !== 0) {
+		const drop = 7 - firstDow;
+		remainingDays -= drop;
+		firstDate.setDate(firstDate.getDate() + drop);
+	}
+
+	const firstMonth = firstDate.getMonth();
+	const totalWeeks = Math.floor(remainingDays / 7);
+	for (let w = 1; w < totalWeeks; w++) {
+		const weekStart = new Date(firstDate);
+		weekStart.setDate(firstDate.getDate() + w * 7);
+		if (weekStart.getMonth() !== firstMonth) {
+			remainingDays -= w * 7;
+			break;
+		}
+	}
+
+	return Math.ceil(remainingDays / 7);
+}
+
 const HandlePlaceholder = styled.span`
 	display: block;
 	width: 96px;
@@ -163,7 +205,8 @@ function GitHubWidgetSkeleton() {
 	const config = gitHubCalendarConfig[bp];
 
 	const wrapperRef = useRef<HTMLDivElement>(null);
-	const weeks = useAutoWeeks(wrapperRef, config.squareGap, config.showDayLabels);
+	const maxWeeks = useAutoWeeks(wrapperRef, config.squareGap, config.showDayLabels);
+	const weeks = useMemo(() => computeActualWeeks(maxWeeks), [maxWeeks]);
 
 	const monthLabels = useMemo(() => {
 		if (!config.showMonthLabels || weeks === 0) return [];

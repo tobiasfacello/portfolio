@@ -1,6 +1,7 @@
 import { useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledToggleGroup, StyledToggleButton } from '../ToggleGroup/styled';
+import { loadLanguageBundle } from '../../i18n';
 
 const languages = [
 	{ code: 'en', label: 'EN — Switch to English', text: 'EN' },
@@ -13,7 +14,8 @@ function LanguageSwitcher() {
 	const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
 	const changeLanguage = useCallback(
-		(lng: string) => {
+		async (lng: string) => {
+			await loadLanguageBundle(lng);
 			i18n.changeLanguage(lng);
 			localStorage.setItem('language', lng);
 			document.documentElement.lang = lng;

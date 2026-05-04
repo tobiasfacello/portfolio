@@ -33,7 +33,7 @@ function BlogCard({ title, excerpt, thumbnail, status, url }: BlogCardProps) {
 				</StyledBlogCardContent>
 			)}
 			<StyledBlogCardImageWrapper>
-				<img src={thumbnail} alt="" loading="lazy" decoding="async" />
+				<img src={thumbnail} alt="" loading="lazy" decoding="async" width="400" height="300" />
 				{isInProgress ? (
 					<StyledBlogCardStatusWrapper>
 						<ShinyLabel label={t('blog.inProgress')} icon="penLine" />

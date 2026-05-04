@@ -1,23 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-//? EN locales
+//? EN locales (always loaded — universal fallback)
 import enCommon from './locales/en/common.json';
 import enHome from './locales/en/home.json';
 import enWorks from './locales/en/works.json';
 import enProjects from './locales/en/projects.json';
-
-//? ES locales
-import esCommon from './locales/es/common.json';
-import esHome from './locales/es/home.json';
-import esWorks from './locales/es/works.json';
-import esProjects from './locales/es/projects.json';
-
-//? PT locales
-import ptCommon from './locales/pt/common.json';
-import ptHome from './locales/pt/home.json';
-import ptWorks from './locales/pt/works.json';
-import ptProjects from './locales/pt/projects.json';
 
 const SUPPORTED_LANGUAGES = ['en', 'es', 'pt'];
 
@@ -44,18 +32,6 @@ i18n.use(initReactI18next).init({
 			works: enWorks,
 			projects: enProjects,
 		},
-		es: {
-			common: esCommon,
-			home: esHome,
-			works: esWorks,
-			projects: esProjects,
-		},
-		pt: {
-			common: ptCommon,
-			home: ptHome,
-			works: ptWorks,
-			projects: ptProjects,
-		},
 	},
 	lng: initialLanguage,
 	fallbackLng: 'en',
@@ -64,6 +40,36 @@ i18n.use(initReactI18next).init({
 		escapeValue: false,
 	},
 });
+
+const LAZY_BUNDLES = {
+	es: () => Promise.all([
+		import('./locales/es/common.json'),
+		import('./locales/es/home.json'),
+		import('./locales/es/works.json'),
+		import('./locales/es/projects.json'),
+	]),
+	pt: () => Promise.all([
+		import('./locales/pt/common.json'),
+		import('./locales/pt/home.json'),
+		import('./locales/pt/works.json'),
+		import('./locales/pt/projects.json'),
+	]),
+} as const;
+
+export async function loadLanguageBundle(lang: string): Promise<void> {
+	if (!(lang in LAZY_BUNDLES)) return;
+	if (i18n.hasResourceBundle(lang, 'common')) return;
+	const [common, home, works, projects] = await LAZY_BUNDLES[lang as keyof typeof LAZY_BUNDLES]();
+	i18n.addResourceBundle(lang, 'common', common.default, true, true);
+	i18n.addResourceBundle(lang, 'home', home.default, true, true);
+	i18n.addResourceBundle(lang, 'works', works.default, true, true);
+	i18n.addResourceBundle(lang, 'projects', projects.default, true, true);
+}
+
+// Load the initial language bundle if it isn't English
+if (initialLanguage !== 'en') {
+	loadLanguageBundle(initialLanguage);
+}
 
 let workDetailLoaded = false;
 

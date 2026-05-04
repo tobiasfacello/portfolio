@@ -92,10 +92,98 @@
 	--font-geist-pixel-circle: var(--font-geist-pixel);
 }
 
-/** Global Vars */
+/** Global Vars
+ *
+ * [data-theme] = explicit user choice (ThemeContext sets this on <html>).
+ * @media fallback = system mode (ThemeContext removes data-theme when mode === "system").
+ * Each theme's tokens are defined once; [data-theme] handles explicit picks,
+ * :root:not([data-theme]) inside @media handles the system-preference fallback.
+ */
 
+/* Dark theme */
+:root[data-theme="dark"] {
+	--neutral-dark-05: rgba(242, 232, 234, 5%);
+	--neutral-dark-15: rgba(242, 232, 234, 15%);
+	--text: #f2e8ea;
+	--pill-text-hovered: #170d0f;
+	--background: #0a0b04;
+	--primary: #c5c7bc;
+	--secondary: #444738;
+	--secondary-60: rgba(68, 71, 56, 0.6);
+	--overlay-solid: #27291e;
+	--accent: #dddfd8;
+	--glass-bg: rgba(197, 199, 188, 0.05);
+	--glass-bg-bold: rgba(197, 199, 188, 0.025);
+	--glass-border-start: rgba(197, 199, 188, 0.10);
+	--glass-border-end: rgba(197, 199, 188, 0);
+	--glass-border-bold-start: rgba(197, 199, 188, 0.20);
+	--glass-border-bold-end: rgba(197, 199, 188, 0);
+	--glass-border-hover-start: rgba(197, 199, 188, 0.30);
+	--glass-border-hover-end: rgba(197, 199, 188, 0.06);
+	--glass-border-bold-hover-start: rgba(197, 199, 188, 0.40);
+	--glass-border-bold-hover-end: rgba(197, 199, 188, 0.12);
+	--lightbox-overlay: rgba(0, 0, 0, 0.85);
+	--lightbox-btn-border: rgba(242, 232, 234, 0.15);
+	--lightbox-btn-bg: rgba(242, 232, 234, 0.05);
+	--lightbox-btn-color: rgba(242, 232, 234, 0.8);
+	--lightbox-btn-hover-bg: rgba(242, 232, 234, 0.12);
+	--lightbox-btn-focus: rgba(242, 232, 234, 0.5);
+	--lightbox-counter-color: rgba(242, 232, 234, 0.6);
+	--tooltip-clickable-hover-bg: #f2e8ea;
+	--tooltip-clickable-hover-text: #0a0b04;
+
+	/* Contribution grid */
+	--contrib-empty: rgba(197, 199, 188, 0.06);
+	--contrib-l1: #0e4429;
+	--contrib-l2: #006d32;
+	--contrib-l3: #26a641;
+	--contrib-l4: #39d353;
+}
+
+/* Light theme */
+:root[data-theme="light"] {
+	--neutral-dark-05: rgba(10, 11, 4, 5%);
+	--neutral-dark-15: rgba(10, 11, 4, 15%);
+	--text: #1a1b14;
+	--pill-text-hovered: #f2ede8;
+	--background: #f2ede8;
+	--primary: #5a5d4e;
+	--secondary: #6a6d5e;
+	--secondary-60: rgba(106, 109, 94, 0.6);
+	--overlay-solid: #aeada3;
+	--accent: #444738;
+	--glass-bg: rgba(10, 11, 4, 0.04);
+	--glass-bg-bold: rgba(10, 11, 4, 0.06);
+	--glass-border-start: rgba(10, 11, 4, 0.08);
+	--glass-border-end: rgba(10, 11, 4, 0);
+	--glass-border-bold-start: rgba(10, 11, 4, 0.16);
+	--glass-border-bold-end: rgba(10, 11, 4, 0);
+	--glass-border-hover-start: rgba(10, 11, 4, 0.15);
+	--glass-border-hover-end: rgba(10, 11, 4, 0.04);
+	--glass-border-bold-hover-start: rgba(10, 11, 4, 0.25);
+	--glass-border-bold-hover-end: rgba(10, 11, 4, 0.10);
+	--lightbox-overlay: rgba(242, 237, 232, 0.90);
+	--lightbox-btn-border: rgba(10, 11, 4, 0.15);
+	--lightbox-btn-bg: rgba(10, 11, 4, 0.05);
+	--lightbox-btn-color: rgba(10, 11, 4, 0.8);
+	--lightbox-btn-hover-bg: rgba(10, 11, 4, 0.12);
+	--lightbox-btn-focus: rgba(10, 11, 4, 0.5);
+	--lightbox-counter-color: rgba(10, 11, 4, 0.6);
+	--tooltip-clickable-hover-bg: #444738;
+	--tooltip-clickable-hover-text: #f2ede8;
+
+	/* Contribution grid */
+	--contrib-empty: rgba(10, 11, 4, 0.06);
+	--contrib-l1: #3f8a4d;
+	--contrib-l2: #2b7d3a;
+	--contrib-l3: #1a6030;
+	--contrib-l4: #0d4420;
+}
+
+/* System-preference fallback — only active when ThemeContext is in "system" mode
+   (no data-theme attribute on <html>) */
 @media (prefers-color-scheme: dark) {
-	:root {
+	:root:not([data-theme]) {
 		--neutral-dark-05: rgba(242, 232, 234, 5%);
 		--neutral-dark-15: rgba(242, 232, 234, 15%);
 		--text: #f2e8ea;
@@ -136,7 +224,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-	:root {
+	:root:not([data-theme]) {
 		--neutral-dark-05: rgba(10, 11, 4, 5%);
 		--neutral-dark-15: rgba(10, 11, 4, 15%);
 		--text: #1a1b14;
@@ -176,84 +264,6 @@
 	}
 }
 
-:root[data-theme="dark"] {
-	--neutral-dark-05: rgba(242, 232, 234, 5%);
-	--neutral-dark-15: rgba(242, 232, 234, 15%);
-	--text: #f2e8ea;
-	--pill-text-hovered: #170d0f;
-	--background: #0a0b04;
-	--primary: #c5c7bc;
-	--secondary: #444738;
-	--secondary-60: rgba(68, 71, 56, 0.6);
-	--overlay-solid: #27291e;
-	--accent: #dddfd8;
-	--glass-bg: rgba(197, 199, 188, 0.05);
-	--glass-bg-bold: rgba(197, 199, 188, 0.025);
-	--glass-border-start: rgba(197, 199, 188, 0.10);
-	--glass-border-end: rgba(197, 199, 188, 0);
-	--glass-border-bold-start: rgba(197, 199, 188, 0.20);
-	--glass-border-bold-end: rgba(197, 199, 188, 0);
-	--glass-border-hover-start: rgba(197, 199, 188, 0.30);
-	--glass-border-hover-end: rgba(197, 199, 188, 0.06);
-	--glass-border-bold-hover-start: rgba(197, 199, 188, 0.40);
-	--glass-border-bold-hover-end: rgba(197, 199, 188, 0.12);
-	--lightbox-overlay: rgba(0, 0, 0, 0.85);
-	--lightbox-btn-border: rgba(242, 232, 234, 0.15);
-	--lightbox-btn-bg: rgba(242, 232, 234, 0.05);
-	--lightbox-btn-color: rgba(242, 232, 234, 0.8);
-	--lightbox-btn-hover-bg: rgba(242, 232, 234, 0.12);
-	--lightbox-btn-focus: rgba(242, 232, 234, 0.5);
-	--lightbox-counter-color: rgba(242, 232, 234, 0.6);
-	--tooltip-clickable-hover-bg: #f2e8ea;
-	--tooltip-clickable-hover-text: #0a0b04;
-
-	/* Contribution grid */
-	--contrib-empty: rgba(197, 199, 188, 0.06);
-	--contrib-l1: #0e4429;
-	--contrib-l2: #006d32;
-	--contrib-l3: #26a641;
-	--contrib-l4: #39d353;
-}
-
-:root[data-theme="light"] {
-	--neutral-dark-05: rgba(10, 11, 4, 5%);
-	--neutral-dark-15: rgba(10, 11, 4, 15%);
-	--text: #1a1b14;
-	--pill-text-hovered: #f2ede8;
-	--background: #f2ede8;
-	--primary: #5a5d4e;
-	--secondary: #6a6d5e;
-	--secondary-60: rgba(106, 109, 94, 0.6);
-	--overlay-solid: #aeada3;
-	--accent: #444738;
-	--glass-bg: rgba(10, 11, 4, 0.04);
-	--glass-bg-bold: rgba(10, 11, 4, 0.06);
-	--glass-border-start: rgba(10, 11, 4, 0.08);
-	--glass-border-end: rgba(10, 11, 4, 0);
-	--glass-border-bold-start: rgba(10, 11, 4, 0.16);
-	--glass-border-bold-end: rgba(10, 11, 4, 0);
-	--glass-border-hover-start: rgba(10, 11, 4, 0.15);
-	--glass-border-hover-end: rgba(10, 11, 4, 0.04);
-	--glass-border-bold-hover-start: rgba(10, 11, 4, 0.25);
-	--glass-border-bold-hover-end: rgba(10, 11, 4, 0.10);
-	--lightbox-overlay: rgba(242, 237, 232, 0.90);
-	--lightbox-btn-border: rgba(10, 11, 4, 0.15);
-	--lightbox-btn-bg: rgba(10, 11, 4, 0.05);
-	--lightbox-btn-color: rgba(10, 11, 4, 0.8);
-	--lightbox-btn-hover-bg: rgba(10, 11, 4, 0.12);
-	--lightbox-btn-focus: rgba(10, 11, 4, 0.5);
-	--lightbox-counter-color: rgba(10, 11, 4, 0.6);
-	--tooltip-clickable-hover-bg: #444738;
-	--tooltip-clickable-hover-text: #f2ede8;
-
-	/* Contribution grid */
-	--contrib-empty: rgba(10, 11, 4, 0.06);
-	--contrib-l1: #3f8a4d;
-	--contrib-l2: #2b7d3a;
-	--contrib-l3: #1a6030;
-	--contrib-l4: #0d4420;
-}
-
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -261,25 +271,24 @@
 
 	-webkit-user-drag: none;
 	-webkit-tap-highlight-color: transparent;
+}
 
-	/* Scrollbar */
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+}
 
-	::-webkit-scrollbar {
-		width: 8px;
-	}
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
 
-	::-webkit-scrollbar-track {
-		background-color: transparent;
-	}
+::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	background-color: var(--neutral-dark-05);
+}
 
-	::-webkit-scrollbar-thumb {
-		border-radius: 8px;
-		background-color: var(--neutral-dark-05);
-	}
-
-	::-webkit-scrollbar-thumb:hover {
-		background-color: var(--neutral-dark-15);
-	}
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--neutral-dark-15);
 }
 
 :focus-visible {

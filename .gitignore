@@ -15,6 +15,7 @@ public/*
 !public/favicon.ico
 !public/_redirects
 !public/data/
+!public/backgrounds/
 
 # Development tools
 .claude/

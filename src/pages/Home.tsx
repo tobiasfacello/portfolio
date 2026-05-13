@@ -8,6 +8,7 @@ import { mq } from '../config/breakpoints';
 import { useStaggerReveal } from '../hooks/useStaggerReveal';
 
 //* Components
+import VideoBackground from '../components/VideoBackground';
 import Profile from '../components/Containers/Profile';
 import About from '../components/Containers/About';
 import Projects from '../components/Containers/Projects';
@@ -70,6 +71,7 @@ function Home() {
 
 	return (
 		<>
+			<VideoBackground />
 			<a href="#main-content" className="skip-link">
 				{t('skipLink')}
 			</a>

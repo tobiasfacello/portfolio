@@ -1,5 +1,5 @@
 //! Third-party
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 //? Hooks
@@ -23,9 +23,6 @@ function VideoBackground() {
 		isDarkMode && !prefersReducedMotion && breakpoint.startsWith('desktop-');
 
 	const [showVideo, setShowVideo] = useState(false);
-	// isPlaying drives a one-time fade-in of <video> over the poster; there is
-	// intentionally no reset path (no onPause/onWaiting) — once faded in, the
-	// video should stay visible even if the browser pauses autoplay (e.g. tab hidden).
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	useEffect(() => {
@@ -43,10 +40,13 @@ function VideoBackground() {
 		return () => cancelIdle(id);
 	}, [allowVideo]);
 
-	// Light theme: render nothing — the video/poster backdrop is dark-theme-only.
-	// Dark theme: always render <Backdrop> (poster + scrim); <video> is gated by
-	// allowVideo, so on tablet/mobile or prefers-reduced-motion the poster is the
-	// intended fallback.
+	useLayoutEffect(() => {
+		if (!isDarkMode) return;
+		const root = document.documentElement;
+		root.classList.add('has-bg-video');
+		return () => root.classList.remove('has-bg-video');
+	}, [isDarkMode]);
+
 	if (!isDarkMode) return null;
 
 	return createPortal(

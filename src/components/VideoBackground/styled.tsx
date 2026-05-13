@@ -18,7 +18,7 @@ export const Poster = styled.img`
 	display: block;
 `;
 
-export const Video = styled.video`
+export const Video = styled.video<{ $playing: boolean }>`
 	position: absolute;
 	inset: 0;
 	width: 100%;
@@ -28,9 +28,7 @@ export const Video = styled.video`
 	opacity: 0;
 	transition: opacity 600ms ease;
 
-	&[data-playing='true'] {
-		opacity: 1;
-	}
+	${({ $playing }) => $playing && 'opacity: 1;'}
 
 	@media (prefers-reduced-motion: reduce) {
 		display: none;

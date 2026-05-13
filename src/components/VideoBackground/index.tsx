@@ -54,7 +54,7 @@ function VideoBackground() {
 			<Poster src={POSTER_SRC} alt="" decoding="async" />
 			{showVideo && (
 				<Video
-					data-playing={isPlaying}
+					$playing={isPlaying}
 					autoPlay
 					muted
 					loop

@@ -12,7 +12,8 @@
 	isolation: isolate;
 	padding-top: 85px;
 	text-align: start;
-	background-color: var(--background);
+	/* No background-color: el VideoBackground de Home se renderiza detrás de #root;
+	   body conserva `background: var(--background)` como piso de fallback (todas las rutas). */
 	background-image: url('/vectors/header-vector.svg');
 	background-position: top center;
 	background-size: auto;

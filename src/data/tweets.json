@@ -1,5 +1,26 @@
 [
 	{
+		"id": "2054910847432995091",
+		"text": "Perdón? 👀",
+		"date": "2026-05-14",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2054910847432995091"
+	},
+	{
+		"id": "2054683404549890406",
+		"text": "Laburar con AI me está permitiendo acelerar x10 diferentes procesos en el día a día que antes me llevaban semanas, y a este punto... creo que documentar todo ese step-by-step interno a cada proceso (ej. Discovery, Knowledge gathering, Refinement, etc) termina siendo algo necesario y una ventaja por dos motivos:\n\n- Te permite armar un framework de trabajo para aquellos casos donde la AI \"mainea\" gran parte de la carga en sí y solo pasa por tu supervisión.\n- Te obliga a ingerir grandes cantidades de información en un tiempo muy acotado, por lo que hacer un digest bien estructurado previo al consumo es esencial para no perder la cabeza.\n\nMe gustaría entender si alguien más ya encontró su workflow efectivo de laburo con AI, sobre todo cuando se trata de grandes cantidades de información.",
+		"date": "2026-05-13",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2054683404549890406"
+	},
+	{
+		"id": "2054626934999355434",
+		"text": "✻ Mateing",
+		"date": "2026-05-13",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2054626934999355434"
+	},
+	{
 		"id": "2054390449016570062",
 		"text": "Aprovechando a darle un lavado de cara al portfolio, con cuál vamos? 📺",
 		"date": "2026-05-13",
@@ -47,26 +68,5 @@
 		"date": "2026-05-06",
 		"authorName": "Fache 🧉",
 		"url": "https://twitter.com/fachebits/status/2052049101005459840"
-	},
-	{
-		"id": "2051736863178739777",
-		"text": "Necesitaba hooks bien argentos 🧉",
-		"date": "2026-05-05",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2051736863178739777"
-	},
-	{
-		"id": "2051373631096156552",
-		"text": "Siempre pongo en cuestionamiento hasta qué punto las apps que salen a la luz resuelven necesidades reales.\n\nHasta que apareció mi amigo @alexmunoz1_ con esta propuesta para el hackathon Zero to Agent de @v0 + @vercel",
-		"date": "2026-05-04",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2051373631096156552"
-	},
-	{
-		"id": "2050673448905564183",
-		"text": "",
-		"date": "2026-05-02",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2050673448905564183"
 	}
 ]

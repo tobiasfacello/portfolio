@@ -7,6 +7,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 //! Lenis
 import ReactLenis from 'lenis/react';
 
+//! Analytics
+import { Analytics } from '@vercel/analytics/react';
+
 //* Context
 import { ThemeProvider } from './context/ThemeContext';
 import { BreakpointProvider } from './context/BreakpointContext';
@@ -78,6 +81,7 @@ function App() {
 	return (
 		<ErrorBoundary>
 			<RouterProvider router={router} />
+			<Analytics />
 		</ErrorBoundary>
 	);
 }

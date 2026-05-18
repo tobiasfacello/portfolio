@@ -6,6 +6,9 @@ import Text from '../../Text';
 import Button from '../../Button';
 import WidgetSkeleton from '../../Skeleton/WidgetSkeleton';
 
+//? Analytics
+import { trackEvent } from '../../../lib/analytics';
+
 //* Styled
 import {
 	StyledWidgetCard,
@@ -49,6 +52,7 @@ export default function WidgetBase(props: WidgetBaseProps) {
 						title={t('activity.viewProfile')}
 						url={props.profileUrl}
 						p={['4', '8', '4', '8']}
+						onClick={() => trackEvent({ name: 'social_click', data: { platform: props.platformName.toLowerCase(), source: 'widget' } })}
 					/>
 				)}
 			</StyledWidgetHeader>

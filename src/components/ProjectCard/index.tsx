@@ -15,6 +15,9 @@ import { useTechPillDegradation } from '../../hooks/usePillDegradation';
 //? Types
 import { ProjectCardProps } from '../../types';
 
+//? Analytics
+import { trackEvent } from '../../lib/analytics';
+
 const techIconMap: Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
 	'Next.js': iconRegistry.nextJs,
 	'TypeScript': iconRegistry.typescript,
@@ -42,6 +45,7 @@ function ProjectCard(props: ProjectCardProps) {
 			href={props.url}
 			target="_blank"
 			rel="noopener noreferrer"
+			onClick={() => trackEvent({ name: 'project_click', data: { slug: props.slug } })}
 		>
 			<Container
 				ref={contentRef as React.Ref<HTMLDivElement>}

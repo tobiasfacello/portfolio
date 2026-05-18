@@ -9,6 +9,7 @@ import ReactLenis from 'lenis/react';
 
 //! Analytics
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 //* Context
 import { ThemeProvider } from './context/ThemeContext';
@@ -82,6 +83,7 @@ function App() {
 		<ErrorBoundary>
 			<RouterProvider router={router} />
 			<Analytics />
+			<SpeedInsights />
 		</ErrorBoundary>
 	);
 }

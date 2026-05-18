@@ -8,6 +8,9 @@ import Text from "../Text";
 import ThemeSwitcher from "../ThemeSwitcher";
 import LanguageSwitcher from "../LanguageSwitcher";
 
+//? Analytics
+import { trackEvent } from "../../lib/analytics";
+
 const StyledFooter = styled.footer`
 	position: relative;
 	width: calc(100% - 24px);
@@ -54,7 +57,7 @@ function Footer({ ref, ...props }: React.ComponentPropsWithRef<'footer'>) {
 						i18nKey="footerCta"
 						ns="common"
 						components={{
-							cta: <a href="https://cal.com/tobiasfacello"><u /></a>,
+							cta: <a href="https://cal.com/tobiasfacello" onClick={() => trackEvent({ name: 'booking_cta_click' })}><u /></a>,
 						}}
 					/>
 				</Text>

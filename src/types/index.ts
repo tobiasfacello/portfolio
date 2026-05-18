@@ -198,3 +198,9 @@ export type BlogCardProps = {
 	status: BlogCardStatus;
 	url?: string;
 };
+
+export type AnalyticsEvent =
+	| { name: 'booking_cta_click' }
+	| { name: 'social_click'; data: { platform: string; source: 'profile' | 'widget' } }
+	| { name: 'project_click'; data: { slug: string } }
+	| { name: 'work_click'; data: { slug: string; action: 'detail' | 'site' | 'docs' } };

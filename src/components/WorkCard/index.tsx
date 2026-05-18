@@ -16,6 +16,8 @@ import { iconRegistry } from '../Icon';
 import { WorkCardProps } from '../../types';
 //? Data
 import { hasDetailPage } from '../../data/works';
+//? Analytics
+import { trackEvent } from '../../lib/analytics';
 
 const HourglassIcon = () => (
 	<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -43,17 +45,20 @@ function WorkCard(props: WorkCardProps) {
 
 	const handleCardClick = useCallback(() => {
 		if (isDetail) {
+			trackEvent({ name: 'work_click', data: { slug: props.slug, action: 'detail' } });
 			navigate(`/work/${props.slug}`, { viewTransition: true });
 		}
 	}, [isDetail, navigate, props.slug]);
 
 	const handleButtonClick = useCallback((e: React.MouseEvent) => {
 		e.stopPropagation();
+		trackEvent({ name: 'work_click', data: { slug: props.slug, action: 'site' } });
 		window.open(props.url, '_blank', 'noopener,noreferrer');
-	}, [props.url]);
+	}, [props.slug, props.url]);
 
 	const handleDocClick = useCallback((e: React.MouseEvent) => {
 		e.stopPropagation();
+		trackEvent({ name: 'work_click', data: { slug: props.slug, action: 'docs' } });
 		navigate(`/work/${props.slug}`, { viewTransition: true });
 	}, [navigate, props.slug]);
 
@@ -193,6 +198,7 @@ function WorkCard(props: WorkCardProps) {
 			href={props.url}
 			target="_blank"
 			rel="noopener noreferrer"
+			onClick={() => trackEvent({ name: 'work_click', data: { slug: props.slug, action: 'site' } })}
 			$p={props.p}
 			$m={props.m}
 		>

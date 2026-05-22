@@ -1,5 +1,26 @@
 [
 	{
+		"id": "2057673504896516530",
+		"text": "Será hasta mañana gente.",
+		"date": "2026-05-22",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2057673504896516530"
+	},
+	{
+		"id": "2057554600576614768",
+		"text": "Claudio una vez más que me pedis /login y yo te borro a la mierda.",
+		"date": "2026-05-21",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2057554600576614768"
+	},
+	{
+		"id": "2057509881251254356",
+		"text": "Dónde carajo...\n\nDónde carajo está el Puerto 3000?",
+		"date": "2026-05-21",
+		"authorName": "Fache 🧉",
+		"url": "https://twitter.com/fachebits/status/2057509881251254356"
+	},
+	{
 		"id": "2057195284669616245",
 		"text": "Me gustaría saber qué opinan sobre el Cognitive Debt.\n\nEn este momento me encuentro muy apegado al uso de AI (sobre todo porque en el laburo estamos priorizando iteraciones rápidas y tratando de mantener la vara de calidad lo más estable y alta posible).\n\nEsto genera evidentemente una \"dependencia\" en muchos casos y un desafío muy plano a nivel cognitivo.\n\nBásicamente cada vez le veo menos lo desafiante al tener que resolver un problema, porque la AI hace muy bien lo suyo en términos generales.\n\nQué hacen o harían ante esto para evitar esa deuda cognitiva?\n\nLos leo 🥸",
 		"date": "2026-05-20",
@@ -47,26 +68,5 @@
 		"date": "2026-05-16",
 		"authorName": "Fache 🧉",
 		"url": "https://twitter.com/fachebits/status/2055494851483902235"
-	},
-	{
-		"id": "2054910847432995091",
-		"text": "Perdón? 👀",
-		"date": "2026-05-14",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2054910847432995091"
-	},
-	{
-		"id": "2054683404549890406",
-		"text": "Laburar con AI me está permitiendo acelerar x10 diferentes procesos en el día a día que antes me llevaban semanas, y a este punto... creo que documentar todo ese step-by-step interno a cada proceso (ej. Discovery, Knowledge gathering, Refinement, etc) termina siendo algo necesario y una ventaja por dos motivos:\n\n- Te permite armar un framework de trabajo para aquellos casos donde la AI \"mainea\" gran parte de la carga en sí y solo pasa por tu supervisión.\n- Te obliga a ingerir grandes cantidades de información en un tiempo muy acotado, por lo que hacer un digest bien estructurado previo al consumo es esencial para no perder la cabeza.\n\nMe gustaría entender si alguien más ya encontró su workflow efectivo de laburo con AI, sobre todo cuando se trata de grandes cantidades de información.",
-		"date": "2026-05-13",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2054683404549890406"
-	},
-	{
-		"id": "2054626934999355434",
-		"text": "✻ Mateing",
-		"date": "2026-05-13",
-		"authorName": "Fache 🧉",
-		"url": "https://twitter.com/fachebits/status/2054626934999355434"
 	}
 ]

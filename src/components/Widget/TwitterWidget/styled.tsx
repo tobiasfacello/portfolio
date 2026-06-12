@@ -1,67 +1,37 @@
 import styled from 'styled-components';
 import { popInAnimation } from '../shared/digitPop';
 
-export const StyledTweetList = styled.div`
+export const StyledPinnedCard = styled.a`
 	display: flex;
 	flex-direction: column;
-	gap: var(--6);
-	width: 100%;
-	/* ~3 visible items at default sizing — anything beyond scrolls without
-	   pushing the widget taller. */
-	max-height: 160px;
-	min-height: 0;
-	overflow-y: auto;
-	overscroll-behavior: contain;
-	scrollbar-width: thin;
-	scrollbar-color: var(--glass-border-start) transparent;
+	gap: var(--12);
+	padding: var(--8);
+	border-radius: var(--radius-md);
+	text-decoration: none;
+	color: inherit;
+	${popInAnimation}
+	transition:
+		background-color var(--transition-fast),
+		transform var(--transition-fast);
 
-	&::-webkit-scrollbar {
-		width: 4px;
-	}
-	&::-webkit-scrollbar-track {
-		background: transparent;
-	}
-	&::-webkit-scrollbar-thumb {
-		background-color: var(--glass-border-start);
-		border-radius: var(--radius-pill);
+	&:hover {
+		background-color: var(--glass-bg-bold);
+		transform: translateY(-1px);
 	}
 `;
 
-export const StyledTweetText = styled.p`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.75rem;
-	line-height: 1.4;
-	color: var(--text);
-	opacity: var(--opacity-medium);
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	margin: 0;
-	transition: opacity var(--transition-fast);
-`;
-
-export const StyledTweetStat = styled.span`
-	display: inline-flex;
+export const StyledAuthorRow = styled.div`
+	display: flex;
 	align-items: center;
-	gap: var(--4);
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.625rem;
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-muted);
-	transition: opacity var(--transition-fast);
-
-	svg {
-		width: 10px;
-		height: 10px;
-		flex-shrink: 0;
-	}
+	gap: var(--8);
+	width: 100%;
+	min-width: 0;
 `;
 
-export const StyledTweetThumbnail = styled.div`
-	width: 32px;
-	height: 32px;
-	border-radius: var(--radius-sm);
+export const StyledAvatar = styled.div`
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-circle);
 	background-color: var(--glass-bg-bold);
 	flex-shrink: 0;
 	overflow: hidden;
@@ -73,34 +43,133 @@ export const StyledTweetThumbnail = styled.div`
 	}
 `;
 
-export const StyledTweetContent = styled.div`
+export const StyledAuthorInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: var(--2);
 	min-width: 0;
+	flex: 1;
 `;
 
-export const StyledTweetItem = styled.a`
-	display: flex;
-	flex-direction: row;
-	gap: var(--8);
-	padding: var(--6);
+export const StyledAuthorName = styled.span`
+	display: inline-flex;
+	align-items: center;
+	gap: var(--4);
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.8125rem;
+	line-height: 1.2;
+	color: var(--text);
+	opacity: var(--opacity-full);
+	font-weight: 600;
+	min-width: 0;
+
+	span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+`;
+
+export const StyledVerifiedBadge = styled.span`
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 14px;
+	height: 14px;
+	color: var(--accent, var(--text));
+	opacity: var(--opacity-medium);
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+`;
+
+export const StyledAuthorMeta = styled.span`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-caption);
+	line-height: 1.2;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+`;
+
+export const StyledTweetBody = styled.p`
+	font-family: var(--font-geist-pixel-circle);
+	font-size: 0.8125rem;
+	line-height: 1.45;
+	color: var(--text);
+	opacity: var(--opacity-medium);
+	margin: 0;
+	white-space: pre-line;
+	word-wrap: break-word;
+	overflow-wrap: anywhere;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	transition: opacity var(--transition-fast);
+
+	${StyledPinnedCard}:hover & {
+		opacity: var(--opacity-full);
+	}
+`;
+
+export const StyledMediaGrid = styled.div<{ $count: number }>`
+	display: grid;
+	grid-template-columns: ${({ $count }) => ($count > 1 ? '1fr 1fr' : '1fr')};
+	gap: var(--4);
+	width: 100%;
 	border-radius: var(--radius-sm);
-	text-decoration: none;
-	color: inherit;
-	${popInAnimation}
-	transition:
-		background-color var(--transition-fast),
-		transform var(--transition-fast);
+	overflow: hidden;
+`;
 
-	&:hover {
-		background-color: var(--glass-bg-bold);
-		transform: translateX(2px);
+export const StyledMediaItem = styled.div<{ $isSingle: boolean }>`
+	position: relative;
+	width: 100%;
+	aspect-ratio: ${({ $isSingle }) => ($isSingle ? '16 / 9' : '1 / 1')};
+	background-color: var(--glass-bg-bold);
+	overflow: hidden;
 
-		${StyledTweetText},
-		${StyledTweetStat} {
-			opacity: 1;
-		}
+	img,
+	video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+`;
+
+export const StyledStatsRow = styled.div`
+	display: flex;
+	align-items: center;
+	gap: var(--16);
+	flex-wrap: wrap;
+	row-gap: var(--6);
+`;
+
+export const StyledStat = styled.span`
+	display: inline-flex;
+	align-items: center;
+	gap: var(--4);
+	font-family: var(--font-geist-pixel-circle);
+	font-size: var(--font-size-caption);
+	line-height: 1;
+	color: var(--text);
+	opacity: var(--opacity-muted);
+	transition: opacity var(--transition-fast);
+
+	svg {
+		width: 12px;
+		height: 12px;
+		flex-shrink: 0;
+	}
+
+	${StyledPinnedCard}:hover & {
+		opacity: var(--opacity-medium);
 	}
 `;
 
@@ -120,10 +189,3 @@ export const StyledFooterMeta = styled.span`
 	opacity: var(--opacity-muted);
 	text-align: right;
 `;
-
-export const StyledTweetMeta = styled.div`
-	display: flex;
-	align-items: center;
-	gap: var(--8);
-`;
-

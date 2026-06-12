@@ -163,12 +163,35 @@ export type GitHubTopRepo = {
 	count: number;
 };
 
-export type Tweet = {
+export type PinnedTweetMedia = {
+	type: 'photo' | 'video' | 'gif';
+	src: string;
+	width?: number;
+	height?: number;
+};
+
+export type PinnedTweetStats = {
+	likes: number;
+	retweets: number;
+	replies: number;
+	views: number;
+};
+
+export type PinnedTweetAuthor = {
+	name: string;
+	userName: string;
+	profilePicture?: string;
+	isVerified: boolean;
+};
+
+export type PinnedTweet = {
 	id: string;
 	text: string;
 	date: string;
-	authorName?: string;
 	url: string;
+	author: PinnedTweetAuthor;
+	media: PinnedTweetMedia[];
+	stats: PinnedTweetStats;
 };
 
 export type LinkedInExperience = {

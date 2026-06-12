@@ -111,7 +111,7 @@ export const StyledCurrentBadge = styled.span`
 	line-height: 1;
 	color: var(--background);
 	font-weight: 600;
-	animation: ${livePulse} 2.4s ease-in-out infinite;
+	animation: ${livePulse} 2s ease-in-out infinite;
 
 	@media (prefers-reduced-motion: reduce) {
 		animation: none;

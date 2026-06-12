@@ -200,7 +200,7 @@ export const StyledPillsRow = styled.div`
 export const StyledToolPillIcon = styled.span`
 	${iconWrapper('14px')}
 	color: var(--text);
-	transition: color 300ms;
+	transition: color var(--transition-base) var(--ease-smooth-out);
 `;
 
 export const StyledToolPillLabel = styled.span`
@@ -221,7 +221,7 @@ export const StyledToolPill = styled.span`
 	border: 1px solid var(--text);
 	border-radius: 30px;
 	opacity: 0.6;
-	transition: all 300ms;
+	transition: all var(--transition-normal) var(--ease-smooth-out);
 
 	&:hover {
 		opacity: 1;
@@ -325,7 +325,7 @@ export const StyledBackLink = styled(Link)`
 	color: var(--primary);
 	text-decoration: none;
 	opacity: 0.6;
-	transition: opacity 200ms;
+	transition: opacity var(--transition-fast) var(--ease-smooth-out);
 
 	&:hover {
 		opacity: 1;

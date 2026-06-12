@@ -25,7 +25,7 @@ export const shimmerSurface = css`
 			var(--glass-border-start) 50%,
 			transparent 100%
 		);
-		animation: ${shimmerKeyframes} 1.5s ease-in-out infinite;
+		animation: ${shimmerKeyframes} 1.5s linear infinite;
 		pointer-events: none;
 	}
 

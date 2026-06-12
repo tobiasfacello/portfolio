@@ -1,7 +1,8 @@
-import { useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyledToggleGroup, StyledToggleButton } from '../ToggleGroup/styled';
+import { StyledToggleGroup, StyledTogglePill, StyledToggleButton } from '../ToggleGroup/styled';
 import { loadLanguageBundle } from '../../i18n';
+import { usePillSlider } from '../../hooks/usePillSlider';
 
 const languages = [
 	{ code: 'en', label: 'EN — Switch to English', text: 'EN' },
@@ -11,7 +12,8 @@ const languages = [
 
 function LanguageSwitcher() {
 	const { i18n } = useTranslation();
-	const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+	const activeIndex = Math.max(0, languages.findIndex((l) => l.code === i18n.language));
+	const { pillRef, setButtonRef, buttonRefs } = usePillSlider(activeIndex);
 
 	const changeLanguage = useCallback(
 		async (lng: string) => {
@@ -35,19 +37,20 @@ function LanguageSwitcher() {
 
 			if (nextIndex !== null) {
 				e.preventDefault();
-				buttonsRef.current[nextIndex]?.focus();
+				buttonRefs.current[nextIndex]?.focus();
 				changeLanguage(languages[nextIndex].code);
 			}
 		},
-		[changeLanguage],
+		[changeLanguage, buttonRefs],
 	);
 
 	return (
 		<StyledToggleGroup role="radiogroup" aria-label="Language">
+			<StyledTogglePill ref={pillRef} aria-hidden="true" />
 			{languages.map(({ code, label, text }, index) => (
 				<StyledToggleButton
 					key={code}
-					ref={(el) => { buttonsRef.current[index] = el; }}
+					ref={setButtonRef(index)}
 					role="radio"
 					$active={i18n.language === code}
 					$variant="text"

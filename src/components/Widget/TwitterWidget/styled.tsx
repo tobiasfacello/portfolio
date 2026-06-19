@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import { popInAnimation } from '../shared/digitPop';
+import { widgetText, iconWrapper } from '../../../styles/mixins';
 
 export const StyledPinnedCard = styled.a`
 	display: flex;
 	flex-direction: column;
+	flex: 1;
+	justify-content: space-between;
 	gap: var(--12);
-	padding: var(--8);
+	padding: var(--12);
 	border-radius: var(--radius-md);
 	text-decoration: none;
 	color: inherit;
@@ -52,14 +55,11 @@ export const StyledAuthorInfo = styled.div`
 `;
 
 export const StyledAuthorName = styled.span`
+	${widgetText('0.9375rem', 'var(--opacity-full)')}
 	display: inline-flex;
 	align-items: center;
 	gap: var(--4);
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.8125rem;
 	line-height: 1.2;
-	color: var(--text);
-	opacity: var(--opacity-full);
 	font-weight: 600;
 	min-width: 0;
 
@@ -71,75 +71,37 @@ export const StyledAuthorName = styled.span`
 `;
 
 export const StyledVerifiedBadge = styled.span`
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
-	width: 14px;
-	height: 14px;
+	${iconWrapper('15px')}
 	color: var(--accent, var(--text));
-	opacity: var(--opacity-medium);
 
 	svg {
-		width: 100%;
-		height: 100%;
+		display: block;
 	}
 `;
 
 export const StyledAuthorMeta = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-caption);
-	line-height: 1.2;
-	color: var(--text);
-	opacity: var(--opacity-muted);
+	${widgetText('var(--font-size-label)', 'var(--opacity-muted)')}
+	line-height: 1.3;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 `;
 
 export const StyledTweetBody = styled.p`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: 0.8125rem;
-	line-height: 1.45;
-	color: var(--text);
-	opacity: var(--opacity-medium);
+	${widgetText('0.9375rem', 'var(--opacity-medium)')}
+	line-height: 1.5;
 	margin: 0;
 	white-space: pre-line;
 	word-wrap: break-word;
 	overflow-wrap: anywhere;
 	display: -webkit-box;
-	-webkit-line-clamp: 5;
+	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	transition: opacity var(--transition-fast);
 
 	${StyledPinnedCard}:hover & {
 		opacity: var(--opacity-full);
-	}
-`;
-
-export const StyledMediaGrid = styled.div<{ $count: number }>`
-	display: grid;
-	grid-template-columns: ${({ $count }) => ($count > 1 ? '1fr 1fr' : '1fr')};
-	gap: var(--4);
-	width: 100%;
-	border-radius: var(--radius-sm);
-	overflow: hidden;
-`;
-
-export const StyledMediaItem = styled.div<{ $isSingle: boolean }>`
-	position: relative;
-	width: 100%;
-	aspect-ratio: ${({ $isSingle }) => ($isSingle ? '16 / 9' : '1 / 1')};
-	background-color: var(--glass-bg-bold);
-	overflow: hidden;
-
-	img,
-	video {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
 	}
 `;
 
@@ -152,19 +114,15 @@ export const StyledStatsRow = styled.div`
 `;
 
 export const StyledStat = styled.span`
+	${widgetText('var(--font-size-label)', 'var(--opacity-muted)')}
 	display: inline-flex;
 	align-items: center;
-	gap: var(--4);
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-caption);
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-muted);
+	gap: var(--6);
 	transition: opacity var(--transition-fast);
 
 	svg {
-		width: 12px;
-		height: 12px;
+		width: 14px;
+		height: 14px;
 		flex-shrink: 0;
 	}
 
@@ -174,18 +132,10 @@ export const StyledStat = styled.span`
 `;
 
 export const StyledFooterLabel = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-label);
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-soft);
+	${widgetText('var(--font-size-label)', 'var(--opacity-soft)')}
 `;
 
 export const StyledFooterMeta = styled.span`
-	font-family: var(--font-geist-pixel-circle);
-	font-size: var(--font-size-label);
-	line-height: 1;
-	color: var(--text);
-	opacity: var(--opacity-muted);
+	${widgetText('var(--font-size-label)', 'var(--opacity-muted)')}
 	text-align: right;
 `;

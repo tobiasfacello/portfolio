@@ -163,13 +163,6 @@ export type GitHubTopRepo = {
 	count: number;
 };
 
-export type PinnedTweetMedia = {
-	type: 'photo' | 'video' | 'gif';
-	src: string;
-	width?: number;
-	height?: number;
-};
-
 export type PinnedTweetStats = {
 	likes: number;
 	retweets: number;
@@ -190,7 +183,6 @@ export type PinnedTweet = {
 	date: string;
 	url: string;
 	author: PinnedTweetAuthor;
-	media: PinnedTweetMedia[];
 	stats: PinnedTweetStats;
 };
 

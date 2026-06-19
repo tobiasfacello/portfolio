@@ -1,19 +1,11 @@
 import styled from 'styled-components';
 import { shimmerSurface } from './shimmer';
 
-const HandlePlaceholder = styled.span`
-	display: block;
-	width: 96px;
-	height: 10px;
-	border-radius: 3px;
-	${shimmerSurface}
-`;
-
 const Card = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: var(--12);
-	padding: var(--8);
+	padding: var(--12);
 	width: 100%;
 	flex: 1;
 `;
@@ -81,18 +73,6 @@ const TextBlock = styled.div`
 	width: 100%;
 `;
 
-const MediaBlock = styled.span`
-	display: block;
-	width: 100%;
-	aspect-ratio: 16 / 9;
-	border-radius: var(--radius-sm);
-	${shimmerSurface}
-
-	&::after {
-		animation-delay: 0.16s;
-	}
-`;
-
 const StatsRow = styled.div`
 	display: flex;
 	align-items: center;
@@ -123,8 +103,6 @@ function TwitterWidgetSkeleton() {
 			aria-label="Cargando tweet destacado"
 			style={{ display: 'contents' }}
 		>
-			<HandlePlaceholder aria-hidden="true" />
-
 			<Card aria-hidden="true">
 				<AuthorRow>
 					<Avatar />
@@ -139,8 +117,6 @@ function TwitterWidgetSkeleton() {
 						<TextLine key={i} $w={w} $delay={i * 0.08} />
 					))}
 				</TextBlock>
-
-				<MediaBlock />
 
 				<StatsRow>
 					{[0, 1, 2, 3].map((i) => (

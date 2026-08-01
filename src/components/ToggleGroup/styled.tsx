@@ -9,7 +9,7 @@ export const StyledToggleGroup = styled.div`
 	border: 1px solid var(--text);
 	border-radius: var(--radius-pill);
 	padding: var(--2);
-	opacity: var(--opacity-soft);
+	opacity: var(--opacity-text-muted);
 	transition: opacity var(--transition-normal);
 
 	&:hover {

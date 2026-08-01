@@ -12,7 +12,7 @@ const alignStyles = (align: Align) => {
 	return css`left: 50%;`;
 };
 
-const tooltipModalEase = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const tooltipModalEase = 'var(--ease-smooth-out)';
 
 // Compose the layout translate (only for center align) with the modal scale
 // so we don't lose horizontal centering when the tooltip animates.
@@ -106,17 +106,17 @@ export const StyledTooltip = styled.span<{
 	transform: ${({ $align, $visible }) => composedTransform($align, $visible ? 1 : 0.96)};
 	opacity: ${({ $visible }) => ($visible ? 1 : 0)};
 	transition:
-		transform ${({ $visible }) => ($visible ? '250ms' : '150ms')} ${tooltipModalEase},
-		opacity ${({ $visible }) => ($visible ? '250ms' : '150ms')} ${tooltipModalEase},
-		background-color var(--transition-base) ease-in-out,
-		color var(--transition-base) ease-in-out,
-		border-color var(--transition-base) ease-in-out;
+		transform ${({ $visible }) => ($visible ? 'var(--transition-tab)' : 'var(--transition-fast)')} ${tooltipModalEase},
+		opacity ${({ $visible }) => ($visible ? 'var(--transition-tab)' : 'var(--transition-fast)')} ${tooltipModalEase},
+		background-color var(--transition-base) var(--ease-state),
+		color var(--transition-base) var(--ease-state),
+		border-color var(--transition-base) var(--ease-state);
 
 	@media (prefers-reduced-motion: reduce) {
 		transition:
-			background-color var(--transition-base) ease-in-out,
-			color var(--transition-base) ease-in-out,
-			border-color var(--transition-base) ease-in-out;
+			background-color var(--transition-base) var(--ease-state),
+			color var(--transition-base) var(--ease-state),
+			border-color var(--transition-base) var(--ease-state);
 	}
 
 	${({ $position, $align }) => ($position === 'top' ? positionTop($align) : positionBottom($align))}
@@ -125,7 +125,7 @@ export const StyledTooltip = styled.span<{
 	&::before {
 		content: '';
 		position: absolute;
-		transition: border-color var(--transition-base) ease-in-out;
+		transition: border-color var(--transition-base) var(--ease-state);
 	}
 
 	${({ $clickable, $position }) =>

@@ -16,5 +16,10 @@ export const StyledPillTag = styled.span<{
 	border: 1px solid var(--text);
 	border-radius: var(--radius-pill);
 	white-space: nowrap;
-	transition: all var(--transition-normal);
+	/* hoveredPillStyles only touches these four; "all" let anything else ride along. */
+	transition:
+		color var(--transition-normal) var(--ease-state),
+		background-color var(--transition-normal) var(--ease-state),
+		border-color var(--transition-normal) var(--ease-state),
+		opacity var(--transition-normal) var(--ease-state);
 `;

@@ -147,7 +147,7 @@ const originMap: Record<TooltipPosition, Record<TooltipAlign, string>> = {
 	},
 };
 
-const tooltipModalEase = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const tooltipModalEase = 'var(--ease-smooth-out)';
 
 // Wrapper that owns the absolute positioning (left/top + position translate).
 // Position transitions live here so the tooltip glides between adjacent
@@ -179,8 +179,8 @@ export const StyledContribTooltip = styled.div<{
 	transform: scale(${(props) => (props.$visible ? 1 : 0.96)});
 	opacity: ${(props) => (props.$visible ? 1 : 0)};
 	transition:
-		transform ${(props) => (props.$visible ? '250ms' : '150ms')} ${tooltipModalEase},
-		opacity ${(props) => (props.$visible ? '250ms' : '150ms')} ${tooltipModalEase};
+		transform ${(props) => (props.$visible ? 'var(--transition-tab)' : 'var(--transition-fast)')} ${tooltipModalEase},
+		opacity ${(props) => (props.$visible ? 'var(--transition-tab)' : 'var(--transition-fast)')} ${tooltipModalEase};
 
 	@media (prefers-reduced-motion: reduce) {
 		transition: none;

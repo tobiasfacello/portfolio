@@ -34,7 +34,7 @@ export const glassGradientBorder = ({
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
 		pointer-events: none;
-		transition: background var(--transition-slow) ease-in-out;
+		transition: background var(--transition-slow) var(--ease-state);
 	}
 `;
 
@@ -97,8 +97,22 @@ export const hoveredPillStyles = css`
 `;
 
 export const interactiveHover = css`
-	opacity: var(--opacity-soft);
-	transition: all var(--transition-fast);
+	opacity: var(--opacity-text-muted);
+	touch-action: manipulation;
+	/* Enumerated rather than "all" so an unrelated style change can never ride
+	   in for free — these are the only properties the hover and press touch. */
+	transition:
+		opacity var(--transition-fast) var(--ease-state),
+		background-color var(--transition-fast) var(--ease-state),
+		border-color var(--transition-fast) var(--ease-state);
+
+	@media (prefers-reduced-motion: no-preference) {
+		transition:
+			opacity var(--transition-fast) var(--ease-state),
+			background-color var(--transition-fast) var(--ease-state),
+			border-color var(--transition-fast) var(--ease-state),
+			scale var(--transition-fast) var(--ease-state);
+	}
 
 	&:hover {
 		opacity: var(--opacity-full);
@@ -108,7 +122,10 @@ export const interactiveHover = css`
 
 	&:active {
 		background-color: var(--primary);
-		transition: all var(--transition-fast);
+
+		@media (prefers-reduced-motion: no-preference) {
+			scale: 0.97;
+		}
 	}
 `;
 
@@ -172,7 +189,7 @@ export const imageCardContent = (hoverScale = 1.01) => css`
 		display: block;
 		object-fit: cover;
 		border-radius: 12px;
-		transition: transform 300ms ease-in-out;
+		transition: transform var(--transition-normal) var(--ease-smooth-out);
 
 		${mq.up('mobile-lg')} {
 			border-radius: 8px;

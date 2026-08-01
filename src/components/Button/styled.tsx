@@ -18,17 +18,17 @@ const defaultVariant = css`
 
 	${interactiveHover}
 
+	/* The button already carries the resting dim; the label's own
+	   --opacity-medium multiplied into it and landed the pair at 4.36:1. */
+	${StyledText} {
+		opacity: var(--opacity-full);
+	}
+
 	&:hover {
 		${StyledText} {
 			font-weight: var(--font-weight-medium);
 			color: var(--pill-text-hovered);
 		}
-	}
-
-	&:active {
-		background-color: var(--primary);
-		transform: scale(0.97);
-		transition: all var(--transition-fast);
 	}
 
 	${StyledIconFrame} {
@@ -55,6 +55,8 @@ const glassVariant = css`
 	${StyledText} {
 		font-size: inherit;
 		font-weight: var(--font-weight-medium);
+		/* Same reason as the default variant: no second layer of dimming. */
+		opacity: var(--opacity-full);
 	}
 
 	${StyledIconFrame} {
@@ -82,12 +84,6 @@ const glassVariant = css`
 			color: var(--pill-text-hovered);
 		}
 	}
-
-	&:active {
-		background-color: var(--primary);
-		transform: scale(0.97);
-		transition: all var(--transition-fast);
-	}
 `;
 
 export const StyledButton = styled.a<{
@@ -112,7 +108,12 @@ export const StyledButton = styled.a<{
 			: (props.$hasIcon ? 'var(--6) var(--12) var(--6) var(--8)' : 'var(--6) var(--12)'))};
 	border-radius: var(--radius-md);
 	text-decoration: none;
-	transition: all var(--transition-fast);
+	transition:
+		background-color var(--transition-fast) var(--ease-state),
+		border-color var(--transition-fast) var(--ease-state),
+		color var(--transition-fast) var(--ease-state),
+		opacity var(--transition-fast) var(--ease-state),
+		padding var(--transition-fast) var(--ease-state);
 	z-index: 10;
 	cursor: ${(props) => props.$disabled ? 'default' : 'pointer'};
 

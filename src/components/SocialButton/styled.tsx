@@ -19,7 +19,6 @@ export const StyledSocialButton = styled.a`
 	border: 1px solid var(--glass-border-start);
 	border-radius: var(--radius-md);
 	color: var(--text);
-	transition: all var(--transition-fast);
 
 	${interactiveHover}
 
@@ -29,8 +28,4 @@ export const StyledSocialButton = styled.a`
 		}
 	}
 
-	&:active {
-		background-color: var(--primary);
-		transition: all var(--transition-fast);
-	}
 `;

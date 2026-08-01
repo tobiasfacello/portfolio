@@ -23,7 +23,7 @@ export const ShimmerOverlay = styled.div.attrs({ 'aria-hidden': true })<{
 		var(--glass-border-start) 50%,
 		transparent 100%
 	);
-	animation: ${shimmerKeyframes} ${({ $duration }) => $duration ?? 1.8}s ease-in-out infinite;
+	animation: ${shimmerKeyframes} ${({ $duration }) => $duration ?? 1.8}s linear infinite;
 	will-change: transform;
 
 	@media (prefers-reduced-motion: reduce) {

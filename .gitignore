@@ -21,5 +21,8 @@ public/*
 .claude/
 .playwright-mcp/
 
+# TypeScript incremental build cache
+*.tsbuildinfo
+
 # Vercel
 .vercel/

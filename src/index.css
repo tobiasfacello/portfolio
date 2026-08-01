@@ -47,6 +47,8 @@
 	--radius-circle: 50%;
 
 	/* Transitions */
+	--transition-stagger: 40ms;
+	--transition-micro: 80ms;
 	--transition-fast: 150ms;
 	--transition-base: 200ms;
 	--transition-tab: 250ms;
@@ -54,9 +56,21 @@
 	--transition-slow: 350ms;
 	--transition-panel: 400ms;
 	--transition-emphasis: 500ms;
+	--transition-shimmer: 1600ms;
 
 	/* Easings (per transitions.dev motion tokens) */
 	--ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-bouncy: cubic-bezier(0.34, 1.36, 0.64, 1);
+	--ease-bouncy-strong: cubic-bezier(0.34, 3.85, 0.64, 1);
+	/* Hover and colour shifts: subtle, non-distracting, never a slow start. */
+	--ease-state: ease;
+	/* Tooltips only — the one place a plain ease-out reads best. */
+	--ease-tooltip: ease-out;
+
+	/* Hit areas — WCAG 2.5.8 floor, plus the sizes we aim for when density allows */
+	--hit-area-min: 24px;
+	--hit-area-desktop: 40px;
+	--hit-area-touch: 44px;
 
 	/* Opacity scale */
 	--opacity-subtle: 0.2;
@@ -118,6 +132,9 @@
 	--secondary-60: rgba(68, 71, 56, 0.6);
 	--overlay-solid: #27291e;
 	--accent: #dddfd8;
+	/* Dedicated focus colour. Deliberately outside the olive palette so a ring
+	   is never mistaken for a hover fill (--accent) or a status tint. */
+	--focus-ring: #9ab8d4;
 	--glass-bg: rgba(197, 199, 188, 0.05);
 	--glass-bg-bold: rgba(197, 199, 188, 0.025);
 	--glass-border-start: rgba(197, 199, 188, 0.10);
@@ -137,6 +154,20 @@
 	--lightbox-counter-color: rgba(242, 232, 234, 0.6);
 	--tooltip-clickable-hover-bg: #f2e8ea;
 	--tooltip-clickable-hover-text: #0a0b04;
+
+	/* Text legibility floors. The raw --opacity-* scale stays for borders and
+	   fills, where the 3:1 non-text threshold applies; a label at --opacity-muted
+	   renders 3.33:1 here, which is what washed the page out. */
+	--opacity-text-muted: 0.7;
+	--opacity-text-disabled: 0.45;
+
+	/* Semantic status — desaturated to sit inside the olive palette */
+	--success: #9cbf8a;
+	--success-tint: rgba(156, 191, 138, 0.14);
+	--danger: #d9958a;
+	--danger-tint: rgba(217, 149, 138, 0.14);
+	--warning: #d9c48a;
+	--warning-tint: rgba(217, 196, 138, 0.14);
 
 	/* Contribution grid */
 	--contrib-empty: rgba(197, 199, 188, 0.06);
@@ -158,6 +189,9 @@
 	--secondary-60: rgba(106, 109, 94, 0.6);
 	--overlay-solid: #aeada3;
 	--accent: #444738;
+	/* Dedicated focus colour. Deliberately outside the olive palette so a ring
+	   is never mistaken for a hover fill (--accent) or a status tint. */
+	--focus-ring: #3a6b96;
 	--glass-bg: rgba(10, 11, 4, 0.04);
 	--glass-bg-bold: rgba(10, 11, 4, 0.06);
 	--glass-border-start: rgba(10, 11, 4, 0.08);
@@ -177,6 +211,19 @@
 	--lightbox-counter-color: rgba(10, 11, 4, 0.6);
 	--tooltip-clickable-hover-bg: #444738;
 	--tooltip-clickable-hover-text: #f2ede8;
+
+	/* Text legibility floors — light needs more than dark for the same ratio,
+	   because the composite rides toward the page rather than away from it. */
+	--opacity-text-muted: 0.78;
+	--opacity-text-disabled: 0.5;
+
+	/* Semantic status — desaturated to sit inside the olive palette */
+	--success: #3d6834;
+	--success-tint: rgba(61, 104, 52, 0.12);
+	--danger: #8f3a2e;
+	--danger-tint: rgba(143, 58, 46, 0.12);
+	--warning: #6f571a;
+	--warning-tint: rgba(111, 87, 26, 0.12);
 
 	/* Contribution grid */
 	--contrib-empty: rgba(10, 11, 4, 0.06);
@@ -200,6 +247,9 @@
 		--secondary-60: rgba(68, 71, 56, 0.6);
 		--overlay-solid: #27291e;
 		--accent: #dddfd8;
+	/* Dedicated focus colour. Deliberately outside the olive palette so a ring
+	   is never mistaken for a hover fill (--accent) or a status tint. */
+	--focus-ring: #9ab8d4;
 		--glass-bg: rgba(197, 199, 188, 0.05);
 		--glass-bg-bold: rgba(197, 199, 188, 0.025);
 		--glass-border-start: rgba(197, 199, 188, 0.10);
@@ -219,6 +269,20 @@
 		--lightbox-counter-color: rgba(242, 232, 234, 0.6);
 		--tooltip-clickable-hover-bg: #f2e8ea;
 		--tooltip-clickable-hover-text: #0a0b04;
+
+		/* Text legibility floors. The raw --opacity-* scale stays for borders and
+	   fills, where the 3:1 non-text threshold applies; a label at --opacity-muted
+	   renders 3.33:1 here, which is what washed the page out. */
+	--opacity-text-muted: 0.7;
+	--opacity-text-disabled: 0.45;
+
+	/* Semantic status — desaturated to sit inside the olive palette */
+		--success: #9cbf8a;
+		--success-tint: rgba(156, 191, 138, 0.14);
+		--danger: #d9958a;
+		--danger-tint: rgba(217, 149, 138, 0.14);
+		--warning: #d9c48a;
+		--warning-tint: rgba(217, 196, 138, 0.14);
 
 		/* Contribution grid */
 		--contrib-empty: rgba(197, 199, 188, 0.06);
@@ -241,6 +305,9 @@
 		--secondary-60: rgba(106, 109, 94, 0.6);
 		--overlay-solid: #aeada3;
 		--accent: #444738;
+	/* Dedicated focus colour. Deliberately outside the olive palette so a ring
+	   is never mistaken for a hover fill (--accent) or a status tint. */
+	--focus-ring: #3a6b96;
 		--glass-bg: rgba(10, 11, 4, 0.04);
 		--glass-bg-bold: rgba(10, 11, 4, 0.06);
 		--glass-border-start: rgba(10, 11, 4, 0.08);
@@ -260,6 +327,19 @@
 		--lightbox-counter-color: rgba(10, 11, 4, 0.6);
 		--tooltip-clickable-hover-bg: #444738;
 		--tooltip-clickable-hover-text: #f2ede8;
+
+		/* Text legibility floors — light needs more than dark for the same ratio,
+	   because the composite rides toward the page rather than away from it. */
+	--opacity-text-muted: 0.78;
+	--opacity-text-disabled: 0.5;
+
+	/* Semantic status — desaturated to sit inside the olive palette */
+		--success: #3d6834;
+		--success-tint: rgba(61, 104, 52, 0.12);
+		--danger: #8f3a2e;
+		--danger-tint: rgba(143, 58, 46, 0.12);
+		--warning: #6f571a;
+		--warning-tint: rgba(111, 87, 26, 0.12);
 
 		/* Contribution grid */
 		--contrib-empty: rgba(10, 11, 4, 0.06);
@@ -298,8 +378,17 @@
 }
 
 :focus-visible {
-	outline: 2px solid var(--accent);
+	outline: 2px solid var(--focus-ring);
 	outline-offset: 2px;
+}
+
+/* Windows High Contrast and friends replace author colours wholesale. Hand the
+   ring back to the system palette rather than letting it fall back to nothing. */
+@media (forced-colors: active) {
+	:focus-visible {
+		outline: 2px solid Highlight;
+		outline-offset: 2px;
+	}
 }
 
 .skip-link {
@@ -315,7 +404,7 @@
 	text-decoration: none;
 	border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 	z-index: var(--z-skip-link);
-	transition: top var(--transition-fast) ease-in-out;
+	transition: top var(--transition-fast) var(--ease-smooth-out);
 }
 
 .skip-link:focus {

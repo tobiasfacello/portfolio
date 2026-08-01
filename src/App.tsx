@@ -71,6 +71,13 @@ const router = createBrowserRouter([
 				},
 			},
 			{
+				path: '/design-system',
+				lazy: async () => {
+					const mod = await import('./pages/DesignSystem');
+					return { Component: mod.default };
+				},
+			},
+			{
 				path: '*',
 				element: <NotFoundPage />,
 			},

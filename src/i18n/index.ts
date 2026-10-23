@@ -7,8 +7,10 @@ import enHome from './locales/en/home.json';
 import enWorks from './locales/en/works.json';
 import enProjects from './locales/en/projects.json';
 
-const SUPPORTED_LANGUAGES = ['en', 'es', 'pt'];
+import { SUPPORTED_LANGUAGES } from './languages';
 
+// Mirrored by the inline locale preload in index.html (vite.config.ts) — keep
+// the two resolving the same language.
 function getInitialLanguage(): string {
 	const saved = localStorage.getItem('language');
 	if (saved && SUPPORTED_LANGUAGES.includes(saved)) return saved;

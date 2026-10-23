@@ -1,5 +1,5 @@
 //! React
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 //! Router
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
@@ -7,9 +7,13 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 //! Lenis
 import ReactLenis from 'lenis/react';
 
-//! Analytics
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+//! Analytics — off the critical path; they only inject their beacons after mount.
+const Analytics = lazy(() =>
+	import('@vercel/analytics/react').then((m) => ({ default: m.Analytics }))
+);
+const SpeedInsights = lazy(() =>
+	import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights }))
+);
 
 //* Context
 import { ThemeProvider } from './context/ThemeContext';
@@ -88,8 +92,10 @@ function App() {
 	return (
 		<ErrorBoundary>
 			<RouterProvider router={router} />
-			<Analytics />
-			<SpeedInsights />
+			<Suspense fallback={null}>
+				<Analytics />
+				<SpeedInsights />
+			</Suspense>
 		</ErrorBoundary>
 	);
 }

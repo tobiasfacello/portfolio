@@ -31,7 +31,8 @@ import { useTheme } from '../../../hooks/useTheme';
 import { TWITTER_URL } from '../../../data/socialFeed';
 
 //* Assets
-import profileDark from '../../../assets/images/profile.webp';
+// 40px avatar (120px covers 3x screens) — not the 600px LCP photo.
+import profileDark from '../../../assets/images/profile-120.webp';
 import profileLight from '../../../assets/images/profile-light.webp';
 
 function VerifiedSvg() {

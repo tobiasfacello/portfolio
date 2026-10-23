@@ -1,6 +1,54 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
+import { PROFILE_IMAGE_SIZES, PROFILE_IMAGE_VARIANTS } from './src/config/profileImage'
+
+// Preloads for resources React or CSS would otherwise only discover late, using
+// their hashed build URLs:
+// - The home page's LCP element, the dark-theme profile photo, whose <img> only
+//   exists once the JS bundle runs. An inline script preloads it (same srcset /
+//   sizes as the <img>) while the HTML is still parsing. It mirrors ThemeContext
+//   — skipped for a stored or system light theme, whose photo is inlined — and
+//   only runs on "/".
+// - The Geist Pixel webfont used by above-the-fold headings and labels, which
+//   is otherwise requested only after the CSS is parsed and the text styled.
+function criticalPreloads(): Plugin {
+  return {
+    name: 'critical-preloads',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(_html, ctx) {
+        const assets = Object.values(ctx.bundle ?? {}).filter((chunk) => chunk.type === 'asset')
+        const assetUrl = (file: string) => {
+          const asset = assets.find((a) => a.names.includes(file))
+          if (!asset) throw new Error(`critical-preloads: ${file} not found in the bundle`)
+          return `/${asset.fileName}`
+        }
+        const srcset = PROFILE_IMAGE_VARIANTS.map(({ file, width }) => `${assetUrl(file)} ${width}w`).join(', ')
+
+        return [
+          {
+            tag: 'link',
+            injectTo: 'head',
+            attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: assetUrl('GeistPixel-Circle.woff2'), crossorigin: '' },
+          },
+          {
+            tag: 'script',
+            injectTo: 'head',
+            children:
+              `(function(){try{if(location.pathname!=='/')return;var t=localStorage.getItem('theme');` +
+              `if(t==='light'||(t!=='dark'&&!matchMedia('(prefers-color-scheme: dark)').matches))return;` +
+              `var l=document.createElement('link');l.rel='preload';l.as='image';` +
+              `l.setAttribute('imagesrcset',${JSON.stringify(srcset)});` +
+              `l.setAttribute('imagesizes',${JSON.stringify(PROFILE_IMAGE_SIZES)});` +
+              `l.setAttribute('fetchpriority','high');document.head.appendChild(l)}catch(e){}})();`,
+          },
+        ]
+      },
+    },
+  }
+}
 
 // Long-lived vendor chunks: grouped by how often they change and whether the
 // home page needs them on first load. React (incl. react-dom/client and the
@@ -21,7 +69,7 @@ const VENDOR_CHUNKS: [chunk: string, pattern: RegExp][] = [
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [react(), svgr(), criticalPreloads()],
   build: {
     target: 'es2022',
     rollupOptions: {

@@ -26,7 +26,7 @@ export const Video = styled.video<{ $playing: boolean }>`
 	object-fit: cover;
 	display: block;
 	opacity: 0;
-	transition: opacity 600ms ease;
+	transition: opacity var(--transition-emphasis) var(--ease-smooth-out);
 
 	${({ $playing }) => $playing && 'opacity: 1;'}
 

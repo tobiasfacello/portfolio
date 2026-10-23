@@ -12,7 +12,7 @@ import ShinyLabel from '../../components/ShinyLabel';
 const ProjectCard = lazy(() => import('../../components/ProjectCard'));
 
 //? Hooks, Config & Data
-import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useBreakpointValue, isDesktop } from '../../hooks/useBreakpoint';
 import { projectsConfig } from '../../config/responsive';
 import { projects } from '../../data/projects';
 
@@ -30,8 +30,8 @@ const StyledProjects = styled.section`
 `;
 
 function Projects() {
-	const bp = useBreakpoint();
-	const cfg = projectsConfig[bp];
+	const cfg = useBreakpointValue((bp) => projectsConfig[bp]);
+	const desktop = useBreakpointValue(isDesktop);
 	const { t } = useTranslation('home');
 
 	return (
@@ -60,7 +60,7 @@ function Projects() {
 					<ShinyLabel label={t('projects.currentlyBuilding')} icon="hammer" />
 				</Container>
 				<Container
-					h={bp.startsWith('desktop') ? '100%' : undefined}
+					h={desktop ? '100%' : undefined}
 					direction={'column'}
 					justify={'center'}
 					align={'center'}

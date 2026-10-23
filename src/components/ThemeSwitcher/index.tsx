@@ -1,11 +1,12 @@
 //! React
-import { useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 
 //? Hooks
 import { useTheme } from '../../hooks/useTheme';
+import { usePillSlider } from '../../hooks/usePillSlider';
 
 //* Styles
-import { StyledToggleGroup, StyledToggleButton } from '../ToggleGroup/styled';
+import { StyledToggleGroup, StyledTogglePill, StyledToggleButton } from '../ToggleGroup/styled';
 
 //* Components
 import Tooltip from '../Tooltip';
@@ -41,7 +42,8 @@ const modes: { mode: ThemeMode; Icon: React.FC }[] = [
 
 function ThemeSwitcher() {
 	const { themeMode, setThemeMode } = useTheme();
-	const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
+	const activeIndex = Math.max(0, modes.findIndex((m) => m.mode === themeMode));
+	const { pillRef, setButtonRef, buttonRefs } = usePillSlider(activeIndex);
 
 	const handleKeyDown = useCallback(
 		(e: React.KeyboardEvent, index: number) => {
@@ -55,19 +57,20 @@ function ThemeSwitcher() {
 
 			if (nextIndex !== null) {
 				e.preventDefault();
-				buttonsRef.current[nextIndex]?.focus();
+				buttonRefs.current[nextIndex]?.focus();
 				setThemeMode(modes[nextIndex].mode);
 			}
 		},
-		[setThemeMode],
+		[setThemeMode, buttonRefs],
 	);
 
 	return (
 		<StyledToggleGroup role="group" aria-label="Theme">
+			<StyledTogglePill ref={pillRef} aria-hidden="true" />
 			{modes.map(({ mode, Icon }, index) => (
 				<Tooltip key={mode} text={mode.charAt(0).toUpperCase() + mode.slice(1)}>
 					<StyledToggleButton
-						ref={(el) => { buttonsRef.current[index] = el; }}
+						ref={setButtonRef(index)}
 						$active={themeMode === mode}
 						$variant="icon"
 						onClick={() => setThemeMode(mode)}

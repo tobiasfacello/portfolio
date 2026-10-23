@@ -1,8 +1,8 @@
 /* ── Global cross-fade ── */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-	animation-duration: 300ms;
-	animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+	animation-duration: var(--transition-normal);
+	animation-timing-function: var(--ease-smooth-out);
 }
 
 /* ── Scroll reveal base ── */
@@ -11,8 +11,9 @@
 .reveal-stagger > * {
 	opacity: 0;
 	transition:
-		opacity 0.6s ease-out,
-		transform 0.6s ease-out;
+		opacity var(--transition-panel) var(--ease-smooth-out),
+		transform var(--transition-panel) var(--ease-smooth-out),
+		filter var(--transition-panel) var(--ease-smooth-out);
 }
 
 /* Apply will-change only while waiting to reveal, so the stacking context
@@ -20,20 +21,22 @@
 .reveal-fade-up:not(.revealed),
 .reveal-scale:not(.revealed),
 .reveal-stagger:not(.revealed) > * {
-	will-change: opacity, transform;
+	will-change: opacity, transform, filter;
 }
 
 .reveal-fade-up {
-	transform: translateY(24px);
+	transform: translateY(12px);
+	filter: blur(3px);
 }
 
 .reveal-scale {
 	transform: scale(0.95);
-	transition-duration: 0.5s;
+	filter: blur(3px);
 }
 
 .reveal-stagger > * {
-	transform: translateY(16px);
+	transform: translateY(12px);
+	filter: blur(3px);
 }
 
 /* ── Revealed state ── */
@@ -41,34 +44,36 @@
 .reveal-scale.revealed {
 	opacity: 1;
 	transform: none;
+	filter: blur(0);
 }
 
 .reveal-stagger.revealed > * {
 	opacity: 1;
 	transform: none;
+	filter: blur(0);
 }
 
-/* Stagger children with incremental delay */
-.reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0ms; }
-.reveal-stagger.revealed > *:nth-child(2) { transition-delay: 60ms; }
-.reveal-stagger.revealed > *:nth-child(3) { transition-delay: 120ms; }
-.reveal-stagger.revealed > *:nth-child(4) { transition-delay: 180ms; }
-.reveal-stagger.revealed > *:nth-child(5) { transition-delay: 240ms; }
-.reveal-stagger.revealed > *:nth-child(6) { transition-delay: 300ms; }
-.reveal-stagger.revealed > *:nth-child(7) { transition-delay: 360ms; }
-.reveal-stagger.revealed > *:nth-child(8) { transition-delay: 420ms; }
-.reveal-stagger.revealed > *:nth-child(9) { transition-delay: 480ms; }
-.reveal-stagger.revealed > *:nth-child(10) { transition-delay: 540ms; }
-.reveal-stagger.revealed > *:nth-child(11) { transition-delay: 600ms; }
-.reveal-stagger.revealed > *:nth-child(12) { transition-delay: 660ms; }
-.reveal-stagger.revealed > *:nth-child(13) { transition-delay: 720ms; }
-.reveal-stagger.revealed > *:nth-child(14) { transition-delay: 780ms; }
-.reveal-stagger.revealed > *:nth-child(15) { transition-delay: 840ms; }
-.reveal-stagger.revealed > *:nth-child(16) { transition-delay: 900ms; }
-.reveal-stagger.revealed > *:nth-child(17) { transition-delay: 960ms; }
-.reveal-stagger.revealed > *:nth-child(18) { transition-delay: 1020ms; }
-.reveal-stagger.revealed > *:nth-child(19) { transition-delay: 1080ms; }
-.reveal-stagger.revealed > *:nth-child(20) { transition-delay: 1140ms; }
+/* Stagger children with incremental delay (40ms steps per transitions.dev Stagger token) */
+.reveal-stagger.revealed > *:nth-child(1)  { transition-delay: 0ms; }
+.reveal-stagger.revealed > *:nth-child(2)  { transition-delay: 40ms; }
+.reveal-stagger.revealed > *:nth-child(3)  { transition-delay: 80ms; }
+.reveal-stagger.revealed > *:nth-child(4)  { transition-delay: 120ms; }
+.reveal-stagger.revealed > *:nth-child(5)  { transition-delay: 160ms; }
+.reveal-stagger.revealed > *:nth-child(6)  { transition-delay: 200ms; }
+.reveal-stagger.revealed > *:nth-child(7)  { transition-delay: 240ms; }
+.reveal-stagger.revealed > *:nth-child(8)  { transition-delay: 280ms; }
+.reveal-stagger.revealed > *:nth-child(9)  { transition-delay: 320ms; }
+.reveal-stagger.revealed > *:nth-child(10) { transition-delay: 360ms; }
+.reveal-stagger.revealed > *:nth-child(11) { transition-delay: 400ms; }
+.reveal-stagger.revealed > *:nth-child(12) { transition-delay: 440ms; }
+.reveal-stagger.revealed > *:nth-child(13) { transition-delay: 480ms; }
+.reveal-stagger.revealed > *:nth-child(14) { transition-delay: 520ms; }
+.reveal-stagger.revealed > *:nth-child(15) { transition-delay: 560ms; }
+.reveal-stagger.revealed > *:nth-child(16) { transition-delay: 600ms; }
+.reveal-stagger.revealed > *:nth-child(17) { transition-delay: 640ms; }
+.reveal-stagger.revealed > *:nth-child(18) { transition-delay: 680ms; }
+.reveal-stagger.revealed > *:nth-child(19) { transition-delay: 720ms; }
+.reveal-stagger.revealed > *:nth-child(20) { transition-delay: 760ms; }
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
@@ -82,6 +87,7 @@
 	.reveal-stagger > * {
 		opacity: 1;
 		transform: none;
+		filter: none;
 		transition: none;
 		will-change: auto;
 	}

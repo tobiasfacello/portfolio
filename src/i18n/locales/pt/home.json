@@ -38,8 +38,9 @@
 		},
 		"twitter": {
 			"followOn": "Seguir no X",
-			"recentCount": "{{count}} posts recentes",
-			"lastActivity": "Último post {{time}}",
+			"pinnedLabel": "Tweet em destaque",
+			"openPinned": "Abrir tweet em destaque",
+			"lastActivity": "Postado {{time}}",
 			"timeAgo": {
 				"today": "hoje",
 				"oneDay": "1d atrás",

@@ -5,7 +5,7 @@ import Container from '../Containers/Container';
 import WorkCardSkeleton from '../Skeleton/WorkCardSkeleton';
 
 //? Hooks, Config & Data
-import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useBreakpointValue } from '../../hooks/useBreakpoint';
 import { carouselConfig } from '../../config/responsive';
 import { works } from '../../data/works';
 
@@ -30,8 +30,7 @@ function StaticCards() {
 }
 
 export default function WorkCardsCarousel() {
-	const bp = useBreakpoint();
-	const cfg = carouselConfig[bp];
+	const cfg = useBreakpointValue((bp) => carouselConfig[bp]);
 
 	if (!cfg.useSwiper) {
 		return <StaticCards />;

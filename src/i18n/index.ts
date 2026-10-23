@@ -42,48 +42,52 @@ i18n.use(initReactI18next).init({
 });
 
 const LAZY_BUNDLES = {
-	es: () => Promise.all([
-		import('./locales/es/common.json'),
-		import('./locales/es/home.json'),
-		import('./locales/es/works.json'),
-		import('./locales/es/projects.json'),
-	]),
-	pt: () => Promise.all([
-		import('./locales/pt/common.json'),
-		import('./locales/pt/home.json'),
-		import('./locales/pt/works.json'),
-		import('./locales/pt/projects.json'),
-	]),
+	es: () => import('./locales/es'),
+	pt: () => import('./locales/pt'),
 } as const;
 
+const WORK_DETAIL_BUNDLES = {
+	en: () => import('./locales/en/workDetail.json'),
+	es: () => import('./locales/es/workDetail.json'),
+	pt: () => import('./locales/pt/workDetail.json'),
+} as const;
+
+// Set once a work-detail page asks for its namespace, so later language
+// switches fetch that namespace for the new language too.
+let workDetailRequested = false;
+
 export async function loadLanguageBundle(lang: string): Promise<void> {
-	if (!(lang in LAZY_BUNDLES)) return;
-	if (i18n.hasResourceBundle(lang, 'common')) return;
-	const [common, home, works, projects] = await LAZY_BUNDLES[lang as keyof typeof LAZY_BUNDLES]();
-	i18n.addResourceBundle(lang, 'common', common.default, true, true);
-	i18n.addResourceBundle(lang, 'home', home.default, true, true);
-	i18n.addResourceBundle(lang, 'works', works.default, true, true);
-	i18n.addResourceBundle(lang, 'projects', projects.default, true, true);
+	const pending: Promise<void>[] = [];
+	if (lang in LAZY_BUNDLES && !i18n.hasResourceBundle(lang, 'common')) {
+		pending.push(
+			LAZY_BUNDLES[lang as keyof typeof LAZY_BUNDLES]().then(({ default: bundle }) => {
+				for (const [ns, resources] of Object.entries(bundle)) {
+					i18n.addResourceBundle(lang, ns, resources, true, true);
+				}
+			}),
+		);
+	}
+	if (workDetailRequested) pending.push(loadWorkDetailNamespace(lang));
+	await Promise.all(pending);
 }
 
-// Load the initial language bundle if it isn't English
-if (initialLanguage !== 'en') {
-	loadLanguageBundle(initialLanguage);
-}
+/**
+ * Resolves once the initial language's strings are registered. main.tsx waits
+ * on it before the first render, so non-English visitors get their language on
+ * first paint instead of English that never re-renders (adding resources
+ * doesn't notify react-i18next). A failed fetch falls back to English.
+ */
+export const i18nReady: Promise<void> =
+	initialLanguage === 'en' ? Promise.resolve() : loadLanguageBundle(initialLanguage).catch(() => {});
 
-let workDetailLoaded = false;
-
-export async function loadWorkDetailNamespace() {
-	if (workDetailLoaded) return;
-	const [en, es, pt] = await Promise.all([
-		import('./locales/en/workDetail.json'),
-		import('./locales/es/workDetail.json'),
-		import('./locales/pt/workDetail.json'),
-	]);
-	i18n.addResourceBundle('en', 'workDetail', en.default, true, true);
-	i18n.addResourceBundle('es', 'workDetail', es.default, true, true);
-	i18n.addResourceBundle('pt', 'workDetail', pt.default, true, true);
-	workDetailLoaded = true;
+// Only the active language's workDetail strings are fetched — the locales are
+// key-for-key complete, so the English fallback is never needed.
+export async function loadWorkDetailNamespace(lang: string = i18n.language): Promise<void> {
+	workDetailRequested = true;
+	const code = (lang in WORK_DETAIL_BUNDLES ? lang : 'en') as keyof typeof WORK_DETAIL_BUNDLES;
+	if (i18n.hasResourceBundle(code, 'workDetail')) return;
+	const { default: resources } = await WORK_DETAIL_BUNDLES[code]();
+	i18n.addResourceBundle(code, 'workDetail', resources, true, true);
 }
 
 export default i18n;

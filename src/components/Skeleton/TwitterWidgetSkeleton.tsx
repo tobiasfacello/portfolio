@@ -1,64 +1,60 @@
 import styled from 'styled-components';
 import { shimmerSurface } from './shimmer';
 
-const TWEET_COUNT = 3;
-
-const HandlePlaceholder = styled.span`
-	display: block;
-	width: 96px;
-	height: 10px;
-	border-radius: 3px;
-	${shimmerSurface}
-`;
-
-const StatPlaceholder = styled.span`
-	display: block;
-	width: 100px;
-	height: 10px;
-	border-radius: 3px;
-	${shimmerSurface}
-
-	&::after {
-		animation-delay: 0.1s;
-	}
-`;
-
-const TweetList = styled.div`
+const Card = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: var(--6);
+	gap: var(--12);
+	padding: var(--12);
 	width: 100%;
 	flex: 1;
 `;
 
-const TweetItem = styled.div`
+const AuthorRow = styled.div`
 	display: flex;
-	flex-direction: row;
+	align-items: center;
 	gap: var(--8);
-	padding: var(--6);
-	border-radius: var(--radius-sm);
-	contain: layout paint;
+	width: 100%;
 `;
 
-const TweetThumbnail = styled.span`
+const Avatar = styled.span`
 	display: block;
-	width: 32px;
-	height: 32px;
-	border-radius: var(--radius-sm);
+	width: 40px;
+	height: 40px;
+	border-radius: var(--radius-circle);
 	flex-shrink: 0;
 	${shimmerSurface}
 `;
 
-const TweetContent = styled.div`
+const AuthorInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: var(--4);
 	min-width: 0;
 	flex: 1;
-	justify-content: center;
 `;
 
-const TweetText = styled.span<{ $delay: number; $w: string }>`
+const NameLine = styled.span`
+	display: block;
+	width: 60%;
+	height: 10px;
+	border-radius: 3px;
+	${shimmerSurface}
+`;
+
+const HandleLine = styled.span`
+	display: block;
+	width: 40%;
+	height: 8px;
+	border-radius: 3px;
+	${shimmerSurface}
+
+	&::after {
+		animation-delay: 0.08s;
+	}
+`;
+
+const TextLine = styled.span<{ $delay: number; $w: string }>`
 	display: block;
 	width: ${({ $w }) => $w};
 	height: 9px;
@@ -70,10 +66,24 @@ const TweetText = styled.span<{ $delay: number; $w: string }>`
 	}
 `;
 
-const TweetMeta = styled.span<{ $delay: number }>`
+const TextBlock = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: var(--6);
+	width: 100%;
+`;
+
+const StatsRow = styled.div`
+	display: flex;
+	align-items: center;
+	gap: var(--16);
+	width: 100%;
+`;
+
+const StatPlaceholder = styled.span<{ $delay: number }>`
 	display: block;
-	width: 48px;
-	height: 8px;
+	width: 36px;
+	height: 9px;
 	border-radius: 2px;
 	${shimmerSurface}
 
@@ -82,7 +92,7 @@ const TweetMeta = styled.span<{ $delay: number }>`
 	}
 `;
 
-const textWidths = ['92%', '78%', '85%'];
+const textWidths = ['92%', '78%'];
 
 function TwitterWidgetSkeleton() {
 	return (
@@ -90,23 +100,30 @@ function TwitterWidgetSkeleton() {
 			role="status"
 			aria-live="polite"
 			aria-busy="true"
-			aria-label="Cargando actividad de Twitter"
+			aria-label="Cargando tweet destacado"
 			style={{ display: 'contents' }}
 		>
-			<HandlePlaceholder aria-hidden="true" />
-			<StatPlaceholder aria-hidden="true" />
+			<Card aria-hidden="true">
+				<AuthorRow>
+					<Avatar />
+					<AuthorInfo>
+						<NameLine />
+						<HandleLine />
+					</AuthorInfo>
+				</AuthorRow>
 
-			<TweetList aria-hidden="true">
-				{Array.from({ length: TWEET_COUNT }, (_, i) => (
-					<TweetItem key={i}>
-						<TweetThumbnail />
-						<TweetContent>
-							<TweetText $w={textWidths[i % textWidths.length]} $delay={i * 0.08} />
-							<TweetMeta $delay={i * 0.08 + 0.05} />
-						</TweetContent>
-					</TweetItem>
-				))}
-			</TweetList>
+				<TextBlock>
+					{textWidths.map((w, i) => (
+						<TextLine key={i} $w={w} $delay={i * 0.08} />
+					))}
+				</TextBlock>
+
+				<StatsRow>
+					{[0, 1, 2, 3].map((i) => (
+						<StatPlaceholder key={i} $delay={i * 0.04 + 0.2} />
+					))}
+				</StatsRow>
+			</Card>
 		</div>
 	);
 }

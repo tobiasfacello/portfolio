@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * Discovers and writes the latest tweets for the configured handle into
- * src/data/tweets.json — consumed by the activity widget at runtime.
+ * Refreshes the engagement stats (likes / retweets / replies / views) of the
+ * pinned tweet rendered by TwitterWidget. The widget content itself — text,
+ * date, author — is intentionally hardcoded in src/data/pinned-tweet.json, so
+ * the visual surface does not depend on the API at runtime. Only the numbers move.
  *
- * Source: twitterapi.io (https://twitterapi.io). Pricing is pay-as-you-go
- * (~$0.07/year at this cadence) with $0.10 free credit on signup. Auth is a
- * single `x-api-key` header — no OAuth, no Twitter cookies, no ban risk.
+ * Source: twitterapi.io (https://twitterapi.io). Auth is a single `x-api-key`
+ * header — no OAuth, no Twitter cookies, no ban risk.
  *
  * Usage
  * -----
@@ -14,21 +15,19 @@
  *   - Locally: export TWITTERAPI_IO_KEY=...
  *   - CI:      add it as a GitHub Secret consumed by .github/workflows/refresh-tweets.yml
  *
- * If the env var is missing, the script logs a warning and exits without
- * touching tweets.json so the build still succeeds against the committed
- * fallback data.
+ * If the env var is missing, or the API call fails, the script logs a warning
+ * and exits without touching pinned-tweet.json so the build still succeeds
+ * against the committed data.
  */
 
-import { writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const OUTPUT_PATH = join(ROOT, 'src', 'data', 'tweets.json');
+const OUTPUT_PATH = join(ROOT, 'src', 'data', 'pinned-tweet.json');
 
-const USERNAME = 'fachebits';
-const TWEET_COUNT = 10;
 const FETCH_TIMEOUT_MS = 15_000;
 const API_BASE = 'https://api.twitterapi.io';
 
@@ -41,29 +40,6 @@ function withTimeout(ms) {
 		signal: controller.signal,
 		clear: () => clearTimeout(timer),
 	};
-}
-
-function cleanText(text) {
-	return text
-		.replace(/https?:\/\/t\.co\/\w+/g, '')
-		.replace(/pic\.twitter\.com\/\w+/g, '')
-		.replace(/[ \t]{2,}/g, ' ')
-		.replace(/\n{3,}/g, '\n\n')
-		.trim();
-}
-
-function toIsoDate(twitterDateString) {
-	// Twitter format: "Tue Apr 28 20:57:14 +0000 2026" → "2026-04-28"
-	const parsed = new Date(twitterDateString);
-	if (isNaN(parsed.getTime())) return '';
-	return parsed.toISOString().split('T')[0];
-}
-
-function isOriginalTweet(tweet) {
-	// Skip retweets ("RT @user: …"). Replies are excluded server-side via
-	// includeReplies=false default. Quote-tweets are kept — they're original
-	// posts authored by the user.
-	return !/^RT @/.test(tweet.text ?? '');
 }
 
 async function callApi(path, params, apiKey) {
@@ -82,12 +58,23 @@ async function callApi(path, params, apiKey) {
 		});
 		const body = await res.json().catch(() => ({}));
 		if (!res.ok) {
-			throw new Error(`HTTP ${res.status} ${res.statusText} — ${body?.msg ?? body?.detail ?? 'unknown'}`);
+			throw new Error(`HTTP ${res.status} ${res.statusText} — ${body?.msg ?? body?.detail ?? body?.message ?? 'unknown'}`);
 		}
 		return body;
 	} finally {
 		clear();
 	}
+}
+
+// Coerce an API stat to a finite number, falling back to the committed value
+// for missing / empty / non-numeric inputs — so a bad field never zeroes a
+// previously-good count, and "1,234"-style strings still parse.
+function toCount(raw, fallback) {
+	if (raw === undefined || raw === null) return fallback;
+	const str = String(raw).trim().replace(/,/g, '');
+	if (str === '') return fallback;
+	const n = Number(str);
+	return Number.isFinite(n) ? n : fallback;
 }
 
 // ── Main ─────────────────────────────────────────────────
@@ -96,52 +83,79 @@ async function main() {
 	const apiKey = process.env.TWITTERAPI_IO_KEY;
 	if (!apiKey) {
 		console.warn('[fetch-tweets] TWITTERAPI_IO_KEY not set — skipping refresh.');
-		console.warn('[fetch-tweets] Existing src/data/tweets.json is preserved.');
+		console.warn('[fetch-tweets] Existing src/data/pinned-tweet.json is preserved.');
 		return;
 	}
 
-	console.log(`[fetch-tweets] Fetching last ${TWEET_COUNT} tweets for @${USERNAME}…`);
-
-	let body;
+	let pinned;
 	try {
-		body = await callApi('/twitter/user/last_tweets', { userName: USERNAME }, apiKey);
+		pinned = JSON.parse(readFileSync(OUTPUT_PATH, 'utf-8'));
 	} catch (err) {
-		console.error('[fetch-tweets] Request failed:', err?.message ?? err);
-		process.exit(0); // non-fatal — committed tweets.json keeps the build green
-	}
-
-	if (body?.status && body.status !== 'success') {
-		console.error(`[fetch-tweets] API status="${body.status}": ${body.msg ?? ''}`);
+		console.error('[fetch-tweets] Could not read existing pinned-tweet.json:', err?.message ?? err);
 		process.exit(0);
 	}
 
-	// last_tweets returns the data-wrapped envelope: { status, msg, data: {...} }.
-	// Defensively support both shapes — flat or wrapped — so we don't break if
-	// the backend layout shifts.
-	const rawTweets = body?.data?.tweets ?? body?.tweets ?? [];
-	if (!Array.isArray(rawTweets) || rawTweets.length === 0) {
-		console.warn('[fetch-tweets] API returned no tweets — keeping existing data.');
+	const tweetId = pinned?.id;
+	if (!tweetId) {
+		console.error('[fetch-tweets] pinned-tweet.json has no id — aborting.');
+		process.exit(0);
+	}
+
+	console.log(`[fetch-tweets] Refreshing stats for pinned tweet ${tweetId}…`);
+
+	let body;
+	try {
+		body = await callApi('/twitter/tweets', { tweet_ids: tweetId }, apiKey);
+	} catch (err) {
+		console.error('[fetch-tweets] Request failed:', err?.message ?? err);
+		process.exit(0); // non-fatal — committed pinned-tweet.json keeps the build green
+	}
+
+	if (body?.status && body.status !== 'success') {
+		console.error(`[fetch-tweets] API status="${body.status}": ${body.msg ?? body.message ?? ''}`);
+		process.exit(0);
+	}
+
+	const tweetsArr = body?.tweets ?? body?.data?.tweets ?? [];
+	const raw = Array.isArray(tweetsArr) ? tweetsArr[0] : null;
+	if (!raw) {
+		console.warn('[fetch-tweets] API returned no tweet — keeping existing data.');
 		return;
 	}
 
-	const tweets = rawTweets
-		.filter(isOriginalTweet)
-		.slice(0, TWEET_COUNT)
-		.map((t) => ({
-			id: String(t.id),
-			text: cleanText(String(t.text ?? '')),
-			date: toIsoDate(t.createdAt),
-			authorName: String(t.author?.name ?? ''),
-			url: `https://twitter.com/${t.author?.userName ?? USERNAME}/status/${t.id}`,
-		}));
-
-	if (tweets.length === 0) {
-		console.warn('[fetch-tweets] All fetched tweets filtered out — keeping existing data.');
-		return;
+	// If NONE of the expected stat fields are present, the endpoint shape has
+	// likely changed — surface it loudly instead of silently freezing the file.
+	const statFields = [
+		{ key: 'likes', api: 'likeCount' },
+		{ key: 'retweets', api: 'retweetCount' },
+		{ key: 'replies', api: 'replyCount' },
+		{ key: 'views', api: 'viewCount' },
+	];
+	const missing = statFields.filter(({ api }) => raw[api] === undefined || raw[api] === null);
+	if (missing.length === statFields.length) {
+		console.error(
+			'[fetch-tweets] None of the expected stat fields (likeCount/retweetCount/replyCount/viewCount) were present — the API response shape may have changed. Leaving pinned-tweet.json untouched.',
+		);
+		process.exit(0);
+	}
+	if (missing.length > 0) {
+		console.warn(
+			`[fetch-tweets] Missing stat field(s), keeping previous values for: ${missing.map(({ key }) => key).join(', ')}`,
+		);
 	}
 
-	writeFileSync(OUTPUT_PATH, JSON.stringify(tweets, null, '\t') + '\n', 'utf-8');
-	console.log(`[fetch-tweets] Wrote ${tweets.length} tweets to src/data/tweets.json.`);
+	const nextStats = {
+		likes: toCount(raw.likeCount, pinned.stats?.likes ?? 0),
+		retweets: toCount(raw.retweetCount, pinned.stats?.retweets ?? 0),
+		replies: toCount(raw.replyCount, pinned.stats?.replies ?? 0),
+		views: toCount(raw.viewCount, pinned.stats?.views ?? 0),
+	};
+
+	const updated = { ...pinned, stats: nextStats };
+	writeFileSync(OUTPUT_PATH, JSON.stringify(updated, null, '\t') + '\n', 'utf-8');
+	console.log(
+		`[fetch-tweets] Updated stats: ❤ ${nextStats.likes}  ↻ ${nextStats.retweets}  💬 ${nextStats.replies}  👁 ${nextStats.views}`,
+	);
 }
 
 main().catch((err) => {

@@ -8,7 +8,7 @@ import Text from "../Text";
 import ShinyLabel from "../ShinyLabel";
 
 //? Hooks & Config
-import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { useBreakpointValue } from "../../hooks/useBreakpoint";
 import { worksConfig } from "../../config/responsive";
 
 //* Styles
@@ -21,8 +21,7 @@ const StyledWorks = styled.section`
 `;
 
 function Works() {
-	const bp = useBreakpoint();
-	const cfg = worksConfig[bp];
+	const cfg = useBreakpointValue((bp) => worksConfig[bp]);
 	const { t } = useTranslation('home');
 
 	if (cfg.titleOutside) {

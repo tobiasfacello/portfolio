@@ -132,21 +132,6 @@ export type LightboxContextType = {
 
 // Social feed types
 
-export type GitHubRepo = {
-	name: string;
-	description: string;
-	language: string;
-	stars: number;
-	forks: number;
-	url: string;
-};
-
-export type GitHubEvent = {
-	type: string;
-	repo: string;
-	createdAt: string;
-};
-
 export type GitHubContribution = {
 	date: string;
 	count: number;
@@ -158,17 +143,27 @@ export type GitHubContributionData = {
 	contributions: GitHubContribution[];
 };
 
-export type GitHubTopRepo = {
-	name: string;
-	count: number;
+export type PinnedTweetStats = {
+	likes: number;
+	retweets: number;
+	replies: number;
+	views: number;
 };
 
-export type Tweet = {
+export type PinnedTweetAuthor = {
+	name: string;
+	userName: string;
+	profilePicture?: string;
+	isVerified: boolean;
+};
+
+export type PinnedTweet = {
 	id: string;
 	text: string;
 	date: string;
-	authorName?: string;
 	url: string;
+	author: PinnedTweetAuthor;
+	stats: PinnedTweetStats;
 };
 
 export type LinkedInExperience = {

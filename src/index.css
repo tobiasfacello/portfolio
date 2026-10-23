@@ -49,8 +49,14 @@
 	/* Transitions */
 	--transition-fast: 150ms;
 	--transition-base: 200ms;
+	--transition-tab: 250ms;
 	--transition-normal: 300ms;
 	--transition-slow: 350ms;
+	--transition-panel: 400ms;
+	--transition-emphasis: 500ms;
+
+	/* Easings (per transitions.dev motion tokens) */
+	--ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
 
 	/* Opacity scale */
 	--opacity-subtle: 0.2;

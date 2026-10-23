@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledToggleGroup = styled.div`
+	position: relative;
 	width: fit-content;
 	display: flex;
 	align-items: center;
@@ -16,19 +17,42 @@ export const StyledToggleGroup = styled.div`
 	}
 `;
 
+export const StyledTogglePill = styled.span`
+	position: absolute;
+	top: var(--2);
+	left: 0;
+	height: calc(100% - var(--2) * 2);
+	width: 0;
+	background-color: var(--accent);
+	border-radius: var(--radius-pill);
+	transform: translateX(0);
+	transition:
+		transform var(--transition-tab) var(--ease-smooth-out),
+		width var(--transition-tab) var(--ease-smooth-out);
+	will-change: transform, width;
+	z-index: 0;
+	pointer-events: none;
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+	}
+`;
+
 export const StyledToggleButton = styled.button<{
 	$active: boolean;
 	$variant?: 'icon' | 'text';
 }>`
 	all: unset;
 	position: relative;
+	z-index: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: var(--radius-circle);
-	transition: all var(--transition-base);
+	border-radius: var(--radius-pill);
+	background-color: transparent;
 	color: ${(props) => (props.$active ? 'var(--background)' : 'var(--text)')};
-	background-color: ${(props) => (props.$active ? 'var(--accent)' : 'transparent')};
+	transition: color var(--transition-tab) var(--ease-smooth-out);
+	cursor: pointer;
 
 	/* Expand touch target to 44px without changing visual size */
 	&::before {
@@ -58,5 +82,4 @@ export const StyledToggleButton = styled.button<{
 			}
 		`
 	}
-
 `;

@@ -1,7 +1,8 @@
-name: Refresh tweets
+name: Refresh pinned tweet stats
 
-# Pulls the latest tweets for the configured handle from twitterapi.io,
-# updates src/data/tweets.json, and pushes if the file changed. The push
+# Refreshes the engagement stats (likes / retweets / replies / views) of the
+# pinned tweet rendered by TwitterWidget. The tweet content itself is hardcoded
+# in src/data/pinned-tweet.json — only the numbers move on this cron. The push
 # triggers the standard Vercel deploy from main.
 #
 # Requires a repo secret named TWITTERAPI_IO_KEY (sign up at
@@ -34,20 +35,20 @@ jobs:
       - name: Install deps
         run: npm ci --no-audit --no-fund
 
-      - name: Fetch tweets
+      - name: Refresh stats
         run: npm run fetch-tweets
         env:
           TWITTERAPI_IO_KEY: ${{ secrets.TWITTERAPI_IO_KEY }}
 
       - name: Commit and push if changed
         run: |
-          if [ -n "$(git status --porcelain src/data/tweets.json)" ]; then
+          if [ -n "$(git status --porcelain src/data/pinned-tweet.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add src/data/tweets.json
-            git commit -m "chore(data): refresh tweets via scheduled workflow"
+            git add src/data/pinned-tweet.json
+            git commit -m "chore(data): refresh pinned tweet stats via scheduled workflow"
             git push origin main
-            echo "Pushed updated tweets.json — Vercel will redeploy."
+            echo "Pushed updated pinned-tweet.json — Vercel will redeploy."
           else
-            echo "tweets.json is already up to date."
+            echo "pinned-tweet.json is already up to date."
           fi

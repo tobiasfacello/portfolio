@@ -1,5 +1,5 @@
 //! React
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 //! Router
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
@@ -7,9 +7,13 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 //! Lenis
 import ReactLenis from 'lenis/react';
 
-//! Analytics
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+//! Analytics — off the critical path; they only inject their beacons after mount.
+const Analytics = lazy(() =>
+	import('@vercel/analytics/react').then((m) => ({ default: m.Analytics }))
+);
+const SpeedInsights = lazy(() =>
+	import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights }))
+);
 
 //* Context
 import { ThemeProvider } from './context/ThemeContext';
@@ -20,7 +24,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import { RouterErrorPage, NotFoundPage } from './pages/ErrorPage';
 
-//? Hooks
+//? Hooks & i18n
+import { loadWorkDetailNamespace } from './i18n';
 import { useScrollReset } from './hooks/useScrollReset';
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 
@@ -66,7 +71,12 @@ const router = createBrowserRouter([
 			{
 				path: '/work/:slug',
 				lazy: async () => {
-					const mod = await import('./pages/WorkDetail');
+					// Fetch the page chunk and its translations in parallel instead
+					// of chaining the namespace request after the page mounts.
+					const [mod] = await Promise.all([
+						import('./pages/WorkDetail'),
+						loadWorkDetailNamespace(),
+					]);
 					return { Component: mod.default };
 				},
 			},
@@ -82,8 +92,10 @@ function App() {
 	return (
 		<ErrorBoundary>
 			<RouterProvider router={router} />
-			<Analytics />
-			<SpeedInsights />
+			<Suspense fallback={null}>
+				<Analytics />
+				<SpeedInsights />
+			</Suspense>
 		</ErrorBoundary>
 	);
 }

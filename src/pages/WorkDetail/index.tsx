@@ -24,12 +24,14 @@ import DetailFooter from './sections/DetailFooter';
 
 function WorkDetail() {
 	const { slug } = useParams<{ slug: string }>();
-	const { t } = useTranslation('workDetail');
-	const [nsReady, setNsReady] = useState(false);
+	const { t, i18n } = useTranslation('workDetail');
+	// The route loader preloads the namespace, so this is normally ready on
+	// first render; the effect only covers loads that bypass the loader.
+	const [nsReady, setNsReady] = useState(() => i18n.hasResourceBundle(i18n.language, 'workDetail'));
 
 	useEffect(() => {
-		loadWorkDetailNamespace().then(() => setNsReady(true));
-	}, []);
+		if (!nsReady) loadWorkDetailNamespace().then(() => setNsReady(true));
+	}, [nsReady]);
 
 	const work = slug ? getWorkBySlug(slug) : undefined;
 

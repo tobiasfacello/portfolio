@@ -15,7 +15,7 @@ const TwitterWidget = lazy(() => import('../Widget/TwitterWidget'));
 const LinkedInWidget = lazy(() => import('../Widget/LinkedInWidget'));
 
 //? Hooks & Config
-import { useBreakpoint, isMobile } from '../../hooks/useBreakpoint';
+import { useBreakpointValue, isMobile } from '../../hooks/useBreakpoint';
 import { activityFeedConfig } from '../../config/responsive';
 
 //* Styles
@@ -42,8 +42,8 @@ const StyledTitleRow = styled.div`
 `;
 
 export default function ActivityFeed() {
-	const bp = useBreakpoint();
-	const cfg = activityFeedConfig[bp];
+	const cfg = useBreakpointValue((bp) => activityFeedConfig[bp]);
+	const mobile = useBreakpointValue(isMobile);
 	const { t } = useTranslation('home');
 
 	return (
@@ -53,7 +53,7 @@ export default function ActivityFeed() {
 				maxW={cfg.outerMaxW}
 				direction="column"
 				justify="space-between"
-				align={isMobile(bp) ? 'center' : 'start'}
+				align={mobile ? 'center' : 'start'}
 				gap={cfg.outerGap}
 			>
 				<StyledTitleRow>

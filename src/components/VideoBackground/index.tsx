@@ -4,23 +4,26 @@ import { createPortal } from 'react-dom';
 
 //? Hooks
 import { useTheme } from '../../hooks/useTheme';
-import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useBreakpointValue, isDesktop } from '../../hooks/useBreakpoint';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
 //* Styled
 import { Backdrop, Poster, Video, Scrim } from './styled';
 
-const POSTER_SRC = '/backgrounds/shader-bg-poster.jpg';
+const POSTER_SRC = '/backgrounds/shader-bg-poster.webp';
+// Full-viewport cover image: phones get the 960px variant (~30 KB) instead of
+// the 1440px one (~72 KB).
+const POSTER_SRCSET = '/backgrounds/shader-bg-poster-960.webp 960w, /backgrounds/shader-bg-poster.webp 1440w';
 const WEBM_SRC = '/backgrounds/shader-bg.webm';
 const MP4_SRC = '/backgrounds/shader-bg.mp4';
 
 function VideoBackground() {
 	const { isDarkMode } = useTheme();
-	const breakpoint = useBreakpoint();
+	const desktop = useBreakpointValue(isDesktop);
 	const prefersReducedMotion = usePrefersReducedMotion();
 
 	const allowVideo =
-		isDarkMode && !prefersReducedMotion && breakpoint.startsWith('desktop-');
+		isDarkMode && !prefersReducedMotion && desktop;
 
 	const [showVideo, setShowVideo] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -51,7 +54,7 @@ function VideoBackground() {
 
 	return createPortal(
 		<Backdrop aria-hidden="true">
-			<Poster src={POSTER_SRC} alt="" decoding="async" />
+			<Poster src={POSTER_SRC} srcSet={POSTER_SRCSET} sizes="100vw" alt="" decoding="async" />
 			{showVideo && (
 				<Video
 					$playing={isPlaying}

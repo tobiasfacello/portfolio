@@ -6,7 +6,7 @@ import Container from "./Container";
 import Text from "../Text";
 
 //? Hooks & Config
-import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { useBreakpointValue } from "../../hooks/useBreakpoint";
 import { aboutConfig } from "../../config/responsive";
 
 //* Styles
@@ -19,8 +19,7 @@ const StyledAbout = styled.section`
 `;
 
 export default function About() {
-	const bp = useBreakpoint();
-	const cfg = aboutConfig[bp];
+	const cfg = useBreakpointValue((bp) => aboutConfig[bp]);
 	const { t } = useTranslation('home');
 	const paragraphs = t('about.paragraphs', { returnObjects: true }) as string[];
 

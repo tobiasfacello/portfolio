@@ -11,7 +11,7 @@ import BlogCardSkeleton from '../Skeleton/BlogCardSkeleton';
 const BlogCard = lazy(() => import('../BlogCard'));
 
 //? Hooks & Config
-import { useBreakpoint, isMobile } from '../../hooks/useBreakpoint';
+import { useBreakpointValue, isMobile } from '../../hooks/useBreakpoint';
 import { blogConfig } from '../../config/responsive';
 
 //* Styles
@@ -41,8 +41,8 @@ const StyledTitleRow = styled.div`
 `;
 
 export default function Blog() {
-	const bp = useBreakpoint();
-	const cfg = blogConfig[bp];
+	const cfg = useBreakpointValue((bp) => blogConfig[bp]);
+	const mobile = useBreakpointValue(isMobile);
 	const { t } = useTranslation('home');
 
 	const posts = t('blog.posts', { returnObjects: true }) as Array<{
@@ -57,7 +57,7 @@ export default function Blog() {
 				maxW={cfg.outerMaxW}
 				direction="column"
 				justify="space-between"
-				align={isMobile(bp) ? 'center' : 'start'}
+				align={mobile ? 'center' : 'start'}
 				gap={cfg.outerGap}
 			>
 				<StyledTitleRow>

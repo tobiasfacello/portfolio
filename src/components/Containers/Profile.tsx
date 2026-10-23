@@ -12,7 +12,15 @@ import Text from "../Text";
 
 //* Assets
 import profilePicture from "../../assets/images/profile.webp";
+import profilePictureSmall from "../../assets/images/profile-360.webp";
 import profilePictureLight from "../../assets/images/profile-light.webp";
+
+//? Config
+import { PROFILE_IMAGE_SIZES } from "../../config/profileImage";
+
+// The dark photo is the page's LCP element; phones (175px slot) get the 360px
+// variant. The light one is a tiny illustration Vite inlines, so it has no srcset.
+const PROFILE_SRCSET = `${profilePictureSmall} 360w, ${profilePicture} 600w`;
 
 //* Icon registry
 import { iconRegistry } from "../Icon";
@@ -72,6 +80,8 @@ export default function Profile() {
     <StyledProfile>
       <ProfileImage
         src={isDarkMode ? profilePicture : profilePictureLight}
+        srcSet={isDarkMode ? PROFILE_SRCSET : undefined}
+        sizes={isDarkMode ? PROFILE_IMAGE_SIZES : undefined}
         alt="Profile photo of Tobias Facello"
         width={345}
         height={345}

@@ -20,7 +20,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import { RouterErrorPage, NotFoundPage } from './pages/ErrorPage';
 
-//? Hooks
+//? Hooks & i18n
+import { loadWorkDetailNamespace } from './i18n';
 import { useScrollReset } from './hooks/useScrollReset';
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 
@@ -66,7 +67,12 @@ const router = createBrowserRouter([
 			{
 				path: '/work/:slug',
 				lazy: async () => {
-					const mod = await import('./pages/WorkDetail');
+					// Fetch the page chunk and its translations in parallel instead
+					// of chaining the namespace request after the page mounts.
+					const [mod] = await Promise.all([
+						import('./pages/WorkDetail'),
+						loadWorkDetailNamespace(),
+					]);
 					return { Component: mod.default };
 				},
 			},

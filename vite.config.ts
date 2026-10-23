@@ -24,7 +24,7 @@ function criticalPreloads(): Plugin {
     apply: 'build',
     transformIndexHtml: {
       order: 'post',
-      handler(_html, ctx) {
+      handler(html, ctx) {
         const assets = Object.values(ctx.bundle ?? {}).filter((chunk) => chunk.type === 'asset')
         const assetUrl = (file: string) => {
           const asset = assets.find((a) => a.names.includes(file))
@@ -40,35 +40,38 @@ function criticalPreloads(): Plugin {
           return [code, `/${chunk.fileName}`]
         }))
 
-        return [
-          {
-            tag: 'link',
-            injectTo: 'head',
-            attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: assetUrl('GeistPixel-Circle.woff2'), crossorigin: '' },
-          },
-          {
-            tag: 'script',
-            injectTo: 'head',
-            children:
-              `(function(){try{var s=${JSON.stringify(SUPPORTED_LANGUAGES)},c=localStorage.getItem('language');` +
-              `if(s.indexOf(c)<0){c='en';var n=navigator.languages||[navigator.language];` +
-              `for(var i=0;i<n.length;i++){var x=n[i].split('-')[0].toLowerCase();if(s.indexOf(x)>-1){c=x;break}}}` +
-              `var u=${JSON.stringify(localeChunks)}[c];if(!u)return;` +
-              `var l=document.createElement('link');l.rel='modulepreload';l.href=u;l.crossOrigin='';` +
-              `document.head.appendChild(l)}catch(e){}})();`,
-          },
-          {
-            tag: 'script',
-            injectTo: 'head',
-            children:
-              `(function(){try{if(location.pathname!=='/')return;var t=localStorage.getItem('theme');` +
-              `if(t==='light'||(t!=='dark'&&!matchMedia('(prefers-color-scheme: dark)').matches))return;` +
-              `var l=document.createElement('link');l.rel='preload';l.as='image';` +
-              `l.setAttribute('imagesrcset',${JSON.stringify(srcset)});` +
-              `l.setAttribute('imagesizes',${JSON.stringify(PROFILE_IMAGE_SIZES)});` +
-              `l.setAttribute('fetchpriority','high');document.head.appendChild(l)}catch(e){}})();`,
-          },
-        ]
+        const localeScript =
+          `(function(){try{var s=${JSON.stringify(SUPPORTED_LANGUAGES)},c=localStorage.getItem('language');` +
+          `if(s.indexOf(c)<0){c='en';var n=navigator.languages||[navigator.language];` +
+          `for(var i=0;i<n.length;i++){var x=n[i].split('-')[0].toLowerCase();if(s.indexOf(x)>-1){c=x;break}}}` +
+          `var u=${JSON.stringify(localeChunks)}[c];if(!u)return;` +
+          `var l=document.createElement('link');l.rel='modulepreload';l.href=u;l.crossOrigin='';` +
+          `document.head.appendChild(l)}catch(e){}})();`
+        const photoScript =
+          `(function(){try{if(location.pathname!=='/')return;var t=localStorage.getItem('theme');` +
+          `if(t==='light'||(t!=='dark'&&!matchMedia('(prefers-color-scheme: dark)').matches))return;` +
+          `var l=document.createElement('link');l.rel='preload';l.as='image';` +
+          `l.setAttribute('imagesrcset',${JSON.stringify(srcset)});` +
+          `l.setAttribute('imagesizes',${JSON.stringify(PROFILE_IMAGE_SIZES)});` +
+          `l.setAttribute('fetchpriority','high');document.head.appendChild(l)}catch(e){}})();`
+
+        // The inline scripts go right after <meta charset>, ahead of every
+        // stylesheet: a classic script after a <link rel="stylesheet"> doesn't
+        // run until that CSS has downloaded, which in production delayed both
+        // preloads by the full CSS round trip.
+        const charset = /<meta charset="[^"]*"\s*\/?>/i
+        if (!charset.test(html)) throw new Error('critical-preloads: <meta charset> not found in index.html')
+
+        return {
+          html: html.replace(charset, (meta) => `${meta}\n  <script>${localeScript}</script>\n  <script>${photoScript}</script>`),
+          tags: [
+            {
+              tag: 'link',
+              injectTo: 'head',
+              attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: assetUrl('GeistPixel-Circle.woff2'), crossorigin: '' },
+            },
+          ],
+        }
       },
     },
   }

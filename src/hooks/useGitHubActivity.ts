@@ -1,141 +1,82 @@
 import { useState, useEffect } from 'react';
-import {
-	fetchGitHubUser,
-	fetchGitHubRepos,
-	fetchGitHubEvents,
-	fetchGitHubContributions,
-} from '../services/github';
-import type {
-	GitHubRepo,
-	GitHubEvent,
-	GitHubContribution,
-	GitHubTopRepo,
-} from '../types';
+import { fetchGitHubContributions } from '../services/github';
+import type { GitHubContribution } from '../types';
 
-const CACHE_KEY = 'github-activity';
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+// The calendar is the only GitHub data the widget renders, so this is the only
+// request made. It's persisted in localStorage and served stale-while-revalidate:
+// a cached calendar renders instantly on repeat visits, and is only refetched
+// once it's older than FRESH_TTL (the upstream API itself refreshes a few times
+// a day, so polling it more often just burns requests).
+const CACHE_KEY = 'github-contributions-v1';
+const FRESH_TTL = 60 * 60 * 1000; // 1 hour
+const MAX_STALE_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 export interface GitHubActivityState {
-	username: string;
-	avatarUrl: string;
-	publicRepos: number;
-	followers: number;
-	repos: GitHubRepo[];
-	events: GitHubEvent[];
 	contributions: GitHubContribution[];
 	totalContributions: number;
-	topRepos: GitHubTopRepo[];
 	loading: boolean;
 	error: string | null;
 }
 
+type CacheableData = Pick<GitHubActivityState, 'contributions' | 'totalContributions'>;
+
+interface CacheEntry {
+	data: CacheableData;
+	timestamp: number;
+}
+
 const initialState: GitHubActivityState = {
-	username: '',
-	avatarUrl: '',
-	publicRepos: 0,
-	followers: 0,
-	repos: [],
-	events: [],
 	contributions: [],
 	totalContributions: 0,
-	topRepos: [],
 	loading: true,
 	error: null,
 };
 
-type CacheableData = Omit<GitHubActivityState, 'loading' | 'error'>;
-
-function getCached(): GitHubActivityState | null {
+function readCache(): CacheEntry | null {
 	try {
-		const raw = sessionStorage.getItem(CACHE_KEY);
+		const raw = localStorage.getItem(CACHE_KEY);
 		if (!raw) return null;
-		const { data, timestamp } = JSON.parse(raw);
-		if (Date.now() - timestamp > CACHE_TTL) return null;
-		return { ...data, loading: false, error: null };
+		const entry = JSON.parse(raw) as CacheEntry;
+		if (Date.now() - entry.timestamp > MAX_STALE_AGE) return null;
+		return entry;
 	} catch {
 		return null;
 	}
 }
 
-function setCache(data: CacheableData) {
+function writeCache(data: CacheableData) {
 	try {
-		sessionStorage.setItem(
-			CACHE_KEY,
-			JSON.stringify({ data, timestamp: Date.now() })
-		);
+		localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
 	} catch {
-		// sessionStorage full or unavailable
+		// localStorage full or unavailable
 	}
-}
-
-function deriveTopRepos(events: GitHubEvent[]): GitHubTopRepo[] {
-	const counts = new Map<string, number>();
-	for (const event of events) {
-		// Strip owner prefix: "owner/repo" → "repo"
-		const repoName = event.repo.includes('/')
-			? event.repo.split('/')[1]
-			: event.repo;
-		counts.set(repoName, (counts.get(repoName) || 0) + 1);
-	}
-	return Array.from(counts.entries())
-		.map(([name, count]) => ({ name, count }))
-		.sort((a, b) => b.count - a.count)
-		.slice(0, 3);
 }
 
 export function useGitHubActivity(): GitHubActivityState {
 	const [state, setState] = useState<GitHubActivityState>(() => {
-		const cached = getCached();
-		return cached || initialState;
+		const cached = readCache();
+		return cached ? { ...cached.data, loading: false, error: null } : initialState;
 	});
 
 	useEffect(() => {
-		if (getCached()) return;
+		const cached = readCache();
+		if (cached && Date.now() - cached.timestamp < FRESH_TTL) return;
 
 		const controller = new AbortController();
-		const { signal } = controller;
 
-		async function load() {
-			try {
-				const [user, repos, events, contribData] = await Promise.all([
-					fetchGitHubUser(signal),
-					fetchGitHubRepos(signal),
-					fetchGitHubEvents(signal),
-					fetchGitHubContributions(signal).catch(() => ({
-						total: 0,
-						contributions: [],
-					})),
-				]);
+		fetchGitHubContributions(controller.signal)
+			.then(({ total, contributions }) => {
+				const data: CacheableData = { contributions, totalContributions: total };
+				writeCache(data);
+				setState({ ...data, loading: false, error: null });
+			})
+			.catch((err: Error) => {
+				if (controller.signal.aborted) return;
+				// Keep showing a stale calendar rather than swapping it for an error.
+				if (cached) return;
+				setState((prev) => ({ ...prev, loading: false, error: err.message }));
+			});
 
-				if (signal.aborted) return;
-
-				const topRepos = deriveTopRepos(events);
-
-				const result: CacheableData = {
-					username: user.login,
-					avatarUrl: user.avatar_url,
-					publicRepos: user.public_repos,
-					followers: user.followers,
-					repos,
-					events,
-					contributions: contribData.contributions,
-					totalContributions: contribData.total,
-					topRepos,
-				};
-
-				setCache(result);
-				setState({ ...result, loading: false, error: null });
-			} catch (err) {
-				if (signal.aborted) return;
-				setState((prev) => ({
-					...prev,
-					loading: false,
-					error: (err as Error).message,
-				}));
-			}
-		}
-
-		load();
 		return () => controller.abort();
 	}, []);
 

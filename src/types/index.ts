@@ -132,21 +132,6 @@ export type LightboxContextType = {
 
 // Social feed types
 
-export type GitHubRepo = {
-	name: string;
-	description: string;
-	language: string;
-	stars: number;
-	forks: number;
-	url: string;
-};
-
-export type GitHubEvent = {
-	type: string;
-	repo: string;
-	createdAt: string;
-};
-
 export type GitHubContribution = {
 	date: string;
 	count: number;
@@ -156,11 +141,6 @@ export type GitHubContribution = {
 export type GitHubContributionData = {
 	total: number;
 	contributions: GitHubContribution[];
-};
-
-export type GitHubTopRepo = {
-	name: string;
-	count: number;
 };
 
 export type PinnedTweetStats = {

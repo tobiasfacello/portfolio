@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { memo, useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 //* Styled
@@ -227,17 +227,66 @@ const isTouchDevice =
 const CURRENT_YEAR = new Date().getFullYear();
 
 const LEGEND_LEVELS = [0, 1, 2, 3, 4] as const;
+interface ContributionGridProps {
+	gridData: GitHubContribution[];
+	ariaLabels: string[];
+	weeks: number;
+	gap: number;
+	radius: number;
+	ariaLabel: string;
+	onSquareEnter: (square: HTMLElement, index: number) => void;
+	onLeave: () => void;
+}
 
-export default function GitHubWidget() {
-	const { t } = useTranslation('home');
+// Memoized so hovering — which only updates tooltip state — never re-renders the
+// ~365 squares. Hover is delegated to the grid: one listener instead of a fresh
+// closure per square on every render.
+const ContributionGrid = memo(function ContributionGrid({
+	gridData,
+	ariaLabels,
+	weeks,
+	gap,
+	radius,
+	ariaLabel,
+	onSquareEnter,
+	onLeave,
+}: ContributionGridProps) {
+	const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
+		const square = (e.target as HTMLElement).closest<HTMLElement>('[data-index]');
+		if (square) onSquareEnter(square, Number(square.dataset.index));
+	};
 
-	const {
-		contributions,
-		totalContributions,
-		loading,
-		error,
-	} = useGitHubActivity();
+	return (
+		<StyledContributionGrid
+			$weeks={weeks}
+			$gap={gap}
+			role="img"
+			aria-label={ariaLabel}
+			onMouseOver={handleMouseOver}
+			onMouseLeave={onLeave}
+		>
+			{gridData.map((day, i) => (
+				<StyledSquare
+					key={i}
+					data-index={i}
+					$level={day.level}
+					$radius={radius}
+					aria-hidden="true"
+					title={ariaLabels[i]}
+				/>
+			))}
+		</StyledContributionGrid>
+	);
+});
 
+interface ContributionCalendarProps {
+	contributions: GitHubContribution[];
+	totalContributions: number;
+}
+
+// Owns the hover tooltip state, so a hover re-renders this calendar only —
+// not WidgetBase's header/footer.
+function ContributionCalendar({ contributions, totalContributions }: ContributionCalendarProps) {
 	const bp = useBreakpoint();
 	const config = gitHubCalendarConfig[bp];
 
@@ -248,12 +297,13 @@ export default function GitHubWidget() {
 	const [placement, setPlacement] = useState<TooltipPlacement | null>(null);
 	const [isOpen, setIsOpen] = useState(false);
 
-	const countSwap = useTooltipSwap<number>();
-	const monthDaySwap = useTooltipSwap<string>();
-	const yearSwap = useTooltipSwap<string>();
+	const { displayed: countDisplayed, setValue: setCount, valueRef: countRef } = useTooltipSwap<number>();
+	const { displayed: monthDayDisplayed, setValue: setMonthDay, valueRef: monthDayRef } = useTooltipSwap<string>();
+	const { displayed: yearDisplayed, setValue: setYear, valueRef: yearRef } = useTooltipSwap<string>();
 
 	const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const isOpenRef = useRef(false);
+	const hoveredIndexRef = useRef<number | null>(null);
 
 	useEffect(() => {
 		return () => {
@@ -295,10 +345,14 @@ export default function GitHubWidget() {
 	);
 
 	const handleSquareEnter = useCallback(
-		(e: React.MouseEvent<HTMLDivElement>, day: GitHubContribution, index: number) => {
+		(square: HTMLElement, index: number) => {
 			if (isTouchDevice || !wrapperRef.current) return;
+			const day = gridData[index];
+			if (!day || index === hoveredIndexRef.current) return;
+			hoveredIndexRef.current = index;
+
 			const wrapperRect = wrapperRef.current.getBoundingClientRect();
-			const squareRect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+			const squareRect = square.getBoundingClientRect();
 			const x = squareRect.left + squareRect.width / 2 - wrapperRect.left;
 
 			const row = index % 7;
@@ -320,25 +374,19 @@ export default function GitHubWidget() {
 
 			const newCount = day.count;
 			const { monthDay: newMonthDay, year: newYear } = formatDateDisplay(day.date);
-			const newPlacement: TooltipPlacement = { x, y, position, align };
 
 			// Position update — CSS transition on the positioner smooths the move.
-			setPlacement(newPlacement);
-
-			const prevCount = countSwap.valueRef.current;
-			const prevMonthDay = monthDaySwap.valueRef.current;
-			const prevYear = yearSwap.valueRef.current;
-			const wasOpen = isOpenRef.current;
+			setPlacement({ x, y, position, align });
 
 			// Each dynamic field updates independently — only the changed value
 			// pops in (its <StyledDigitGroup> remounts via key). The year usually
 			// stays the same within a calendar year, so it only animates when
 			// crossing into a new one.
-			if (prevCount !== newCount) countSwap.setValue(newCount);
-			if (prevMonthDay !== newMonthDay) monthDaySwap.setValue(newMonthDay);
-			if (prevYear !== newYear) yearSwap.setValue(newYear);
+			if (countRef.current !== newCount) setCount(newCount);
+			if (monthDayRef.current !== newMonthDay) setMonthDay(newMonthDay);
+			if (yearRef.current !== newYear) setYear(newYear);
 
-			if (!wasOpen) {
+			if (!isOpenRef.current) {
 				requestAnimationFrame(() => {
 					requestAnimationFrame(() => {
 						setIsOpen(true);
@@ -347,21 +395,107 @@ export default function GitHubWidget() {
 				});
 			}
 		},
-		[actualWeeks, countSwap, monthDaySwap, yearSwap]
+		[gridData, actualWeeks, countRef, monthDayRef, yearRef, setCount, setMonthDay, setYear]
 	);
 
 	const handleSquareLeave = useCallback(() => {
+		hoveredIndexRef.current = null;
 		setIsOpen(false);
 		isOpenRef.current = false;
 		if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
 		closeTimeoutRef.current = setTimeout(() => {
 			setPlacement(null);
-			countSwap.setValue(null);
-			monthDaySwap.setValue(null);
-			yearSwap.setValue(null);
+			setCount(null);
+			setMonthDay(null);
+			setYear(null);
 			closeTimeoutRef.current = null;
 		}, TOOLTIP_CLOSE_DUR);
-	}, [countSwap, monthDaySwap, yearSwap]);
+	}, [setCount, setMonthDay, setYear]);
+
+	return (
+		<StyledCalendarWrapper ref={wrapperRef}>
+			{actualWeeks > 0 && (
+				<>
+					{config.showMonthLabels && monthLabels.length > 0 && (
+						<StyledMonthRow $weeks={actualWeeks} $hasDayLabels={config.showDayLabels}>
+							{monthLabels.map((label) => (
+								<StyledMonthLabel
+									key={label.key}
+									$startCol={label.startCol}
+									$span={label.span}
+								>
+									{label.name}
+								</StyledMonthLabel>
+							))}
+						</StyledMonthRow>
+					)}
+
+					<StyledGridWithLabels>
+						{config.showDayLabels && (
+							<StyledDayLabels>
+								{DAY_LABELS.map((label, i) => (
+									<span key={i}>{label}</span>
+								))}
+							</StyledDayLabels>
+						)}
+
+						<ContributionGrid
+							gridData={gridData}
+							ariaLabels={ariaLabels}
+							weeks={actualWeeks}
+							gap={config.squareGap}
+							radius={config.squareRadius}
+							ariaLabel={`${totalContributions.toLocaleString()} contributions in ${CURRENT_YEAR}`}
+							onSquareEnter={handleSquareEnter}
+							onLeave={handleSquareLeave}
+						/>
+					</StyledGridWithLabels>
+
+					{placement && (
+						<StyledTooltipPositioner
+							style={{
+								left: placement.x,
+								top: placement.y,
+								transform: tooltipTransform[placement.position][placement.align],
+							}}
+						>
+							<StyledContribTooltip
+								$position={placement.position}
+								$align={placement.align}
+								$visible={isOpen}
+							>
+								<DigitGroup
+									key={`count-${countDisplayed ?? ''}`}
+									value={countDisplayed}
+								/>
+								{' contributions on '}
+								<DigitGroup
+									key={`md-${monthDayDisplayed ?? ''}`}
+									value={monthDayDisplayed}
+								/>
+								{', '}
+								<DigitGroup
+									key={`year-${yearDisplayed ?? ''}`}
+									value={yearDisplayed}
+								/>
+							</StyledContribTooltip>
+						</StyledTooltipPositioner>
+					)}
+				</>
+			)}
+		</StyledCalendarWrapper>
+	);
+}
+
+export default function GitHubWidget() {
+	const { t } = useTranslation('home');
+
+	const {
+		contributions,
+		totalContributions,
+		loading,
+		error,
+	} = useGitHubActivity();
 
 	return (
 		<WidgetBase
@@ -392,85 +526,10 @@ export default function GitHubWidget() {
 		>
 			<StyledWidgetHandle>@{GITHUB_USERNAME}</StyledWidgetHandle>
 
-			<StyledCalendarWrapper ref={wrapperRef}>
-				{actualWeeks > 0 && (
-					<>
-						{config.showMonthLabels && monthLabels.length > 0 && (
-							<StyledMonthRow $weeks={actualWeeks} $hasDayLabels={config.showDayLabels}>
-								{monthLabels.map((label) => (
-									<StyledMonthLabel
-										key={label.key}
-										$startCol={label.startCol}
-										$span={label.span}
-									>
-										{label.name}
-									</StyledMonthLabel>
-								))}
-							</StyledMonthRow>
-						)}
-
-						<StyledGridWithLabels>
-							{config.showDayLabels && (
-								<StyledDayLabels>
-									{DAY_LABELS.map((label, i) => (
-										<span key={i}>{label}</span>
-									))}
-								</StyledDayLabels>
-							)}
-
-							<StyledContributionGrid
-								$weeks={actualWeeks}
-								$gap={config.squareGap}
-								role="img"
-								aria-label={`${totalContributions.toLocaleString()} contributions in ${CURRENT_YEAR}`}
-								onMouseLeave={handleSquareLeave}
-							>
-								{gridData.map((day, i) => (
-									<StyledSquare
-										key={i}
-										$level={day.level}
-										$radius={config.squareRadius}
-										aria-hidden="true"
-										onMouseEnter={(e) => handleSquareEnter(e, day, i)}
-										title={ariaLabels[i]}
-									/>
-								))}
-							</StyledContributionGrid>
-						</StyledGridWithLabels>
-
-						{placement && (
-							<StyledTooltipPositioner
-								style={{
-									left: placement.x,
-									top: placement.y,
-									transform: tooltipTransform[placement.position][placement.align],
-								}}
-							>
-								<StyledContribTooltip
-									$position={placement.position}
-									$align={placement.align}
-									$visible={isOpen}
-								>
-									<DigitGroup
-										key={`count-${countSwap.displayed ?? ''}`}
-										value={countSwap.displayed}
-									/>
-									{' contributions on '}
-									<DigitGroup
-										key={`md-${monthDaySwap.displayed ?? ''}`}
-										value={monthDaySwap.displayed}
-									/>
-									{', '}
-									<DigitGroup
-										key={`year-${yearSwap.displayed ?? ''}`}
-										value={yearSwap.displayed}
-									/>
-								</StyledContribTooltip>
-							</StyledTooltipPositioner>
-						)}
-					</>
-				)}
-			</StyledCalendarWrapper>
+			<ContributionCalendar
+				contributions={contributions}
+				totalContributions={totalContributions}
+			/>
 		</WidgetBase>
 	);
 }

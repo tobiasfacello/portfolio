@@ -31,7 +31,7 @@ import { iconRegistry } from '../../Icon';
 
 //? Hooks
 import { useGitHubActivity } from '../../../hooks/useGitHubActivity';
-import { useBreakpoint } from '../../../hooks/useBreakpoint';
+import { useBreakpointValue } from '../../../hooks/useBreakpoint';
 
 //? Config
 import { gitHubCalendarConfig } from '../../../config/responsive';
@@ -287,8 +287,7 @@ interface ContributionCalendarProps {
 // Owns the hover tooltip state, so a hover re-renders this calendar only —
 // not WidgetBase's header/footer.
 function ContributionCalendar({ contributions, totalContributions }: ContributionCalendarProps) {
-	const bp = useBreakpoint();
-	const config = gitHubCalendarConfig[bp];
+	const config = useBreakpointValue((bp) => gitHubCalendarConfig[bp]);
 
 	// Single mounted tooltip. The connector text (" contributions on ", ", ")
 	// stays static; each dynamic field — count, month/day, and year — runs

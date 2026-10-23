@@ -7,7 +7,7 @@ import Text from "../Text";
 import Tooltip from "../Tooltip";
 
 //? Hooks, Config & Data
-import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { useBreakpointValue } from "../../hooks/useBreakpoint";
 import { skillsConfig } from "../../config/responsive";
 import { skillRows } from "../../data/skills";
 import { mq } from "../../config/breakpoints";
@@ -40,8 +40,7 @@ const StyledIconGrid = styled.div<{ $gap: string }>`
 `;
 
 function Skills() {
-	const bp = useBreakpoint();
-	const cfg = skillsConfig[bp];
+	const cfg = useBreakpointValue((bp) => skillsConfig[bp]);
 	const { t } = useTranslation('home');
 
 	if (cfg.useGrid) {

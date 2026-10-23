@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 //? Hooks
-import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useBreakpointValue } from '../../hooks/useBreakpoint';
 
 //? Config
 import { gitHubCalendarConfig } from '../../config/responsive';
@@ -201,8 +201,7 @@ const SquarePlaceholder = styled.div<{ $radius: number }>`
 `;
 
 function GitHubWidgetSkeleton() {
-	const bp = useBreakpoint();
-	const config = gitHubCalendarConfig[bp];
+	const config = useBreakpointValue((bp) => gitHubCalendarConfig[bp]);
 
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const maxWeeks = useAutoWeeks(wrapperRef, config.squareGap, config.showDayLabels);

@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 
 //? Hooks
 import { useTheme } from '../../hooks/useTheme';
-import { useBreakpoint } from '../../hooks/useBreakpoint';
+import { useBreakpointValue, isDesktop } from '../../hooks/useBreakpoint';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
 //* Styled
@@ -16,11 +16,11 @@ const MP4_SRC = '/backgrounds/shader-bg.mp4';
 
 function VideoBackground() {
 	const { isDarkMode } = useTheme();
-	const breakpoint = useBreakpoint();
+	const desktop = useBreakpointValue(isDesktop);
 	const prefersReducedMotion = usePrefersReducedMotion();
 
 	const allowVideo =
-		isDarkMode && !prefersReducedMotion && breakpoint.startsWith('desktop-');
+		isDarkMode && !prefersReducedMotion && desktop;
 
 	const [showVideo, setShowVideo] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);

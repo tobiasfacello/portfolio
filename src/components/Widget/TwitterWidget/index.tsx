@@ -119,13 +119,18 @@ function formatCompactNumber(n: number): string {
 	return `${value % 1 === 0 ? value : value.toFixed(1)}M`;
 }
 
+// The only theme-dependent piece of the widget, so a theme switch re-renders
+// this image instead of the whole card.
+function TweetAvatar({ src, alt }: { src?: string; alt: string }) {
+	const { isDarkMode } = useTheme();
+	const fallback = isDarkMode ? profileDark : profileLight;
+	return <img src={src || fallback} alt={alt} loading="lazy" decoding="async" />;
+}
+
 export default function TwitterWidget() {
 	const { t } = useTranslation('home');
 	const { tweet, loading, error } = usePinnedTweet();
-	const { isDarkMode } = useTheme();
 
-	const fallbackAvatar = isDarkMode ? profileDark : profileLight;
-	const avatarSrc = tweet?.author.profilePicture || fallbackAvatar;
 	const relativeDate = tweet ? formatRelativeTime(t, tweet.date) : null;
 
 	return (
@@ -158,7 +163,7 @@ export default function TwitterWidget() {
 				>
 					<StyledAuthorRow>
 						<StyledAvatar>
-							<img src={avatarSrc} alt={tweet.author.name} loading="lazy" decoding="async" />
+							<TweetAvatar src={tweet.author.profilePicture} alt={tweet.author.name} />
 						</StyledAvatar>
 						<StyledAuthorInfo>
 							<StyledAuthorName>

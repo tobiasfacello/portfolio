@@ -265,18 +265,31 @@ const ContributionGrid = memo(function ContributionGrid({
 			onMouseOver={handleMouseOver}
 			onMouseLeave={onLeave}
 		>
-			{gridData.map((day, i) => (
-				<StyledSquare
-					key={i}
-					data-index={i}
-					$level={day.level}
-					$radius={radius}
-					aria-hidden="true"
-					title={ariaLabels[i]}
-				/>
-			))}
+			<ContributionSquares gridData={gridData} ariaLabels={ariaLabels} radius={radius} />
 		</StyledContributionGrid>
 	);
+});
+
+interface ContributionSquaresProps {
+	gridData: GitHubContribution[];
+	ariaLabels: string[];
+	radius: number;
+}
+
+// The squares only depend on the data and the corner radius, so a breakpoint
+// change that only moves the gap (desktop-sm ↔ desktop-lg) re-renders the grid
+// container, not its 150–365 squares.
+const ContributionSquares = memo(function ContributionSquares({ gridData, ariaLabels, radius }: ContributionSquaresProps) {
+	return gridData.map((day, i) => (
+		<StyledSquare
+			key={i}
+			data-index={i}
+			$level={day.level}
+			$radius={radius}
+			aria-hidden="true"
+			title={ariaLabels[i]}
+		/>
+	));
 });
 
 interface ContributionCalendarProps {

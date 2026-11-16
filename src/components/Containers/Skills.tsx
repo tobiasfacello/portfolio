@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +10,7 @@ import Tooltip from "../Tooltip";
 //? Hooks, Config & Data
 import { useBreakpointValue } from "../../hooks/useBreakpoint";
 import { skillsConfig } from "../../config/responsive";
-import { skillRows } from "../../data/skills";
+import { skillRows, type SkillIcon as SkillIconData } from "../../data/skills";
 import { mq } from "../../config/breakpoints";
 
 //* Styles
@@ -39,6 +40,18 @@ const StyledIconGrid = styled.div<{ $gap: string }>`
 	}
 `;
 
+// Memoized: the icons come from static data, so a language switch or a resize
+// only re-renders the section title, not ~20 tooltips and their SVGs.
+const SkillIcon = memo(function SkillIcon({ icon }: { icon: SkillIconData }) {
+	return (
+		<Tooltip text={icon.title}>
+			<StyledIcon>
+				<icon.Icon aria-hidden="true" />
+			</StyledIcon>
+		</Tooltip>
+	);
+});
+
 function Skills() {
 	const cfg = useBreakpointValue((bp) => skillsConfig[bp]);
 	const { t } = useTranslation('home');
@@ -49,11 +62,7 @@ function Skills() {
 		const gridElement = (
 			<StyledIconGrid $gap={cfg.gridGap!}>
 				{allIcons.map((icon) => (
-					<Tooltip key={icon.title} text={icon.title}>
-						<StyledIcon>
-							<icon.Icon aria-hidden="true" />
-						</StyledIcon>
-					</Tooltip>
+					<SkillIcon key={icon.title} icon={icon} />
 				))}
 			</StyledIconGrid>
 		);
@@ -109,11 +118,7 @@ function Skills() {
 			align={"center"}
 		>
 			{row.map((icon) => (
-				<Tooltip key={icon.title} text={icon.title}>
-					<StyledIcon>
-						<icon.Icon aria-hidden="true" />
-					</StyledIcon>
-				</Tooltip>
+				<SkillIcon key={icon.title} icon={icon} />
 			))}
 		</Container>
 	));

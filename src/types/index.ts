@@ -118,17 +118,22 @@ export type LightboxImage = {
 	alt: string;
 };
 
-export type LightboxContextType = {
+export type LightboxActions = {
 	register: (images: LightboxImage[]) => () => void;
 	open: (src: string) => void;
 	close: () => void;
 	prev: () => void;
 	next: () => void;
+};
+
+export type LightboxState = {
 	currentIndex: number;
 	isOpen: boolean;
 	images: LightboxImage[];
 	direction: 1 | -1;
 };
+
+export type LightboxContextType = LightboxActions & LightboxState;
 
 // Social feed types
 

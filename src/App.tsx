@@ -24,8 +24,9 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import { RouterErrorPage, NotFoundPage } from './pages/ErrorPage';
 
-//? Hooks & i18n
+//? Hooks, i18n & navigation
 import { loadWorkDetailNamespace } from './i18n';
+import { registerRouter } from './lib/navigation';
 import { useScrollReset } from './hooks/useScrollReset';
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 
@@ -87,6 +88,8 @@ const router = createBrowserRouter([
 		],
 	},
 ]);
+
+registerRouter(router);
 
 function App() {
 	return (

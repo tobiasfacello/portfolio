@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledSection, StyledSectionTitle, StyledDesignSystemFrame } from '../styled';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
-import { useLightbox } from '../../../context/LightboxContext';
+import { useLightboxActions } from '../../../context/LightboxContext';
 import type { LightboxImage } from '../../../types';
 
 interface DesignSystemSectionProps {
@@ -13,7 +13,7 @@ interface DesignSystemSectionProps {
 function DesignSystemSection({ src, alt }: DesignSystemSectionProps) {
 	const { t } = useTranslation('workDetail');
 	const revealRef = useScrollReveal<HTMLElement>();
-	const { register, open } = useLightbox();
+	const { register, open } = useLightboxActions();
 
 	const dsImages: LightboxImage[] = useMemo(() => [{ src, alt }], [src, alt]);
 

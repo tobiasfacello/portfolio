@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 //* Components
@@ -32,30 +32,53 @@ type WidgetBaseProps = {
 	footer?: ReactNode;
 };
 
+const HEADER_BUTTON_PADDING = ['4', '8', '4', '8'];
+const RETRY_BUTTON_PADDING = ['4', '12', '4', '12'];
+
+type WidgetHeaderProps = Pick<WidgetBaseProps, 'icon' | 'platformName' | 'profileUrl'> & {
+	showProfileLink: boolean;
+};
+
+// Memoized: its props are stable per widget, so when a widget re-renders for
+// its own content (data arriving, a theme-dependent image) the header — the
+// profile button and the platform icon — is skipped.
+const WidgetHeader = memo(function WidgetHeader({ icon: Icon, platformName, profileUrl, showProfileLink }: WidgetHeaderProps) {
+	const { t } = useTranslation('home');
+
+	return (
+		<StyledWidgetHeader>
+			<StyledWidgetPlatform>
+				<StyledWidgetIcon>
+					<Icon />
+				</StyledWidgetIcon>
+				<Text as="h3" variant="subtitle-sm">
+					{platformName}
+				</Text>
+			</StyledWidgetPlatform>
+			{showProfileLink && (
+				<Button
+					variant="glass"
+					title={t('activity.viewProfile')}
+					url={profileUrl}
+					p={HEADER_BUTTON_PADDING}
+					onClick={() => trackEvent({ name: 'social_click', data: { platform: platformName.toLowerCase(), source: 'widget' } })}
+				/>
+			)}
+		</StyledWidgetHeader>
+	);
+});
+
 export default function WidgetBase(props: WidgetBaseProps) {
 	const { t } = useTranslation('home');
 
 	return (
 		<StyledWidgetCard className="widget-card">
-			<StyledWidgetHeader>
-				<StyledWidgetPlatform>
-					<StyledWidgetIcon>
-						<props.icon />
-					</StyledWidgetIcon>
-					<Text as="h3" variant="subtitle-sm">
-						{props.platformName}
-					</Text>
-				</StyledWidgetPlatform>
-				{!props.loading && !props.error && (
-					<Button
-						variant="glass"
-						title={t('activity.viewProfile')}
-						url={props.profileUrl}
-						p={['4', '8', '4', '8']}
-						onClick={() => trackEvent({ name: 'social_click', data: { platform: props.platformName.toLowerCase(), source: 'widget' } })}
-					/>
-				)}
-			</StyledWidgetHeader>
+			<WidgetHeader
+				icon={props.icon}
+				platformName={props.platformName}
+				profileUrl={props.profileUrl}
+				showProfileLink={!props.loading && !props.error}
+			/>
 			<StyledWidgetContent>
 				{props.loading ? (
 					props.skeleton ?? <WidgetSkeleton />
@@ -67,7 +90,7 @@ export default function WidgetBase(props: WidgetBaseProps) {
 								variant="glass"
 								title={t('activity.retry', 'Reintentar')}
 								onClick={props.onRetry}
-								p={['4', '12', '4', '12']}
+								p={RETRY_BUTTON_PADDING}
 							/>
 						)}
 					</StyledErrorState>

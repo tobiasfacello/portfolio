@@ -63,17 +63,18 @@ La variante `body-lg` incluye media queries internas para ajustar font-size en d
 
 - **Spacing**: `--0` a `--72` (valores en px)
 - **Colors**: `--text`, `--background`, `--primary`, `--secondary`, `--secondary-60`, `--accent`, `--neutral-dark-05`, `--neutral-dark-15`, `--pill-text-hovered`
-- Color scheme: ambos temas (light/dark) usan los mismos valores actualmente
+- Color scheme: cada tema tiene sus propios valores — en `:root[data-theme="dark|light"]` cuando el usuario elige uno, y en `@media (prefers-color-scheme: ...)` en modo `system`
 
 ### Animation & Interaction
 
 - **Reduced motion**: Hook compartido `usePrefersReducedMotion()` — reactivo al cambio de preferencia del usuario
 - **Lenis**: Smooth scroll con `lerp: 0.12, duration: 1.2, smoothWheel: true` (desactivado si reduced-motion)
-- **Swiper**: `WorkCardsCarousel` usa Swiper con `Autoplay` module. En mobile muestra cards estáticas; en tablet/desktop usa carousel con `slidesPerView` variable (1, 2, o 3 según breakpoint)
+- **Swiper**: `WorkCardsCarousel` usa Swiper solo con el módulo `A11y`. El autoplay es propio (`useAutoplay` en `SwiperCarousel.tsx`): avanza cada 5s, se pausa fuera de pantalla o con la pestaña oculta y se detiene al primer arrastre. En mobile muestra cards estáticas; en tablet/desktop usa carousel con `slidesPerView` variable (1, 2, o 3 según breakpoint)
+- **Video de fondo**: en dark mode (desktop, sin reduced-motion) `VideoBackground` reproduce un clip de 30fps. Mientras el usuario interactúa corre un pacer de 1px (`Backdrop::after`, atributo `data-pacing`) para que Chrome no baje la página a 30Hz y el scroll de Lenis se mantenga en 60fps. No lo quites sin medir el scroll en dark
 
 ### Theme System
 
-`ThemeContext` detecta `prefers-color-scheme` y expone `isDarkMode` via context. Hook: `useTheme()`. Actualmente sin efecto visual porque ambos temas comparten los mismos colores.
+`ThemeContext` expone `isDarkMode`, `themeMode` (`light` / `dark` / `system`, persistido en `localStorage`) y `setThemeMode`. Con `light`/`dark` setea `data-theme` en `<html>`; con `system` sigue a `prefers-color-scheme`. Hook: `useTheme()`. En dark mode la home suma el video de fondo y algunas imágenes tienen variante por tema (foto de perfil, avatar del tweet, logos de LinkedIn).
 
 ## Key Conventions
 
@@ -83,3 +84,13 @@ La variante `body-lg` incluye media queries internas para ajustar font-size en d
 - **Styled components**: separados en `styled.tsx` junto al `index.tsx` del componente (excepto secciones como About/Skills que definen styled-components inline)
 - **Fonts**: Evolventa (Regular/Bold) via @font-face + Plus Jakarta Sans via Google Fonts
 - **Assets**: organizados en `/assets/{fonts,images,vectors,icons,works}`
+
+## Performance Conventions
+
+Evitan re-renders y repintados que ya se midieron y se sacaron; mantenelas al tocar estas áreas.
+
+- **Navegación programática**: usá `navigateTo()` de `src/lib/navigation.ts` (solo rutas absolutas) en vez de `useNavigate()`, que re-renderiza el componente en cada cambio de ruta
+- **Tema**: llamá `useTheme()` en el componente hoja que lo usa (ej. `ProfilePhoto`, `TweetAvatar`, `CompanyLogo`), no en la sección o el widget entero
+- **Lightbox**: `useLightboxActions()` para registrar y abrir imágenes (acciones estables, no re-renderiza al navegar el lightbox); `useLightbox()` solo donde se lee el estado
+- **Tooltip**: la visibilidad va por el atributo `data-visible` en el DOM, sin estado de React
+- **Animaciones en loop**: `mask-position` y `background-position` repintan en cada frame (no corren en el compositor). Preferí `transform`/`opacity`; si no se puede, acotá el recorrido o usá `steps()`

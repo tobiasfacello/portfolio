@@ -2,9 +2,13 @@
 import { createContext, useContext, useState, useRef, useCallback, useMemo } from "react";
 
 //?  Types
-import type { LightboxImage, LightboxContextType } from "../types";
+import type { LightboxImage, LightboxActions, LightboxState, LightboxContextType } from "../types";
 
-const LightboxContext = createContext<LightboxContextType | null>(null);
+// Actions and state live in separate contexts: the galleries only register
+// images and open the viewer, so they read the stable actions and don't
+// re-render on every open / close / prev / next — only the Lightbox does.
+const LightboxActionsContext = createContext<LightboxActions | null>(null);
+const LightboxStateContext = createContext<LightboxState | null>(null);
 
 function flattenRegistry(registry: Map<symbol, LightboxImage[]>): LightboxImage[] {
 	const flat: LightboxImage[] = [];
@@ -21,23 +25,29 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
 	const [direction, setDirection] = useState<1 | -1>(1);
 
 	const registryRef = useRef<Map<symbol, LightboxImage[]>>(new Map());
+	// Read by prev/next so they stay stable instead of changing with `images`.
+	const imagesRef = useRef<LightboxImage[]>([]);
+	const isOpenRef = useRef(false);
 
-	const rebuildImages = useCallback(() => {
-		setImages(flattenRegistry(registryRef.current));
+	const showImages = useCallback((next: LightboxImage[]) => {
+		imagesRef.current = next;
+		setImages(next);
 	}, []);
 
+	// The image list only matters while the viewer is open (open() rebuilds it),
+	// so registering — every gallery does it on mount — doesn't touch state.
 	const register = useCallback(
 		(imgs: LightboxImage[]) => {
 			const key = Symbol();
 			registryRef.current.set(key, imgs);
-			rebuildImages();
+			if (isOpenRef.current) showImages(flattenRegistry(registryRef.current));
 
 			return () => {
 				registryRef.current.delete(key);
-				rebuildImages();
+				if (isOpenRef.current) showImages(flattenRegistry(registryRef.current));
 			};
 		},
-		[rebuildImages]
+		[showImages]
 	);
 
 	const open = useCallback(
@@ -45,43 +55,60 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
 			const flat = flattenRegistry(registryRef.current);
 			const idx = flat.findIndex((img) => img.src === src);
 			if (idx !== -1) {
-				setImages(flat);
+				showImages(flat);
 				setCurrentIndex(idx);
 				setIsOpen(true);
+				isOpenRef.current = true;
 			}
 		},
-		[]
+		[showImages]
 	);
 
 	const close = useCallback(() => {
 		setIsOpen(false);
+		isOpenRef.current = false;
 	}, []);
 
 	const prev = useCallback(() => {
 		setDirection(-1);
-		setCurrentIndex((i) => (i > 0 ? i - 1 : images.length - 1));
-	}, [images.length]);
+		setCurrentIndex((i) => (i > 0 ? i - 1 : imagesRef.current.length - 1));
+	}, []);
 
 	const next = useCallback(() => {
 		setDirection(1);
-		setCurrentIndex((i) => (i < images.length - 1 ? i + 1 : 0));
-	}, [images.length]);
+		setCurrentIndex((i) => (i < imagesRef.current.length - 1 ? i + 1 : 0));
+	}, []);
 
-	const value = useMemo(
-		() => ({ register, open, close, prev, next, currentIndex, isOpen, images, direction }),
-		[register, open, close, prev, next, currentIndex, isOpen, images, direction]
+	const actions = useMemo(
+		() => ({ register, open, close, prev, next }),
+		[register, open, close, prev, next]
+	);
+
+	const state = useMemo(
+		() => ({ currentIndex, isOpen, images, direction }),
+		[currentIndex, isOpen, images, direction]
 	);
 
 	return (
-		<LightboxContext.Provider value={value}>
-			{children}
-		</LightboxContext.Provider>
+		<LightboxActionsContext.Provider value={actions}>
+			<LightboxStateContext.Provider value={state}>
+				{children}
+			</LightboxStateContext.Provider>
+		</LightboxActionsContext.Provider>
 	);
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export function useLightbox() {
-	const ctx = useContext(LightboxContext);
-	if (!ctx) throw new Error("useLightbox must be used within LightboxProvider");
+export function useLightboxActions(): LightboxActions {
+	const ctx = useContext(LightboxActionsContext);
+	if (!ctx) throw new Error("useLightboxActions must be used within LightboxProvider");
 	return ctx;
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function useLightbox(): LightboxContextType {
+	const actions = useLightboxActions();
+	const state = useContext(LightboxStateContext);
+	if (!state) throw new Error("useLightbox must be used within LightboxProvider");
+	return { ...actions, ...state };
 }

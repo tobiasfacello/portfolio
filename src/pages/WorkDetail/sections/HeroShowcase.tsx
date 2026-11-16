@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { StyledSection, StyledHeroShowcase } from '../styled';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
-import { useLightbox } from '../../../context/LightboxContext';
+import { useLightboxActions } from '../../../context/LightboxContext';
 import type { LightboxImage } from '../../../types';
 
 interface HeroShowcaseProps {
@@ -11,7 +11,7 @@ interface HeroShowcaseProps {
 
 function HeroShowcase({ src, alt }: HeroShowcaseProps) {
 	const revealRef = useScrollReveal<HTMLElement>();
-	const { register, open } = useLightbox();
+	const { register, open } = useLightboxActions();
 
 	const heroImages: LightboxImage[] = useMemo(() => [{ src, alt }], [src, alt]);
 

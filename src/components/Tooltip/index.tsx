@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef } from 'react';
 
 //* Types
 import type { TooltipProps } from '../../types';
@@ -13,27 +13,37 @@ import {
 	StyledTooltipReveal,
 } from './styled';
 
+const SHOW_DELAY_MS = 300;
+
 function Tooltip({ text, children, position = 'top', align = 'center', icon, href }: TooltipProps) {
-	const [isVisible, setIsVisible] = useState(false);
-	// Bumped on every show so the inner reveal animation replays even when the
-	// content is unchanged.
-	const [revealKey, setRevealKey] = useState(0);
 	const tooltipId = useId();
+	const tooltipRef = useRef<HTMLSpanElement>(null);
 	const enterTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-	const showTooltip = () => {
-		enterTimeoutRef.current = setTimeout(() => {
-			setIsVisible(true);
-			setRevealKey((k) => k + 1);
-		}, 300);
+	// Visibility is a DOM attribute rather than state (see StyledTooltip):
+	// hovering or focusing a trigger shows its tooltip without a React render.
+	const setVisible = (visible: boolean) => {
+		const tooltip = tooltipRef.current;
+		if (!tooltip) return;
+		tooltip.toggleAttribute('data-visible', visible);
+		tooltip.setAttribute('aria-hidden', String(!visible));
 	};
 
-	const hideTooltip = () => {
+	const clearEnterTimeout = () => {
 		if (enterTimeoutRef.current) {
 			clearTimeout(enterTimeoutRef.current);
 			enterTimeoutRef.current = null;
 		}
-		setIsVisible(false);
+	};
+
+	const showTooltip = () => {
+		clearEnterTimeout();
+		enterTimeoutRef.current = setTimeout(() => setVisible(true), SHOW_DELAY_MS);
+	};
+
+	const hideTooltip = () => {
+		clearEnterTimeout();
+		setVisible(false);
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -42,14 +52,7 @@ function Tooltip({ text, children, position = 'top', align = 'center', icon, hre
 		}
 	};
 
-	useEffect(() => {
-		return () => {
-			if (enterTimeoutRef.current) {
-				clearTimeout(enterTimeoutRef.current);
-				enterTimeoutRef.current = null;
-			}
-		};
-	}, []);
+	useEffect(() => clearEnterTimeout, []);
 
 	const content = icon ? (
 		<StyledTooltipContent>
@@ -71,16 +74,16 @@ function Tooltip({ text, children, position = 'top', align = 'center', icon, hre
 		>
 			{children}
 			<StyledTooltip
+				ref={tooltipRef}
 				id={tooltipId}
 				$position={position}
 				$align={align}
 				$clickable={!!href}
-				$visible={isVisible}
 				role="tooltip"
-				aria-hidden={!isVisible}
+				aria-hidden="true"
 			>
 				{href && <StyledTooltipBridge $position={position} />}
-				<StyledTooltipReveal key={revealKey}>
+				<StyledTooltipReveal>
 					{href ? <a href={href}>{content}</a> : content}
 				</StyledTooltipReveal>
 			</StyledTooltip>

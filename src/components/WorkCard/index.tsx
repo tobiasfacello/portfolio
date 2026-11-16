@@ -1,6 +1,5 @@
 import { StyledWorkCard, StyledWorkCardDiv, StyledWorkCardContent, StyledWorkLogo } from './styled';
 import { memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 //* Components
@@ -18,6 +17,7 @@ import { WorkCardProps } from '../../types';
 import { hasDetailPage } from '../../data/works';
 //? Analytics
 import { trackEvent } from '../../lib/analytics';
+import { navigateTo } from '../../lib/navigation';
 
 const HourglassIcon = () => (
 	<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -35,7 +35,6 @@ const DocumentIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 function WorkCard(props: WorkCardProps) {
-	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const title = t(`${props.slug}.title`, { ns: 'works' });
 	const tags = t(`${props.slug}.tags`, { ns: 'works', returnObjects: true }) as string[];
@@ -46,9 +45,9 @@ function WorkCard(props: WorkCardProps) {
 	const handleCardClick = useCallback(() => {
 		if (isDetail) {
 			trackEvent({ name: 'work_click', data: { slug: props.slug, action: 'detail' } });
-			navigate(`/work/${props.slug}`, { viewTransition: true });
+			navigateTo(`/work/${props.slug}`, { viewTransition: true });
 		}
-	}, [isDetail, navigate, props.slug]);
+	}, [isDetail, props.slug]);
 
 	const handleButtonClick = useCallback((e: React.MouseEvent) => {
 		e.stopPropagation();
@@ -59,8 +58,8 @@ function WorkCard(props: WorkCardProps) {
 	const handleDocClick = useCallback((e: React.MouseEvent) => {
 		e.stopPropagation();
 		trackEvent({ name: 'work_click', data: { slug: props.slug, action: 'docs' } });
-		navigate(`/work/${props.slug}`, { viewTransition: true });
-	}, [navigate, props.slug]);
+		navigateTo(`/work/${props.slug}`, { viewTransition: true });
+	}, [props.slug]);
 
 	const cardContent = (
 		<StyledWorkCardContent>

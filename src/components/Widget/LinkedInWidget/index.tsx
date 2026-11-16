@@ -38,9 +38,17 @@ import { linkedinProfile } from '../../../data/staticSocial';
 const visibleExperience = linkedinProfile.experience?.slice(0, 4);
 const totalPositions = linkedinProfile.experience?.length ?? 0;
 
+type CompanyLogoProps = { logo?: string; logoLight?: string; company: string };
+
+// The logo is the only theme-dependent part of the widget: reading the theme
+// here means a theme switch re-renders these images, not the whole widget.
+function CompanyLogo({ logo, logoLight, company }: CompanyLogoProps) {
+	const { isDarkMode } = useTheme();
+	return <StyledCompanyLogo src={isDarkMode ? (logoLight || logo) : logo} alt={company} />;
+}
+
 export default function LinkedInWidget() {
 	const { t } = useTranslation('home');
-	const { isDarkMode } = useTheme();
 
 	return (
 		<WidgetBase
@@ -87,10 +95,7 @@ export default function LinkedInWidget() {
 									style={{ animationDelay: `${i * POP_IN_STAGGER_MS}ms` }}
 								>
 									{(exp.companyLogo || exp.companyLogoLight) && (
-										<StyledCompanyLogo
-											src={isDarkMode ? (exp.companyLogoLight || exp.companyLogo) : exp.companyLogo}
-											alt={exp.company}
-										/>
+										<CompanyLogo logo={exp.companyLogo} logoLight={exp.companyLogoLight} company={exp.company} />
 									)}
 									<StyledExperienceContent>
 										<StyledExperienceTitle>

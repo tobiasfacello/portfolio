@@ -45,8 +45,21 @@
 	mask-repeat: repeat;
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
-	animation: noise-drift 180s linear infinite;
+	/* mask-position can't run on the compositor, so every animation frame
+	   repaints this full-viewport layer (and the glass backdrops over it). The
+	   drift is ≤18px/s, so a linear timing repainted ~60×/s for offsets that
+	   round to the same device pixel. 1200 steps per 36s segment ≈ one device
+	   pixel per step at 2×: same motion, about half the repaints. */
+	animation: noise-drift 180s steps(1200) infinite;
 	pointer-events: none;
+}
+
+/* On 1× screens a CSS pixel is a device pixel, so 600 steps (≈1px each) are
+   the same motion with half the repaints. */
+@media (max-resolution: 1.5dppx) {
+	#root::before {
+		animation-timing-function: steps(600);
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {

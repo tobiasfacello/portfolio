@@ -77,19 +77,27 @@ export const StyledTooltipWrapper = styled.div`
 	display: inline-flex;
 `;
 
+const colorTransitions = css`
+	background-color var(--transition-base) ease-in-out,
+	color var(--transition-base) ease-in-out,
+	border-color var(--transition-base) ease-in-out
+`;
+
+// Visibility is the `data-visible` attribute, set by Tooltip from its event
+// handlers, so showing / hiding a tooltip never re-renders React. The hidden
+// state is the base; a CSS transition takes the destination state's timing,
+// so it still opens over 250ms and closes over 150ms.
 export const StyledTooltip = styled.span<{
 	$position: Position;
 	$align: Align;
 	$clickable?: boolean;
-	$visible: boolean;
 }>`
 	position: absolute;
 	z-index: var(--z-tooltip);
 	white-space: nowrap;
 	padding: var(--6) var(--12);
 	border-radius: var(--radius-md);
-	pointer-events: ${({ $clickable, $visible }) =>
-		$clickable && $visible ? 'auto' : 'none'};
+	pointer-events: none;
 	${({ $clickable }) => $clickable && 'cursor: pointer;'}
 
 	font-family: var(--font-geist-pixel-circle);
@@ -103,20 +111,28 @@ export const StyledTooltip = styled.span<{
 	${glassGradientBorder({ radius: 'var(--radius-md)' })}
 
 	transform-origin: ${({ $position, $align }) => originMap[$position][$align]};
-	transform: ${({ $align, $visible }) => composedTransform($align, $visible ? 1 : 0.96)};
-	opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+	transform: ${({ $align }) => composedTransform($align, 0.96)};
+	opacity: 0;
 	transition:
-		transform ${({ $visible }) => ($visible ? '250ms' : '150ms')} ${tooltipModalEase},
-		opacity ${({ $visible }) => ($visible ? '250ms' : '150ms')} ${tooltipModalEase},
-		background-color var(--transition-base) ease-in-out,
-		color var(--transition-base) ease-in-out,
-		border-color var(--transition-base) ease-in-out;
+		transform 150ms ${tooltipModalEase},
+		opacity 150ms ${tooltipModalEase},
+		${colorTransitions};
+
+	&[data-visible] {
+		transform: ${({ $align }) => composedTransform($align, 1)};
+		opacity: 1;
+		transition:
+			transform 250ms ${tooltipModalEase},
+			opacity 250ms ${tooltipModalEase},
+			${colorTransitions};
+		${({ $clickable }) => $clickable && 'pointer-events: auto;'}
+	}
 
 	@media (prefers-reduced-motion: reduce) {
-		transition:
-			background-color var(--transition-base) ease-in-out,
-			color var(--transition-base) ease-in-out,
-			border-color var(--transition-base) ease-in-out;
+		&,
+		&[data-visible] {
+			transition: ${colorTransitions};
+		}
 	}
 
 	${({ $position, $align }) => ($position === 'top' ? positionTop($align) : positionBottom($align))}
@@ -151,12 +167,19 @@ export const StyledTooltip = styled.span<{
 		`}
 `;
 
+// The text pop-in runs whenever the tooltip turns visible: the animation only
+// applies under [data-visible], so re-adding the attribute replays it.
 export const StyledTooltipReveal = styled.span`
 	display: inline-block;
-	animation: ${tooltipTextSwapIn} 200ms ease-out both;
+
+	[data-visible] > & {
+		animation: ${tooltipTextSwapIn} 200ms ease-out both;
+	}
 
 	@media (prefers-reduced-motion: reduce) {
-		animation: none;
+		[data-visible] > & {
+			animation: none;
+		}
 	}
 `;
 

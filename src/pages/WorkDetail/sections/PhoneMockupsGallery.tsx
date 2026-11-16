@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledSection, StyledSectionTitle, StyledPhoneGallery, StyledPhoneCard } from '../styled';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
-import { useLightbox } from '../../../context/LightboxContext';
+import { useLightboxActions } from '../../../context/LightboxContext';
 
 interface MockupImage {
 	src: string;
@@ -16,7 +16,7 @@ interface PhoneMockupsGalleryProps {
 function PhoneMockupsGallery({ images }: PhoneMockupsGalleryProps) {
 	const { t } = useTranslation('workDetail');
 	const revealRef = useScrollReveal<HTMLElement>();
-	const { register, open } = useLightbox();
+	const { register, open } = useLightboxActions();
 
 	useEffect(() => {
 		return register(images);

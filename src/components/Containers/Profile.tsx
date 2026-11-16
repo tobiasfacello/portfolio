@@ -72,22 +72,31 @@ const StyledProfile = styled.div`
   }
 `;
 
-export default function Profile() {
-  const { t } = useTranslation("home");
+// The only theme-dependent part of the section: a theme switch re-renders the
+// photo, not the heading and the social buttons.
+function ProfilePhoto() {
   const { isDarkMode } = useTheme();
 
   return (
+    <ProfileImage
+      src={isDarkMode ? profilePicture : profilePictureLight}
+      srcSet={isDarkMode ? PROFILE_SRCSET : undefined}
+      sizes={isDarkMode ? PROFILE_IMAGE_SIZES : undefined}
+      alt="Profile photo of Tobias Facello"
+      width={345}
+      height={345}
+      decoding="async"
+      fetchPriority="high"
+    />
+  );
+}
+
+export default function Profile() {
+  const { t } = useTranslation("home");
+
+  return (
     <StyledProfile>
-      <ProfileImage
-        src={isDarkMode ? profilePicture : profilePictureLight}
-        srcSet={isDarkMode ? PROFILE_SRCSET : undefined}
-        sizes={isDarkMode ? PROFILE_IMAGE_SIZES : undefined}
-        alt="Profile photo of Tobias Facello"
-        width={345}
-        height={345}
-        decoding="async"
-        fetchPriority="high"
-      />
+      <ProfilePhoto />
       <Container
         w={"100%"}
         h={"auto"}

@@ -12,23 +12,23 @@
   <link rel="manifest" href="/manifest.json" />
 
   <!-- Primary Meta Tags -->
-  <title>FACHE • Personal Portfolio</title>
-  <meta name="title" content="FACHE • Personal Portfolio" />
-  <meta name="description" content="My personal portfolio on the web. Work, projects and more." />
+  <title>Tobias Facello (FACHE) • Frontend Developer Portfolio</title>
+  <meta name="title" content="Tobias Facello (FACHE) • Frontend Developer Portfolio" />
+  <meta name="description" content="Portfolio of Tobias Facello (Fache), frontend developer from Argentina: shipped client work, current projects and contact." />
   <meta name="robots" content="index, follow" />
   <meta name="google-site-verification" content="zDHPaswGd6vpBUnHdX6TRoLeiaVE7FZJkENp0sB9K2c" />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://fache.vercel.app/" />
+  <link rel="canonical" href="https://www.fache.com.ar/" />
 
   <!-- Theme Color -->
   <meta name="theme-color" content="#0a0b04" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://fache.vercel.app/" />
-  <meta property="og:title" content="FACHE • Personal Portfolio" />
-  <meta property="og:description" content="My personal portfolio on the web. Work, projects and more." />
+  <meta property="og:url" content="https://www.fache.com.ar/" />
+  <meta property="og:title" content="Tobias Facello (FACHE) • Frontend Developer Portfolio" />
+  <meta property="og:description" content="Portfolio of Tobias Facello (Fache), frontend developer from Argentina: shipped client work, current projects and contact." />
   <meta property="og:image"
     content="https://res.cloudinary.com/dxfbsnehm/image/upload/v1722390567/Portfolio/fache_thumbnail.png" />
   <meta property="og:image:width" content="1200" />
@@ -36,9 +36,9 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://fache.vercel.app/" />
-  <meta property="twitter:title" content="FACHE • Personal Portfolio" />
-  <meta property="twitter:description" content="My personal portfolio on the web. Work, projects and more." />
+  <meta property="twitter:url" content="https://www.fache.com.ar/" />
+  <meta property="twitter:title" content="Tobias Facello (FACHE) • Frontend Developer Portfolio" />
+  <meta property="twitter:description" content="Portfolio of Tobias Facello (Fache), frontend developer from Argentina: shipped client work, current projects and contact." />
   <meta property="twitter:image"
     content="https://res.cloudinary.com/dxfbsnehm/image/upload/v1722390567/Portfolio/fache_thumbnail.png" />
 
@@ -47,15 +47,28 @@
   {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
+    "name": "Tobias Facello (FACHE) portfolio",
+    "description": "Portfolio of Tobias Facello (Fache), frontend developer: shipped client work, current projects and contact.",
+    "url": "https://www.fache.com.ar/",
+    "inLanguage": ["en", "es", "pt"],
     "mainEntity": {
       "@type": "Person",
       "name": "Tobias Facello",
-      "alternateName": "FACHE",
-      "url": "https://fache.vercel.app",
+      "alternateName": ["FACHE", "Fache"],
+      "url": "https://www.fache.com.ar/",
+      "image": "https://res.cloudinary.com/dxfbsnehm/image/upload/v1722390567/Portfolio/fache_thumbnail.png",
       "jobTitle": "Frontend Developer",
+      "description": "Developer with 3+ years collaborating with design and development teams to create high-impact digital experiences.",
+      "worksFor": { "@type": "Organization", "name": "Henry", "url": "https://www.soyhenry.com" },
+      "address": { "@type": "PostalAddress", "addressCountry": "AR" },
+      "knowsAbout": ["Frontend development", "React", "TypeScript", "Next.js", "Node.js", "PostgreSQL", "Design engineering", "UX"],
       "sameAs": [
         "https://github.com/tobiasfacello",
-        "https://linkedin.com/in/tobiasfacello"
+        "https://www.linkedin.com/in/tobiasfacello/",
+        "https://x.com/fachebits",
+        "https://contra.com/tobiasfacello",
+        "https://www.instagram.com/fache.bits/",
+        "https://www.threads.net/@fache.bits"
       ]
     }
   }
@@ -68,6 +81,12 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" /></noscript>
+
+  <!-- The build writes each page's text into #root for crawlers and agents that
+       run no JavaScript (vite-plugins/staticPages.ts). It's visually hidden and
+       React replaces it on mount; without JavaScript it's shown as a plain page. -->
+  <style>.prerender{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}</style>
+  <noscript><style>.prerender{position:static;width:auto;height:auto;overflow:visible;clip-path:none;max-width:720px;margin:0 auto;padding:24px;color:#f2e8ea;font-family:system-ui,sans-serif;line-height:1.6}.prerender a{color:inherit}</style></noscript>
 
   <script type="module" src="/src/main.tsx"></script>
 </head>

@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import { PROFILE_IMAGE_SIZES, PROFILE_IMAGE_VARIANTS } from './src/config/profileImage'
 import { SUPPORTED_LANGUAGES, LAZY_LANGUAGES } from './src/i18n/languages'
+import { staticPages } from './vite-plugins/staticPages'
 
 // Preloads for resources React or CSS would otherwise only discover late, using
 // their hashed build URLs:
@@ -93,7 +94,7 @@ const VENDOR_CHUNKS: [chunk: string, pattern: RegExp][] = [
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr(), criticalPreloads()],
+  plugins: [react(), svgr(), criticalPreloads(), staticPages()],
   build: {
     target: 'es2022',
     rollupOptions: {

@@ -25,7 +25,7 @@ export const projects: ProjectItem[] = [
 	{
 		slug: 'fache',
 		src: facheVector,
-		url: 'https://fache.vercel.app',
+		url: 'https://www.fache.com.ar',
 		tech: ['React', 'TypeScript', 'Vite'],
 	},
 ];

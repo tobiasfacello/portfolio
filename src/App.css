@@ -20,14 +20,6 @@
 	@media (min-width: 1280px) {
 		background-image: url('/vectors/header-vector-desktop.svg');
 	}
-
-	@media (prefers-color-scheme: light) {
-		background-image: url('/vectors/header-vector-light.svg');
-
-		@media (min-width: 1280px) {
-			background-image: url('/vectors/header-vector-desktop-light.svg');
-		}
-	}
 }
 
 #root::before {
@@ -82,46 +74,6 @@
 	transform: scaleY(-1);
 	pointer-events: none;
 	z-index: 0;
-
-	@media (min-width: 1280px) {
-		background-image: url('/vectors/header-vector-desktop.svg');
-	}
-
-	@media (prefers-color-scheme: light) {
-		background-image: url('/vectors/header-vector-light.svg');
-
-		@media (min-width: 1280px) {
-			background-image: url('/vectors/header-vector-desktop-light.svg');
-		}
-	}
-}
-
-:root[data-theme="light"] #root {
-	background-image: url('/vectors/header-vector-light.svg');
-
-	@media (min-width: 1280px) {
-		background-image: url('/vectors/header-vector-desktop-light.svg');
-	}
-}
-
-:root[data-theme="light"] #root::after {
-	background-image: url('/vectors/header-vector-light.svg');
-
-	@media (min-width: 1280px) {
-		background-image: url('/vectors/header-vector-desktop-light.svg');
-	}
-}
-
-:root[data-theme="dark"] #root {
-	background-image: url('/vectors/header-vector.svg');
-
-	@media (min-width: 1280px) {
-		background-image: url('/vectors/header-vector-desktop.svg');
-	}
-}
-
-:root[data-theme="dark"] #root::after {
-	background-image: url('/vectors/header-vector.svg');
 
 	@media (min-width: 1280px) {
 		background-image: url('/vectors/header-vector-desktop.svg');

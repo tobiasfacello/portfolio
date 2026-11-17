@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { StyledSkeleton, StyledSkeletonStack, type SkeletonVariant } from './styled';
 
 type SkeletonProps = {
@@ -10,6 +11,8 @@ type SkeletonProps = {
 };
 
 function Skeleton({ variant = 'rect', w, h, radius, m, ...rest }: SkeletonProps) {
+	const { t } = useTranslation('common');
+
 	return (
 		<StyledSkeleton
 			$variant={variant}
@@ -20,7 +23,7 @@ function Skeleton({ variant = 'rect', w, h, radius, m, ...rest }: SkeletonProps)
 			role="status"
 			aria-busy="true"
 			aria-live="polite"
-			aria-label={rest['aria-label'] ?? 'Cargando'}
+			aria-label={rest['aria-label'] ?? t('loading')}
 		/>
 	);
 }

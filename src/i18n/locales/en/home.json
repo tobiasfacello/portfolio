@@ -34,12 +34,18 @@
 			"followers": "Followers",
 			"legendLess": "Less",
 			"legendMore": "More",
-			"totalThisYear": "{{total}} contributions total this year"
+			"loading": "Loading GitHub activity",
+			"totalLastYear": "{{total}} contributions in the last year",
+			"contributionsOn_one": "contribution on",
+			"contributionsOn_other": "contributions on",
+			"dayContributions_one": "{{count}} contribution on {{date}}",
+			"dayContributions_other": "{{count}} contributions on {{date}}"
 		},
 		"twitter": {
 			"followOn": "Follow on X",
 			"pinnedLabel": "Pinned tweet",
 			"openPinned": "Open pinned tweet",
+			"loading": "Loading pinned tweet",
 			"lastActivity": "Posted {{time}}",
 			"timeAgo": {
 				"today": "today",

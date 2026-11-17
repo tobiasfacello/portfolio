@@ -16,7 +16,6 @@ const SpeedInsights = lazy(() =>
 );
 
 //* Context
-import { ThemeProvider } from './context/ThemeContext';
 import { BreakpointProvider } from './context/BreakpointContext';
 
 //* Components
@@ -45,12 +44,10 @@ function AppShell() {
 
 	const content = (
 		<BreakpointProvider>
-			<ThemeProvider>
-				<ScrollReset />
-				<Suspense fallback={null}>
-					<Outlet />
-				</Suspense>
-			</ThemeProvider>
+			<ScrollReset />
+			<Suspense fallback={null}>
+				<Outlet />
+			</Suspense>
 		</BreakpointProvider>
 	);
 

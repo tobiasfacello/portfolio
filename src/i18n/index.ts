@@ -12,7 +12,9 @@ import { SUPPORTED_LANGUAGES } from './languages';
 // Mirrored by the inline locale preload in index.html (vite.config.ts) — keep
 // the two resolving the same language.
 function getInitialLanguage(): string {
-	const saved = localStorage.getItem('language');
+	let saved: string | null = null;
+	// Throws when the browser blocks site data; that must not stop the app from booting.
+	try { saved = localStorage.getItem('language'); } catch { /* use the browser language */ }
 	if (saved && SUPPORTED_LANGUAGES.includes(saved)) return saved;
 
 	for (const lang of navigator.languages ?? [navigator.language]) {

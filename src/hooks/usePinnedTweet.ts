@@ -8,8 +8,8 @@ interface PinnedTweetState {
 }
 
 /**
- * Pinned tweet is fetched at build time (scripts/fetch-tweets.mjs) and baked
- * into the bundle as static JSON — no runtime API calls. The shape is validated
+ * The pinned tweet is fixed, edited by hand in src/data/pinned-tweet.json and
+ * baked into the bundle — no API calls. The shape is validated
  * once at module load so a malformed or emptied file degrades to an error state
  * (which WidgetBase renders) instead of throwing during render or leaving the
  * card body blank.

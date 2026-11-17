@@ -19,8 +19,8 @@ function LanguageSwitcher() {
 		async (lng: string) => {
 			await loadLanguageBundle(lng);
 			i18n.changeLanguage(lng);
-			localStorage.setItem('language', lng);
 			document.documentElement.lang = lng;
+			try { localStorage.setItem('language', lng); } catch { /* blocked storage: the choice just isn't remembered */ }
 		},
 		[i18n],
 	);

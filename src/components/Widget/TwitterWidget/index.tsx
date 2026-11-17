@@ -25,15 +25,13 @@ import { iconRegistry } from '../../Icon';
 
 //? Hooks
 import { usePinnedTweet } from '../../../hooks/usePinnedTweet';
-import { useTheme } from '../../../hooks/useTheme';
 
 //? Data
 import { TWITTER_URL } from '../../../data/socialFeed';
 
 //* Assets
 // 40px avatar (120px covers 3x screens) — not the 600px LCP photo.
-import profileDark from '../../../assets/images/profile-120.webp';
-import profileLight from '../../../assets/images/profile-light.webp';
+import profileAvatar from '../../../assets/images/profile-120.webp';
 
 function VerifiedSvg() {
 	return (
@@ -119,14 +117,6 @@ function formatCompactNumber(n: number): string {
 	return `${value % 1 === 0 ? value : value.toFixed(1)}M`;
 }
 
-// The only theme-dependent piece of the widget, so a theme switch re-renders
-// this image instead of the whole card.
-function TweetAvatar({ src, alt }: { src?: string; alt: string }) {
-	const { isDarkMode } = useTheme();
-	const fallback = isDarkMode ? profileDark : profileLight;
-	return <img src={src || fallback} alt={alt} loading="lazy" decoding="async" />;
-}
-
 export default function TwitterWidget() {
 	const { t } = useTranslation('home');
 	const { tweet, loading, error } = usePinnedTweet();
@@ -163,7 +153,7 @@ export default function TwitterWidget() {
 				>
 					<StyledAuthorRow>
 						<StyledAvatar>
-							<TweetAvatar src={tweet.author.profilePicture} alt={tweet.author.name} />
+							<img src={tweet.author.profilePicture || profileAvatar} alt={tweet.author.name} loading="lazy" decoding="async" />
 						</StyledAvatar>
 						<StyledAuthorInfo>
 							<StyledAuthorName>

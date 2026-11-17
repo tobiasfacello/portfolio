@@ -1,17 +1,5 @@
 import { ReactNode } from 'react';
 
-export type ThemeProviderProps = {
-	children: ReactNode;
-};
-
-export type ThemeMode = 'system' | 'light' | 'dark';
-
-export type ThemeContextType = {
-	isDarkMode: boolean;
-	themeMode: ThemeMode;
-	setThemeMode: (mode: ThemeMode) => void;
-};
-
 export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 export type FlexJustify = 'flex-start' | 'flex-end' | 'center' | 'start' | 'end' | 'space-between' | 'space-around' | 'space-evenly';
 export type FlexAlign = 'flex-start' | 'flex-end' | 'center' | 'start' | 'end' | 'stretch' | 'baseline';
@@ -175,7 +163,6 @@ export type LinkedInExperience = {
 	title: string;
 	company: string;
 	companyLogo?: string;
-	companyLogoLight?: string;
 	period: string;
 	current?: boolean;
 };

@@ -2,9 +2,6 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { mq } from "../../config/breakpoints";
 
-//?  Hooks
-import { useTheme } from "../../hooks/useTheme";
-
 //* Components
 import Container from "./Container";
 import SocialButton from "../SocialButton";
@@ -13,13 +10,11 @@ import Text from "../Text";
 //* Assets
 import profilePicture from "../../assets/images/profile.webp";
 import profilePictureSmall from "../../assets/images/profile-360.webp";
-import profilePictureLight from "../../assets/images/profile-light.webp";
 
 //? Config
 import { PROFILE_IMAGE_SIZES } from "../../config/profileImage";
 
-// The dark photo is the page's LCP element; phones (175px slot) get the 360px
-// variant. The light one is a tiny illustration Vite inlines, so it has no srcset.
+// The photo is the page's LCP element; phones (175px slot) get the 360px variant.
 const PROFILE_SRCSET = `${profilePictureSmall} 360w, ${profilePicture} 600w`;
 
 //* Icon registry
@@ -72,16 +67,12 @@ const StyledProfile = styled.div`
   }
 `;
 
-// The only theme-dependent part of the section: a theme switch re-renders the
-// photo, not the heading and the social buttons.
 function ProfilePhoto() {
-  const { isDarkMode } = useTheme();
-
   return (
     <ProfileImage
-      src={isDarkMode ? profilePicture : profilePictureLight}
-      srcSet={isDarkMode ? PROFILE_SRCSET : undefined}
-      sizes={isDarkMode ? PROFILE_IMAGE_SIZES : undefined}
+      src={profilePicture}
+      srcSet={PROFILE_SRCSET}
+      sizes={PROFILE_IMAGE_SIZES}
       alt="Profile photo of Tobias Facello"
       width={345}
       height={345}

@@ -5,7 +5,6 @@ import { mq } from "../../config/breakpoints";
 //* Components
 import Container from "./Container";
 import Text from "../Text";
-import ThemeSwitcher from "../ThemeSwitcher";
 import LanguageSwitcher from "../LanguageSwitcher";
 
 //? Analytics
@@ -30,12 +29,6 @@ const StyledFooter = styled.footer`
 	& a {
 		color: var(--text);
 	}
-`;
-
-const SwitchersContainer = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 8px;
 `;
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -66,10 +59,7 @@ function Footer({ ref, ...props }: React.ComponentPropsWithRef<'footer'>) {
 				justify={"center"}
 				align={"center"}
 			>
-				<SwitchersContainer>
-					<ThemeSwitcher />
-					<LanguageSwitcher />
-				</SwitchersContainer>
+				<LanguageSwitcher />
 			</Container>
 			<Container
 				direction={"column"}

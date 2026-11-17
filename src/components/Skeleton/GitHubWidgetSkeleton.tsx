@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 //? Hooks
 import { useBreakpointValue } from '../../hooks/useBreakpoint';
@@ -201,6 +202,7 @@ const SquarePlaceholder = styled.div<{ $radius: number }>`
 `;
 
 function GitHubWidgetSkeleton() {
+	const { t } = useTranslation('home');
 	const config = useBreakpointValue((bp) => gitHubCalendarConfig[bp]);
 
 	const wrapperRef = useRef<HTMLDivElement>(null);
@@ -230,7 +232,7 @@ function GitHubWidgetSkeleton() {
 			role="status"
 			aria-live="polite"
 			aria-busy="true"
-			aria-label="Cargando actividad de GitHub"
+			aria-label={t('activity.github.loading')}
 			style={{ display: 'contents' }}
 		>
 			<HandlePlaceholder aria-hidden="true" />

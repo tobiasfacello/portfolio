@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { shimmerSurface } from './shimmer';
 
 const Card = styled.div`
@@ -95,12 +96,14 @@ const StatPlaceholder = styled.span<{ $delay: number }>`
 const textWidths = ['92%', '78%'];
 
 function TwitterWidgetSkeleton() {
+	const { t } = useTranslation('home');
+
 	return (
 		<div
 			role="status"
 			aria-live="polite"
 			aria-busy="true"
-			aria-label="Cargando tweet destacado"
+			aria-label={t('activity.twitter.loading')}
 			style={{ display: 'contents' }}
 		>
 			<Card aria-hidden="true">

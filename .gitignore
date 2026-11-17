@@ -1,5 +1,6 @@
 dist
 node_modules
+*.tsbuildinfo
 
 # macOS
 .DS_Store
@@ -11,9 +12,7 @@ public/*
 !public/vectors/
 !public/manifest.json
 !public/robots.txt
-!public/sitemap.xml
 !public/favicon.ico
-!public/_redirects
 !public/data/
 !public/backgrounds/
 

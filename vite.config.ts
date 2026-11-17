@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import { PROFILE_IMAGE_SIZES, PROFILE_IMAGE_VARIANTS } from './src/config/profileImage'
 import { SUPPORTED_LANGUAGES, LAZY_LANGUAGES } from './src/i18n/languages'
+import { staticPages } from './vite-plugins/staticPages'
 
 // Preloads for resources React or CSS would otherwise only discover late, using
 // their hashed build URLs:
@@ -11,11 +12,9 @@ import { SUPPORTED_LANGUAGES, LAZY_LANGUAGES } from './src/i18n/languages'
 //   round trip before first paint. An inline script resolves the language like
 //   getInitialLanguage() (stored choice, then navigator.languages) and
 //   modulepreloads that chunk so it downloads alongside the entry. All routes.
-// - The home page's LCP element, the dark-theme profile photo, whose <img> only
-//   exists once the JS bundle runs. An inline script preloads it (same srcset /
-//   sizes as the <img>) while the HTML is still parsing. It mirrors ThemeContext
-//   — skipped for a stored or system light theme, whose photo is inlined — and
-//   only runs on "/".
+// - The home page's LCP element, the profile photo, whose <img> only exists once
+//   the JS bundle runs. An inline script preloads it (same srcset / sizes as the
+//   <img>) while the HTML is still parsing. Only on "/".
 // - The Geist Pixel webfont used by above-the-fold headings and labels, which
 //   is otherwise requested only after the CSS is parsed and the text styled.
 function criticalPreloads(): Plugin {
@@ -48,8 +47,7 @@ function criticalPreloads(): Plugin {
           `var l=document.createElement('link');l.rel='modulepreload';l.href=u;l.crossOrigin='';` +
           `document.head.appendChild(l)}catch(e){}})();`
         const photoScript =
-          `(function(){try{if(location.pathname!=='/')return;var t=localStorage.getItem('theme');` +
-          `if(t==='light'||(t!=='dark'&&!matchMedia('(prefers-color-scheme: dark)').matches))return;` +
+          `(function(){try{if(location.pathname!=='/')return;` +
           `var l=document.createElement('link');l.rel='preload';l.as='image';` +
           `l.setAttribute('imagesrcset',${JSON.stringify(srcset)});` +
           `l.setAttribute('imagesizes',${JSON.stringify(PROFILE_IMAGE_SIZES)});` +
@@ -96,7 +94,7 @@ const VENDOR_CHUNKS: [chunk: string, pattern: RegExp][] = [
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr(), criticalPreloads()],
+  plugins: [react(), svgr(), criticalPreloads(), staticPages()],
   build: {
     target: 'es2022',
     rollupOptions: {

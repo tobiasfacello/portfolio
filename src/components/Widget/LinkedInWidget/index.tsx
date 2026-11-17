@@ -1,8 +1,5 @@
 import { useTranslation } from 'react-i18next';
 
-//? Hooks
-import { useTheme } from '../../../hooks/useTheme';
-
 //* Components
 import WidgetBase from '../WidgetBase';
 import LinkedInWidgetSkeleton from '../../Skeleton/LinkedInWidgetSkeleton';
@@ -37,15 +34,6 @@ import { linkedinProfile } from '../../../data/staticSocial';
 
 const visibleExperience = linkedinProfile.experience?.slice(0, 4);
 const totalPositions = linkedinProfile.experience?.length ?? 0;
-
-type CompanyLogoProps = { logo?: string; logoLight?: string; company: string };
-
-// The logo is the only theme-dependent part of the widget: reading the theme
-// here means a theme switch re-renders these images, not the whole widget.
-function CompanyLogo({ logo, logoLight, company }: CompanyLogoProps) {
-	const { isDarkMode } = useTheme();
-	return <StyledCompanyLogo src={isDarkMode ? (logoLight || logo) : logo} alt={company} />;
-}
 
 export default function LinkedInWidget() {
 	const { t } = useTranslation('home');
@@ -94,9 +82,7 @@ export default function LinkedInWidget() {
 									key={`${exp.company}-${exp.title}`}
 									style={{ animationDelay: `${i * POP_IN_STAGGER_MS}ms` }}
 								>
-									{(exp.companyLogo || exp.companyLogoLight) && (
-										<CompanyLogo logo={exp.companyLogo} logoLight={exp.companyLogoLight} company={exp.company} />
-									)}
+									{exp.companyLogo && <StyledCompanyLogo src={exp.companyLogo} alt={exp.company} />}
 									<StyledExperienceContent>
 										<StyledExperienceTitle>
 											{exp.title} @ {exp.company}

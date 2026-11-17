@@ -3,7 +3,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 //? Hooks
-import { useTheme } from '../../hooks/useTheme';
 import { useBreakpointValue, isDesktop } from '../../hooks/useBreakpoint';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
@@ -22,12 +21,10 @@ const INTERACTION_EVENTS = ['pointermove', 'pointerdown', 'wheel', 'touchstart',
 const PACER_IDLE_MS = 2500;
 
 function VideoBackground() {
-	const { isDarkMode } = useTheme();
 	const desktop = useBreakpointValue(isDesktop);
 	const prefersReducedMotion = usePrefersReducedMotion();
 
-	const allowVideo =
-		isDarkMode && !prefersReducedMotion && desktop;
+	const allowVideo = !prefersReducedMotion && desktop;
 
 	const [showVideo, setShowVideo] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -77,13 +74,10 @@ function VideoBackground() {
 	}, [showVideo]);
 
 	useLayoutEffect(() => {
-		if (!isDarkMode) return;
 		const root = document.documentElement;
 		root.classList.add('has-bg-video');
 		return () => root.classList.remove('has-bg-video');
-	}, [isDarkMode]);
-
-	if (!isDarkMode) return null;
+	}, []);
 
 	return createPortal(
 		<Backdrop ref={backdropRef} aria-hidden="true">

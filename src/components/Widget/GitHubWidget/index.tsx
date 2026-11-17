@@ -41,12 +41,18 @@ import { GITHUB_URL, GITHUB_USERNAME } from '../../../data/socialFeed';
 
 import type { GitHubContribution } from '../../../types';
 
-const SHORT_MONTHS = [
-	'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-];
+// Calendar labels follow the page language. Short forms drop the dot some
+// locales add ("nov.") so they stay as compact as GitHub's.
+function shortLabel(lang: string, options: Intl.DateTimeFormatOptions, date: Date): string {
+	return new Intl.DateTimeFormat(lang, options).format(date).replace('.', '');
+}
 
-const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+// Sunday-first week (2023-01-01 was a Sunday); only Mon, Wed and Fri are labeled.
+function dayLabels(lang: string): string[] {
+	return [0, 1, 2, 3, 4, 5, 6].map((d) =>
+		d % 2 === 1 ? shortLabel(lang, { weekday: 'short' }, new Date(2023, 0, 1 + d)) : ''
+	);
+}
 
 // Estimated sizes for layout calculation
 const DAY_LABELS_WIDTH = 30;
@@ -136,8 +142,10 @@ interface MonthLabel {
 function computeMonthLabels(
 	gridData: GitHubContribution[],
 	weeks: number,
-	hasDayLabels: boolean
+	hasDayLabels: boolean,
+	lang: string
 ): MonthLabel[] {
+	const monthName = (month: number) => shortLabel(lang, { month: 'short' }, new Date(2023, month, 1));
 	if (gridData.length === 0) return [];
 
 	const labels: MonthLabel[] = [];
@@ -157,7 +165,7 @@ function computeMonthLabels(
 				const span = w + colOffset - startCol;
 				labels.push({
 					key: `${currentMonth}-${startCol}`,
-					name: SHORT_MONTHS[currentMonth],
+					name: monthName(currentMonth),
 					startCol,
 					span,
 				});
@@ -171,7 +179,7 @@ function computeMonthLabels(
 		const span = weeks + colOffset - startCol;
 		labels.push({
 			key: `${currentMonth}-${startCol}`,
-			name: SHORT_MONTHS[currentMonth],
+			name: monthName(currentMonth),
 			startCol,
 			span,
 		});
@@ -180,17 +188,17 @@ function computeMonthLabels(
 	return labels.filter((l) => l.span >= 2);
 }
 
-function formatDateDisplay(dateStr: string): { monthDay: string; year: string } {
+function formatDateDisplay(dateStr: string, lang: string): { monthDay: string; year: string } {
 	const date = new Date(dateStr + 'T00:00:00');
 	return {
-		monthDay: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-		year: date.toLocaleDateString('en-US', { year: 'numeric' }),
+		monthDay: date.toLocaleDateString(lang, { month: 'short', day: 'numeric' }),
+		year: date.toLocaleDateString(lang, { year: 'numeric' }),
 	};
 }
 
-function formatDateForA11y(dateStr: string): string {
+function formatDateForA11y(dateStr: string, lang: string): string {
 	const date = new Date(dateStr + 'T00:00:00');
-	return date.toLocaleDateString('en-US', {
+	return date.toLocaleDateString(lang, {
 		weekday: 'long',
 		month: 'long',
 		day: 'numeric',
@@ -224,7 +232,6 @@ const isTouchDevice =
 	typeof window !== 'undefined' &&
 	window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-const CURRENT_YEAR = new Date().getFullYear();
 
 const LEGEND_LEVELS = [0, 1, 2, 3, 4] as const;
 interface ContributionGridProps {
@@ -301,6 +308,8 @@ interface ContributionCalendarProps {
 // not WidgetBase's header/footer.
 function ContributionCalendar({ contributions, totalContributions }: ContributionCalendarProps) {
 	const config = useBreakpointValue((bp) => gitHubCalendarConfig[bp]);
+	const { t, i18n } = useTranslation('home');
+	const lang = i18n.language;
 
 	// Single mounted tooltip. The connector text (" contributions on ", ", ")
 	// stays static; each dynamic field — count, month/day, and year — runs
@@ -339,21 +348,22 @@ function ContributionCalendar({ contributions, totalContributions }: Contributio
 
 	// Pre-compute aria-labels to avoid 365x toLocaleDateString per render
 	const ariaLabels = useMemo(
-		() => gridData.map((day) => {
-			const s = day.count !== 1 ? 's' : '';
-			return `${day.count} contribution${s} on ${formatDateForA11y(day.date)}`;
-		}),
-		[gridData]
+		() => gridData.map((day) =>
+			t('activity.github.dayContributions', { count: day.count, date: formatDateForA11y(day.date, lang) })
+		),
+		[gridData, lang, t]
 	);
+
+	const weekdayLabels = useMemo(() => dayLabels(lang), [lang]);
 
 	const actualWeeks = Math.ceil(gridData.length / 7);
 
 	const monthLabels = useMemo(
 		() =>
 			config.showMonthLabels && actualWeeks > 0
-				? computeMonthLabels(gridData, actualWeeks, config.showDayLabels)
+				? computeMonthLabels(gridData, actualWeeks, config.showDayLabels, lang)
 				: [],
-		[gridData, actualWeeks, config.showMonthLabels, config.showDayLabels]
+		[gridData, actualWeeks, config.showMonthLabels, config.showDayLabels, lang]
 	);
 
 	const handleSquareEnter = useCallback(
@@ -385,7 +395,7 @@ function ContributionCalendar({ contributions, totalContributions }: Contributio
 			}
 
 			const newCount = day.count;
-			const { monthDay: newMonthDay, year: newYear } = formatDateDisplay(day.date);
+			const { monthDay: newMonthDay, year: newYear } = formatDateDisplay(day.date, lang);
 
 			// Position update — CSS transition on the positioner smooths the move.
 			setPlacement({ x, y, position, align });
@@ -407,7 +417,7 @@ function ContributionCalendar({ contributions, totalContributions }: Contributio
 				});
 			}
 		},
-		[gridData, actualWeeks, countRef, monthDayRef, yearRef, setCount, setMonthDay, setYear]
+		[gridData, actualWeeks, lang, countRef, monthDayRef, yearRef, setCount, setMonthDay, setYear]
 	);
 
 	const handleSquareLeave = useCallback(() => {
@@ -445,7 +455,7 @@ function ContributionCalendar({ contributions, totalContributions }: Contributio
 					<StyledGridWithLabels>
 						{config.showDayLabels && (
 							<StyledDayLabels>
-								{DAY_LABELS.map((label, i) => (
+								{weekdayLabels.map((label, i) => (
 									<span key={i}>{label}</span>
 								))}
 							</StyledDayLabels>
@@ -457,7 +467,7 @@ function ContributionCalendar({ contributions, totalContributions }: Contributio
 							weeks={actualWeeks}
 							gap={config.squareGap}
 							radius={config.squareRadius}
-							ariaLabel={`${totalContributions.toLocaleString()} contributions in ${CURRENT_YEAR}`}
+							ariaLabel={t('activity.github.totalLastYear', { total: totalContributions.toLocaleString(lang) })}
 							onSquareEnter={handleSquareEnter}
 							onLeave={handleSquareLeave}
 						/>
@@ -480,7 +490,7 @@ function ContributionCalendar({ contributions, totalContributions }: Contributio
 									key={`count-${countDisplayed ?? ''}`}
 									value={countDisplayed}
 								/>
-								{' contributions on '}
+								{` ${t('activity.github.contributionsOn', { count: countDisplayed ?? 0 })} `}
 								<DigitGroup
 									key={`md-${monthDayDisplayed ?? ''}`}
 									value={monthDayDisplayed}
@@ -500,7 +510,7 @@ function ContributionCalendar({ contributions, totalContributions }: Contributio
 }
 
 export default function GitHubWidget() {
-	const { t } = useTranslation('home');
+	const { t, i18n } = useTranslation('home');
 
 	const {
 		contributions,
@@ -529,8 +539,8 @@ export default function GitHubWidget() {
 						<StyledFooterLabel>{t('activity.github.legendMore')}</StyledFooterLabel>
 					</StyledLegend>
 					<StyledTotalLabel>
-						{t('activity.github.totalThisYear', {
-							total: totalContributions.toLocaleString(),
+						{t('activity.github.totalLastYear', {
+							total: totalContributions.toLocaleString(i18n.language),
 						})}
 					</StyledTotalLabel>
 				</>
